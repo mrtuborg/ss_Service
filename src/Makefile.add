@@ -1,0 +1,4 @@
+myTypes.cpp\
+myTypes.h
+
+ss_Service_LDFLAGS=-pthread
