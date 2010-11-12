@@ -1,0 +1,3 @@
+[submodule "ss_Service"]
+	path = ss_Service
+	url = git@github.com:mrtuborg/ss_Service.git
