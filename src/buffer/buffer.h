@@ -9,7 +9,7 @@ class buffer {
 	~buffer();
 	
 	errType write(BYTE* addr, DWORD len);
-	WORD read (BYTE* addr, DWORD len=0);
+	DWORD read (BYTE* addr, DWORD len=0);
 	DWORD length();
 	
 	BYTE* lockBufferChunkForExternWriting();

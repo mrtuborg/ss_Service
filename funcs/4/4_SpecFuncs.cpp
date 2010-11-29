@@ -1,10 +1,8 @@
 #include <deque>                                                                                                  
 #include <pthread.h>                                                                                              
 #include <netinet/in.h>                                                                                           
-#include "../myTypes.h"                                                                                           
-#include "../buffer/ssBuffer.h"                                                                                   
-#include "../ICAppLayer/cmd.h"                                                                                    
-#include "../udp/udp_port.h"
+#include "../../rcsLib/rcsLib.h"
+#include "../buffer/ssBuffer.h"
 #include "../ICAppLayer/FunctionNode/param_desc.h"                                                                
 #include "../ICAppLayer/FunctionNode/FunctionNode.h"                                                              
 #include "../ICAppLayer/ICAppLayer.h"                                                                             
@@ -99,6 +97,16 @@ errType SpecFuncs::StartSpecFuncs()
 	    func->setResultName(0, "Квитанция исполнения");
 
 	    appLayer->CreateNewFunction(func);
+	    
+	    func=new FunctionNode(5,0,1,linkTest);
+	    func->setFuncName("Тест связи между сервером и АРМ СКСЮ");
+	
+	    func->setResultDescriptor(0,type_ERRTYPE);
+	    func->setResultName(0, "Квитанция исполнения");
+
+	    appLayer->CreateNewFunction(func);
+	    
+	    
 	    
 	    func=new FunctionNode(6,0,1,GetMeasuringResult);
 	    func->setFuncName("Запрос получения результатов измерения");

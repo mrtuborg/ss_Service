@@ -18,7 +18,7 @@ class ssBuffer
     ~ssBuffer();
     
     errType pushBlock(sockaddr_in* , BYTE*, DWORD len);
-    errType popBlock(sockaddr_in* , BYTE*);
+    DWORD  popBlock(sockaddr_in* , BYTE*);
     
     errType getBlockPtrAt(int index, ssBlock* block);
     DWORD getFrontBlockSize();

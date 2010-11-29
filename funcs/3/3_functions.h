@@ -27,8 +27,7 @@ extern errType ShieldStop(void*);
 extern errType FoldGetParams(void*);
 extern errType SemiaxisGetValue(void*);
 
-extern errType RemoteControlMode(void*);
-extern errType LocalControlMode(void*);
+extern errType ControlMode(void*);
 
 extern errType StartFuncControl(void*);
 extern errType CorrectHydroCyl(void*);

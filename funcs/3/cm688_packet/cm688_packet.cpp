@@ -1,6 +1,6 @@
 #include <netinet/in.h>
 
-#include "../myTypes.h"
+#include "../../../ortsTypes/ortsTypes.h"
 #include "global.h"
 #include "cmdFrame.h"
 #include "statusFrame.h"

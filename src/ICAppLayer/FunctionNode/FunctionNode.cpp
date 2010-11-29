@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include <string.h>
-#include "../../myTypes.h"
+#include "../../../../ortsTypes/ortsTypes.h"
 #include "param_desc.h"
-#include "../cmd.h"
+#include "../../../../rcsLib/rcsCmd/rcsCmd.h"
 #include "FunctionNode.h"
 
 
@@ -29,10 +29,10 @@ WORD FunctionNode::getParamsQuantity ()
 {
     return func_paramsQuantity;
 }
-errType FunctionNode::setParamDescriptor (BYTE num, MyType type)
+errType FunctionNode::setParamDescriptor (BYTE num, OrtsType type)
 {
 	errType result=err_not_init;
-	if (!(type & 0xF0)) func_params[num]=new param_desc(type, lenMyTypes[type]);
+	if (!(type & 0xF0)) func_params[num]=new param_desc(type, lenOrtsTypes[type]);
 	else (func_params[num])=new param_desc(type);
 	
 	if (func_params[num]) result=err_result_ok;
@@ -44,14 +44,14 @@ errType FunctionNode::setParamDescriptor (BYTE num, MyType type)
 	return result;
 }
 
-errType FunctionNode::setResultDescriptor(BYTE num, MyType type)
+errType FunctionNode::setResultDescriptor(BYTE num, OrtsType type)
 {
 	errType result=err_not_init;
 	
 	// vector types are greater than 0x10
 	//printf("func_id=%d, num=%d, is not Vector=%d\n", func_id, num, !(type & 0xF0));
 	
-	if (!(type & 0xF0)) (func_results[num])=new param_desc(type, lenMyTypes[(int)type]);
+	if (!(type & 0xF0)) (func_results[num])=new param_desc(type, lenOrtsTypes[(int)type]);
 	else {
 	    (func_results[num])=new param_desc(type);
 	    //printf("Vector! func_id=%d, num=%d\n",func_id, num);
@@ -113,7 +113,7 @@ void* FunctionNode::getParamPtr(BYTE num)
 	else return 0;
 }
 
-errType FunctionNode::decodeParams(cmd* packet)//BYTE* paramsPtr)
+errType FunctionNode::decodeParams(rcsCmd* packet)//BYTE* paramsPtr)
 {
 	errType result=err_not_init;
 	WORD len=0, offset=0;
@@ -137,7 +137,7 @@ errType FunctionNode::decodeParams(cmd* packet)//BYTE* paramsPtr)
 	    for (int i=0; i<func_paramsQuantity; i++){
 		if (func_params[i]) {
 		    if  (func_params[i]->isVector()) {
-		     WORD vectorSize=*(WORD*)(packet->get_func_paramsPtr()+paramOffset);
+		     WORD vectorSize=*(WORD*)((BYTE*)packet->get_func_paramsPtr()+paramOffset);
 		     
 		     descPacket_length+=vectorSize+sizeof(WORD);
 		     paramOffset+=vectorSize+sizeof(WORD);
@@ -158,14 +158,14 @@ errType FunctionNode::decodeParams(cmd* packet)//BYTE* paramsPtr)
 		for (int i=0; i<func_paramsQuantity; i++){
 		    if  (func_params[i]->isVector())
 		    {
-			WORD vectorSize=*(WORD*)(packet->get_func_paramsPtr()+paramOffset);
-			memcpy(param_tmp, packet->get_func_paramsPtr()+paramOffset, vectorSize+sizeof(WORD));
+			WORD vectorSize=*(WORD*)((BYTE*)packet->get_func_paramsPtr()+paramOffset);
+			memcpy(param_tmp, (BYTE*)packet->get_func_paramsPtr()+paramOffset, vectorSize+sizeof(WORD));
 			func_params[i]->setParam(param_tmp);
 			paramOffset+=vectorSize+sizeof(WORD);
 		    }
 		    else {
 			len=func_params[i]->length();
-			memcpy(param_tmp, packet->get_func_paramsPtr()+paramOffset, len);
+			memcpy(param_tmp, (BYTE*)packet->get_func_paramsPtr()+paramOffset, len);
 			func_params[i]->setParam(param_tmp);
 			
 			paramOffset+=func_params[i]->length();
@@ -180,10 +180,10 @@ errType FunctionNode::decodeParams(cmd* packet)//BYTE* paramsPtr)
 errType FunctionNode::setResult(BYTE num, void* res)
 {
 	errType result=err_not_init;
-	MyType type;
+	OrtsType type;
 	
 	if (func_results[num]) {
-	    func_results[num]->setParam(res);
+	    result=func_results[num]->setParam(res);
 	} else printf ("Внутренняя ошибка: обращение к несущестаующему параметру %d функции №%d\n",num,func_id);
 	
 	return result;

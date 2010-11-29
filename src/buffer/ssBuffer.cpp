@@ -3,11 +3,12 @@
 #include <deque>
 #include <netinet/in.h>
 #include <arpa/inet.h>
-#include "../myTypes.h"
+#include "../../../ortsTypes/ortsTypes.h"
 #include "ssBuffer.h"
 
 ssBuffer::ssBuffer()
 {
+    buffer.clear();
 }
 
 ssBuffer::~ssBuffer()
@@ -37,18 +38,21 @@ DWORD ssBuffer::getFrontBlockSize()
     return dataBlock->dataLen;
 }
 
-errType ssBuffer::popBlock(sockaddr_in* addr, BYTE* block)
+DWORD ssBuffer::popBlock(sockaddr_in* addr, BYTE* block)
 {
     errType result=err_not_init;
     DWORD len=0;
-    ssBlock* dataBlock;
+    ssBlock* dataBlock=0;
     dataBlock=buffer.front();
-    buffer.pop_front();
-    memcpy(addr,&dataBlock->addr_in,sizeof(sockaddr_in));
-    len=dataBlock->dataLen;
-    memcpy(block, dataBlock->data, len);
-    
-    return result;
+    if (dataBlock) {
+	buffer.pop_front();
+	//if (dataBlock->addr_in) {
+	    memcpy(addr,&dataBlock->addr_in,sizeof(sockaddr_in));
+	    len=dataBlock->dataLen;
+	    memcpy(block, dataBlock->data, len);
+	//}
+    }
+    return len;
 }
 
 errType ssBuffer::getBlockPtrAt(int index, ssBlock* block)
@@ -74,14 +78,14 @@ void ssBuffer::dbgPrint()
     DWORD len=0, q=0;
     
     q=size();
-    printf("Blocks quantity=%lu\n", q);
+    printf("Blocks quantity=%d\n", q);
     while (i<=q) {
 	dataBlock=buffer[i-1];
 	len=dataBlock->dataLen;
 	printf("Block #%d\n",i);
 	printf("IP address: %s\n",inet_ntoa(dataBlock->addr_in.sin_addr));
 	printf("UDP port: %d\n",ntohs(dataBlock->addr_in.sin_port));
-	printf("Data length: %lu\n", len);
+	printf("Data length: %d\n", len);
 	printf("Data :[");
 	for (k=0; k<len; k++) printf("%.2X ",dataBlock->data[k]);
 	printf("]\n");

@@ -10,12 +10,12 @@
 #include <list>
 #include <queue>
 
-#include "../myTypes.h"
-#include "../ICAppLayer/cmd.h"
+#include "../../ortsTypes/ortsTypes.h"
+#include "../../rcsLib/rcsCmd/rcsCmd.h"
 #include "../ICAppLayer/FunctionNode/param_desc.h"
 #include "../ICAppLayer/FunctionNode/FunctionNode.h"
 #include "../buffer/ssBuffer.h"
-#include "../udp/udp_port.h"
+#include "../../udp_port/udp_port.h"
 #include "../ICAppLayer/ICAppLayer.h"
 #include "../prcList/prcTask.h"
 #include "../prcList/prcList.h"

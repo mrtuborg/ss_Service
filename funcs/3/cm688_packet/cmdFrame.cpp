@@ -1,9 +1,9 @@
 #include <netinet/in.h>
 #include <stdio.h>
 #include <string.h>
-#include "../myTypes.h"
+#include "../../../ortsTypes/ortsTypes.h"
 #include "global.h"
-#include "../crc16.h"
+#include "../../crc/crc16.h"
 #include "cmdFrame.h"
 
 cmdFrame::cmdFrame()
@@ -53,6 +53,12 @@ void cmdFrame::setSchieldStop()
     frame.schield.cmd.close=0;
     frame.schield.cmd.open=0;
     frame.schield.cmd.stop=1;
+}
+
+void cmdFrame::setCPControl()
+{
+    frame.ctrlSwitch.cmd.remoteControl=0;
+    frame.ctrlSwitch.cmd.localControl=0;
 }
 
 void cmdFrame::setRemoteControl()

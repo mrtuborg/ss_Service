@@ -3,7 +3,7 @@
 #include <stdio.h>
 
 #include <string.h>
-#include "../myTypes.h"
+#include "../../ortsTypes/ortsTypes.h"
 #include "comm_SASC.h"
 
 
@@ -95,6 +95,10 @@ errType comm_SASC::apply_mod(SASC_cmd_mod mode, BYTE **params)
 	
 	case _get_db:
 	    msg->typeinf=5;
+	break;
+	
+	case _get_next_record:
+	    msg->typeinf=11;
 	break;
 	
 	case _erase_db:
@@ -215,10 +219,10 @@ errType comm_SASC::encode(BYTE* array, DWORD size)
 void comm_SASC::dbgPrint()
 {
     uint64_t time_val=msg->time;
-    printf("\ttypeinf=%lu\n", msg->typeinf);                                                               
-    printf("\tinit=%lu\n", msg->init);                                                                  
-    printf("\tbinning=%lu\n", msg->binning);                                                               
-    printf("\tNiter=%lu\n", msg->Niter);                                                                 
+    printf("\ttypeinf=%d\n", msg->typeinf);                                                               
+    printf("\tinit=%d\n", msg->init);                                                                  
+    printf("\tbinning=%d\n", msg->binning);                                                               
+    printf("\tNiter=%d\n", msg->Niter);                                                                 
     printf("\ttime=%s", ctime((time_t*)&time_val));                                                                  
     printf("\tFiH=%f\n",msg->FiH);                                                                      
     printf("\tFiA=%f\n",msg->FiA);                                                                      

@@ -7,12 +7,13 @@
 #include <sys/reboot.h>
 #include <deque>
 
-#include "myTypes.h"
+#include "../../ortsTypes/ortsTypes.h"
 #include "buffer/ssBuffer.h"
-#include "udp/udp_port.h"
+#include "../../udp_port/udp_port.h"
 #include "arg_parser/carg_parser.h"
 #include "console_out.h"
-#include "ICAppLayer/cmd.h"
+//#include "ICAppLayer/cmd.h"
+#include "../../rcsLib/rcsCmd/rcsCmd.h"
 #include "ICAppLayer/FunctionNode/param_desc.h"
 #include "ICAppLayer/FunctionNode/FunctionNode.h"
 

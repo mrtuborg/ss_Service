@@ -64,6 +64,7 @@ class cmdFrame {
 	    void setSchieldClose();
 	    void setSchieldOpen();
 	    void setSchieldStop();
+	    void setCPControl();
 	    void setRemoteControl();
 	    void setLocalControl();
 	    void setFoldOpen(BYTE num);

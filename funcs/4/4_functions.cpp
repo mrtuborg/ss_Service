@@ -5,11 +5,10 @@
 #include <netinet/in.h>                                                                                           
 #include <arpa/inet.h>                                                                                            
 #include <deque>                                                                                                  
-#include "../myTypes.h"                                                                                           
-#include "../buffer/ssBuffer.h"                                                                                   
-#include "../buffer/buffer.h"                                                                                     
-#include "../ICAppLayer/cmd.h"                                                                                    
-#include "../udp/udp_port.h"
+
+#include "../../rcsLib/rcsLib.h"
+#include "../buffer/buffer.h"
+#include "../buffer/ssBuffer.h"
 #include "../ICAppLayer/FunctionNode/param_desc.h"                                                                
 #include "../ICAppLayer/FunctionNode/FunctionNode.h"                                                              
 #include "../ICAppLayer/ICAppLayer.h"                                                                             
@@ -19,25 +18,59 @@
 
 udp_port *equip_sending;                                                                           
 
-comm_SASC SASCmsg;
+comm_SASC sndSASCmsg;
+comm_SASC rcvSASCmsg;
+
 SASC_answer_mod typeinf;
+
+buffer* resultStorage=0;
+
+extern errType getNextDBRecord();
+
     
 errType EquipListenProcessing(BYTE *writingBuffer, size_t sz)
 {
     if (sz>sizeof(SASC_msg_type)) sz=sizeof(SASC_msg_type);
     
-    SASCmsg.encode(writingBuffer, sz);
+    rcvSASCmsg.encode(writingBuffer, sz);
     printf("\n\tС иерархии нижнего уровня получен пакет (hex):\n");
     printf("\t[");
     for(int k=0; k<sz; k++) printf("%.2X ", writingBuffer[k]);
     //equip_recvBuffer->unlockBufferChunkForExternWriting(sz);
     printf("]\n\n");
     printf("\tРасшифровка:\n");
-    if (SASCmsg.checkAnswer(&typeinf)==err_result_ok) {
+    if (rcvSASCmsg.checkAnswer(&typeinf)==err_result_ok) {
 	printf("\tПринята ответная квитанция: %s\n", SASC_answer_str[typeinf]);
+	switch(typeinf)
+	{
+	    case _db_record:
+		    //keep writingBuffer, (len=sz);
+		    //memcpy(resultStorage, writingBuffer, 
+		    
+		    if (!resultStorage){
+			resultStorage->write(writingBuffer,sz);
+			getNextDBRecord();
+		    } else
+		    {
+			//db record without request
+		    }
+		    break;
+	
+	    case _db_last_record:
+		    //keep writingBuffer, (len=sz);
+		    if (!resultStorage){
+			resultStorage->write(writingBuffer,sz);
+			//db record without request
+		    } else 
+		    {
+			//db record without request
+		    }
+		    break; 
+	}
+	
     } else {
 	printf("\tМодификатор ответа не распознан. Обобщённое сообщение:\n");
-	SASCmsg.dbgPrint();
+	rcvSASCmsg.dbgPrint();
     }
     printf("\t===========================================\n\n");
 }                                                                                                         
@@ -48,25 +81,17 @@ errType srvInit()
     errType result=err_not_init;
     printf("\tСлужба системы обеспечения  СКСЮ\n");
     printf("=============================================================\n\n");
-//-    equip_listen=new udp_port(eq_udp_listen_port);
-//-    result=equip_listen->open_port(true);
+    equip_sending=new udp_port(eq_udp_sending_port);
+    result=equip_sending->open_port();
+    equipAddr.s_addr=inet_addr(eq_ip_addr);
     
-    //if (result==err_result_ok)
-    {
-	equip_sending=new udp_port(eq_udp_sending_port);
-	result=equip_sending->open_port();
-	equipAddr.s_addr=inet_addr(eq_ip_addr);
-	//equip_recvBuffer=new buffer(2*sizeof(SASC_msg_type));
-    }
     return result;
 }
 
 errType srvDeinit()
 {
     equip_sending->close_port();
-    //delete equip_listen;
     delete equip_sending;
-    //delete equip_recvBuffer;
     return err_result_ok;
 }
 
@@ -115,8 +140,8 @@ errType SASC_PowerON(void* fn)
     
     BYTE *frame;
     frame=new BYTE[sizeof(SASC_msg_type)];
-    SASCmsg.apply_mod(_power_on);
-    SASCmsg.decode(&frame);
+    sndSASCmsg.apply_mod(_power_on);
+    sndSASCmsg.decode(&frame);
     equip_sending->sendData(equipAddr, frame, sizeof(SASC_msg_type));
     delete frame;
 
@@ -134,8 +159,8 @@ errType SASC_PowerOFF(void* fn)
     
     BYTE *frame;
     frame=new BYTE[sizeof(SASC_msg_type)];
-    SASCmsg.apply_mod(_power_off);
-    SASCmsg.decode(&frame);
+    sndSASCmsg.apply_mod(_power_off);
+    sndSASCmsg.decode(&frame);
     equip_sending->sendData(equipAddr, frame, sizeof(SASC_msg_type));
     delete frame;
 
@@ -169,8 +194,8 @@ errType StartMeasuring(void* fn)
     
     BYTE *frame;
     frame=new BYTE[sizeof(SASC_msg_type)];
-    SASCmsg.apply_mod(_measure, params);
-    SASCmsg.decode(&frame);
+    sndSASCmsg.apply_mod(_measure, params);
+    sndSASCmsg.decode(&frame);
     equip_sending->sendData(equipAddr, frame, sizeof(SASC_msg_type));
     delete frame;
 
@@ -204,8 +229,8 @@ errType ZeroMeasuring(void* fn)
     
     BYTE *frame;
     frame=new BYTE[sizeof(SASC_msg_type)];
-    SASCmsg.apply_mod(_zero_measure, params);
-    SASCmsg.decode(&frame);
+    sndSASCmsg.apply_mod(_zero_measure, params);
+    sndSASCmsg.decode(&frame);
     equip_sending->sendData(equipAddr, frame, sizeof(SASC_msg_type));
     delete frame;
 
@@ -213,7 +238,19 @@ errType ZeroMeasuring(void* fn)
     return result;
 }
 
-errType GetMeasuringResult(void* fn)
+
+errType getNextDBRecord()
+{
+    errType result=err_result_ok;
+    BYTE *frame;
+    frame=new BYTE[sizeof(SASC_msg_type)];
+    sndSASCmsg.apply_mod(_get_next_record);
+    sndSASCmsg.decode(&frame);
+    equip_sending->sendData(equipAddr, frame, sizeof(SASC_msg_type));
+    return result;
+}
+
+errType PrepareMeasuringResult(void* fn)
 {
     errType result=err_result_ok;
     
@@ -222,12 +259,39 @@ errType GetMeasuringResult(void* fn)
     func->printParams();
     
     BYTE *frame;
+    
+    delete resultStorage;
+    resultStorage=new buffer(5*sizeof(SASC_msg_type));
+    
     frame=new BYTE[sizeof(SASC_msg_type)];
-    SASCmsg.apply_mod(_get_db);
-    SASCmsg.decode(&frame);
+    sndSASCmsg.apply_mod(_get_db);
+    sndSASCmsg.decode(&frame);
     equip_sending->sendData(equipAddr, frame, sizeof(SASC_msg_type));
+    
+    
+    
+    
     delete frame;
+    func->printResults();
+    return result;
+}
 
+errType GetMeasuringResult(void* fn)
+{
+    errType result=err_result_ok;
+    BYTE* buffer=0;
+    DWORD length=resultStorage->length();
+    
+    FunctionNode* func=(FunctionNode*)fn;
+    
+    func->printParams();
+    #error Надо предположить - собраны ли все данные
+    buffer=new BYTE[length+2];
+    *(WORD*)buffer=length/4;
+    length=resultStorage->read(buffer+2);
+    
+    func->setResult(1,buffer);
+    
     func->printResults();
     return result;
 }
@@ -242,8 +306,8 @@ errType ZeroDB(void* fn)
     
     BYTE *frame;
     frame=new BYTE[sizeof(SASC_msg_type)];
-    SASCmsg.apply_mod(_erase_db);
-    SASCmsg.decode(&frame);
+    sndSASCmsg.apply_mod(_erase_db);
+    sndSASCmsg.decode(&frame);
     equip_sending->sendData(equipAddr, frame, sizeof(SASC_msg_type));
     delete frame;
 
@@ -274,8 +338,8 @@ errType TaringStart(void* fn)
     
     BYTE *frame;
     frame=new BYTE[sizeof(SASC_msg_type)];
-    SASCmsg.apply_mod(_tare_start, params);
-    SASCmsg.decode(&frame);
+    sndSASCmsg.apply_mod(_tare_start, params);
+    sndSASCmsg.decode(&frame);
     equip_sending->sendData(equipAddr, frame, sizeof(SASC_msg_type));
     delete frame;
 
@@ -324,8 +388,8 @@ errType GetTaringPoint(void* fn)
 
     BYTE *frame;
     frame=new BYTE[sizeof(SASC_msg_type)];
-    SASCmsg.apply_mod(_get_tare_value, params);
-    SASCmsg.decode(&frame);
+    sndSASCmsg.apply_mod(_get_tare_value, params);
+    sndSASCmsg.decode(&frame);
     equip_sending->sendData(equipAddr, frame, sizeof(SASC_msg_type));
     delete frame;
 
@@ -357,8 +421,29 @@ errType TaringStop(void* fn)
     
     BYTE *frame;
     frame=new BYTE[sizeof(SASC_msg_type)];
-    SASCmsg.apply_mod(_tare_stop,params);
-    SASCmsg.decode(&frame);
+    sndSASCmsg.apply_mod(_tare_stop,params);
+    sndSASCmsg.decode(&frame);
+    equip_sending->sendData(equipAddr, frame, sizeof(SASC_msg_type));
+    delete frame;
+
+    func->printResults();
+    
+    return result;
+}
+
+
+errType linkTest(void* fn)
+{
+    errType result=err_result_ok;
+    
+    FunctionNode* func=(FunctionNode*)fn;
+    
+    func->printParams();
+    
+    BYTE *frame;
+    frame=new BYTE[sizeof(SASC_msg_type)];
+    sndSASCmsg.apply_mod(_link_test);
+    sndSASCmsg.decode(&frame);
     equip_sending->sendData(equipAddr, frame, sizeof(SASC_msg_type));
     delete frame;
 

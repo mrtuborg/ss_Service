@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include <string.h>
-#include "../../myTypes.h"
+#include "../../../../ortsTypes/ortsTypes.h"
 #include "param_desc.h"
-param_desc::param_desc(MyType type, WORD param_len)
+param_desc::param_desc(OrtsType type, WORD param_len)
 {
 	//printf("type=%d, len=%d\n",(BYTE)type, param_len);
 	param=new BYTE[param_len];
@@ -11,7 +11,7 @@ param_desc::param_desc(MyType type, WORD param_len)
 	_isVector=false;
 }
 
-param_desc::param_desc(MyType type)
+param_desc::param_desc(OrtsType type)
 {
 	//printf("type=%d, len=%d\n",(BYTE)type, param_len);
 	//param=new BYTE[param_len];
@@ -53,7 +53,7 @@ void* param_desc::value()
     return param;
 }
 
-MyType param_desc::type()
+OrtsType param_desc::type()
 {
     return _type;
 }
@@ -109,11 +109,11 @@ errType param_desc::printParam()
 	    break;
 
 	case type_DWORD:
-	    printf("\t%s: %lu\t(0x%.8X)\n", param_name, *(DWORD*)param, *(DWORD*)param);
+	    printf("\t%s: %d\t(0x%.8X)\n", param_name, *(DWORD*)param, *(DWORD*)param);
 	    break;
 	
 	case type_QWORD:
-	    printf("\t%s: %.16X\n", param_name, *(QWORD*)param);
+	    printf("\t%s: %llu\n", param_name, *(QWORD*)param);
 	    break;
 	
 	case type_FLOAT:

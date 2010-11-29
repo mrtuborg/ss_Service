@@ -2,10 +2,10 @@
 #include <pthread.h>
 #include <netinet/in.h>
 #include <deque>
-#include "../myTypes.h"
+#include "../../ortsTypes/ortsTypes.h"
 #include "../buffer/ssBuffer.h"
-#include "../ICAppLayer/cmd.h"
-#include "../udp/udp_port.h"
+#include "../../rcsLib/rcsCmd/rcsCmd.h"
+#include "../../udp_port/udp_port.h"
 #include "../ICAppLayer/FunctionNode/param_desc.h"
 #include "../ICAppLayer/FunctionNode/FunctionNode.h"
 #include "../ICAppLayer/ICAppLayer.h"

@@ -43,10 +43,10 @@ class ICAppLayer
     udp_port *equip_listen;//, *equip_sending;
     //buffer* equip_recvBuffer;
     
-    errType Decode_message(BYTE* dataBlock, cmd *ss_cmd);
-    errType execMessage(cmd* ss_cmd);
-    errType prepare_FuncResult(cmd* in_cmd, cmd* out_cmd);
-    errType sendResult(sockaddr_in* sin, cmd* ss_cmd);
+    errType Decode_message(BYTE* dataBlock, DWORD length, rcsCmd *ss_cmd);
+    errType execMessage(rcsCmd* ss_cmd);
+    errType prepare_FuncResult(rcsCmd* in_cmd, rcsCmd* out_cmd);
+    errType sendResult(sockaddr_in* sin, rcsCmd* ss_cmd);
     
     type_StateVector ServiceState;
     
@@ -61,7 +61,7 @@ class ICAppLayer
 	errType CreateNewFunction(FunctionNode* func);
 	errType DeleteFunction(BYTE id);
 	
-	errType encodeBlock(cmd*, BYTE**);
+	errType encodeBlock(rcsCmd*, BYTE**);
 
 	errType StartListening();
 	errType StopListening();

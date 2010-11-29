@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <arpa/inet.h>
-#include "myTypes.h"
+#include "../../ortsTypes/ortsTypes.h"
 #include "global.h"
 
 funcVoid SIGTERM_handler;

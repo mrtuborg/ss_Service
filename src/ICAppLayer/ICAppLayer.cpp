@@ -4,13 +4,16 @@
 #include <pthread.h>
 #include <netinet/in.h>
 #include <arpa/inet.h> 
+#include <iostream.h>
 #include <queue>
 
-#include "../myTypes.h"
+#include "../../ortsTypes/ortsTypes.h"
+#include "../../rcsLib/rcsCmd/rcsCmd.h"
+
 #include "../global.h"
 #include "../buffer/ssBuffer.h"
-#include "../udp/udp_port.h"
-#include "cmd.h"
+#include "../../udp_port/udp_port.h"
+#include "../deqUdp/deqUdp.h"
 #include "FunctionNode/param_desc.h"
 #include "FunctionNode/FunctionNode.h"
 #include "ICAppLayer.h"
@@ -26,12 +29,12 @@ void* udpSenderThread (void* user)
 	ICAppLayer *app=(ICAppLayer*)user;
 	ssBuffer *sendBuffer=app->ICAppLayer_sendBuffer;
 
-	udp_port *uPort;
+	deqUdp *uPort;
 	size_t sz;
 	
 
 	bool raw_mode=false;
-	uPort=new udp_port(wUdp+1);//,true);
+	uPort=new deqUdp(wUdp+1);//,true);
         if ((app->terminated()) || (uPort->open_port()!=err_result_ok)) { // open for sending
                 printf("Ошибка открытия сокета. Подсистема сокетной посылки не запущена\n");
                 app->terminate();
@@ -74,12 +77,12 @@ void* udpListenerThread (void* user)
 	
 	WORD wUdp=app->getListenerPortNum();
 	ssBuffer *recvBuffer=app->ICAppLayer_recvBuffer;
-	udp_port *uPort;
-	struct udphdr *udp;
+	deqUdp *uPort;
+	//struct udphdr *udp;
 	size_t sz[0];
 	
 	bool raw_mode=false;
-	uPort=new udp_port(wUdp);//,true);
+	uPort=new deqUdp(wUdp);//,true);
         if ((app->terminated()) || (uPort->open_port(true)!=err_result_ok)) {
                 printf("Ошибка открытия сокета. Подсистема сокетного приёма не запущена!\n");
                 app->terminate();
@@ -149,7 +152,7 @@ errType ICAppLayer::DeleteFunction(BYTE id)
 }
 
 
-errType ICAppLayer::encodeBlock(cmd* ss_cmd, BYTE** data)
+errType ICAppLayer::encodeBlock(rcsCmd* ss_cmd, BYTE** data)
 {
     errType result=err_not_init;
     
@@ -224,41 +227,46 @@ errType ICAppLayer::equip_read_data(BYTE* buffer, size_t *sz){
 	return equip_listen->readData(buffer, sz);
 }
 
-errType ICAppLayer::Decode_message(BYTE* dataBlock, cmd *ss_cmd) {
+errType ICAppLayer::Decode_message(BYTE* dataBlock, DWORD length, rcsCmd *ss_cmd) {
 	errType result=err_not_init;
 	bool decoded;
 	int fn_num;
 	
+	
 	ss_cmd->encode(dataBlock);
 	
-	decoded = ss_cmd->checkSign();
-
-	if (decoded)
-	{
-	    fn_num=ss_cmd->get_func_id();
-	    //if ((func_quantity<ss_cmd->get_func_id()) || 
-	    if ((Functions[fn_num])->id()!=ss_cmd->get_func_id()) 
+	if (length!=ss_cmd->getCmdLength()) {
+	    printf("Количество принятых байт разнится с количеством заявленных в заголовке!\n");
+	    result=err_params_decode;
+	}
+	else {
+	    decoded = ss_cmd->checkSign();
+	    printf("Принято сообщение:");
+	    ss_cmd->dbgPrint();
+	
+	
+	    if (decoded)
 	    {
-	    // Function doesn't exist!!!
-	    // encode error message
-	    // Write SendBuffer
-		printf ("ОШИБКА: Запрос на обслуживание нереализованной функции\n");
-		//printf("func_quantity=%d\n",func_quantity);
-		result=err_result_error;
+		fn_num=ss_cmd->get_func_id();
+		if ((Functions[fn_num])->id()!=ss_cmd->get_func_id()) 
+		{
+		// Function doesn't exist!!!
+		    printf ("ОШИБКА: Запрос на обслуживание нереализованной функции\n");
+		    result=err_not_found;
+		}
+		else {
+		    result=err_result_ok;
+		}
+	    } else {
+		printf("ОШИБКА: Несоответствие контрольной суммы принятого пакета\n");
+		result=err_crc_error;
 	    }
-	    else {
-		result=err_result_ok;
-		//printf ("Принят запрос на обслуживание функции\n");
-	    }
-	} else {
-	    printf("ОШИБКА: Несоответствие контрольной суммы принятого пакета\n");
-	    result=err_result_error;
 	}
 
 	return result;
 }
 
-errType ICAppLayer::execMessage(cmd* ss_cmd)
+errType ICAppLayer::execMessage(rcsCmd* ss_cmd)
 {
     errType result=err_not_init;
     BYTE *tmp;
@@ -278,14 +286,14 @@ errType ICAppLayer::execMessage(cmd* ss_cmd)
     return result;
 }
 
-errType ICAppLayer::prepare_FuncResult(cmd* in_cmd, cmd* out_cmd)
+errType ICAppLayer::prepare_FuncResult(rcsCmd* in_cmd, rcsCmd* out_cmd)
 {
 	BYTE *ret;
 	BYTE *resData;
 	int size;
 	errType result=err_result_ok;
 
-	MyType  *err_val;
+	OrtsType  *err_val;
 	DWORD err_len;
 	int fn_num=in_cmd->get_func_id();
 	(Functions[fn_num])->getResult(0, (void**)&err_val, &err_len);
@@ -313,7 +321,7 @@ errType ICAppLayer::prepare_FuncResult(cmd* in_cmd, cmd* out_cmd)
 	delete resData;
 }
 
-errType ICAppLayer::sendResult(sockaddr_in *sfrom, cmd* ss_cmd)
+errType ICAppLayer::sendResult(sockaddr_in *sfrom, rcsCmd* ss_cmd)
 {
 	errType result=err_not_init;
 	BYTE* dataBlock;
@@ -338,7 +346,7 @@ errType ICAppLayer::ProcessMessages()
     FunctionNode* func;
     BYTE* dataBlock;
     DWORD length;
-    cmd *in_cmd, *out_cmd;
+    rcsCmd *in_cmd, *out_cmd;
     sockaddr_in sfrom;
     
     if (AppTerminated==true) {
@@ -357,29 +365,39 @@ errType ICAppLayer::ProcessMessages()
 //  1) Read RecvBuffer --------------------------------------
     
     int len=ICAppLayer_recvBuffer->getFrontBlockSize();
-    in_cmd=new cmd();
-    out_cmd=new cmd();
+    
+    in_cmd=new rcsCmd();
+    out_cmd=new rcsCmd();
 
     dataBlock=new BYTE[len];
     
-    ICAppLayer_recvBuffer->popBlock(&sfrom, dataBlock);
+    ICAppLayer_recvBuffer->dbgPrint();
+    length=ICAppLayer_recvBuffer->popBlock(&sfrom, dataBlock);
+    
     
 //  2) Decode message ---------------------------------------
-    result=Decode_message(dataBlock, in_cmd);
+    result=Decode_message(dataBlock, length, in_cmd);
+
     //in_cmd->dbgPrint();
 //  3) exec function ----------------------------
     if (result==err_result_ok) result=execMessage(in_cmd);
     
 //  4) Encode function result
     //if (result==err_result_ok) 
+    
+    
+    if (result!=err_result_ok) result=(Functions[in_cmd->get_func_id()])->setResult(0,&result);
+    
     result=prepare_FuncResult(in_cmd, out_cmd);
-
+    
 // 5)  Write SendBuffer
     if (result==err_result_ok) sendResult(&sfrom, out_cmd);
-// 6) Freeing heap:
-    delete dataBlock;
-    delete in_cmd;
-    delete out_cmd;
+    
+// 6) Freeing heap: 
+                               
+	delete dataBlock;
+	delete in_cmd;
+	delete out_cmd;
 
 // 7)  Sync with r/w threads
 

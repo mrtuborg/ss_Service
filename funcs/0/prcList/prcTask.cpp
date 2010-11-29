@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <arpa/inet.h>
-#include "../myTypes.h"
+#include "../../../ortsTypes/ortsTypes.h"
 #include "../global.h"
 #include "prcTask.h"
 

@@ -1,9 +1,9 @@
 #include <netinet/in.h>
 #include <queue>
-#include "myTypes.h"
+#include "../../ortsTypes/ortsTypes.h"
 #include "buffer/ssBuffer.h"
-#include "udp/udp_port.h"
-#include "ICAppLayer/cmd.h"
+#include "../../udp_port/udp_port.h"
+#include "../../rcsLib/rcsCmd/rcsCmd.h"
 #include "ICAppLayer/FunctionNode/param_desc.h"
 #include "ICAppLayer/FunctionNode/FunctionNode.h"
 #include "ICAppLayer/ICAppLayer.h"

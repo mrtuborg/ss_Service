@@ -1,6 +1,6 @@
 #include <string.h>
 #include <stdio.h>
-#include "../myTypes.h"
+#include "../../../ortsTypes/ortsTypes.h"
 #include "buffer.h"
 buffer::buffer(DWORD size)
 {
@@ -40,9 +40,9 @@ errType buffer::write(BYTE* addr, DWORD len)
     return result;
 }
 
-WORD buffer::read (BYTE* addr, DWORD len)
+DWORD buffer::read (BYTE* addr, DWORD len)
 {
-    WORD length=WrRef-RdRef; //errType result=err_result_ok;
+    DWORD length=WrRef-RdRef; //errType result=err_result_ok;
     //printf("buffer::read()\n");
     //printf("RdRef=%lu\n",RdRef);
     //printf("WrRef=%lu\n",WrRef);
@@ -82,7 +82,7 @@ errType buffer::unlockBufferChunkForExternWriting(DWORD offset)
     errType result=err_result_ok;
     if ((WrRef+offset)>buffSize) {
 	printf("unlockBufferChunkForExternWriting): (WrRef+offset)>buffSize\n");
-	printf("WrRef=%lu, RdRef=%lu, offset=%lu, buffSize=%lu\n", WrRef, RdRef, offset, buffSize);
+	printf("WrRef=%d, RdRef=%d, offset=%d, buffSize=%d\n", WrRef, RdRef, offset, buffSize);
 	offset=WrRef-offset;
 	result=err_result_error;
     }

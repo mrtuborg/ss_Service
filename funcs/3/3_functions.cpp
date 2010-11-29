@@ -5,11 +5,11 @@
 #include <arpa/inet.h> 
 #include <time.h> 
 #include <deque>
-#include "../myTypes.h" 
+#include "../../../ortsTypes/ortsTypes.h" 
 #include "../buffer/ssBuffer.h" 
 #include "../buffer/buffer.h" 
-#include "../udp/udp_port.h" 
-#include "../ICAppLayer/cmd.h" 
+#include "../../../udp_port/udp_port.h" 
+#include "../../../rcsLib/rcsCmd/rcsCmd.h" 
 #include "../ICAppLayer/FunctionNode/param_desc.h" 
 #include "../ICAppLayer/FunctionNode/FunctionNode.h" 
 #include "../ICAppLayer/ICAppLayer.h" 
@@ -324,7 +324,7 @@ errType SemiaxisGetValue(void* fn)
 }
 
 
-errType RemoteControlMode(void* fn)
+errType ControlMode(void* fn)
 {
     errType result=err_result_ok;
 
@@ -332,25 +332,17 @@ errType RemoteControlMode(void* fn)
     
     func->printParams();
     
-    sendFrame->setRemoteControl();
-
-    func->printResults();
-
-    return result;
-}
-
-errType LocalControlMode(void* fn)
-{
-    errType result=err_result_ok;
-
-    FunctionNode* func=(FunctionNode*)fn;
-
-    func->printParams();
+    BYTE mode=*(BYTE*)func->getParamPtr(0);
     
-    sendFrame->setLocalControl();
+    switch (mode)
+    {
+	case 0: sendFrame->setCPControl();     break; //Control panel control
+	case 1: sendFrame->setRemoteControl(); break; //Remote panel control
+	case 2: sendFrame->setLocalControl();  break; //Local panel control
+    }
     
     func->printResults();
-    
+
     return result;
 }
 

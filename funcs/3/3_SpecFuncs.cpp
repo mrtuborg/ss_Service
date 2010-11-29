@@ -4,10 +4,10 @@
 #include <netinet/in.h>
 #include <arpa/inet.h>
 #include <deque>
-#include "../myTypes.h"
+#include "../../../ortsTypes/ortsTypes.h"
 #include "../buffer/ssBuffer.h"
-#include "../ICAppLayer/cmd.h"
-#include "../udp/udp_port.h"
+#include "../../../rcsLib/rcsCmd/rcsCmd.h"
+#include "../../../udp_port/udp_port.h"
 #include "../ICAppLayer/FunctionNode/param_desc.h"
 #include "../ICAppLayer/FunctionNode/FunctionNode.h"
 #include "../ICAppLayer/ICAppLayer.h"
@@ -175,17 +175,12 @@ errType SpecFuncs::StartSpecFuncs()
 
 	appLayer->CreateNewFunction(func);
 		
-	func=new FunctionNode(14,0,1,RemoteControlMode);
-	func->setFuncName("Переключиться в режим удалённого управления");
-
-	func->setResultDescriptor(0, type_ERRTYPE);
-	func->setResultName(0,"Квитанция исполнения");
+	func=new FunctionNode(14,1,1,ControlMode);
+	func->setFuncName("Переключить режим управления");
 	
-	appLayer->CreateNewFunction(func);
+	func->setParamDescriptor(0, type_BYTE);
+	func->setParamName(0,"Режим (0-ЦПУ, 1-ПДУ, 2-ПМУ)");
 	
-	func=new FunctionNode(15,0,1,LocalControlMode);
-	func->setFuncName("Переключиться в режим местного управления");
-
 	func->setResultDescriptor(0, type_ERRTYPE);
 	func->setResultName(0,"Квитанция исполнения");
 	

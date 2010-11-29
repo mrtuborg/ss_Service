@@ -19,23 +19,23 @@ class FunctionNode
 	~FunctionNode();
 	
 	errType setFuncName (const char *name);
-	errType setParamDescriptor (BYTE num, MyType type);
-	errType setResultDescriptor(BYTE num, MyType type);
+	errType setParamDescriptor (BYTE num, OrtsType type);
+	errType setResultDescriptor(BYTE num, OrtsType type);
 	errType setParamName (BYTE num, const char *name);
 	errType setResultName(BYTE num, const char *name);
 	
 	WORD getParamLength(BYTE num);
-	MyType getParamType(BYTE num);
+	OrtsType getParamType(BYTE num);
 	WORD getParamsQuantity();
 	WORD getAllParamsLength();
-	errType decodeParams(cmd*);
+	errType decodeParams(rcsCmd*);
 	errType setParam(BYTE num, void* param);
 	void* getParamPtr(BYTE num);
 	
 	BYTE getResultsQuantity();
 	DWORD getAllResultsLength();
 	DWORD getResultLength(BYTE i);
-	MyType getResultType(BYTE num);
+	OrtsType getResultType(BYTE num);
 	errType getResult(BYTE num, void** result, DWORD* length);
 	errType setResult(BYTE num, void* result);
 	errType printParams();

@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <arpa/inet.h>
-#include "../myTypes.h"
+#include "../../../ortsTypes/ortsTypes.h"
 #include "../global.h"
 #include "fltr.h"
 
@@ -52,9 +52,9 @@ errType fltr::set_filter_mem(DWORD sz)
 
 void fltr::dbgPrint(){
 		printf("\ncmdline: %s\n", cmdline);
-		printf("\t id=%lu\n",id);
+		printf("\t id=%d\n",id);
 		printf("\t cpu usage=%d\n",cpu_usage);
-		printf("\t virt mem size + resident, KBytes = %lu\n", mem_usage);
+		printf("\t virt mem size + resident, KBytes = %d\n", mem_usage);
 }
 
 BYTE fltr::get_filter_cpu(){  return cpu_usage; }

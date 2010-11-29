@@ -19,3 +19,4 @@ extern errType ZeroDB(void*);
 extern errType TaringStart(void*);
 extern errType GetTaringPoint(void*);
 extern errType TaringStop(void*);
+extern errType linkTest(void*);

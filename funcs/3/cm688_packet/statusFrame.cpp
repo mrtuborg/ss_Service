@@ -1,9 +1,9 @@
 #include <netinet/in.h>
 #include <stdio.h>
 #include <string.h>
-#include "../myTypes.h"
+#include "../../../ortsTypes/ortsTypes.h"
 #include "global.h"
-#include "crc16.h"
+#include "../../crc/crc16.h"
 #include "statusFrame.h"
 
 statusFrame::statusFrame()
