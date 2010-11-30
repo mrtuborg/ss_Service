@@ -4,7 +4,7 @@
 #include <netinet/in.h>
 #include <arpa/inet.h>
 #include <deque>
-#include "../../../ortsTypes/ortsTypes.h"
+#include "../../../rcsLib/ortsTypes/ortsTypes.h"
 #include "../buffer/ssBuffer.h"
 #include "../../../rcsLib/rcsCmd/rcsCmd.h"
 #include "../../../udp_port/udp_port.h"

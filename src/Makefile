@@ -16,10 +16,10 @@
 
 
 
-pkgdatadir = $(datadir)/ss_service
-pkgincludedir = $(includedir)/ss_service
-pkglibdir = $(libdir)/ss_service
-pkglibexecdir = $(libexecdir)/ss_service
+pkgdatadir = $(datadir)/r168
+pkgincludedir = $(includedir)/r168
+pkglibdir = $(libdir)/r168
+pkglibexecdir = $(libexecdir)/r168
 am__cd = CDPATH="$${ZSH_VERSION+.}$(PATH_SEPARATOR)" && cd
 install_sh_DATA = $(install_sh) -c -m 644
 install_sh_PROGRAM = $(install_sh) -c
@@ -32,17 +32,16 @@ POST_INSTALL = :
 NORMAL_UNINSTALL = :
 PRE_UNINSTALL = :
 POST_UNINSTALL = :
-build_triplet = i386-apple-darwin10.4.0
-host_triplet = i386-apple-darwin10.4.0
-target_triplet = i386-apple-darwin10.4.0
 bin_PROGRAMS = ss_Service$(EXEEXT)
 subdir = src
-DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in
+DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in \
+	$(srcdir)/auto_config.h.in
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/configure.ac
 am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
 	$(ACLOCAL_M4)
 mkinstalldirs = $(install_sh) -d
+CONFIG_HEADER = auto_config.h
 CONFIG_CLEAN_FILES =
 CONFIG_CLEAN_VPATH_FILES =
 am__installdirs = "$(DESTDIR)$(bindir)"
@@ -77,26 +76,29 @@ DIST_SOURCES = $(ss_Service_SOURCES)
 ETAGS = etags
 CTAGS = ctags
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
-ACLOCAL = ${SHELL} /Users/tuborg/workspace/ss_Service/missing --run aclocal-1.10
+ACLOCAL = ${SHELL} /Users/tuborg/workspace/ss_Service/missing --run aclocal-1.11
 AMTAR = ${SHELL} /Users/tuborg/workspace/ss_Service/missing --run tar
 AUTOCONF = ${SHELL} /Users/tuborg/workspace/ss_Service/missing --run autoconf
 AUTOHEADER = ${SHELL} /Users/tuborg/workspace/ss_Service/missing --run autoheader
-AUTOMAKE = ${SHELL} /Users/tuborg/workspace/ss_Service/missing --run automake-1.10
+AUTOMAKE = ${SHELL} /Users/tuborg/workspace/ss_Service/missing --run automake-1.11
 AWK = awk
-CC = @CC@
-CCDEPMODE = @CCDEPMODE@
-CFLAGS = @CFLAGS@
+CC = gcc
+CCDEPMODE = depmode=gcc3
+CFLAGS = -g -O2
+CPP = gcc -E
 CPPFLAGS = 
 CXX = g++
 CXXDEPMODE = depmode=gcc3
 CXXFLAGS = -g -O2
 CYGPATH_W = echo
-DEFS = -DPACKAGE_NAME=\"ss_Service\" -DPACKAGE_TARNAME=\"ss_service\" -DPACKAGE_VERSION=\"1.0\" -DPACKAGE_STRING=\"ss_Service\ 1.0\" -DPACKAGE_BUGREPORT=\"\" -DPACKAGE=\"ss_service\" -DVERSION=\"1.0\"
+DEFS = -DHAVE_CONFIG_H
 DEPDIR = .deps
 ECHO_C = \c
 ECHO_N = 
 ECHO_T = 
+EGREP = /usr/bin/grep -E
 EXEEXT = 
+GREP = /usr/bin/grep
 INSTALL = /usr/bin/install -c
 INSTALL_DATA = ${INSTALL} -m 644
 INSTALL_PROGRAM = ${INSTALL}
@@ -109,23 +111,23 @@ LTLIBOBJS =
 MAKEINFO = ${SHELL} /Users/tuborg/workspace/ss_Service/missing --run makeinfo
 MKDIR_P = .././install-sh -c -d
 OBJEXT = o
-PACKAGE = ss_service
-PACKAGE_BUGREPORT = 
-PACKAGE_NAME = ss_Service
-PACKAGE_STRING = ss_Service 1.0
-PACKAGE_TARNAME = ss_service
-PACKAGE_URL = @PACKAGE_URL@
-PACKAGE_VERSION = 1.0
+PACKAGE = r168
+PACKAGE_BUGREPORT = nosenko@rec-etu.com
+PACKAGE_NAME = src/main.cpp
+PACKAGE_STRING = src/main.cpp 0.1
+PACKAGE_TARNAME = src-main-cpp
+PACKAGE_URL = 
+PACKAGE_VERSION = 0.1
 PATH_SEPARATOR = :
 SET_MAKE = 
 SHELL = /bin/sh
 STRIP = 
-VERSION = 1.0
+VERSION = 0.1
 abs_builddir = /Users/tuborg/workspace/ss_Service/src
 abs_srcdir = /Users/tuborg/workspace/ss_Service/src
 abs_top_builddir = /Users/tuborg/workspace/ss_Service
 abs_top_srcdir = /Users/tuborg/workspace/ss_Service
-ac_ct_CC = @ac_ct_CC@
+ac_ct_CC = gcc
 ac_ct_CXX = g++
 am__include = include
 am__leading_dot = .
@@ -133,26 +135,18 @@ am__quote =
 am__tar = ${AMTAR} chof - "$$tardir"
 am__untar = ${AMTAR} xf -
 bindir = ${exec_prefix}/bin
-build = i386-apple-darwin10.4.0
 build_alias = 
-build_cpu = i386
-build_os = darwin10.4.0
-build_vendor = apple
 builddir = .
 datadir = ${datarootdir}
 datarootdir = ${prefix}/share
 docdir = ${datarootdir}/doc/${PACKAGE_TARNAME}
 dvidir = ${docdir}
 exec_prefix = ${prefix}
-host = i386-apple-darwin10.4.0
 host_alias = 
-host_cpu = i386
-host_os = darwin10.4.0
-host_vendor = apple
 htmldir = ${docdir}
 includedir = ${prefix}/include
 infodir = ${datarootdir}/info
-install_sh = $(SHELL) /Users/tuborg/workspace/ss_Service/install-sh
+install_sh = ${SHELL} /Users/tuborg/workspace/ss_Service/install-sh
 libdir = ${exec_prefix}/lib
 libexecdir = ${exec_prefix}/libexec
 localedir = ${datarootdir}/locale
@@ -168,12 +162,8 @@ sbindir = ${exec_prefix}/sbin
 sharedstatedir = ${prefix}/com
 srcdir = .
 sysconfdir = ${prefix}/etc
-target = i386-apple-darwin10.4.0
 target_alias = 
-target_cpu = i386
-target_os = darwin10.4.0
-target_vendor = apple
-top_build_prefix = @top_build_prefix@
+top_build_prefix = ../
 top_builddir = ..
 top_srcdir = ..
 ss_Service_SOURCES = main.cpp global.cpp arg_parser/carg_parser.cpp  \
@@ -198,8 +188,8 @@ ss_Service_SOURCES = main.cpp global.cpp arg_parser/carg_parser.cpp  \
 				SIG_handler.cpp\
 				SIG_handler.h\
 				deqUdp/deqUdp.cpp deqUdp/deqUdp.h\
-				../../crc/crc16.cpp ../../crc/crc16.h\
-				../../udp_port/udp_port.cpp ../../udp_port/udp_port.h\
+				../../rcsLib/crc/crc16.cpp ../../rcsLib/crc/crc16.h\
+				../../rcsLib/udp_port/udp_port.cpp ../../rcsLib/udp_port/udp_port.h\
 				../../rcsLib/rcsCmd/rcsCmd.cpp ../../rcsLib/rcsCmd/rcsCmd.h\
 cm688_packet/cm688_packet.cpp\
 cm688_packet/cm688_packet.h\
@@ -207,11 +197,12 @@ cm688_packet/statusFrame.cpp\
 cm688_packet/statusFrame.h\
 cm688_packet/cmdFrame.cpp\
 cm688_packet/cmdFrame.h\
-../../ortsTypes/ortsTypes.cpp\
-../../ortsTypes/ortsTypes.h
+../../rcsLib/ortsTypes/ortsTypes.cpp\
+../../rcsLib/ortsTypes/ortsTypes.h
 
 ss_Service_LDFLAGS = -pthread
-all: all-am
+all: auto_config.h
+	$(MAKE) $(AM_MAKEFLAGS) all-am
 
 .SUFFIXES:
 .SUFFIXES: .cpp .o .obj
@@ -245,6 +236,23 @@ $(top_srcdir)/configure:  $(am__configure_deps)
 $(ACLOCAL_M4):  $(am__aclocal_m4_deps)
 	cd $(top_builddir) && $(MAKE) $(AM_MAKEFLAGS) am--refresh
 $(am__aclocal_m4_deps):
+
+auto_config.h: stamp-h1
+	@if test ! -f $@; then \
+	  rm -f stamp-h1; \
+	  $(MAKE) $(AM_MAKEFLAGS) stamp-h1; \
+	else :; fi
+
+stamp-h1: $(srcdir)/auto_config.h.in $(top_builddir)/config.status
+	@rm -f stamp-h1
+	cd $(top_builddir) && $(SHELL) ./config.status src/auto_config.h
+$(srcdir)/auto_config.h.in:  $(am__configure_deps) 
+	($(am__cd) $(top_srcdir) && $(AUTOHEADER))
+	rm -f stamp-h1
+	touch $@
+
+distclean-hdr:
+	-rm -f auto_config.h stamp-h1
 install-binPROGRAMS: $(bin_PROGRAMS)
 	@$(NORMAL_INSTALL)
 	test -z "$(bindir)" || $(MKDIR_P) "$(DESTDIR)$(bindir)"
@@ -468,33 +476,33 @@ deqUdp.obj: deqUdp/deqUdp.cpp
 #	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
 #	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o deqUdp.obj `if test -f 'deqUdp/deqUdp.cpp'; then $(CYGPATH_W) 'deqUdp/deqUdp.cpp'; else $(CYGPATH_W) '$(srcdir)/deqUdp/deqUdp.cpp'; fi`
 
-crc16.o: ../../crc/crc16.cpp
-	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT crc16.o -MD -MP -MF $(DEPDIR)/crc16.Tpo -c -o crc16.o `test -f '../../crc/crc16.cpp' || echo '$(srcdir)/'`../../crc/crc16.cpp
+crc16.o: ../../rcsLib/crc/crc16.cpp
+	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT crc16.o -MD -MP -MF $(DEPDIR)/crc16.Tpo -c -o crc16.o `test -f '../../rcsLib/crc/crc16.cpp' || echo '$(srcdir)/'`../../rcsLib/crc/crc16.cpp
 	$(am__mv) $(DEPDIR)/crc16.Tpo $(DEPDIR)/crc16.Po
-#	source='../../crc/crc16.cpp' object='crc16.o' libtool=no \
+#	source='../../rcsLib/crc/crc16.cpp' object='crc16.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
-#	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o crc16.o `test -f '../../crc/crc16.cpp' || echo '$(srcdir)/'`../../crc/crc16.cpp
+#	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o crc16.o `test -f '../../rcsLib/crc/crc16.cpp' || echo '$(srcdir)/'`../../rcsLib/crc/crc16.cpp
 
-crc16.obj: ../../crc/crc16.cpp
-	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT crc16.obj -MD -MP -MF $(DEPDIR)/crc16.Tpo -c -o crc16.obj `if test -f '../../crc/crc16.cpp'; then $(CYGPATH_W) '../../crc/crc16.cpp'; else $(CYGPATH_W) '$(srcdir)/../../crc/crc16.cpp'; fi`
+crc16.obj: ../../rcsLib/crc/crc16.cpp
+	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT crc16.obj -MD -MP -MF $(DEPDIR)/crc16.Tpo -c -o crc16.obj `if test -f '../../rcsLib/crc/crc16.cpp'; then $(CYGPATH_W) '../../rcsLib/crc/crc16.cpp'; else $(CYGPATH_W) '$(srcdir)/../../rcsLib/crc/crc16.cpp'; fi`
 	$(am__mv) $(DEPDIR)/crc16.Tpo $(DEPDIR)/crc16.Po
-#	source='../../crc/crc16.cpp' object='crc16.obj' libtool=no \
+#	source='../../rcsLib/crc/crc16.cpp' object='crc16.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
-#	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o crc16.obj `if test -f '../../crc/crc16.cpp'; then $(CYGPATH_W) '../../crc/crc16.cpp'; else $(CYGPATH_W) '$(srcdir)/../../crc/crc16.cpp'; fi`
+#	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o crc16.obj `if test -f '../../rcsLib/crc/crc16.cpp'; then $(CYGPATH_W) '../../rcsLib/crc/crc16.cpp'; else $(CYGPATH_W) '$(srcdir)/../../rcsLib/crc/crc16.cpp'; fi`
 
-udp_port.o: ../../udp_port/udp_port.cpp
-	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT udp_port.o -MD -MP -MF $(DEPDIR)/udp_port.Tpo -c -o udp_port.o `test -f '../../udp_port/udp_port.cpp' || echo '$(srcdir)/'`../../udp_port/udp_port.cpp
+udp_port.o: ../../rcsLib/udp_port/udp_port.cpp
+	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT udp_port.o -MD -MP -MF $(DEPDIR)/udp_port.Tpo -c -o udp_port.o `test -f '../../rcsLib/udp_port/udp_port.cpp' || echo '$(srcdir)/'`../../rcsLib/udp_port/udp_port.cpp
 	$(am__mv) $(DEPDIR)/udp_port.Tpo $(DEPDIR)/udp_port.Po
-#	source='../../udp_port/udp_port.cpp' object='udp_port.o' libtool=no \
+#	source='../../rcsLib/udp_port/udp_port.cpp' object='udp_port.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
-#	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o udp_port.o `test -f '../../udp_port/udp_port.cpp' || echo '$(srcdir)/'`../../udp_port/udp_port.cpp
+#	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o udp_port.o `test -f '../../rcsLib/udp_port/udp_port.cpp' || echo '$(srcdir)/'`../../rcsLib/udp_port/udp_port.cpp
 
-udp_port.obj: ../../udp_port/udp_port.cpp
-	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT udp_port.obj -MD -MP -MF $(DEPDIR)/udp_port.Tpo -c -o udp_port.obj `if test -f '../../udp_port/udp_port.cpp'; then $(CYGPATH_W) '../../udp_port/udp_port.cpp'; else $(CYGPATH_W) '$(srcdir)/../../udp_port/udp_port.cpp'; fi`
+udp_port.obj: ../../rcsLib/udp_port/udp_port.cpp
+	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT udp_port.obj -MD -MP -MF $(DEPDIR)/udp_port.Tpo -c -o udp_port.obj `if test -f '../../rcsLib/udp_port/udp_port.cpp'; then $(CYGPATH_W) '../../rcsLib/udp_port/udp_port.cpp'; else $(CYGPATH_W) '$(srcdir)/../../rcsLib/udp_port/udp_port.cpp'; fi`
 	$(am__mv) $(DEPDIR)/udp_port.Tpo $(DEPDIR)/udp_port.Po
-#	source='../../udp_port/udp_port.cpp' object='udp_port.obj' libtool=no \
+#	source='../../rcsLib/udp_port/udp_port.cpp' object='udp_port.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
-#	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o udp_port.obj `if test -f '../../udp_port/udp_port.cpp'; then $(CYGPATH_W) '../../udp_port/udp_port.cpp'; else $(CYGPATH_W) '$(srcdir)/../../udp_port/udp_port.cpp'; fi`
+#	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o udp_port.obj `if test -f '../../rcsLib/udp_port/udp_port.cpp'; then $(CYGPATH_W) '../../rcsLib/udp_port/udp_port.cpp'; else $(CYGPATH_W) '$(srcdir)/../../rcsLib/udp_port/udp_port.cpp'; fi`
 
 rcsCmd.o: ../../rcsLib/rcsCmd/rcsCmd.cpp
 	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT rcsCmd.o -MD -MP -MF $(DEPDIR)/rcsCmd.Tpo -c -o rcsCmd.o `test -f '../../rcsLib/rcsCmd/rcsCmd.cpp' || echo '$(srcdir)/'`../../rcsLib/rcsCmd/rcsCmd.cpp
@@ -552,19 +560,19 @@ cmdFrame.obj: cm688_packet/cmdFrame.cpp
 #	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
 #	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o cmdFrame.obj `if test -f 'cm688_packet/cmdFrame.cpp'; then $(CYGPATH_W) 'cm688_packet/cmdFrame.cpp'; else $(CYGPATH_W) '$(srcdir)/cm688_packet/cmdFrame.cpp'; fi`
 
-ortsTypes.o: ../../ortsTypes/ortsTypes.cpp
-	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT ortsTypes.o -MD -MP -MF $(DEPDIR)/ortsTypes.Tpo -c -o ortsTypes.o `test -f '../../ortsTypes/ortsTypes.cpp' || echo '$(srcdir)/'`../../ortsTypes/ortsTypes.cpp
+ortsTypes.o: ../../rcsLib/ortsTypes/ortsTypes.cpp
+	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT ortsTypes.o -MD -MP -MF $(DEPDIR)/ortsTypes.Tpo -c -o ortsTypes.o `test -f '../../rcsLib/ortsTypes/ortsTypes.cpp' || echo '$(srcdir)/'`../../rcsLib/ortsTypes/ortsTypes.cpp
 	$(am__mv) $(DEPDIR)/ortsTypes.Tpo $(DEPDIR)/ortsTypes.Po
-#	source='../../ortsTypes/ortsTypes.cpp' object='ortsTypes.o' libtool=no \
+#	source='../../rcsLib/ortsTypes/ortsTypes.cpp' object='ortsTypes.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
-#	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o ortsTypes.o `test -f '../../ortsTypes/ortsTypes.cpp' || echo '$(srcdir)/'`../../ortsTypes/ortsTypes.cpp
+#	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o ortsTypes.o `test -f '../../rcsLib/ortsTypes/ortsTypes.cpp' || echo '$(srcdir)/'`../../rcsLib/ortsTypes/ortsTypes.cpp
 
-ortsTypes.obj: ../../ortsTypes/ortsTypes.cpp
-	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT ortsTypes.obj -MD -MP -MF $(DEPDIR)/ortsTypes.Tpo -c -o ortsTypes.obj `if test -f '../../ortsTypes/ortsTypes.cpp'; then $(CYGPATH_W) '../../ortsTypes/ortsTypes.cpp'; else $(CYGPATH_W) '$(srcdir)/../../ortsTypes/ortsTypes.cpp'; fi`
+ortsTypes.obj: ../../rcsLib/ortsTypes/ortsTypes.cpp
+	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT ortsTypes.obj -MD -MP -MF $(DEPDIR)/ortsTypes.Tpo -c -o ortsTypes.obj `if test -f '../../rcsLib/ortsTypes/ortsTypes.cpp'; then $(CYGPATH_W) '../../rcsLib/ortsTypes/ortsTypes.cpp'; else $(CYGPATH_W) '$(srcdir)/../../rcsLib/ortsTypes/ortsTypes.cpp'; fi`
 	$(am__mv) $(DEPDIR)/ortsTypes.Tpo $(DEPDIR)/ortsTypes.Po
-#	source='../../ortsTypes/ortsTypes.cpp' object='ortsTypes.obj' libtool=no \
+#	source='../../rcsLib/ortsTypes/ortsTypes.cpp' object='ortsTypes.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
-#	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o ortsTypes.obj `if test -f '../../ortsTypes/ortsTypes.cpp'; then $(CYGPATH_W) '../../ortsTypes/ortsTypes.cpp'; else $(CYGPATH_W) '$(srcdir)/../../ortsTypes/ortsTypes.cpp'; fi`
+#	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o ortsTypes.obj `if test -f '../../rcsLib/ortsTypes/ortsTypes.cpp'; then $(CYGPATH_W) '../../rcsLib/ortsTypes/ortsTypes.cpp'; else $(CYGPATH_W) '$(srcdir)/../../rcsLib/ortsTypes/ortsTypes.cpp'; fi`
 
 ID: $(HEADERS) $(SOURCES) $(LISP) $(TAGS_FILES)
 	list='$(SOURCES) $(HEADERS) $(LISP) $(TAGS_FILES)'; \
@@ -576,11 +584,11 @@ ID: $(HEADERS) $(SOURCES) $(LISP) $(TAGS_FILES)
 	mkid -fID $$unique
 tags: TAGS
 
-TAGS:  $(HEADERS) $(SOURCES)  $(TAGS_DEPENDENCIES) \
+TAGS:  $(HEADERS) $(SOURCES) auto_config.h.in $(TAGS_DEPENDENCIES) \
 		$(TAGS_FILES) $(LISP)
 	set x; \
 	here=`pwd`; \
-	list='$(SOURCES) $(HEADERS)  $(LISP) $(TAGS_FILES)'; \
+	list='$(SOURCES) $(HEADERS) auto_config.h.in $(LISP) $(TAGS_FILES)'; \
 	unique=`for i in $$list; do \
 	    if test -f "$$i"; then echo $$i; else echo $(srcdir)/$$i; fi; \
 	  done | \
@@ -598,9 +606,9 @@ TAGS:  $(HEADERS) $(SOURCES)  $(TAGS_DEPENDENCIES) \
 	  fi; \
 	fi
 ctags: CTAGS
-CTAGS:  $(HEADERS) $(SOURCES)  $(TAGS_DEPENDENCIES) \
+CTAGS:  $(HEADERS) $(SOURCES) auto_config.h.in $(TAGS_DEPENDENCIES) \
 		$(TAGS_FILES) $(LISP)
-	list='$(SOURCES) $(HEADERS)  $(LISP) $(TAGS_FILES)'; \
+	list='$(SOURCES) $(HEADERS) auto_config.h.in $(LISP) $(TAGS_FILES)'; \
 	unique=`for i in $$list; do \
 	    if test -f "$$i"; then echo $$i; else echo $(srcdir)/$$i; fi; \
 	  done | \
@@ -650,7 +658,7 @@ distdir: $(DISTFILES)
 	done
 check-am: all-am
 check: check-am
-all-am: Makefile $(PROGRAMS)
+all-am: Makefile $(PROGRAMS) auto_config.h
 installdirs:
 	for dir in "$(DESTDIR)$(bindir)"; do \
 	  test -z "$$dir" || $(MKDIR_P) "$$dir"; \
@@ -688,7 +696,7 @@ distclean: distclean-am
 	-rm -rf ./$(DEPDIR)
 	-rm -f Makefile
 distclean-am: clean-am distclean-compile distclean-generic \
-	distclean-tags
+	distclean-hdr distclean-tags
 
 dvi: dvi-am
 
@@ -749,20 +757,20 @@ ps-am:
 
 uninstall-am: uninstall-binPROGRAMS
 
-.MAKE: install-am install-strip
+.MAKE: all install-am install-strip
 
 .PHONY: CTAGS GTAGS all all-am check check-am clean clean-binPROGRAMS \
 	clean-generic ctags distclean distclean-compile \
-	distclean-generic distclean-tags distdir dvi dvi-am html \
-	html-am info info-am install install-am install-binPROGRAMS \
-	install-data install-data-am install-dvi install-dvi-am \
-	install-exec install-exec-am install-html install-html-am \
-	install-info install-info-am install-man install-pdf \
-	install-pdf-am install-ps install-ps-am install-strip \
-	installcheck installcheck-am installdirs maintainer-clean \
-	maintainer-clean-generic mostlyclean mostlyclean-compile \
-	mostlyclean-generic pdf pdf-am ps ps-am tags uninstall \
-	uninstall-am uninstall-binPROGRAMS
+	distclean-generic distclean-hdr distclean-tags distdir dvi \
+	dvi-am html html-am info info-am install install-am \
+	install-binPROGRAMS install-data install-data-am install-dvi \
+	install-dvi-am install-exec install-exec-am install-html \
+	install-html-am install-info install-info-am install-man \
+	install-pdf install-pdf-am install-ps install-ps-am \
+	install-strip installcheck installcheck-am installdirs \
+	maintainer-clean maintainer-clean-generic mostlyclean \
+	mostlyclean-compile mostlyclean-generic pdf pdf-am ps ps-am \
+	tags uninstall uninstall-am uninstall-binPROGRAMS
 
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.

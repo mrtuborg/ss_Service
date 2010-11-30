@@ -5,50 +5,51 @@
 #include "../../../ortsTypes/ortsTypes.h"
 #include "../prcList/prcTask.h"
 #include "../prcList/prcList.h"
-#include "fltr.h"
-#include "fltrList.h"
+#include "valueTrig.h"
+#include "trigList.h"
 
 
 
 
-fltrList::fltrList()
+trigList::trigList()
 {
-    filters_size=0;
+    triggersQuantity=0;
 }
 
-fltrList::~fltrList()
+trigList::~trigList()
 {
+
 }
 
-errType fltrList::addProcFilter(fltr* filter)
+errType trigList::addValueTrigger(valueTrig* trigger)
 {
     errType result=err_not_init;
     
-    if (getProcFilter(filter->get_filter_id())==0)
+    if (getValueTrigger(trigger->get_trigger_id())==0)
     {
-        procFilters.push_back(filter);
+        valueTriggers.push_back(trigger);
         
     } else {
-	printf("same filter exists!\n");
-	removeProcFilter(filter->get_filter_id());
-	procFilters.push_back(filter);
+	printf("same trigger exists!\n");
+	removeValueTrigger(trigger->get_trigger_id());
+	valueTriggers.push_back(trigger);
     }
     
-    filters_size+=filter->getSize();
+   // filters_size+=filter->getSize();
     return result;
 }
 
-errType fltrList::removeProcFilter(WORD id)
+errType trigList::removeValueTrigger(WORD id)
 {
     errType result=err_not_init;
-    list<fltr*>::iterator iter;
+    list<valueTrig*>::iterator iter;
     
-    for(iter=procFilters.begin(); iter!=procFilters.end(); ++iter)
+    for(iter=valueTriggers.begin(); iter!=valueTriggers.end(); ++iter)
     {
-	if ((*iter)->get_filter_id()==id) 
+	if ((*iter)->get_trigger_id()==id)
 	{
-	    filters_size-=(*iter)->getSize();	
-	    procFilters.erase(iter);
+	    //filters_size-=(*iter)->getSize();
+	    valueTriggers.erase(iter);
 	    break;
 	}
     }

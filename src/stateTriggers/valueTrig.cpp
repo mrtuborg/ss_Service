@@ -51,15 +51,7 @@ DWORD valueTrig::getSize()
 errType valueTrig::decode(BYTE* array, DWORD* size)
 {
     errType result=err_not_init;
-    DWORD offset=0;
-    
 
-    memcpy(array+offset, &id, sizeof(id)); 			offset+=sizeof(id);
-    memcpy(array+offset, cmdline, strlen(cmdline)); 		offset+=strlen(cmdline);
-    memcpy(array+offset, &cpu_usage, sizeof(cpu_usage));	offset+=sizeof(cpu_usage);
-    memcpy(array+offset, &mem_usage, sizeof(mem_usage)); 	offset+=sizeof(mem_usage);
-    
-    *size=offset;
     
     return result;
 }
@@ -70,27 +62,28 @@ errType valueTrig::encode(BYTE* array)
     return result;
 }
 
-bool valueTrig::processAction()
+bool valueTrig::triggerSet()
 {
     bool result=false;
 
     switch (type)
     {
       case type_BYTE:
-           result==((BYTE*) typeDef->oldValue == ((BYTE*) typeDef->Value));
+           result=((BYTE*) typeDef->oldValue == ((BYTE*) typeDef->Value));
            break;
       case type_WORD:
-           result==((WORD*) typeDef->oldValue == ((WORD*) typeDef->Value));
+           result=((WORD*) typeDef->oldValue == ((WORD*) typeDef->Value));
            break;
       case type_DWORD:
-           result==((DWORD*) typeDef->oldValue == ((DWORD*) typeDef->Value));
+           result=((DWORD*) typeDef->oldValue == ((DWORD*) typeDef->Value));
            break;
     }
     return result;
 }
 
-errType fltr::set_filter_action(BYTE act)
+void valueTrig::triggerReset()
 {
-    _action=act;
-    return err_result_ok;
+  delete trigDef->oldValue;
+  trigDef->oldValue=new BYTE[size];
+  memcpy(trigDef->oldValue, trigDef->value, size);
 }

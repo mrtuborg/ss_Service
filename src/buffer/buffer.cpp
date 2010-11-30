@@ -1,6 +1,6 @@
 #include <string.h>
 #include <stdio.h>
-#include "../../../ortsTypes/ortsTypes.h"
+#include "../../../rcsLib/ortsTypes/ortsTypes.h"
 #include "buffer.h"
 buffer::buffer(DWORD size)
 {

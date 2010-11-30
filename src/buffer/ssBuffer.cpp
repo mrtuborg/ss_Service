@@ -3,7 +3,7 @@
 #include <deque>
 #include <netinet/in.h>
 #include <arpa/inet.h>
-#include "../../../ortsTypes/ortsTypes.h"
+#include "../../../rcsLib/ortsTypes/ortsTypes.h"
 #include "ssBuffer.h"
 
 ssBuffer::ssBuffer()

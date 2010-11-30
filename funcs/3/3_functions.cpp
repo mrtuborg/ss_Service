@@ -5,7 +5,7 @@
 #include <arpa/inet.h> 
 #include <time.h> 
 #include <deque>
-#include "../../../ortsTypes/ortsTypes.h" 
+#include "../../../rcsLib/ortsTypes/ortsTypes.h"
 #include "../buffer/ssBuffer.h" 
 #include "../buffer/buffer.h" 
 #include "../../../udp_port/udp_port.h" 
@@ -25,6 +25,33 @@ pthread_t PollingThreadHandle;
 cmdFrame *sendFrame;
 statusFrame *answerFrame;
 
+
+
+typedef union serviceStateByte
+{
+  struct {
+  //BYTE
+  //BYTE
+  //BYTE
+  //BYTE
+  BYTE reserved: 6;
+  BYTE close:1;
+  BYTE open:1;
+  //BYTE foldsMoving:1;
+  } fields;
+  BYTE bValue;
+}  __attribute__ ((packed)) serviceStateByte;
+
+// 000 not initialized
+// 001 error
+// 110 Stopped
+// 111 Stopping
+//------------
+// 010 Opened
+// 011 Opening
+// 100 Closed
+// 101 Closing
+serviceStateByte stateByte;
 
 void* PollingThread(void* user)
 {
@@ -81,6 +108,8 @@ errType srvInit()
     //if (ret!=0) Error:  Need to stop application initializing process...
     if (ret==0) result=err_result_ok;
     
+    stateByte.bValue=0;
+
     return result;
 }
 
@@ -119,8 +148,18 @@ errType GetStateVector(void* fn)
 {
     errType result=err_result_ok;
     FunctionNode* func=(FunctionNode*)fn;
-    type_StateVector stateVector;
+    stateVector_type stateVector;
     stateVector=app->getStateVector();
+
+
+    stateByte.fields.open=answerFrame->getShieldState(0) | answerFrame->getShieldState(2);
+    stateByte.fields.close=answerFrame->getShieldState(1) | answerFrame->getShieldState(2);
+
+    //stateByte.fields.foldsMoving;
+
+
+
+
     func->printParams();
     func->setResult(1,&stateVector);
     func->printResults();

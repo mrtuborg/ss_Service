@@ -1,7 +1,7 @@
 #include <pthread.h>
 #include <netinet/in.h>
 #include <queue>
-#include "../../ortsTypes/ortsTypes.h"
+#include "../../rcsLib/ortsTypes/ortsTypes.h"
 #include "../buffer/ssBuffer.h"
 #include "../../rcsLib/rcsCmd/rcsCmd.h"
 #include "../../udp_port/udp_port.h"
@@ -23,7 +23,7 @@ void* EquipListenPolling(void* user)
     
     while (!app->terminated())                                                  
     {                                                                           
-        // Listening equipment answer - status vector:                          
+        // TODO: Listening equipment answer - status vector:
 
     	    result=app->equip_reading_event();
     	    

@@ -1,21 +1,20 @@
 using namespace std;
 
-class fltrList 
+class triggerList
 {
-    list<fltr*> procFilters;
-    DWORD filters_size;
+    list<valueTrig*> valueTriggers;
+    DWORD triggersQuantity;
     
     public:
-	fltrList();
-	~fltrList();
+	triggerList();
+	~triggerList();
 	
-	errType applyFilters(prcList* );
+	//errType (prcList* );
 	
-	errType addProcFilter(fltr*);
-	errType removeProcFilter(WORD id);
-	fltr* getProcFilter(WORD id);
-	fltr* getProcFilterByIndex(WORD index);
-	fltr* searchProcFilterByCmdline(const char*, size_t size);
+	errType addValueTrigger(valueTrig*);
+	errType removeValueTrigger(WORD id);
+	valueTrig* getValueTrigger(WORD id);
+	valueTrig* searchValueTriggerByValuePtr(const void*);
 	
 	WORD quantity();
 	DWORD getFilterListSize();

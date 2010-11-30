@@ -21,8 +21,8 @@ ss_Service_SOURCES=main.cpp global.cpp arg_parser/carg_parser.cpp  \
 				SIG_handler.cpp\
 				SIG_handler.h\
 				deqUdp/deqUdp.cpp deqUdp/deqUdp.h\
-				../../crc/crc16.cpp ../../crc/crc16.h\
-				../../udp_port/udp_port.cpp ../../udp_port/udp_port.h\
+				../../rcsLib/crc/crc16.cpp ../../rcsLib/crc/crc16.h\
+				../../rcsLib/udp_port/udp_port.cpp ../../rcsLib/udp_port/udp_port.h\
 				../../rcsLib/rcsCmd/rcsCmd.cpp ../../rcsLib/rcsCmd/rcsCmd.h\
 cm688_packet/cm688_packet.cpp\
 cm688_packet/cm688_packet.h\
@@ -30,7 +30,7 @@ cm688_packet/statusFrame.cpp\
 cm688_packet/statusFrame.h\
 cm688_packet/cmdFrame.cpp\
 cm688_packet/cmdFrame.h\
-../../ortsTypes/ortsTypes.cpp\
-../../ortsTypes/ortsTypes.h
+../../rcsLib/ortsTypes/ortsTypes.cpp\
+../../rcsLib/ortsTypes/ortsTypes.h
 
 ss_Service_LDFLAGS=-pthread

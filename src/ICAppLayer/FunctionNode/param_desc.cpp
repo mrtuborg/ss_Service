@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <string.h>
-#include "../../../../ortsTypes/ortsTypes.h"
+#include "../../../../rcsLib/ortsTypes/ortsTypes.h"
 #include "param_desc.h"
 param_desc::param_desc(OrtsType type, WORD param_len)
 {

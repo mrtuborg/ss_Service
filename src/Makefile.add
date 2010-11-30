@@ -1,4 +1,4 @@
-../../ortsTypes/ortsTypes.cpp\
-../../ortsTypes/ortsTypes.h
+../../rcsLib/ortsTypes/ortsTypes.cpp\
+../../rcsLib/ortsTypes/ortsTypes.h
 
 ss_Service_LDFLAGS=-pthread

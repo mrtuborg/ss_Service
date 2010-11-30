@@ -1,31 +1,21 @@
 #pragma pack (1)
 #include <pthread.h> 
 
-typedef struct type_StateVector {
-    union execState{
-	struct {
-	    BYTE func_exec_result: 2;
-	    BYTE func_exec_id: 6;
-	} fields;
-	BYTE bVal;
-    } execState;
-    
-    union servState{
-	struct {
-	    BYTE     auto_mode: 1;
-	    BYTE   manual_mode: 1;
-	    BYTE shutdown_mode: 1;
-	    BYTE  transit_mode: 1;
-	
-	    BYTE overflow_link_sec: 1;
-	    BYTE          link_sec: 3;
-	}fields;
-	BYTE bVal;
-    } servState;
-    
-    BYTE funcState1;
-    BYTE funcState2;
-} type_StateVector;
+typedef struct serviceState {
+    BYTE linked:1;
+    BYTE reserved:3;
+    BYTE inprocess:1;
+    BYTE mode_emergency:1;
+    BYTE mode_manual:1;
+    BYTE mode_auto:1;
+} serviceState;
+
+typedef struct stateVector_type {
+    BYTE reserved;
+    serviceState state;
+    errType lastResult;
+    BYTE lastFuncId;
+}  __attribute__ ((packed)) stateVector_type;
 
 class ICAppLayer 
 {
@@ -48,7 +38,7 @@ class ICAppLayer
     errType prepare_FuncResult(rcsCmd* in_cmd, rcsCmd* out_cmd);
     errType sendResult(sockaddr_in* sin, rcsCmd* ss_cmd);
     
-    type_StateVector ServiceState;
+    stateVector_type ServiceState;
     
     public:
     
@@ -74,7 +64,7 @@ class ICAppLayer
 	WORD getListenerPortNum();
 	BYTE terminated(); // 1 - only exit; 2 - exit with reboot
 	void terminate(BYTE mode=1);
-	type_StateVector getStateVector();
+	stateVector_type getStateVector();
 };
 
 extern ICAppLayer* app;

@@ -4,10 +4,10 @@
 #include <pthread.h>
 #include <netinet/in.h>
 #include <arpa/inet.h> 
-#include <iostream.h>
+#include <iostream>
 #include <queue>
 
-#include "../../ortsTypes/ortsTypes.h"
+#include "../../rcsLib/ortsTypes/ortsTypes.h"
 #include "../../rcsLib/rcsCmd/rcsCmd.h"
 
 #include "../global.h"
@@ -280,7 +280,8 @@ errType ICAppLayer::execMessage(rcsCmd* ss_cmd)
 	printf("Доставлен пакет с ошибками в формате описания параметров!\n");
 	result=err_params_decode;
     }
-	ServiceState.execState.fields.func_exec_id=fn_num;
+	ServiceState.lastFuncId=fn_num;
+	ServiceState.lastResult=result;
 	(Functions[fn_num])->setResult(0,(BYTE*)&result);
 	
     return result;
@@ -297,8 +298,6 @@ errType ICAppLayer::prepare_FuncResult(rcsCmd* in_cmd, rcsCmd* out_cmd)
 	DWORD err_len;
 	int fn_num=in_cmd->get_func_id();
 	(Functions[fn_num])->getResult(0, (void**)&err_val, &err_len);
-	
-	ServiceState.execState.fields.func_exec_result=*(BYTE*)err_val;
 	
 	
 	int func_resultsQuantity=(Functions[fn_num])->getResultsQuantity();
@@ -357,10 +356,11 @@ errType ICAppLayer::ProcessMessages()
     if (ICAppLayer_recvBuffer->size()==0) return err_not_init;
     if (rcvComplete_flag==false) return err_not_init;
     
-    if (equip_listen->scanIfaces()<ifCount) 
-    {
-	ServiceState.servState.fields.overflow_link_sec=1; 
-    } else ServiceState.servState.fields.overflow_link_sec=0;
+//   TODO: link bit in serviceState
+//    if (equip_listen->scanIfaces()<ifCount)
+//    {
+//	ServiceState.servState.fields.overflow_link_sec=1;
+//    } else ServiceState.servState.fields.overflow_link_sec=0;
 
 //  1) Read RecvBuffer --------------------------------------
     
@@ -420,7 +420,7 @@ void ICAppLayer::terminate(BYTE mode)
     AppTerminated=mode;
 }
 
-type_StateVector ICAppLayer::getStateVector()
+stateVector_type ICAppLayer::getStateVector()
 {
     return ServiceState;
 }

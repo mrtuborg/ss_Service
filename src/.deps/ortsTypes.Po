@@ -1,0 +1,1 @@
+ortsTypes.o ortsTypes.o: ../../rcsLib/ortsTypes/ortsTypes.cpp
