@@ -16,6 +16,7 @@
 #include "../deqUdp/deqUdp.h"
 #include "FunctionNode/param_desc.h"
 #include "FunctionNode/FunctionNode.h"
+//#include "../valuesRegistry/valuesRegistry.h"
 #include "ICAppLayer.h"
 #include "../Functions/CommonFuncs.h"
 
@@ -405,6 +406,7 @@ errType ICAppLayer::ProcessMessages()
     if (result==err_result_ok) {
 	sndAllow_flag=true;
     }
+// 8) Check values registry
     
     return result;
 

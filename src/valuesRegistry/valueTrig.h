@@ -10,10 +10,9 @@
 
 
 typedef struct trigDef_type{
-	    void* value;
-	    void* oldValue;
-	 OrtsType type;
-	inaddr_in recepient;
+                       WORD index;
+	               void *oldValue;
+	 struct sockaddr_in recepient;
 } trigDef_type;
 
 class valueTrig{
@@ -26,15 +25,18 @@ public:
 		
 		errType setTrigValuePtr(WORD id);
 		
-		void* getTrigValuePtr();
-		void* getTrigOldValuePtr();
+
+		const void* getTrigOldValuePtr();
+		WORD getTrigIndex();
 		
 		void dbgPrint();
-		
+		bool triggerCheck(OrtsType currType, const void *currValue);
+		errType triggerSet(WORD index, OrtsType type, const void* valuePtr);
+
 		//errType decode(void* array, DWORD* size);
 		//errType encode(void* array);
-		//DWORD getSize();
-		BYTE action();
+		DWORD getSize(OrtsType type);
+		//BYTE action();
 		
 		//errType set_filter_action(BYTE);
 };

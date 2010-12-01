@@ -1,5 +1,5 @@
-#pragma pack (1)
 #include <pthread.h> 
+#include "../valuesRegistry/valuesRegistry.h"
 
 typedef struct serviceState {
     BYTE linked:1;
@@ -8,7 +8,7 @@ typedef struct serviceState {
     BYTE mode_emergency:1;
     BYTE mode_manual:1;
     BYTE mode_auto:1;
-} serviceState;
+} __attribute__((packed)) serviceState;
 
 typedef struct stateVector_type {
     BYTE reserved;
@@ -33,6 +33,8 @@ class ICAppLayer
     udp_port *equip_listen;//, *equip_sending;
     //buffer* equip_recvBuffer;
     
+    valuesRegistry registry;
+
     errType Decode_message(BYTE* dataBlock, DWORD length, rcsCmd *ss_cmd);
     errType execMessage(rcsCmd* ss_cmd);
     errType prepare_FuncResult(rcsCmd* in_cmd, rcsCmd* out_cmd);

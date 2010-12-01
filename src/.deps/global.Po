@@ -75,7 +75,10 @@ global.o global.o: global.cpp /usr/include/netinet/in.h \
   ../../udp_port/udp_port.h /usr/include/netinet/ip.h \
   /usr/include/netinet/in_systm.h /usr/include/netinet/udp.h \
   ../../rcsLib/rcsCmd/rcsCmd.h ICAppLayer/FunctionNode/param_desc.h \
-  ICAppLayer/FunctionNode/FunctionNode.h ICAppLayer/ICAppLayer.h
+  ICAppLayer/FunctionNode/FunctionNode.h ICAppLayer/ICAppLayer.h \
+  ICAppLayer/../valuesRegistry/valuesRegistry.h \
+  /usr/include/c++/4.2.1/list /usr/include/c++/4.2.1/bits/stl_list.h \
+  /usr/include/c++/4.2.1/bits/list.tcc
 
 /usr/include/netinet/in.h:
 
@@ -318,3 +321,11 @@ ICAppLayer/FunctionNode/param_desc.h:
 ICAppLayer/FunctionNode/FunctionNode.h:
 
 ICAppLayer/ICAppLayer.h:
+
+ICAppLayer/../valuesRegistry/valuesRegistry.h:
+
+/usr/include/c++/4.2.1/list:
+
+/usr/include/c++/4.2.1/bits/stl_list.h:
+
+/usr/include/c++/4.2.1/bits/list.tcc:

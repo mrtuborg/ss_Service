@@ -73,7 +73,10 @@ functions.o functions.o: Functions/functions.cpp /usr/include/stdio.h \
   Functions/../../../rcsLib/rcsCmd/rcsCmd.h \
   Functions/../ICAppLayer/FunctionNode/param_desc.h \
   Functions/../ICAppLayer/FunctionNode/FunctionNode.h \
-  Functions/../ICAppLayer/ICAppLayer.h Functions/../global.h \
+  Functions/../ICAppLayer/ICAppLayer.h \
+  Functions/../ICAppLayer/../valuesRegistry/valuesRegistry.h \
+  /usr/include/c++/4.2.1/list /usr/include/c++/4.2.1/bits/stl_list.h \
+  /usr/include/c++/4.2.1/bits/list.tcc Functions/../global.h \
   Functions/../cm688_packet/cmdFrame.h \
   Functions/../cm688_packet/statusFrame.h \
   Functions/../cm688_packet/cm688_packet.h
@@ -307,6 +310,14 @@ Functions/../ICAppLayer/FunctionNode/param_desc.h:
 Functions/../ICAppLayer/FunctionNode/FunctionNode.h:
 
 Functions/../ICAppLayer/ICAppLayer.h:
+
+Functions/../ICAppLayer/../valuesRegistry/valuesRegistry.h:
+
+/usr/include/c++/4.2.1/list:
+
+/usr/include/c++/4.2.1/bits/stl_list.h:
+
+/usr/include/c++/4.2.1/bits/list.tcc:
 
 Functions/../global.h:
 

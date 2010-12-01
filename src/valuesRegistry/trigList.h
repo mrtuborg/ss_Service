@@ -1,13 +1,13 @@
 using namespace std;
 
-class triggerList
+class trigList
 {
     list<valueTrig*> valueTriggers;
     DWORD triggersQuantity;
     
     public:
-	triggerList();
-	~triggerList();
+	trigList();
+	~trigList();
 	
 	//errType (prcList* );
 	
@@ -16,6 +16,8 @@ class triggerList
 	valueTrig* getValueTrigger(WORD id);
 	valueTrig* searchValueTriggerByValuePtr(const void*);
 	
+	errType triggersClock(WORD index, OrtsType currType, const void* currValue);
+
 	WORD quantity();
 	DWORD getFilterListSize();
 	

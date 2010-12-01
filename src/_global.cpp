@@ -6,7 +6,9 @@
 #include "../../rcsLib/rcsCmd/rcsCmd.h"
 #include "ICAppLayer/FunctionNode/param_desc.h"
 #include "ICAppLayer/FunctionNode/FunctionNode.h"
+
 #include "ICAppLayer/ICAppLayer.h"
+
 int verbose_level=0;
 bool listen_mode=false;
 bool AppTerminated=false;

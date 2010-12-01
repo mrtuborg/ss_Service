@@ -21,6 +21,9 @@ ss_Service_SOURCES=main.cpp global.cpp arg_parser/carg_parser.cpp  \
 				SIG_handler.cpp\
 				SIG_handler.h\
 				deqUdp/deqUdp.cpp deqUdp/deqUdp.h\
+				valuesRegistry/ValueTrig.cpp valuesRegistry/ValueTrig.h\
+				valuesRegistry/trigList.cpp valuesRegistry/trigList.h\
+				valuesRegistry/valuesRegistry.cpp valuesRegistry/valuesRegistry.h\
 				../../rcsLib/crc/crc16.cpp ../../rcsLib/crc/crc16.h\
 				../../rcsLib/udp_port/udp_port.cpp ../../rcsLib/udp_port/udp_port.h\
 				../../rcsLib/rcsCmd/rcsCmd.cpp ../../rcsLib/rcsCmd/rcsCmd.h\

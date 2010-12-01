@@ -42,15 +42,15 @@ typedef union serviceStateByte
   BYTE bValue;
 }  __attribute__ ((packed)) serviceStateByte;
 
-// 000 not initialized
-// 001 error
-// 110 Stopped
-// 111 Stopping
+// 00|0 not initialized
+// 00|1 error
+// 11|0 Stopped
+// 11|1 Stopping
 //------------
-// 010 Opened
-// 011 Opening
-// 100 Closed
-// 101 Closing
+// 01|0 Opened
+// 01|1 Opening
+// 10|0 Closed
+// 10|1 Closing
 serviceStateByte stateByte;
 
 void* PollingThread(void* user)

@@ -1,8 +1,8 @@
-carg_parser.o carg_parser.o: arg_parser/carg_parser.cpp \
-  /usr/include/stdlib.h /usr/include/Availability.h \
-  /usr/include/AvailabilityInternal.h /usr/include/_types.h \
-  /usr/include/sys/_types.h /usr/include/sys/cdefs.h \
-  /usr/include/machine/_types.h /usr/include/i386/_types.h \
+ValueTrig.o ValueTrig.o: valuesRegistry/ValueTrig.cpp \
+  /usr/include/stdio.h /usr/include/_types.h /usr/include/sys/_types.h \
+  /usr/include/sys/cdefs.h /usr/include/machine/_types.h \
+  /usr/include/i386/_types.h /usr/include/stdlib.h \
+  /usr/include/Availability.h /usr/include/AvailabilityInternal.h \
   /usr/include/sys/wait.h /usr/include/sys/signal.h \
   /usr/include/sys/appleapiopts.h /usr/include/machine/signal.h \
   /usr/include/i386/signal.h /usr/include/i386/_structs.h \
@@ -12,14 +12,17 @@ carg_parser.o carg_parser.o: arg_parser/carg_parser.cpp \
   /usr/include/sys/_endian.h /usr/include/libkern/_OSByteOrder.h \
   /usr/include/libkern/i386/_OSByteOrder.h /usr/include/alloca.h \
   /usr/include/machine/types.h /usr/include/i386/types.h \
-  /usr/include/i386/_types.h /usr/include/string.h /usr/include/stdio.h \
-  arg_parser/carg_parser.h
+  /usr/include/i386/_types.h /usr/include/string.h \
+  /usr/include/netinet/in.h \
+  /usr/lib/gcc/i686-apple-darwin10/4.2.1/include/stdint.h \
+  /usr/include/sys/socket.h /usr/include/sys/types.h \
+  /usr/include/machine/_param.h /usr/include/i386/_param.h \
+  /usr/include/netinet6/in6.h \
+  valuesRegistry/../../../rcsLib/ortsTypes/ortsTypes.h \
+  /usr/lib/gcc/i686-apple-darwin10/4.2.1/include/stddef.h \
+  valuesRegistry/../global.h valuesRegistry/valueTrig.h
 
-/usr/include/stdlib.h:
-
-/usr/include/Availability.h:
-
-/usr/include/AvailabilityInternal.h:
+/usr/include/stdio.h:
 
 /usr/include/_types.h:
 
@@ -30,6 +33,12 @@ carg_parser.o carg_parser.o: arg_parser/carg_parser.cpp \
 /usr/include/machine/_types.h:
 
 /usr/include/i386/_types.h:
+
+/usr/include/stdlib.h:
+
+/usr/include/Availability.h:
+
+/usr/include/AvailabilityInternal.h:
 
 /usr/include/sys/wait.h:
 
@@ -71,6 +80,24 @@ carg_parser.o carg_parser.o: arg_parser/carg_parser.cpp \
 
 /usr/include/string.h:
 
-/usr/include/stdio.h:
+/usr/include/netinet/in.h:
 
-arg_parser/carg_parser.h:
+/usr/lib/gcc/i686-apple-darwin10/4.2.1/include/stdint.h:
+
+/usr/include/sys/socket.h:
+
+/usr/include/sys/types.h:
+
+/usr/include/machine/_param.h:
+
+/usr/include/i386/_param.h:
+
+/usr/include/netinet6/in6.h:
+
+valuesRegistry/../../../rcsLib/ortsTypes/ortsTypes.h:
+
+/usr/lib/gcc/i686-apple-darwin10/4.2.1/include/stddef.h:
+
+valuesRegistry/../global.h:
+
+valuesRegistry/valueTrig.h:

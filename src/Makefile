@@ -51,7 +51,8 @@ am_ss_Service_OBJECTS = main.$(OBJEXT) global.$(OBJEXT) \
 	ICAppLayer.$(OBJEXT) FunctionNode.$(OBJEXT) \
 	param_desc.$(OBJEXT) CommonFuncs.$(OBJEXT) SpecFuncs.$(OBJEXT) \
 	functions.$(OBJEXT) ssBuffer.$(OBJEXT) buffer.$(OBJEXT) \
-	SIG_handler.$(OBJEXT) deqUdp.$(OBJEXT) crc16.$(OBJEXT) \
+	SIG_handler.$(OBJEXT) deqUdp.$(OBJEXT) ValueTrig.$(OBJEXT) \
+	trigList.$(OBJEXT) valuesRegistry.$(OBJEXT) crc16.$(OBJEXT) \
 	udp_port.$(OBJEXT) rcsCmd.$(OBJEXT) cm688_packet.$(OBJEXT) \
 	statusFrame.$(OBJEXT) cmdFrame.$(OBJEXT) ortsTypes.$(OBJEXT)
 ss_Service_OBJECTS = $(am_ss_Service_OBJECTS)
@@ -188,6 +189,9 @@ ss_Service_SOURCES = main.cpp global.cpp arg_parser/carg_parser.cpp  \
 				SIG_handler.cpp\
 				SIG_handler.h\
 				deqUdp/deqUdp.cpp deqUdp/deqUdp.h\
+				valuesRegistry/ValueTrig.cpp valuesRegistry/ValueTrig.h\
+				valuesRegistry/trigList.cpp valuesRegistry/trigList.h\
+				valuesRegistry/valuesRegistry.cpp valuesRegistry/valuesRegistry.h\
 				../../rcsLib/crc/crc16.cpp ../../rcsLib/crc/crc16.h\
 				../../rcsLib/udp_port/udp_port.cpp ../../rcsLib/udp_port/udp_port.h\
 				../../rcsLib/rcsCmd/rcsCmd.cpp ../../rcsLib/rcsCmd/rcsCmd.h\
@@ -305,6 +309,7 @@ include ./$(DEPDIR)/FunctionNode.Po
 include ./$(DEPDIR)/ICAppLayer.Po
 include ./$(DEPDIR)/SIG_handler.Po
 include ./$(DEPDIR)/SpecFuncs.Po
+include ./$(DEPDIR)/ValueTrig.Po
 include ./$(DEPDIR)/buffer.Po
 include ./$(DEPDIR)/carg_parser.Po
 include ./$(DEPDIR)/cm688_packet.Po
@@ -320,7 +325,9 @@ include ./$(DEPDIR)/param_desc.Po
 include ./$(DEPDIR)/rcsCmd.Po
 include ./$(DEPDIR)/ssBuffer.Po
 include ./$(DEPDIR)/statusFrame.Po
+include ./$(DEPDIR)/trigList.Po
 include ./$(DEPDIR)/udp_port.Po
+include ./$(DEPDIR)/valuesRegistry.Po
 
 .cpp.o:
 	$(CXXCOMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
@@ -475,6 +482,48 @@ deqUdp.obj: deqUdp/deqUdp.cpp
 #	source='deqUdp/deqUdp.cpp' object='deqUdp.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
 #	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o deqUdp.obj `if test -f 'deqUdp/deqUdp.cpp'; then $(CYGPATH_W) 'deqUdp/deqUdp.cpp'; else $(CYGPATH_W) '$(srcdir)/deqUdp/deqUdp.cpp'; fi`
+
+ValueTrig.o: valuesRegistry/ValueTrig.cpp
+	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT ValueTrig.o -MD -MP -MF $(DEPDIR)/ValueTrig.Tpo -c -o ValueTrig.o `test -f 'valuesRegistry/ValueTrig.cpp' || echo '$(srcdir)/'`valuesRegistry/ValueTrig.cpp
+	$(am__mv) $(DEPDIR)/ValueTrig.Tpo $(DEPDIR)/ValueTrig.Po
+#	source='valuesRegistry/ValueTrig.cpp' object='ValueTrig.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o ValueTrig.o `test -f 'valuesRegistry/ValueTrig.cpp' || echo '$(srcdir)/'`valuesRegistry/ValueTrig.cpp
+
+ValueTrig.obj: valuesRegistry/ValueTrig.cpp
+	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT ValueTrig.obj -MD -MP -MF $(DEPDIR)/ValueTrig.Tpo -c -o ValueTrig.obj `if test -f 'valuesRegistry/ValueTrig.cpp'; then $(CYGPATH_W) 'valuesRegistry/ValueTrig.cpp'; else $(CYGPATH_W) '$(srcdir)/valuesRegistry/ValueTrig.cpp'; fi`
+	$(am__mv) $(DEPDIR)/ValueTrig.Tpo $(DEPDIR)/ValueTrig.Po
+#	source='valuesRegistry/ValueTrig.cpp' object='ValueTrig.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o ValueTrig.obj `if test -f 'valuesRegistry/ValueTrig.cpp'; then $(CYGPATH_W) 'valuesRegistry/ValueTrig.cpp'; else $(CYGPATH_W) '$(srcdir)/valuesRegistry/ValueTrig.cpp'; fi`
+
+trigList.o: valuesRegistry/trigList.cpp
+	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT trigList.o -MD -MP -MF $(DEPDIR)/trigList.Tpo -c -o trigList.o `test -f 'valuesRegistry/trigList.cpp' || echo '$(srcdir)/'`valuesRegistry/trigList.cpp
+	$(am__mv) $(DEPDIR)/trigList.Tpo $(DEPDIR)/trigList.Po
+#	source='valuesRegistry/trigList.cpp' object='trigList.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o trigList.o `test -f 'valuesRegistry/trigList.cpp' || echo '$(srcdir)/'`valuesRegistry/trigList.cpp
+
+trigList.obj: valuesRegistry/trigList.cpp
+	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT trigList.obj -MD -MP -MF $(DEPDIR)/trigList.Tpo -c -o trigList.obj `if test -f 'valuesRegistry/trigList.cpp'; then $(CYGPATH_W) 'valuesRegistry/trigList.cpp'; else $(CYGPATH_W) '$(srcdir)/valuesRegistry/trigList.cpp'; fi`
+	$(am__mv) $(DEPDIR)/trigList.Tpo $(DEPDIR)/trigList.Po
+#	source='valuesRegistry/trigList.cpp' object='trigList.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o trigList.obj `if test -f 'valuesRegistry/trigList.cpp'; then $(CYGPATH_W) 'valuesRegistry/trigList.cpp'; else $(CYGPATH_W) '$(srcdir)/valuesRegistry/trigList.cpp'; fi`
+
+valuesRegistry.o: valuesRegistry/valuesRegistry.cpp
+	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT valuesRegistry.o -MD -MP -MF $(DEPDIR)/valuesRegistry.Tpo -c -o valuesRegistry.o `test -f 'valuesRegistry/valuesRegistry.cpp' || echo '$(srcdir)/'`valuesRegistry/valuesRegistry.cpp
+	$(am__mv) $(DEPDIR)/valuesRegistry.Tpo $(DEPDIR)/valuesRegistry.Po
+#	source='valuesRegistry/valuesRegistry.cpp' object='valuesRegistry.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o valuesRegistry.o `test -f 'valuesRegistry/valuesRegistry.cpp' || echo '$(srcdir)/'`valuesRegistry/valuesRegistry.cpp
+
+valuesRegistry.obj: valuesRegistry/valuesRegistry.cpp
+	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT valuesRegistry.obj -MD -MP -MF $(DEPDIR)/valuesRegistry.Tpo -c -o valuesRegistry.obj `if test -f 'valuesRegistry/valuesRegistry.cpp'; then $(CYGPATH_W) 'valuesRegistry/valuesRegistry.cpp'; else $(CYGPATH_W) '$(srcdir)/valuesRegistry/valuesRegistry.cpp'; fi`
+	$(am__mv) $(DEPDIR)/valuesRegistry.Tpo $(DEPDIR)/valuesRegistry.Po
+#	source='valuesRegistry/valuesRegistry.cpp' object='valuesRegistry.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o valuesRegistry.obj `if test -f 'valuesRegistry/valuesRegistry.cpp'; then $(CYGPATH_W) 'valuesRegistry/valuesRegistry.cpp'; else $(CYGPATH_W) '$(srcdir)/valuesRegistry/valuesRegistry.cpp'; fi`
 
 crc16.o: ../../rcsLib/crc/crc16.cpp
 	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT crc16.o -MD -MP -MF $(DEPDIR)/crc16.Tpo -c -o crc16.o `test -f '../../rcsLib/crc/crc16.cpp' || echo '$(srcdir)/'`../../rcsLib/crc/crc16.cpp
