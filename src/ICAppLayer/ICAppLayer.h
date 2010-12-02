@@ -1,5 +1,7 @@
 #include <pthread.h> 
 #include "../valuesRegistry/valuesRegistry.h"
+#include "../valuesRegistry/valueTrig.h"
+#include "../valuesRegistry/trigList.h"
 
 typedef struct serviceState {
     BYTE linked:1;
@@ -32,7 +34,7 @@ class ICAppLayer
     
     udp_port *equip_listen;//, *equip_sending;
     //buffer* equip_recvBuffer;
-    
+    trigList triggers;
     valuesRegistry registry;
 
     errType Decode_message(BYTE* dataBlock, DWORD length, rcsCmd *ss_cmd);
@@ -60,6 +62,7 @@ class ICAppLayer
 	
 	errType equip_reading_event();
 	errType equip_read_data(BYTE*, size_t *);
+	errType checkTriggers();
 	
 	errType ProcessMessages();
 	

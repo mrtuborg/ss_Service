@@ -82,6 +82,12 @@ bool statusFrame::isRemoteControl()
      return result;
 }
 
+bool statusFrame::isCPControl()
+{
+     bool result=~(frame.controlSwitch.fields.remoteControl|frame.controlSwitch.fields.localControl);
+     return result;
+}
+
 BYTE statusFrame::getSystemLinkStatus(BYTE num)
 {
     // BUZ =0
@@ -305,4 +311,4 @@ void statusFrame::dbgPrint()
 	printf("правый=%d\n\n",frame.esa_sensor.fields.fold[2].fields.value_0);
 
 	printf("Контрольная сумма=0x%.4X\n",frame.checkSumm);
-}
+}                                           

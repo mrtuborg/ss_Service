@@ -340,6 +340,11 @@ errType ICAppLayer::sendResult(sockaddr_in *sfrom, rcsCmd* ss_cmd)
 	return result;
 }
 
+errType ICAppLayer::checkTriggers()
+{
+
+}
+
 errType ICAppLayer::ProcessMessages()
 {
     errType result=err_not_init;
@@ -354,9 +359,14 @@ errType ICAppLayer::ProcessMessages()
 	printf("Запуск отменён!\n");
 	return result;
     }
-    if (ICAppLayer_recvBuffer->size()==0) return err_not_init;
+
+    // 8) Check values registry
+    if ((ICAppLayer_recvBuffer->size()==0) || (1)) return err_not_init;
     if (rcvComplete_flag==false) return err_not_init;
     
+
+
+
 //   TODO: link bit in serviceState
 //    if (equip_listen->scanIfaces()<ifCount)
 //    {
@@ -406,7 +416,7 @@ errType ICAppLayer::ProcessMessages()
     if (result==err_result_ok) {
 	sndAllow_flag=true;
     }
-// 8) Check values registry
+
     
     return result;
 

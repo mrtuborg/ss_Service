@@ -30,7 +30,7 @@ void* EquipListenPolling(void* user)
 
         if (result==err_result_ok) {
 	    app->equip_read_data(writingBuffer, (size_t*)&sz);
-	    EquipListenProcessing(writingBuffer, sz);
+	    equipListenProcessing(writingBuffer, sz);
 	}
 	sched_yield();
     }                                                                           
@@ -56,7 +56,7 @@ errType CommonFuncs::StartCommonFuncs()
     // 1. Function definition
     //    Function #32 have 1 result argument and haven't parameters
     //    Set pointer to function implementaion
-    func=new FunctionNode(32,0,1,EmergencyShutdown);
+    func=new FunctionNode(32,0,1,emergencyShutdown);
     func->setFuncName("Аварийное завершение подсистемы");
     // 2. Definitions for parameters: not needed
     //func->setParamDescriptor();
@@ -74,7 +74,7 @@ errType CommonFuncs::StartCommonFuncs()
     // 1. Function definition
     //    Function #33 have 1 parameter and 1 result argument
     //    Set pointer to function implementaion
-    func=new FunctionNode(33,1,1,ControlModeChange);
+    func=new FunctionNode(33,1,1,controlModeChange);
     func->setFuncName("Смена оперативного режима службы");
     // 2. Definitions for parameters:
     func->setParamDescriptor(0,type_BYTE);
@@ -94,7 +94,7 @@ errType CommonFuncs::StartCommonFuncs()
     // 1. Function definition
     //    Function #34 have 0 parameters and 1 result argument
     //    Set pointer to function implementaion
-    func=new FunctionNode(34,0,2,GetStateVector);
+    func=new FunctionNode(34,0,2,getStateVector);
     func->setFuncName("Запрос вектора состояния службы");
 
     // 2. Definitions for parameters: not needed

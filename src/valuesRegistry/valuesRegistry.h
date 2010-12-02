@@ -34,6 +34,8 @@ public:
     OrtsType getType(WORD index);
     const char* getName (WORD index);
     size_t quantity();
+
+
 };
 
 #endif /* VALUESREGISTRY_H_ */

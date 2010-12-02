@@ -30,8 +30,8 @@ Kernel configured for up to 2 processors.
 Processor type: i486 (Intel 80486)
 Processors active: 0 1
 Primary memory available: 4.00 gigabytes
-Default processor set: 84 tasks, 388 threads, 2 processors
-Load average: 1.85, Mach factor: 0.86
+Default processor set: 81 tasks, 428 threads, 2 processors
+Load average: 0.82, Mach factor: 1.49
 /bin/machine           = unknown
 /usr/bin/oslevel       = unknown
 /bin/universe          = unknown
@@ -653,14 +653,14 @@ am_cv_CXX_dependencies_compiler_type=gcc3
 ## Output variables. ##
 ## ----------------- ##
 
-ACLOCAL='${SHELL} /Users/tuborg/workspace/ss_Service/missing --run aclocal-1.11'
+ACLOCAL='${SHELL} /Users/tuborg/Workspace/ss_Service/missing --run aclocal-1.11'
 AMDEPBACKSLASH='\'
 AMDEP_FALSE='#'
 AMDEP_TRUE=''
-AMTAR='${SHELL} /Users/tuborg/workspace/ss_Service/missing --run tar'
-AUTOCONF='${SHELL} /Users/tuborg/workspace/ss_Service/missing --run autoconf'
-AUTOHEADER='${SHELL} /Users/tuborg/workspace/ss_Service/missing --run autoheader'
-AUTOMAKE='${SHELL} /Users/tuborg/workspace/ss_Service/missing --run automake-1.11'
+AMTAR='${SHELL} /Users/tuborg/Workspace/ss_Service/missing --run tar'
+AUTOCONF='${SHELL} /Users/tuborg/Workspace/ss_Service/missing --run autoconf'
+AUTOHEADER='${SHELL} /Users/tuborg/Workspace/ss_Service/missing --run autoheader'
+AUTOMAKE='${SHELL} /Users/tuborg/Workspace/ss_Service/missing --run automake-1.11'
 AWK='awk'
 CC='gcc'
 CCDEPMODE='depmode=gcc3'
@@ -687,7 +687,7 @@ LDFLAGS=''
 LIBOBJS=''
 LIBS=''
 LTLIBOBJS=''
-MAKEINFO='${SHELL} /Users/tuborg/workspace/ss_Service/missing --run makeinfo'
+MAKEINFO='${SHELL} /Users/tuborg/Workspace/ss_Service/missing --run makeinfo'
 MKDIR_P='./install-sh -c -d'
 OBJEXT='o'
 PACKAGE='r168'
@@ -727,7 +727,7 @@ host_alias=''
 htmldir='${docdir}'
 includedir='${prefix}/include'
 infodir='${datarootdir}/info'
-install_sh='${SHELL} /Users/tuborg/workspace/ss_Service/install-sh'
+install_sh='${SHELL} /Users/tuborg/Workspace/ss_Service/install-sh'
 libdir='${exec_prefix}/lib'
 libexecdir='${exec_prefix}/libexec'
 localedir='${datarootdir}/locale'
