@@ -249,7 +249,7 @@ errType ICAppLayer::Decode_message(BYTE* dataBlock, DWORD length, rcsCmd *ss_cmd
 	    if (decoded)
 	    {
 		fn_num=ss_cmd->get_func_id();
-		if ((Functions[fn_num])->id()!=ss_cmd->get_func_id()) 
+		if ((!Functions[fn_num]) || ((Functions[fn_num])->id()!=ss_cmd->get_func_id()))
 		{
 		// Function doesn't exist!!!
 		    printf ("ОШИБКА: Запрос на обслуживание нереализованной функции\n");
@@ -292,27 +292,35 @@ errType ICAppLayer::prepare_FuncResult(rcsCmd* in_cmd, rcsCmd* out_cmd)
 {
 	BYTE *ret;
 	BYTE *resData;
+	int offset=0; //BYTE func_id + DWORD paramsLength = 5
+
 	int size;
 	errType result=err_result_ok;
 
 	OrtsType  *err_val;
 	DWORD err_len;
 	int fn_num=in_cmd->get_func_id();
-	(Functions[fn_num])->getResult(0, (void**)&err_val, &err_len);
+	if (Functions[fn_num]) {
+	    (Functions[fn_num])->getResult(0, (void**)&err_val, &err_len);
 	
 	
-	int func_resultsQuantity=(Functions[fn_num])->getResultsQuantity();
-	size=(Functions[fn_num])->getAllResultsLength();
+	    int func_resultsQuantity=(Functions[fn_num])->getResultsQuantity();
+	    size=(Functions[fn_num])->getAllResultsLength();
 	
-	resData=new BYTE[size];
+	    resData=new BYTE[size];
 	
-	int offset=0; //BYTE func_id + DWORD paramsLength = 5
-	DWORD ret_len=0;
+	    DWORD ret_len=0;
 	
-	for (int i=0; i<func_resultsQuantity; i++) {
-	    (Functions[fn_num])->getResult(i, (void**)&ret, &ret_len);
-	    memcpy(resData+offset, ret, ret_len);
-	    offset+=ret_len;
+	    for (int i=0; i<func_resultsQuantity; i++) {
+		(Functions[fn_num])->getResult(i, (void**)&ret, &ret_len);
+		memcpy(resData+offset, ret, ret_len);
+		offset+=ret_len;
+	    }
+	} else {
+	    resData=new BYTE[1];
+	    *resData=(int)err_not_found;
+	    offset=1;
+	
 	}
 	out_cmd->encode(fn_num, offset, resData);
 	out_cmd->makeSign();
@@ -361,7 +369,7 @@ errType ICAppLayer::ProcessMessages()
     }
 
     // 8) Check values registry
-    if ((ICAppLayer_recvBuffer->size()==0) || (1)) return err_not_init;
+    if (ICAppLayer_recvBuffer->size()==0) return err_not_init;
     if (rcvComplete_flag==false) return err_not_init;
     
 
@@ -382,7 +390,7 @@ errType ICAppLayer::ProcessMessages()
 
     dataBlock=new BYTE[len];
     
-    ICAppLayer_recvBuffer->dbgPrint();
+    //ICAppLayer_recvBuffer->dbgPrint();
     length=ICAppLayer_recvBuffer->popBlock(&sfrom, dataBlock);
     
     
@@ -397,7 +405,7 @@ errType ICAppLayer::ProcessMessages()
     //if (result==err_result_ok) 
     
     
-    if (result!=err_result_ok) result=(Functions[in_cmd->get_func_id()])->setResult(0,&result);
+    if ((result!=err_result_ok) && (result!=err_not_found)) result=(Functions[in_cmd->get_func_id()])->setResult(0,&result);
     
     result=prepare_FuncResult(in_cmd, out_cmd);
     
