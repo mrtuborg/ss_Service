@@ -78,10 +78,7 @@ CommonFuncs.o CommonFuncs.o: Functions/CommonFuncs.cpp \
   /usr/include/netinet/udp.h \
   Functions/../ICAppLayer/FunctionNode/param_desc.h \
   Functions/../ICAppLayer/FunctionNode/FunctionNode.h \
-  Functions/../ICAppLayer/ICAppLayer.h \
-  Functions/../ICAppLayer/../valuesRegistry/valuesRegistry.h \
-  /usr/include/c++/4.2.1/list /usr/include/c++/4.2.1/bits/stl_list.h \
-  /usr/include/c++/4.2.1/bits/list.tcc Functions/CommonFuncs.h \
+  Functions/../ICAppLayer/ICAppLayer.h Functions/CommonFuncs.h \
   Functions/functions.h
 
 /usr/include/pthread.h:
@@ -325,14 +322,6 @@ Functions/../ICAppLayer/FunctionNode/param_desc.h:
 Functions/../ICAppLayer/FunctionNode/FunctionNode.h:
 
 Functions/../ICAppLayer/ICAppLayer.h:
-
-Functions/../ICAppLayer/../valuesRegistry/valuesRegistry.h:
-
-/usr/include/c++/4.2.1/list:
-
-/usr/include/c++/4.2.1/bits/stl_list.h:
-
-/usr/include/c++/4.2.1/bits/list.tcc:
 
 Functions/CommonFuncs.h:
 

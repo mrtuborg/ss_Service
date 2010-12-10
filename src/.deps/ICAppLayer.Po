@@ -109,9 +109,6 @@ ICAppLayer.o ICAppLayer.o: ICAppLayer/ICAppLayer.cpp /usr/include/stdio.h \
   /usr/include/netinet/in_systm.h /usr/include/netinet/udp.h \
   ICAppLayer/../deqUdp/deqUdp.h ICAppLayer/FunctionNode/param_desc.h \
   ICAppLayer/FunctionNode/FunctionNode.h ICAppLayer/ICAppLayer.h \
-  ICAppLayer/../valuesRegistry/valuesRegistry.h \
-  /usr/include/c++/4.2.1/list /usr/include/c++/4.2.1/bits/stl_list.h \
-  /usr/include/c++/4.2.1/bits/list.tcc \
   ICAppLayer/../Functions/CommonFuncs.h
 
 /usr/include/stdio.h:
@@ -437,13 +434,5 @@ ICAppLayer/FunctionNode/param_desc.h:
 ICAppLayer/FunctionNode/FunctionNode.h:
 
 ICAppLayer/ICAppLayer.h:
-
-ICAppLayer/../valuesRegistry/valuesRegistry.h:
-
-/usr/include/c++/4.2.1/list:
-
-/usr/include/c++/4.2.1/bits/stl_list.h:
-
-/usr/include/c++/4.2.1/bits/list.tcc:
 
 ICAppLayer/../Functions/CommonFuncs.h:

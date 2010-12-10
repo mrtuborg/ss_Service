@@ -73,10 +73,7 @@ SpecFuncs.o SpecFuncs.o: Functions/SpecFuncs.cpp /usr/include/pthread.h \
   /usr/include/netinet/in_systm.h /usr/include/netinet/udp.h \
   Functions/../ICAppLayer/FunctionNode/param_desc.h \
   Functions/../ICAppLayer/FunctionNode/FunctionNode.h \
-  Functions/../ICAppLayer/ICAppLayer.h \
-  Functions/../ICAppLayer/../valuesRegistry/valuesRegistry.h \
-  /usr/include/c++/4.2.1/list /usr/include/c++/4.2.1/bits/stl_list.h \
-  /usr/include/c++/4.2.1/bits/list.tcc Functions/SpecFuncs.h \
+  Functions/../ICAppLayer/ICAppLayer.h Functions/SpecFuncs.h \
   Functions/functions.h
 
 /usr/include/pthread.h:
@@ -306,14 +303,6 @@ Functions/../ICAppLayer/FunctionNode/param_desc.h:
 Functions/../ICAppLayer/FunctionNode/FunctionNode.h:
 
 Functions/../ICAppLayer/ICAppLayer.h:
-
-Functions/../ICAppLayer/../valuesRegistry/valuesRegistry.h:
-
-/usr/include/c++/4.2.1/list:
-
-/usr/include/c++/4.2.1/bits/stl_list.h:
-
-/usr/include/c++/4.2.1/bits/list.tcc:
 
 Functions/SpecFuncs.h:
 
