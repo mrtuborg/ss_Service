@@ -181,7 +181,7 @@ class statusFrame{
 	~statusFrame();
 	
 	BYTE getShieldState(BYTE num);// + opened
-	BYTE getHydroSystemState(BYTE num);
+	BYTE getHydroSystemStatus();
 	BYTE getHydroSystemValues(BYTE num); // 0 - pressure, 1 - oil_level, 2 - temp, 3 - filters
 	bool isLocalControl();
 	bool isRemoteControl();

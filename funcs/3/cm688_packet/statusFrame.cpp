@@ -29,14 +29,15 @@ BYTE statusFrame::getShieldState(BYTE num)// + opened
     return result;
 }
 
-BYTE statusFrame::getHydroSystemState(BYTE num)
+BYTE statusFrame::getHydroSystemStatus()
 {
     // ...1 - alert
     // ..1. - norm
     // .1.. - ready
     // 1... - poweron
 
-     BYTE result=0;
+     BYTE result=frame.hydroSystem_status.bValue;
+     /*;
      switch (num)
      {
         case 0:
@@ -52,7 +53,7 @@ BYTE statusFrame::getHydroSystemState(BYTE num)
 	    result=frame.hydroSystem_status.fields.poweron;
 	    break;
         
-     }
+     } */
      return result;
 }
 
