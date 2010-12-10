@@ -84,25 +84,24 @@ errType SpecFuncs::StartSpecFuncs()
 
 	appLayer->CreateNewFunction(func);
 	
-	func=new FunctionNode(5,0,5,hydroSystemGetParams);
+	func=new FunctionNode(5,0,6,hydroSystemGetParams);
 	func->setFuncName("Получить параметры гидросистемы");
 	func->setResultDescriptor(0, type_ERRTYPE);
-
 	func->setResultName(0,"Квитанция исполнения");
-
 	func->setResultDescriptor(1, type_BYTE);
 	func->setResultName(1,"Давление в системе");
-	func->setResultDescriptor(1, type_BYTE);
-	func->setResultName(2,"Уровень жидкости");
 	func->setResultDescriptor(2, type_BYTE);
-	func->setResultName(3,"Температура жидкости");
+	func->setResultName(2,"Уровень жидкости");
 	func->setResultDescriptor(3, type_BYTE);
-	func->setResultName(4,"Загрязнение фильтров");
+	func->setResultName(3,"Температура жидкости");
 	func->setResultDescriptor(4, type_BYTE);
+	func->setResultName(4,"Загрязнение фильтров");
+	func->setResultDescriptor(5, type_BYTE);
+	func->setResultName(5,"Состояние гидросистемы");
 	
 	appLayer->CreateNewFunction(func);
 	
-	func=new FunctionNode(6,1,1,foldOpen);
+	func=new FunctionNode(6,1,2,foldOpen);
 	func->setFuncName("Открыть створку");
 
 	func->setParamDescriptor(0, type_BYTE);
@@ -110,10 +109,12 @@ errType SpecFuncs::StartSpecFuncs()
 
 	func->setResultDescriptor(0, type_ERRTYPE);
 	func->setResultName(0,"Квитанция исполнения");
+	func->setResultDescriptor(1, type_BYTE);
+	func->setResultName(1,"Номер створки");
 	
 	appLayer->CreateNewFunction(func);
 	
-	func=new FunctionNode(7,1,1,foldClose);
+	func=new FunctionNode(7,1,2,foldClose);
 	func->setFuncName("Закрыть створку");
 
 	func->setParamDescriptor(0, type_BYTE);
@@ -121,10 +122,13 @@ errType SpecFuncs::StartSpecFuncs()
 
 	func->setResultDescriptor(0, type_ERRTYPE);
 	func->setResultName(0,"Квитанция исполнения");
+	func->setResultDescriptor(1, type_BYTE);
+	func->setResultName(1,"Номер створки");
+
 	
 	appLayer->CreateNewFunction(func);
 	
-	func=new FunctionNode(8,1,1,foldStop);
+	func=new FunctionNode(8,1,2,foldStop);
 	func->setFuncName("Остановить створку");
 
 	func->setParamDescriptor(0, type_BYTE);
@@ -132,6 +136,8 @@ errType SpecFuncs::StartSpecFuncs()
 
 	func->setResultDescriptor(0, type_ERRTYPE);
 	func->setResultName(0,"Квитанция исполнения");
+	func->setResultDescriptor(1, type_BYTE);
+	func->setResultName(1,"Номер створки");
 	
 	appLayer->CreateNewFunction(func);
 	
@@ -160,7 +166,7 @@ errType SpecFuncs::StartSpecFuncs()
 	
 	appLayer->CreateNewFunction(func);
 	
-	func=new FunctionNode(12,1,3,foldGetParams);
+	func=new FunctionNode(12,1,4,foldGetParams);
 	func->setFuncName("Получить параметры створки");
 	
 	func->setParamDescriptor(0, type_BYTE);
@@ -170,14 +176,17 @@ errType SpecFuncs::StartSpecFuncs()
 	func->setResultName(0,"Квитанция исполнения");
 	
 	func->setResultDescriptor(1, type_BYTE);
-	func->setResultName(1,"Код состояния");
+	func->setResultName(1,"Номер створки");
+
+	func->setResultDescriptor(2, type_BYTE);
+	func->setResultName(2,"Код состояния");
 	
-	func->setResultDescriptor(2, type_WORD);
-	func->setResultName(2,"Угол положения");
+	func->setResultDescriptor(3, type_WORD);
+	func->setResultName(3,"Угол положения");
 	
 	appLayer->CreateNewFunction(func);
 	
-	func=new FunctionNode(13,3,2,semiaxisSensorsGetState);
+	func=new FunctionNode(13,3,5,semiaxisSensorsGetState);
 	func->setFuncName("Получить значения полуосей");
 
 	func->setParamDescriptor(0, type_BYTE);
@@ -193,21 +202,33 @@ errType SpecFuncs::StartSpecFuncs()
 	func->setResultName(0,"Квитанция исполнения");
 	
 	func->setResultDescriptor(1, type_BYTE);
-	func->setResultName(1,"Состояние датчика полуоси");
+	func->setResultName(1,"Номер створки");
+
+	func->setResultDescriptor(2, type_BYTE);
+	func->setResultName(2,"Номер полуоси");
+
+	func->setResultDescriptor(3, type_BYTE);
+	func->setResultName(3,"Номер датчика");
+
+	func->setResultDescriptor(4, type_BYTE);
+	func->setResultName(4,"Состояние датчика полуоси");
 
 	appLayer->CreateNewFunction(func);
 		
-	func=new FunctionNode(14,1,2,getUZstate);
-	func->setFuncName("Переключить вектор состояния УЗ");
+	func=new FunctionNode(14,1,3,getUZstate);
+	func->setFuncName("Получить вектор состояния УЗ");
 
 	func->setParamDescriptor(0, type_BYTE);
 	func->setParamName(0,"Номер УЗ");
 
 	func->setResultDescriptor(0, type_ERRTYPE);
 	func->setResultName(0,"Квитанция исполнения");
+	
+	func->setResultDescriptor(1, type_BYTE);
+	func->setResultName(1,"Номер УЗ");
 
-	func->setResultDescriptor(0, type_BYTE);
-	func->setResultName(0,"Вектор состояния");
+	func->setResultDescriptor(2, type_BYTE);
+	func->setResultName(2,"Вектор состояния");
 
 	appLayer->CreateNewFunction(func);
 
@@ -222,7 +243,7 @@ errType SpecFuncs::StartSpecFuncs()
 	
 	appLayer->CreateNewFunction(func);
 	
-        func=new FunctionNode(16,0,2,changeControlMode);
+        func=new FunctionNode(16,0,2,getControlMode);
         func->setFuncName("Запросить значение выбранного пульта управления");
 
         func->setResultDescriptor(0, type_ERRTYPE);
@@ -247,6 +268,54 @@ errType SpecFuncs::StartSpecFuncs()
 	func->setResultName(0,"Квитанция исполнения");
 	
 	appLayer->CreateNewFunction(func);
+	
+	func=new FunctionNode(19,0,6,allFoldsGetParams);
+	func->setFuncName("Получить параметры всех створок");
+	
+	func->setResultDescriptor(0, type_ERRTYPE);
+	func->setResultName(0,"Квитанция исполнения");
+	
+	func->setResultDescriptor(1, type_BYTE);
+	func->setResultName(1,"Код состояния створки 0");
+	
+	func->setResultDescriptor(2, type_WORD);
+	func->setResultName(2,"Угол положения створки 0");
+	
+	func->setResultDescriptor(3, type_BYTE);
+	func->setResultName(3,"Код состояния створки 1");
+	
+	func->setResultDescriptor(4, type_WORD);
+	func->setResultName(4,"Угол положения створки 1");
+	
+	func->setResultDescriptor(5, type_BYTE);
+	func->setResultName(5,"Код состояния створки 2");
+	
+	func->setResultDescriptor(6, type_WORD);
+	func->setResultName(6,"Угол положения створки 2");
+	
+	appLayer->CreateNewFunction(func);
+	
+	func=new FunctionNode(20,0,2,allSemiaxisSensorsGetState);
+	func->setFuncName("Получить значения всех датчиков полуосей");
+
+	func->setResultDescriptor(0, type_ERRTYPE);
+	func->setResultName(0,"Квитанция исполнения");
+	
+	func->setResultDescriptor(1, type_WORD);
+	func->setResultName(1,"Вектор состояния датчиков");
+	appLayer->CreateNewFunction(func);
+	
+	func=new FunctionNode(21,0,2,getAllUZstate);
+	func->setFuncName("Получить вектор состояния УЗ");
+
+	func->setResultDescriptor(0, type_ERRTYPE);
+	func->setResultName(0,"Квитанция исполнения");
+	
+	func->setResultDescriptor(1, type_BYTE);
+	func->setResultName(1,"Вектор состояния УЗ");
+
+	appLayer->CreateNewFunction(func);
+
 	
     return result;
 }

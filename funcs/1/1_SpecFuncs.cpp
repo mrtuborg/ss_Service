@@ -2,9 +2,10 @@
 #include <pthread.h>
 #include <netinet/in.h>
 #include <deque>
-#include "../myTypes.h"
+#include "../../rcsLib/ortsTypes/ortsTypes.h"
 #include "../buffer/ssBuffer.h"
-#include "../ICAppLayer/cmd.h"
+#include "../../rcsLib/rcsCmd/rcsCmd.h"
+#include "../../rcsLib/udp_port/udp_port.h"
 #include "../ICAppLayer/FunctionNode/param_desc.h"
 #include "../ICAppLayer/FunctionNode/FunctionNode.h"
 #include "../ICAppLayer/ICAppLayer.h"
@@ -43,29 +44,38 @@ errType SpecFuncs::StartSpecFuncs()
     //
     // 4. Add function to Application interchange layer:
     //code: appLayer->CreateNewFunction(func);
-	    func=new FunctionNode(1,2,1,CreateGeneralSchedule);
-	    func->setParamDescriptor(0,1);
-	    func->setParamDescriptor(1,255,false); // is not scalar
-	    func->setResultDescriptor(0,1);
+	    func=new FunctionNode(1,8,2,addScheduleJob);
+
+	    func->setParamDescriptor(0, type_BYTE);
+	    func->setParamName(0,"Признак аварийной операции");
+
+	    func->setParamDescriptor(1, type_DWORD);
+	    func->setParamName(1,"Идентификатор операции");
+
+	    func->setParamDescriptor(2, type_WORD);
+	    func->setParamName(2,"Время начала операции");
+
+	    func->setParamDescriptor(3, type_WORD);
+	    func->setParamName(3,"Время окончания операции");
+
+	    func->setParamDescriptor(4, type_BYTE);
+	    func->setParamName(4,"Идентификатор службы-исполнителя");
+
+	    func->setParamDescriptor(5, type_BYTE);
+	    func->setParamName(5,"Идентификатор функции-исполнителя");
+
+	    func->setParamDescriptor(6, type_WORD);
+	    func->setParamName(6,"Длина параметрической части");
+
+	    func->setParamDescriptor(7, type_BYTEVECTOR);
+	    func->setParamName(7,"Параметрическая часть");
+
+	    func->setResultDescriptor(0,type_ERRTYPE);
+	    func->setResultName(0, "Квитанция исполнения");
+
 	    appLayer->CreateNewFunction(func);
-	    func=new FunctionNode(2,1,1,CreateEmergencySchedule);
-	    func->setParamDescriptor(0,10, false); // is not scalar
-	    func->setResultDescriptor(0,1);
-	    appLayer->CreateNewFunction(func);
-	    func=new FunctionNode(3,1,2,ReadGeneralSchedule);
-	    func->setParamDescriptor(0,4);
-	    func->setResultDescriptor(0,1);
-	    func->setResultDescriptor(1,10);
-	    appLayer->CreateNewFunction(func);
-	    func=new FunctionNode(4,0,2,ReadEmergencySchedule);
-	    func->setResultDescriptor(0,1);
-	    func->setResultDescriptor(1,10);
-	    appLayer->CreateNewFunction(func);
-	    func=new FunctionNode(5,1,2,GetCursorPosition);
-	    func->setParamDescriptor(0,1);
-	    func->setResultDescriptor(0,1);
-	    func->setResultDescriptor(1,8);
-	    appLayer->CreateNewFunction(func);
+
+
     return result;
 }
 

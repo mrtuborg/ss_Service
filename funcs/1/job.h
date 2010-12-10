@@ -1,7 +1,13 @@
+typedef struct job_type{
+        DWORD objId;
+        WORD timeStart;
+        WORD timeEnd;
+        BYTE service_id;
+        rcsCmd_type* cmd;
+} __attribute__((packed)) job_type;
+
 class job{
-    DWORD time_ms;
-    BYTE service_id;
-    cmd action;
+      job_type* jobEntity;
     
     public:
 	job();
@@ -11,12 +17,11 @@ class job{
 	void decode(BYTE*);
 	WORD getLength();
 	
-	DWORD get_dwTime();
-	BYTE* get_strTime();
+	DWORD get_dwObjId();
+	WORD get_wTimeStart();
+	WORD get_wTimeEnd();
 	BYTE get_btServId();
-	BYTE get_btFuncId();
-	WORD get_paramsLen();
-	BYTE* get_paramsPtr();
+	rcsCmd_type *cmd();
 	
 	void dbgPrint();
 };

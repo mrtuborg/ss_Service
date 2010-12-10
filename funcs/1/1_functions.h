@@ -2,14 +2,19 @@
 //-----------------------------
 extern errType srvInit();
 extern errType srvDeinit();
-extern void* PollingThreadFunc(void*);
 
-extern errType EmergencyShutdown(void*);
-extern errType ControlModeChange(void*);
-extern errType GetStateVector(void*);
+extern errType equipListenProcessing(BYTE *writingBuffer, size_t sz);
+extern void* pollingThread(void* user);
 
-extern errType CreateGeneralSchedule(void*);
-extern errType CreateEmergencySchedule(void*);
+//extern void* PollingThreadFunc(void*);
+
+extern errType emergencyShutdown(void*);
+extern errType controlModeChange(void*);
+extern errType getStateVector(void*);
+
+extern errType addScheduleJob(void*);
+
+
 extern errType ReadGeneralSchedule(void*);
 extern errType ReadEmergencySchedule(void*);
 extern errType GetCursorPosition(void*);

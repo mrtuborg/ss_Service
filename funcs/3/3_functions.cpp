@@ -224,16 +224,19 @@ errType hydroSystemGetParams(void* fn)
   FunctionNode* func = (FunctionNode*) fn;
 
   func->printParams();
+  
   BYTE pressure=answerFrame->getHydroSystemValues(0);
   BYTE oilLevel=answerFrame->getHydroSystemValues(1);
   BYTE temp=answerFrame->getHydroSystemValues(2);
   BYTE filters=answerFrame->getHydroSystemValues(3);
+  BYTE status=answerFrame->getHydroSystemStatus();
 
-  // 0 - pressure, 1 - oil_level, 2 - temp, 3 - filters
+  // 1 - pressure, 2 - oil_level, 3 - temp, 4 - filters
   func->setResult(1, &pressure);
   func->setResult(2, &oilLevel);
   func->setResult(3, &temp);
   func->setResult(4, &filters);
+  func->setResult(5, &status);
 
   func->printResults();
 
@@ -251,7 +254,7 @@ errType foldOpen(void* fn)
   BYTE foldId = *(BYTE*) func->getParamPtr(0);
 
   sendFrame->setFoldOpen(foldId);
-
+  func->setResult(1, &foldId);
   func->printResults();
 
   return result;
@@ -268,7 +271,7 @@ errType foldClose(void* fn)
   BYTE foldId = *(BYTE*) func->getParamPtr(0);
 
   sendFrame->setFoldClose(foldId);
-
+  func->setResult(1, &foldId);
   func->printResults();
 
   return result;
@@ -285,7 +288,9 @@ errType foldStop(void* fn)
   BYTE foldId = *(BYTE*) func->getParamPtr(0);
 
   sendFrame->setFoldStop(foldId);
-
+ 
+  func->setResult(1, &foldId);
+ 
   func->printResults();
 
   return result;
@@ -338,6 +343,9 @@ errType shieldStop(void* fn)
 
 errType foldGetParams(void* fn)
 {
+  BYTE foldState;
+  WORD foldPos;
+  
   errType result = err_not_init;
 
   FunctionNode* func = (FunctionNode*) fn;
@@ -345,11 +353,18 @@ errType foldGetParams(void* fn)
   func->printParams();
 
   BYTE fold_id = *(BYTE*)func->getParamPtr(0);
-  BYTE foldState = answerFrame->getFoldState(fold_id);
-  WORD foldPos = answerFrame->getFoldPosition(fold_id);
-  func->setResult(1, &foldState);
-  func->setResult(2, &foldPos);
 
+
+  func->setResult(1, &fold_id);
+  
+  if (fold_id<3) {
+    foldState = answerFrame->getFoldState(fold_id);
+    foldPos = answerFrame->getFoldPosition(fold_id);
+    result=err_result_ok;
+    func->setResult(2, &foldState);
+    func->setResult(3, &foldPos);
+  }
+  
   func->printResults();
 
   return result;
@@ -372,9 +387,11 @@ errType semiaxisSensorsGetState(void* fn)
   {
   case 0: //(in-path-sensor)
     sensorState = answerFrame->get_psa_sensors(fold_id);
+    result=err_result_ok;
     break;
   case 1: //ending sensor
     sensorState = answerFrame->get_esa_sensors(fold_id);
+    result=err_result_ok;
     break;
   default:
     result = err_params_value;
@@ -385,17 +402,22 @@ errType semiaxisSensorsGetState(void* fn)
   {
   case 0: //right semiaxis
     sensorState &= 0x01;
+    result=err_result_ok;
     break;
   case 1: //left semiaxis
     sensorState &= 0x02;
     sensorState >>= 1;
+    result=err_result_ok;
     break;
   default:
     result = err_params_value;
     break;
   }
 
-  func->setResult(1, &sensorState);
+  func->setResult(1, &fold_id);
+  func->setResult(2, &semiaxis_id);
+  func->setResult(3, &sensor_id);
+  func->setResult(4, &sensorState);
 
   func->printResults();
 
@@ -436,7 +458,6 @@ errType getControlMode(void* fn)
   FunctionNode* func = (FunctionNode*) fn;
   func->printParams();
   BYTE mode=3;
-
   if (answerFrame->isLocalControl()) mode=2;
   if (answerFrame->isRemoteControl()) mode=1;
   if (answerFrame->isCPControl()) mode=0;
@@ -492,7 +513,6 @@ typedef union uzState_type{
 
 errType getUZstate(void* fn)
 {
-
   errType result = err_result_ok;
 
   FunctionNode* func = (FunctionNode*) fn;
@@ -508,9 +528,97 @@ errType getUZstate(void* fn)
   UZ.fields.UZ_manual   = answerFrame->isUZ_manual(UZ_id);
   UZ.fields.UZ_alert    = answerFrame->isUZ_alert(UZ_id);
 
-  func->setResult(1, &UZ);
+  func->setResult(1, &UZ_id);
+  func->setResult(2, &UZ);
+  
   func->printResults();
 
   return result;
+}
 
- }
+errType getAllUZstate(void* fn)
+{
+    errType result = err_result_ok;
+    FunctionNode* func = (FunctionNode*) fn;
+    uzState_type UZ[3];
+
+    for(int i=0; i<3;i ++)
+    {
+	UZ[i].fields.UZ_locked   = answerFrame->isUZ_locked(i);
+	UZ[i].fields.UZ_unlocked = answerFrame->isUZ_unlocked(i);
+	UZ[i].fields.UZ_busy     = answerFrame->isUZ_busy(i);
+	UZ[i].fields.UZ_manual   = answerFrame->isUZ_manual(i);
+	UZ[i].fields.UZ_alert    = answerFrame->isUZ_alert(i);
+    }
+
+    func->setResult(1, &UZ[0]);
+    func->setResult(2, &UZ[1]);
+    func->setResult(3, &UZ[2]);
+    
+    return result;
+}
+
+typedef union semiaxisSensorsVector_t {
+    struct{
+	struct {
+	    union {
+		struct { 
+		    BYTE right:1;
+		    BYTE left:1;
+		} fields;
+		BYTE sa;
+	    } psa;
+	    
+	    union {
+		struct {
+		    BYTE right:1;
+		    BYTE left:1;
+		} fields;
+		BYTE sa;
+	    } esa;
+	    
+	} fold[3];
+    } fields;
+    
+    WORD wValue;
+} __attribute__((packed)) semiaxisSensorsVector_t;
+
+
+errType allSemiaxisSensorsGetState(void* fn)
+{
+    errType result=err_result_ok;
+    FunctionNode* func = (FunctionNode*) fn;
+    
+    semiaxisSensorsVector_t vector;
+    
+    vector.fields.fold[0].psa.sa=answerFrame->get_psa_sensors(0);
+    vector.fields.fold[0].esa.sa= answerFrame->get_esa_sensors(0);
+
+    vector.fields.fold[1].psa.sa=answerFrame->get_psa_sensors(1);
+    vector.fields.fold[1].esa.sa= answerFrame->get_esa_sensors(1);
+
+    vector.fields.fold[2].psa.sa=answerFrame->get_psa_sensors(2);
+    vector.fields.fold[2].esa.sa= answerFrame->get_esa_sensors(2);
+
+
+    func->setResult(1, &vector);
+    
+    return result;
+}
+
+errType allFoldsGetParams(void* fn)
+{
+    errType result=err_result_ok;
+    FunctionNode* func = (FunctionNode*) fn;
+    BYTE foldState[3];
+    WORD foldPos[3];
+    
+    for (int i=0; i<3; i++){
+	foldState[i] = answerFrame->getFoldState(i);
+	foldPos[i] = answerFrame->getFoldPosition(i);
+	func->setResult(2*i+1, &foldState); // index: 1, 3 ,5
+	func->setResult(2*i+2, &foldPos);   // index: 2, 4, 6
+    }
+    
+    return result;
+}

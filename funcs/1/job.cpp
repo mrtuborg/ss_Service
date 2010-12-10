@@ -51,30 +51,15 @@ void job::dbgPrint()
     this->action.dbgPrint();
 }
 
-DWORD job::get_dwTime()
-{
-    return time_ms;
-}
+WORD getLength();
 
-BYTE job::get_btServId()
-{
-    return service_id;
-}
+DWORD job::get_dwObjId()   { return objId;     }
+WORD job::get_wTimeStart() { return timeStart; }
+WORD job::get_wTimeEnd()   { return timeEnd;   }
+BYTE job::get_btServId()   { return service_id;}
+rcsCmd_type *job::cmd()    { return cmd;       }
 
-BYTE job::get_btFuncId()
-{
-    return action.get_func_id();
-}
 
-WORD job::get_paramsLen()
-{
-    return action.get_func_paramsLength();
-}
-
-BYTE* job::get_paramsPtr()
-{
-    return action.get_func_paramsPtr();
-}
 /*
 BYTE* get_strTime()
 {

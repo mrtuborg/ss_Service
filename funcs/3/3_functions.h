@@ -28,6 +28,12 @@ extern errType foldGetParams(void*);
 extern errType semiaxisSensorsGetState(void*);
 
 extern errType changeControlMode(void*);
+extern errType getControlMode(void*);
+
 extern errType getUZstate(void* fn);
 extern errType startFuncControl(void*);
 extern errType correctHydroCyl(void*);
+
+extern errType allFoldsGetParams(void* fn);
+extern errType allSemiaxisSensorsGetState(void* fn); 
+extern errType getAllUZstate(void* fn);
