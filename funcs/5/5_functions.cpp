@@ -59,7 +59,7 @@ errType srvDeinit()
 errType EmergencyShutdown(void* fn)
 {
     errType result=err_not_init;
-    FunctionNode* func=(FunctionNode*)fn;
+    functionNode* func=(functionNode*)fn;
     
     func->printResults();
     return result;
@@ -69,7 +69,7 @@ errType ControlModeChange(void* fn)
 {
     errType result=err_not_init;
     
-    FunctionNode* func=(FunctionNode*)fn;
+    functionNode* func=(functionNode*)fn;
     func->printParams();
     //func->dbgPrint();
     func->printResults();
@@ -80,7 +80,7 @@ errType GetStateVector(void* fn)
 {
     errType result=err_result_ok;
 
-    FunctionNode* func=(FunctionNode*)fn;
+    functionNode* func=(functionNode*)fn;
     
     type_StateVector stateVector;
     stateVector=app->getStateVector();
@@ -100,7 +100,7 @@ errType GetFunctionMode(void* fn) // func_id=1
 
     BYTE res=0;
 
-    FunctionNode* func=(FunctionNode*)fn;
+    functionNode* func=(functionNode*)fn;
     func->printParams();
     
 //    func->setResult(0,&result);
@@ -118,7 +118,7 @@ errType GetCurrentCoordinates(void* fn) // func_id=2
 {
     errType result=err_result_ok;
 
-    FunctionNode* func=(FunctionNode*)fn;
+    functionNode* func=(functionNode*)fn;
     BYTE btRes=0;
     DWORD dwRes=0;
     double dblRes=0;
@@ -156,7 +156,7 @@ errType GetCurrentCoordinates(void* fn) // func_id=2
 errType getPointingCorrectionValues(void* fn) // func_id=3
 {
     errType result=err_result_ok;
-    FunctionNode* func=(FunctionNode*)fn;
+    functionNode* func=(functionNode*)fn;
     
     BYTE btRes=0;
     DWORD dwRes=0;
@@ -188,7 +188,7 @@ errType getPointingCorrectionValues(void* fn) // func_id=3
 errType getPointingEquipmentParams(void* fn) // func_id=4
 {
     errType result=err_result_ok;
-    FunctionNode* func=(FunctionNode*)fn;
+    functionNode* func=(functionNode*)fn;
     
     BYTE btRes=0;
     DWORD dwRes=0;
@@ -221,7 +221,7 @@ errType getPointingEquipmentParams(void* fn) // func_id=4
 errType GetPointingExtraParams(void* fn) //func_id=5
 {
     errType result=err_result_ok;
-    FunctionNode* func=(FunctionNode*)fn;
+    functionNode* func=(functionNode*)fn;
     
     BYTE btRes=0;
     DWORD dwRes=0;
@@ -276,7 +276,7 @@ errType SetProgrammMode(void* fn) //func_id=6
     prepparams=new BYTE[13];
     msg=new BYTE[17];
     
-    FunctionNode* func=(FunctionNode*)fn;
+    functionNode* func=(functionNode*)fn;
     
     func->printParams();
     
@@ -299,7 +299,7 @@ errType SetKNMode(void* fn) //func_id=4
 {
     errType result=err_not_init;
     
-    FunctionNode* func=(FunctionNode*)fn;
+    functionNode* func=(functionNode*)fn;
     
     func->printParams();
     
@@ -320,7 +320,7 @@ errType SetZVVMode(void* fn) //func_id=4
     errType result=err_not_init;
     
     
-    FunctionNode* func=(FunctionNode*)fn;
+    functionNode* func=(functionNode*)fn;
     
     func->printParams();
 	    
@@ -339,7 +339,7 @@ errType StopSearchingMode(void* fn) //func_id=4
 {
     errType result=err_not_init;
     
-    FunctionNode* func=(FunctionNode*)fn;
+    functionNode* func=(functionNode*)fn;
     
     func->printParams();
     
@@ -361,7 +361,7 @@ errType StartSearchingMode(void* fn) //func_id=4
     char str[255];
     str[6]=0;
     
-    FunctionNode* func=(FunctionNode*)fn;
+    functionNode* func=(functionNode*)fn;
     
     func->printParams();
     
@@ -411,7 +411,7 @@ errType SetCorrection(void* fn) // func_id=5
     BYTE *AZ_adj, *ANG_adj, *TIME_adj;
 //    ps_control_type dgram;
     
-    FunctionNode* func=(FunctionNode*)fn;
+    functionNode* func=(functionNode*)fn;
     func->printParams();
 	
     //func->dbgPrint();

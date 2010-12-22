@@ -1,0 +1,1171 @@
+\hypertarget{classsrvAppLayer}{
+\section{srvAppLayer Class Reference}
+\label{d8/d72/classsrvAppLayer}\index{srvAppLayer@{srvAppLayer}}
+}
+
+
+Application core layer implementaion.  
+
+
+
+
+{\ttfamily \#include $<$srvAppLayer.h$>$}
+
+
+
+Collaboration diagram for srvAppLayer:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=600pt]{d6/d33/classsrvAppLayer__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classsrvAppLayer_a526a72df150984ef1a0f31bd9777bcc6}{srvAppLayer} (WORD portNum)
+\begin{DoxyCompactList}\small\item\em Constructs instance of \hyperlink{classsrvAppLayer}{srvAppLayer} and links it to udp port number for listening clients requests. \item\end{DoxyCompactList}\item 
+\hyperlink{classsrvAppLayer_a9b9bc06db46f6721d716dd4ed80050c4}{$\sim$srvAppLayer} ()
+\item 
+errType \hyperlink{classsrvAppLayer_a1027b7713e6a615afdef15691761ed51}{CreateNewFunction} (\hyperlink{classfunctionNode}{functionNode} $\ast$func)
+\begin{DoxyCompactList}\small\item\em Method to add new declared function to service layer. \item\end{DoxyCompactList}\item 
+errType \hyperlink{classsrvAppLayer_a32146884e8877f567f7ecaa7a1def074}{DeleteFunction} (BYTE id)
+\begin{DoxyCompactList}\small\item\em Method to delete function from service layer. \item\end{DoxyCompactList}\item 
+errType \hyperlink{classsrvAppLayer_ac045ddd0cab4621e0cfa2f8b15c9e77c}{encodeBlock} (rcsCmd $\ast$, BYTE $\ast$$\ast$)
+\begin{DoxyCompactList}\small\item\em Method to encode data from rcsCmd message. \item\end{DoxyCompactList}\item 
+errType \hyperlink{classsrvAppLayer_acde5f9e1287ca5206957c64354d1aa8f}{StartListening} ()
+\begin{DoxyCompactList}\small\item\em Method to prepare and start base communication engine. \item\end{DoxyCompactList}\item 
+errType \hyperlink{classsrvAppLayer_ac977d1a117ecee32c1c4bece76442e81}{StopListening} ()
+\begin{DoxyCompactList}\small\item\em Method to stop base communication engine. \item\end{DoxyCompactList}\item 
+errType \hyperlink{classsrvAppLayer_a75e5d5bd6ef3fc9a06da5392e5c29f3a}{equip\_\-reading\_\-event} ()
+\begin{DoxyCompactList}\small\item\em Method to asynchonous polling of \hyperlink{classsrvAppLayer_af96e38bd128f37b4facc0957c31ae6ac}{equip\_\-listen} socket. \item\end{DoxyCompactList}\item 
+errType \hyperlink{classsrvAppLayer_aea6fcd3efbd3339eec368a258e7f4647}{equip\_\-read\_\-data} (BYTE $\ast$, size\_\-t $\ast$)
+\begin{DoxyCompactList}\small\item\em Method to read data from \hyperlink{classsrvAppLayer_af96e38bd128f37b4facc0957c31ae6ac}{equip\_\-listen} socket. \item\end{DoxyCompactList}\item 
+errType \hyperlink{classsrvAppLayer_a51173210a4569e0044efa91eb7089541}{ProcessMessages} ()
+\begin{DoxyCompactList}\small\item\em Method to make one step of \hyperlink{classsrvAppLayer}{srvAppLayer} step. \item\end{DoxyCompactList}\item 
+WORD \hyperlink{classsrvAppLayer_a84f09d04ab2c92a3c0cf0b67502f3be1}{getListenerPortNum} ()
+\begin{DoxyCompactList}\small\item\em getter for udp port number that listens all clients requests \item\end{DoxyCompactList}\item 
+BYTE \hyperlink{classsrvAppLayer_a8dff3da333c073ffa5e535161cdf8395}{terminated} ()
+\begin{DoxyCompactList}\small\item\em Method to check application internal termination signal. \item\end{DoxyCompactList}\item 
+void \hyperlink{classsrvAppLayer_aebeee7c2345c0c6a8603e0599f62a429}{terminate} (BYTE mode=1)
+\begin{DoxyCompactList}\small\item\em getter for AppTerminated signal \item\end{DoxyCompactList}\item 
+\hyperlink{structstateVector__type}{stateVector\_\-type} \hyperlink{classsrvAppLayer_a44e31f2d14079f8c8f3a8a7e36fd32c5}{getStateVector} ()
+\begin{DoxyCompactList}\small\item\em getter for ServiceState vector \item\end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classssBuffer}{ssBuffer} $\ast$ \hyperlink{classsrvAppLayer_a79e7499e8647eb0f0ba4fd9613fd48c0}{clientsRequestsQueue}
+\begin{DoxyCompactList}\small\item\em Queue that stores received requests from client. \item\end{DoxyCompactList}\item 
+\hyperlink{classssBuffer}{ssBuffer} $\ast$ \hyperlink{classsrvAppLayer_a6c6ddd6197dc92d2812ed3de418e4b5e}{functionsAnswersQueue}
+\begin{DoxyCompactList}\small\item\em Queue that stores service functions answers to clients. \item\end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+errType \hyperlink{classsrvAppLayer_a6d25c00bad6412988de50d868f7b6beb}{decodeMessage} (BYTE $\ast$dataBlock, DWORD length, rcsCmd $\ast$ss\_\-cmd)
+\begin{DoxyCompactList}\small\item\em step 1. decode recieved message from client \item\end{DoxyCompactList}\item 
+errType \hyperlink{classsrvAppLayer_a905b6d497e0e06a59c172863057fded8}{execMessage} (rcsCmd $\ast$ss\_\-cmd)
+\begin{DoxyCompactList}\small\item\em step 2. send data to requested service function \item\end{DoxyCompactList}\item 
+errType \hyperlink{classsrvAppLayer_a8b24fc169b1da7445a6429abb66d84f9}{encodeFuncResult} (rcsCmd $\ast$in\_\-cmd, rcsCmd $\ast$out\_\-cmd)
+\begin{DoxyCompactList}\small\item\em step 3. encode function execution results for sending back to client \item\end{DoxyCompactList}\item 
+errType \hyperlink{classsrvAppLayer_aed49ea99073088a26f98122a0e057c01}{sendResult} (sockaddr\_\-in $\ast$sin, rcsCmd $\ast$ss\_\-cmd)
+\begin{DoxyCompactList}\small\item\em step 4. send function answer to client \item\end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+BYTE \hyperlink{classsrvAppLayer_ac2a9f0ca78a68720275b14eac924fc62}{AppTerminated}
+\begin{DoxyCompactList}\small\item\em Application termination process indicator
+\begin{DoxyItemize}
+\item 0 -\/ Application run normally
+\item 1 -\/ Applcation need to exit only
+\item 2 -\/ Application need exit with reboot. 
+\end{DoxyItemize}\item\end{DoxyCompactList}\item 
+\hyperlink{classfunctionNode}{functionNode} $\ast$ \hyperlink{classsrvAppLayer_acaa27fb3d6e77e02afd272975c730c10}{Functions} \mbox{[}100\mbox{]}
+\begin{DoxyCompactList}\small\item\em Service functions array. \item\end{DoxyCompactList}\item 
+BYTE \hyperlink{classsrvAppLayer_ae6b6a999a1e0da7f17da9aba933f1f6b}{func\_\-quantity}
+\begin{DoxyCompactList}\small\item\em Counter that stores really declared functions quantity. \item\end{DoxyCompactList}\item 
+BYTE \hyperlink{classsrvAppLayer_a24850f0f199b20e7b5a146a034bfbb69}{ifCount}
+\begin{DoxyCompactList}\small\item\em Counter of ethernet interfaces. No have an idea how to use it. \item\end{DoxyCompactList}\item 
+pthread\_\-t \hyperlink{classsrvAppLayer_ae836e655cb632038b45ed12c0c646994}{listenerThread}
+\begin{DoxyCompactList}\small\item\em Handle to client requests listening thread. \item\end{DoxyCompactList}\item 
+pthread\_\-t \hyperlink{classsrvAppLayer_a76a101733f9ede55cd32bff4890bd45c}{senderThread}
+\begin{DoxyCompactList}\small\item\em Handle to client answers sending thread. \item\end{DoxyCompactList}\item 
+pthread\_\-t \hyperlink{classsrvAppLayer_ae0a4157df420f09cc38a0f51e5b18419}{equipListenThread}
+\begin{DoxyCompactList}\small\item\em Handle to equipmnent data listening thread. \item\end{DoxyCompactList}\item 
+WORD \hyperlink{classsrvAppLayer_a48dd164d86d1e43d4bd6e775f75986f1}{cpListenerPortNum}
+\begin{DoxyCompactList}\small\item\em settings: Udp port number to listen requests from network clients \item\end{DoxyCompactList}\item 
+udp\_\-port $\ast$ \hyperlink{classsrvAppLayer_af96e38bd128f37b4facc0957c31ae6ac}{equip\_\-listen}
+\begin{DoxyCompactList}\small\item\em udp\_\-port instance that associates with listening data from equipment \item\end{DoxyCompactList}\item 
+\hyperlink{structstateVector__type}{stateVector\_\-type} \hyperlink{classsrvAppLayer_ad6ecca4186d37afcf4c94617fa66a990}{ServiceState}
+\begin{DoxyCompactList}\small\item\em Service state vector. \item\end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Application core layer implementaion. This layer delegate network calls to service functions and return back functions results. 
+
+Definition at line 46 of file srvAppLayer.h.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{classsrvAppLayer_a526a72df150984ef1a0f31bd9777bcc6}{
+\index{srvAppLayer@{srvAppLayer}!srvAppLayer@{srvAppLayer}}
+\index{srvAppLayer@{srvAppLayer}!srvAppLayer@{srvAppLayer}}
+\subsubsection[{srvAppLayer}]{\setlength{\rightskip}{0pt plus 5cm}srvAppLayer::srvAppLayer (
+\begin{DoxyParamCaption}
+\item[{WORD}]{ portNum}
+\end{DoxyParamCaption}
+)}}
+\label{d8/d72/classsrvAppLayer_a526a72df150984ef1a0f31bd9777bcc6}
+
+
+Constructs instance of \hyperlink{classsrvAppLayer}{srvAppLayer} and links it to udp port number for listening clients requests. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em portNum} & -\/ udp port number that will use for clients requests listening \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 159 of file srvAppLayer.cpp.
+
+
+
+References AppTerminated, cpListenerPortNum, func\_\-quantity, and ifCount.
+
+\hypertarget{classsrvAppLayer_a9b9bc06db46f6721d716dd4ed80050c4}{
+\index{srvAppLayer@{srvAppLayer}!$\sim$srvAppLayer@{$\sim$srvAppLayer}}
+\index{$\sim$srvAppLayer@{$\sim$srvAppLayer}!srvAppLayer@{srvAppLayer}}
+\subsubsection[{$\sim$srvAppLayer}]{\setlength{\rightskip}{0pt plus 5cm}srvAppLayer::$\sim$srvAppLayer (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{d8/d72/classsrvAppLayer_a9b9bc06db46f6721d716dd4ed80050c4}
+
+
+Definition at line 168 of file srvAppLayer.cpp.
+
+
+
+References equip\_\-listen, func\_\-quantity, and Functions.
+
+
+
+\subsection{Member Function Documentation}
+\hypertarget{classsrvAppLayer_a6d25c00bad6412988de50d868f7b6beb}{
+\index{srvAppLayer@{srvAppLayer}!decodeMessage@{decodeMessage}}
+\index{decodeMessage@{decodeMessage}!srvAppLayer@{srvAppLayer}}
+\subsubsection[{decodeMessage}]{\setlength{\rightskip}{0pt plus 5cm}errType srvAppLayer::decodeMessage (
+\begin{DoxyParamCaption}
+\item[{BYTE $\ast$}]{ dataBlock, }
+\item[{DWORD}]{ length, }
+\item[{rcsCmd $\ast$}]{ ss\_\-cmd}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}
+\label{d8/d72/classsrvAppLayer_a6d25c00bad6412988de50d868f7b6beb}
+
+
+step 1. decode recieved message from client 
+
+Method to decode message data to function call and parameters set.
+
+Method using method rcsCmd::encode to transform data array to rcsCmd message.
+
+Method checks for correct sign, calling function existing and compares real received data length with header information about data length. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em dataBlock} & -\/ pointer to received bytes array \\
+\hline
+\mbox{\tt in}  & {\em length} & -\/ size of received bytes array. \\
+\hline
+\mbox{\tt out}  & {\em ss\_\-cmd} & -\/ decoded message. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{Return values}
+{\em err\_\-result\_\-ok} & -\/ decoded message is correct. \\
+\hline
+{\em err\_\-params\_\-decode} & -\/ params in decoded message is incorrect. \\
+\hline
+{\em err\_\-not\_\-found} & -\/ decoded message is calling for non existing function \\
+\hline
+{\em err\_\-crc\_\-error} & -\/ decoded message signature is incorrect. \\
+\hline
+\end{DoxyRetVals}
+
+
+Definition at line 333 of file srvAppLayer.cpp.
+
+
+
+References Functions.
+
+
+
+Referenced by ProcessMessages().
+
+
+
+Here is the caller graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{d8/d72/classsrvAppLayer_a6d25c00bad6412988de50d868f7b6beb_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{classsrvAppLayer_a905b6d497e0e06a59c172863057fded8}{
+\index{srvAppLayer@{srvAppLayer}!execMessage@{execMessage}}
+\index{execMessage@{execMessage}!srvAppLayer@{srvAppLayer}}
+\subsubsection[{execMessage}]{\setlength{\rightskip}{0pt plus 5cm}errType srvAppLayer::execMessage (
+\begin{DoxyParamCaption}
+\item[{rcsCmd $\ast$}]{ ss\_\-cmd}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}
+\label{d8/d72/classsrvAppLayer_a905b6d497e0e06a59c172863057fded8}
+
+
+step 2. send data to requested service function 
+
+Method to execute function by id in rcsCmd message.
+
+Method checks for correct params by comparing params with description in \hyperlink{classcommonFuncsMgr}{commonFuncsMgr} or \hyperlink{classspecFuncsMgr}{specFuncsMgr}.
+
+After requested function calling method changes ServiceState vector and set answer ticket for return value from requested function. \begin{Desc}
+\item[\hyperlink{todo__todo000018}{Todo}]ServiceState vector need to change before function calling. \end{Desc}
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em ss\_\-cmd} & -\/ message with request for function calling. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{Return values}
+{\em err\_\-result\_\-ok} & -\/ message executed successfully. \\
+\hline
+{\em err\_\-params\_\-decode} & -\/ params in message differs with description. \\
+\hline
+\end{DoxyRetVals}
+
+
+Definition at line 383 of file srvAppLayer.cpp.
+
+
+
+References Functions, stateVector\_\-type::lastFuncId, stateVector\_\-type::lastResult, and ServiceState.
+
+
+
+Referenced by ProcessMessages().
+
+
+
+Here is the caller graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{d8/d72/classsrvAppLayer_a905b6d497e0e06a59c172863057fded8_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{classsrvAppLayer_a8b24fc169b1da7445a6429abb66d84f9}{
+\index{srvAppLayer@{srvAppLayer}!encodeFuncResult@{encodeFuncResult}}
+\index{encodeFuncResult@{encodeFuncResult}!srvAppLayer@{srvAppLayer}}
+\subsubsection[{encodeFuncResult}]{\setlength{\rightskip}{0pt plus 5cm}errType srvAppLayer::encodeFuncResult (
+\begin{DoxyParamCaption}
+\item[{rcsCmd $\ast$}]{ in\_\-cmd, }
+\item[{rcsCmd $\ast$}]{ out\_\-cmd}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}
+\label{d8/d72/classsrvAppLayer_a8b24fc169b1da7445a6429abb66d84f9}
+
+
+step 3. encode function execution results for sending back to client 
+
+Method encoding all executed function results to rcsCmd message.
+
+Method preparing rcsCmd message with making of message signing. \begin{Desc}
+\item[\hyperlink{todo__todo000019}{Todo}]Need a refactoring. \end{Desc}
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em in\_\-cmd} & -\/ message with request for function calling. \\
+\hline
+\mbox{\tt out}  & {\em out\_\-cmd} & -\/ message with results from requested function. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{Return values}
+{\em err\_\-result\_\-ok} & -\/ message executed successfully. \\
+\hline
+{\em err\_\-not\_\-found} & -\/ function to execute was not found. \\
+\hline
+\end{DoxyRetVals}
+
+
+Definition at line 413 of file srvAppLayer.cpp.
+
+
+
+References Functions.
+
+
+
+Referenced by ProcessMessages().
+
+
+
+Here is the caller graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{d8/d72/classsrvAppLayer_a8b24fc169b1da7445a6429abb66d84f9_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{classsrvAppLayer_aed49ea99073088a26f98122a0e057c01}{
+\index{srvAppLayer@{srvAppLayer}!sendResult@{sendResult}}
+\index{sendResult@{sendResult}!srvAppLayer@{srvAppLayer}}
+\subsubsection[{sendResult}]{\setlength{\rightskip}{0pt plus 5cm}errType srvAppLayer::sendResult (
+\begin{DoxyParamCaption}
+\item[{sockaddr\_\-in $\ast$}]{ sfrom, }
+\item[{rcsCmd $\ast$}]{ ss\_\-cmd}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}
+\label{d8/d72/classsrvAppLayer_aed49ea99073088a26f98122a0e057c01}
+
+
+step 4. send function answer to client 
+
+Method sending rcsCmd message to needed recepient.
+
+Method preparing data array from rcsCmd message and push data array with address of recepient in to functionsAnswersQueue 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em sfrom} & -\/ recepient address. \\
+\hline
+\mbox{\tt in}  & {\em ss\_\-cmd} & -\/ message needed to send. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{Return values}
+{\em err\_\-result\_\-ok} & -\/ message added to sending queue successfully. \\
+\hline
+\end{DoxyRetVals}
+
+
+Definition at line 462 of file srvAppLayer.cpp.
+
+
+
+References functionsAnswersQueue, ssBuffer::pushBlock(), and wUdp.
+
+
+
+Referenced by ProcessMessages().
+
+
+
+Here is the call graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=384pt]{d8/d72/classsrvAppLayer_aed49ea99073088a26f98122a0e057c01_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{d8/d72/classsrvAppLayer_aed49ea99073088a26f98122a0e057c01_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{classsrvAppLayer_a1027b7713e6a615afdef15691761ed51}{
+\index{srvAppLayer@{srvAppLayer}!CreateNewFunction@{CreateNewFunction}}
+\index{CreateNewFunction@{CreateNewFunction}!srvAppLayer@{srvAppLayer}}
+\subsubsection[{CreateNewFunction}]{\setlength{\rightskip}{0pt plus 5cm}errType srvAppLayer::CreateNewFunction (
+\begin{DoxyParamCaption}
+\item[{{\bf functionNode} $\ast$}]{ func}
+\end{DoxyParamCaption}
+)}}
+\label{d8/d72/classsrvAppLayer_a1027b7713e6a615afdef15691761ed51}
+
+
+Method to add new declared function to service layer. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em func} & -\/ \hyperlink{classfunctionNode}{functionNode} instance \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{Return values}
+{\em err\_\-result\_\-ok} & -\/ function added successfully \\
+\hline
+\end{DoxyRetVals}
+
+
+Definition at line 182 of file srvAppLayer.cpp.
+
+
+
+References func\_\-quantity, Functions, and functionNode::id().
+
+
+
+Referenced by commonFuncsMgr::startCommonFuncs().
+
+
+
+Here is the call graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{d8/d72/classsrvAppLayer_a1027b7713e6a615afdef15691761ed51_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{d8/d72/classsrvAppLayer_a1027b7713e6a615afdef15691761ed51_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{classsrvAppLayer_a32146884e8877f567f7ecaa7a1def074}{
+\index{srvAppLayer@{srvAppLayer}!DeleteFunction@{DeleteFunction}}
+\index{DeleteFunction@{DeleteFunction}!srvAppLayer@{srvAppLayer}}
+\subsubsection[{DeleteFunction}]{\setlength{\rightskip}{0pt plus 5cm}errType srvAppLayer::DeleteFunction (
+\begin{DoxyParamCaption}
+\item[{BYTE}]{ id}
+\end{DoxyParamCaption}
+)}}
+\label{d8/d72/classsrvAppLayer_a32146884e8877f567f7ecaa7a1def074}
+
+
+Method to delete function from service layer. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em id} & -\/ \hyperlink{classfunctionNode}{functionNode} identifier \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{Return values}
+{\em err\_\-result\_\-ok} & -\/ function deleted successfully \\
+\hline
+\end{DoxyRetVals}
+
+
+Definition at line 197 of file srvAppLayer.cpp.
+
+
+
+References func\_\-quantity, and Functions.
+
+
+
+Referenced by commonFuncsMgr::stopCommonFuncs().
+
+
+
+Here is the caller graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{d8/d72/classsrvAppLayer_a32146884e8877f567f7ecaa7a1def074_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{classsrvAppLayer_ac045ddd0cab4621e0cfa2f8b15c9e77c}{
+\index{srvAppLayer@{srvAppLayer}!encodeBlock@{encodeBlock}}
+\index{encodeBlock@{encodeBlock}!srvAppLayer@{srvAppLayer}}
+\subsubsection[{encodeBlock}]{\setlength{\rightskip}{0pt plus 5cm}errType srvAppLayer::encodeBlock (
+\begin{DoxyParamCaption}
+\item[{rcsCmd $\ast$}]{ ss\_\-cmd, }
+\item[{BYTE $\ast$$\ast$}]{ data}
+\end{DoxyParamCaption}
+)}}
+\label{d8/d72/classsrvAppLayer_ac045ddd0cab4621e0cfa2f8b15c9e77c}
+
+
+Method to encode data from rcsCmd message. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em ss\_\-cmd} & -\/ rcsCmd message \\
+\hline
+\mbox{\tt out}  & {\em data} & -\/ pointer to pointer that will include result of method \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{Return values}
+{\em err\_\-result\_\-ok} & -\/ Block encoded successfully \\
+\hline
+\end{DoxyRetVals}
+\begin{Desc}
+\item[\hyperlink{todo__todo000015}{Todo}]nobody uses this method. need to be deleted. \end{Desc}
+
+
+Definition at line 214 of file srvAppLayer.cpp.
+
+\hypertarget{classsrvAppLayer_acde5f9e1287ca5206957c64354d1aa8f}{
+\index{srvAppLayer@{srvAppLayer}!StartListening@{StartListening}}
+\index{StartListening@{StartListening}!srvAppLayer@{srvAppLayer}}
+\subsubsection[{StartListening}]{\setlength{\rightskip}{0pt plus 5cm}errType srvAppLayer::StartListening (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{d8/d72/classsrvAppLayer_acde5f9e1287ca5206957c64354d1aa8f}
+
+
+Method to prepare and start base communication engine. 
+
+if errors has been occured,method initiate appTerminate signal. 
+\begin{DoxyRetVals}{Return values}
+{\em err\_\-result\_\-ok} & -\/ communication engine starts successfully \\
+\hline
+{\em err\_\-sock\_\-error} & -\/ udp sockets prerparing error \\
+\hline
+\end{DoxyRetVals}
+
+
+1. Prepare \hyperlink{classsrvAppLayer_a79e7499e8647eb0f0ba4fd9613fd48c0}{clientsRequestsQueue}.
+
+Queue stores all received messages from clients and clients adresses.
+
+2. Prepare \hyperlink{classsrvAppLayer_a6c6ddd6197dc92d2812ed3de418e4b5e}{functionsAnswersQueue}.
+
+Queue stores all functions answers to clients requests.
+
+3. Start \hyperlink{srvAppLayer_8cpp_a730236a494d356798212190aae12f103}{udpListenerThread}
+
+Thread listen for udp messages from clients and stores messages in \hyperlink{classsrvAppLayer_a79e7499e8647eb0f0ba4fd9613fd48c0}{clientsRequestsQueue}.
+
+4. Prepare \hyperlink{classsrvAppLayer_af96e38bd128f37b4facc0957c31ae6ac}{equip\_\-listen}.
+
+This is an udp port instance that using to listen data from equipment
+
+5. Start \hyperlink{srvAppLayer_8cpp_a7eaf60b2d51988d305e9c8a4f7497b83}{udpSenderThread}
+
+Thread sending udp messageds to clients from \hyperlink{classsrvAppLayer_a6c6ddd6197dc92d2812ed3de418e4b5e}{functionsAnswersQueue}
+
+6. Start \hyperlink{commonFuncsMgr_8h_abd797e5a8e26768954fb1eb1c3621437}{equipListenPolling}
+
+Thread listen for udp messages from equipment 
+
+
+
+Definition at line 229 of file srvAppLayer.cpp.
+
+
+
+References AppTerminated, clientsRequestsQueue, eq\_\-udp\_\-listen\_\-port, equip\_\-listen, equipListenPolling(), equipListenThread, functionsAnswersQueue, ifCount, listenerThread, senderThread, udpListenerThread(), and udpSenderThread().
+
+
+
+Referenced by appInit().
+
+
+
+Here is the call graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{d8/d72/classsrvAppLayer_acde5f9e1287ca5206957c64354d1aa8f_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{d8/d72/classsrvAppLayer_acde5f9e1287ca5206957c64354d1aa8f_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{classsrvAppLayer_ac977d1a117ecee32c1c4bece76442e81}{
+\index{srvAppLayer@{srvAppLayer}!StopListening@{StopListening}}
+\index{StopListening@{StopListening}!srvAppLayer@{srvAppLayer}}
+\subsubsection[{StopListening}]{\setlength{\rightskip}{0pt plus 5cm}errType srvAppLayer::StopListening (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{d8/d72/classsrvAppLayer_ac977d1a117ecee32c1c4bece76442e81}
+
+
+Method to stop base communication engine. 
+
+method initiate appTerminate signal, deletes queues. 
+\begin{DoxyRetVals}{Return values}
+{\em err\_\-result\_\-ok} & -\/ engine stopped successfully \\
+\hline
+\end{DoxyRetVals}
+
+
+Definition at line 274 of file srvAppLayer.cpp.
+
+
+
+References AppTerminated, clientsRequestsQueue, functionsAnswersQueue, and verbose\_\-level.
+
+
+
+Referenced by appDeinit().
+
+
+
+Here is the caller graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{d8/d72/classsrvAppLayer_ac977d1a117ecee32c1c4bece76442e81_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{classsrvAppLayer_a75e5d5bd6ef3fc9a06da5392e5c29f3a}{
+\index{srvAppLayer@{srvAppLayer}!equip\_\-reading\_\-event@{equip\_\-reading\_\-event}}
+\index{equip\_\-reading\_\-event@{equip\_\-reading\_\-event}!srvAppLayer@{srvAppLayer}}
+\subsubsection[{equip\_\-reading\_\-event}]{\setlength{\rightskip}{0pt plus 5cm}errType srvAppLayer::equip\_\-reading\_\-event (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{d8/d72/classsrvAppLayer_a75e5d5bd6ef3fc9a06da5392e5c29f3a}
+
+
+Method to asynchonous polling of \hyperlink{classsrvAppLayer_af96e38bd128f37b4facc0957c31ae6ac}{equip\_\-listen} socket. 
+
+\begin{Desc}
+\item[\hyperlink{todo__todo000016}{Todo}]too strange method.\end{Desc}
+May be it need be deleted. 
+\begin{DoxyRetVals}{Return values}
+{\em err\_\-result\_\-ok} & -\/ udp socket received data \\
+\hline
+\end{DoxyRetVals}
+
+
+Definition at line 301 of file srvAppLayer.cpp.
+
+
+
+References equip\_\-listen.
+
+
+
+Referenced by equipListenPolling().
+
+
+
+Here is the caller graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{d8/d72/classsrvAppLayer_a75e5d5bd6ef3fc9a06da5392e5c29f3a_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{classsrvAppLayer_aea6fcd3efbd3339eec368a258e7f4647}{
+\index{srvAppLayer@{srvAppLayer}!equip\_\-read\_\-data@{equip\_\-read\_\-data}}
+\index{equip\_\-read\_\-data@{equip\_\-read\_\-data}!srvAppLayer@{srvAppLayer}}
+\subsubsection[{equip\_\-read\_\-data}]{\setlength{\rightskip}{0pt plus 5cm}errType srvAppLayer::equip\_\-read\_\-data (
+\begin{DoxyParamCaption}
+\item[{BYTE $\ast$}]{ buffer, }
+\item[{size\_\-t $\ast$}]{ sz}
+\end{DoxyParamCaption}
+)}}
+\label{d8/d72/classsrvAppLayer_aea6fcd3efbd3339eec368a258e7f4647}
+
+
+Method to read data from \hyperlink{classsrvAppLayer_af96e38bd128f37b4facc0957c31ae6ac}{equip\_\-listen} socket. 
+
+\begin{Desc}
+\item[\hyperlink{todo__todo000017}{Todo}]too strange method.\end{Desc}
+May be it need be deleted. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt out}  & {\em buffer} & -\/ uses to store recevied data \\
+\hline
+\mbox{\tt out}  & {\em sz} & -\/ size in bytes of received data \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{Return values}
+{\em err\_\-result\_\-ok} & -\/ udp socket received data has been readed \\
+\hline
+\end{DoxyRetVals}
+
+
+Definition at line 316 of file srvAppLayer.cpp.
+
+
+
+References equip\_\-listen.
+
+
+
+Referenced by equipListenPolling().
+
+
+
+Here is the caller graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{d8/d72/classsrvAppLayer_aea6fcd3efbd3339eec368a258e7f4647_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{classsrvAppLayer_a51173210a4569e0044efa91eb7089541}{
+\index{srvAppLayer@{srvAppLayer}!ProcessMessages@{ProcessMessages}}
+\index{ProcessMessages@{ProcessMessages}!srvAppLayer@{srvAppLayer}}
+\subsubsection[{ProcessMessages}]{\setlength{\rightskip}{0pt plus 5cm}errType srvAppLayer::ProcessMessages (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{d8/d72/classsrvAppLayer_a51173210a4569e0044efa91eb7089541}
+
+
+Method to make one step of \hyperlink{classsrvAppLayer}{srvAppLayer} step. 
+
+Method checks at start \hyperlink{classsrvAppLayer_ac2a9f0ca78a68720275b14eac924fc62}{AppTerminated} signal, size of \hyperlink{classsrvAppLayer_a79e7499e8647eb0f0ba4fd9613fd48c0}{clientsRequestsQueue} and \hyperlink{srvAppLayer_8cpp_a868aa504f87bc9ec6698801f8af012de}{rcvComplete\_\-flag} before it continuous execution. 
+\begin{DoxyRetVals}{Return values}
+{\em err\_\-result\_\-ok} & -\/ one step of engine execution was successfully. \\
+\hline
+{\em err\_\-not\_\-init} & -\/ method break execution. \\
+\hline
+\end{DoxyRetVals}
+
+
+1) Read from \hyperlink{classsrvAppLayer_a79e7499e8647eb0f0ba4fd9613fd48c0}{clientsRequestsQueue} one new request
+
+2) Decode readed request by \hyperlink{classsrvAppLayer_a6d25c00bad6412988de50d868f7b6beb}{decodeMessage}
+
+3) Execute requested function if decoding was successfully by \hyperlink{classsrvAppLayer_a905b6d497e0e06a59c172863057fded8}{execMessage}
+
+4) Encoding function result ticket if execution was not successfully
+
+5) Encode remains function results be \hyperlink{classsrvAppLayer_a8b24fc169b1da7445a6429abb66d84f9}{encodeFuncResult}
+
+6) Write results to sending queue by \hyperlink{classsrvAppLayer_aed49ea99073088a26f98122a0e057c01}{sendResult}
+
+7) Release allocated memory
+
+8) Sync listening and sending threads by \hyperlink{srvAppLayer_8cpp_a868aa504f87bc9ec6698801f8af012de}{rcvComplete\_\-flag} and \hyperlink{srvAppLayer_8cpp_aada7bb79c19dd0f402f03860c1fd64f6}{sndAllow\_\-flag} 
+
+
+
+Definition at line 488 of file srvAppLayer.cpp.
+
+
+
+References AppTerminated, clientsRequestsQueue, decodeMessage(), encodeFuncResult(), execMessage(), Functions, ssBuffer::getFrontBlockSize(), ssBuffer::popBlock(), rcvComplete\_\-flag, sendResult(), ssBuffer::size(), and sndAllow\_\-flag.
+
+
+
+Referenced by main().
+
+
+
+Here is the call graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{d8/d72/classsrvAppLayer_a51173210a4569e0044efa91eb7089541_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=340pt]{d8/d72/classsrvAppLayer_a51173210a4569e0044efa91eb7089541_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{classsrvAppLayer_a84f09d04ab2c92a3c0cf0b67502f3be1}{
+\index{srvAppLayer@{srvAppLayer}!getListenerPortNum@{getListenerPortNum}}
+\index{getListenerPortNum@{getListenerPortNum}!srvAppLayer@{srvAppLayer}}
+\subsubsection[{getListenerPortNum}]{\setlength{\rightskip}{0pt plus 5cm}WORD srvAppLayer::getListenerPortNum (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{d8/d72/classsrvAppLayer_a84f09d04ab2c92a3c0cf0b67502f3be1}
+
+
+getter for udp port number that listens all clients requests 
+
+
+
+Definition at line 565 of file srvAppLayer.cpp.
+
+
+
+References cpListenerPortNum.
+
+
+
+Referenced by udpListenerThread().
+
+
+
+Here is the caller graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{d8/d72/classsrvAppLayer_a84f09d04ab2c92a3c0cf0b67502f3be1_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{classsrvAppLayer_a8dff3da333c073ffa5e535161cdf8395}{
+\index{srvAppLayer@{srvAppLayer}!terminated@{terminated}}
+\index{terminated@{terminated}!srvAppLayer@{srvAppLayer}}
+\subsubsection[{terminated}]{\setlength{\rightskip}{0pt plus 5cm}BYTE srvAppLayer::terminated (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{d8/d72/classsrvAppLayer_a8dff3da333c073ffa5e535161cdf8395}
+
+
+Method to check application internal termination signal. 
+
+
+\begin{DoxyRetVals}{Return values}
+{\em 0} & -\/ Application runs normally \\
+\hline
+{\em 1} & -\/ Application terminating and preparing to exit to the OS \\
+\hline
+{\em 2} & -\/ Application terminating and preparing to reboot the OS \\
+\hline
+\end{DoxyRetVals}
+
+
+Definition at line 148 of file srvAppLayer.cpp.
+
+
+
+References AppTerminated.
+
+
+
+Referenced by equipListenPolling(), main(), udpListenerThread(), and udpSenderThread().
+
+
+
+Here is the caller graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{d8/d72/classsrvAppLayer_a8dff3da333c073ffa5e535161cdf8395_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{classsrvAppLayer_aebeee7c2345c0c6a8603e0599f62a429}{
+\index{srvAppLayer@{srvAppLayer}!terminate@{terminate}}
+\index{terminate@{terminate}!srvAppLayer@{srvAppLayer}}
+\subsubsection[{terminate}]{\setlength{\rightskip}{0pt plus 5cm}void srvAppLayer::terminate (
+\begin{DoxyParamCaption}
+\item[{BYTE}]{ mode = {\ttfamily 1}}
+\end{DoxyParamCaption}
+)}}
+\label{d8/d72/classsrvAppLayer_aebeee7c2345c0c6a8603e0599f62a429}
+
+
+getter for AppTerminated signal 
+
+
+
+Definition at line 571 of file srvAppLayer.cpp.
+
+
+
+References AppTerminated.
+
+
+
+Referenced by udpListenerThread(), and udpSenderThread().
+
+
+
+Here is the caller graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{d8/d72/classsrvAppLayer_aebeee7c2345c0c6a8603e0599f62a429_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{classsrvAppLayer_a44e31f2d14079f8c8f3a8a7e36fd32c5}{
+\index{srvAppLayer@{srvAppLayer}!getStateVector@{getStateVector}}
+\index{getStateVector@{getStateVector}!srvAppLayer@{srvAppLayer}}
+\subsubsection[{getStateVector}]{\setlength{\rightskip}{0pt plus 5cm}{\bf stateVector\_\-type} srvAppLayer::getStateVector (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{d8/d72/classsrvAppLayer_a44e31f2d14079f8c8f3a8a7e36fd32c5}
+
+
+getter for ServiceState vector 
+
+
+
+Definition at line 577 of file srvAppLayer.cpp.
+
+
+
+References ServiceState.
+
+
+
+\subsection{Member Data Documentation}
+\hypertarget{classsrvAppLayer_ac2a9f0ca78a68720275b14eac924fc62}{
+\index{srvAppLayer@{srvAppLayer}!AppTerminated@{AppTerminated}}
+\index{AppTerminated@{AppTerminated}!srvAppLayer@{srvAppLayer}}
+\subsubsection[{AppTerminated}]{\setlength{\rightskip}{0pt plus 5cm}BYTE {\bf srvAppLayer::AppTerminated}\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}
+\label{d8/d72/classsrvAppLayer_ac2a9f0ca78a68720275b14eac924fc62}
+
+
+Application termination process indicator
+\begin{DoxyItemize}
+\item 0 -\/ Application run normally
+\item 1 -\/ Applcation need to exit only
+\item 2 -\/ Application need exit with reboot. 
+\end{DoxyItemize}
+
+
+
+Definition at line 48 of file srvAppLayer.h.
+
+
+
+Referenced by ProcessMessages(), srvAppLayer(), StartListening(), StopListening(), terminate(), and terminated().
+
+\hypertarget{classsrvAppLayer_acaa27fb3d6e77e02afd272975c730c10}{
+\index{srvAppLayer@{srvAppLayer}!Functions@{Functions}}
+\index{Functions@{Functions}!srvAppLayer@{srvAppLayer}}
+\subsubsection[{Functions}]{\setlength{\rightskip}{0pt plus 5cm}{\bf functionNode}$\ast$ {\bf srvAppLayer::Functions}\mbox{[}100\mbox{]}\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}
+\label{d8/d72/classsrvAppLayer_acaa27fb3d6e77e02afd272975c730c10}
+
+
+Service functions array. 
+
+100 functions at maximum. \begin{Desc}
+\item[\hyperlink{todo__todo000020}{Todo}]array not the best data structure for this purposes. \end{Desc}
+
+
+Definition at line 53 of file srvAppLayer.h.
+
+
+
+Referenced by CreateNewFunction(), decodeMessage(), DeleteFunction(), encodeFuncResult(), execMessage(), ProcessMessages(), and $\sim$srvAppLayer().
+
+\hypertarget{classsrvAppLayer_ae6b6a999a1e0da7f17da9aba933f1f6b}{
+\index{srvAppLayer@{srvAppLayer}!func\_\-quantity@{func\_\-quantity}}
+\index{func\_\-quantity@{func\_\-quantity}!srvAppLayer@{srvAppLayer}}
+\subsubsection[{func\_\-quantity}]{\setlength{\rightskip}{0pt plus 5cm}BYTE {\bf srvAppLayer::func\_\-quantity}\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}
+\label{d8/d72/classsrvAppLayer_ae6b6a999a1e0da7f17da9aba933f1f6b}
+
+
+Counter that stores really declared functions quantity. 
+
+
+
+Definition at line 56 of file srvAppLayer.h.
+
+
+
+Referenced by CreateNewFunction(), DeleteFunction(), srvAppLayer(), and $\sim$srvAppLayer().
+
+\hypertarget{classsrvAppLayer_a24850f0f199b20e7b5a146a034bfbb69}{
+\index{srvAppLayer@{srvAppLayer}!ifCount@{ifCount}}
+\index{ifCount@{ifCount}!srvAppLayer@{srvAppLayer}}
+\subsubsection[{ifCount}]{\setlength{\rightskip}{0pt plus 5cm}BYTE {\bf srvAppLayer::ifCount}\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}
+\label{d8/d72/classsrvAppLayer_a24850f0f199b20e7b5a146a034bfbb69}
+
+
+Counter of ethernet interfaces. No have an idea how to use it. 
+
+
+
+Definition at line 57 of file srvAppLayer.h.
+
+
+
+Referenced by srvAppLayer(), and StartListening().
+
+\hypertarget{classsrvAppLayer_ae836e655cb632038b45ed12c0c646994}{
+\index{srvAppLayer@{srvAppLayer}!listenerThread@{listenerThread}}
+\index{listenerThread@{listenerThread}!srvAppLayer@{srvAppLayer}}
+\subsubsection[{listenerThread}]{\setlength{\rightskip}{0pt plus 5cm}pthread\_\-t {\bf srvAppLayer::listenerThread}\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}
+\label{d8/d72/classsrvAppLayer_ae836e655cb632038b45ed12c0c646994}
+
+
+Handle to client requests listening thread. 
+
+
+
+Definition at line 59 of file srvAppLayer.h.
+
+
+
+Referenced by StartListening().
+
+\hypertarget{classsrvAppLayer_a76a101733f9ede55cd32bff4890bd45c}{
+\index{srvAppLayer@{srvAppLayer}!senderThread@{senderThread}}
+\index{senderThread@{senderThread}!srvAppLayer@{srvAppLayer}}
+\subsubsection[{senderThread}]{\setlength{\rightskip}{0pt plus 5cm}pthread\_\-t {\bf srvAppLayer::senderThread}\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}
+\label{d8/d72/classsrvAppLayer_a76a101733f9ede55cd32bff4890bd45c}
+
+
+Handle to client answers sending thread. 
+
+
+
+Definition at line 60 of file srvAppLayer.h.
+
+
+
+Referenced by StartListening().
+
+\hypertarget{classsrvAppLayer_ae0a4157df420f09cc38a0f51e5b18419}{
+\index{srvAppLayer@{srvAppLayer}!equipListenThread@{equipListenThread}}
+\index{equipListenThread@{equipListenThread}!srvAppLayer@{srvAppLayer}}
+\subsubsection[{equipListenThread}]{\setlength{\rightskip}{0pt plus 5cm}pthread\_\-t {\bf srvAppLayer::equipListenThread}\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}
+\label{d8/d72/classsrvAppLayer_ae0a4157df420f09cc38a0f51e5b18419}
+
+
+Handle to equipmnent data listening thread. 
+
+\begin{DoxyNote}{Note}
+programm not have equipment data sending thread 
+\end{DoxyNote}
+
+
+Definition at line 61 of file srvAppLayer.h.
+
+
+
+Referenced by StartListening().
+
+\hypertarget{classsrvAppLayer_a48dd164d86d1e43d4bd6e775f75986f1}{
+\index{srvAppLayer@{srvAppLayer}!cpListenerPortNum@{cpListenerPortNum}}
+\index{cpListenerPortNum@{cpListenerPortNum}!srvAppLayer@{srvAppLayer}}
+\subsubsection[{cpListenerPortNum}]{\setlength{\rightskip}{0pt plus 5cm}WORD {\bf srvAppLayer::cpListenerPortNum}\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}
+\label{d8/d72/classsrvAppLayer_a48dd164d86d1e43d4bd6e775f75986f1}
+
+
+settings: Udp port number to listen requests from network clients 
+
+
+
+Definition at line 64 of file srvAppLayer.h.
+
+
+
+Referenced by getListenerPortNum(), and srvAppLayer().
+
+\hypertarget{classsrvAppLayer_af96e38bd128f37b4facc0957c31ae6ac}{
+\index{srvAppLayer@{srvAppLayer}!equip\_\-listen@{equip\_\-listen}}
+\index{equip\_\-listen@{equip\_\-listen}!srvAppLayer@{srvAppLayer}}
+\subsubsection[{equip\_\-listen}]{\setlength{\rightskip}{0pt plus 5cm}udp\_\-port$\ast$ {\bf srvAppLayer::equip\_\-listen}\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}
+\label{d8/d72/classsrvAppLayer_af96e38bd128f37b4facc0957c31ae6ac}
+
+
+udp\_\-port instance that associates with listening data from equipment 
+
+
+
+Definition at line 65 of file srvAppLayer.h.
+
+
+
+Referenced by equip\_\-read\_\-data(), equip\_\-reading\_\-event(), StartListening(), and $\sim$srvAppLayer().
+
+\hypertarget{classsrvAppLayer_ad6ecca4186d37afcf4c94617fa66a990}{
+\index{srvAppLayer@{srvAppLayer}!ServiceState@{ServiceState}}
+\index{ServiceState@{ServiceState}!srvAppLayer@{srvAppLayer}}
+\subsubsection[{ServiceState}]{\setlength{\rightskip}{0pt plus 5cm}{\bf stateVector\_\-type} {\bf srvAppLayer::ServiceState}\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}
+\label{d8/d72/classsrvAppLayer_ad6ecca4186d37afcf4c94617fa66a990}
+
+
+Service state vector. 
+
+
+
+Definition at line 72 of file srvAppLayer.h.
+
+
+
+Referenced by execMessage(), and getStateVector().
+
+\hypertarget{classsrvAppLayer_a79e7499e8647eb0f0ba4fd9613fd48c0}{
+\index{srvAppLayer@{srvAppLayer}!clientsRequestsQueue@{clientsRequestsQueue}}
+\index{clientsRequestsQueue@{clientsRequestsQueue}!srvAppLayer@{srvAppLayer}}
+\subsubsection[{clientsRequestsQueue}]{\setlength{\rightskip}{0pt plus 5cm}{\bf ssBuffer}$\ast$ {\bf srvAppLayer::clientsRequestsQueue}}}
+\label{d8/d72/classsrvAppLayer_a79e7499e8647eb0f0ba4fd9613fd48c0}
+
+
+Queue that stores received requests from client. 
+
+
+
+Definition at line 76 of file srvAppLayer.h.
+
+
+
+Referenced by ProcessMessages(), StartListening(), StopListening(), and udpListenerThread().
+
+\hypertarget{classsrvAppLayer_a6c6ddd6197dc92d2812ed3de418e4b5e}{
+\index{srvAppLayer@{srvAppLayer}!functionsAnswersQueue@{functionsAnswersQueue}}
+\index{functionsAnswersQueue@{functionsAnswersQueue}!srvAppLayer@{srvAppLayer}}
+\subsubsection[{functionsAnswersQueue}]{\setlength{\rightskip}{0pt plus 5cm}{\bf ssBuffer}$\ast$ {\bf srvAppLayer::functionsAnswersQueue}}}
+\label{d8/d72/classsrvAppLayer_a6c6ddd6197dc92d2812ed3de418e4b5e}
+
+
+Queue that stores service functions answers to clients. 
+
+
+
+Definition at line 77 of file srvAppLayer.h.
+
+
+
+Referenced by sendResult(), StartListening(), StopListening(), and udpSenderThread().
+
+
+
+The documentation for this class was generated from the following files:\begin{DoxyCompactItemize}
+\item 
+src/srvAppLayer/\hyperlink{srvAppLayer_8h}{srvAppLayer.h}\item 
+src/srvAppLayer/\hyperlink{srvAppLayer_8cpp}{srvAppLayer.cpp}\end{DoxyCompactItemize}

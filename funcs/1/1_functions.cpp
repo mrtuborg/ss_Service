@@ -28,7 +28,7 @@ schedule *batchSched;
 
 void* pollingThread(void* user)
 {
-  ICAppLayer* app = (ICAppLayer*) user;
+  srvAppLayer* app = (srvAppLayer*) user;
   BYTE* array;
   WORD old_crc = 0xFFFF;
   while (!app->terminated())
@@ -68,7 +68,7 @@ errType srvInit()
 {
   void* pollingThread(void* user)
   {
-    ICAppLayer* app = (ICAppLayer*) user;
+    srvAppLayer* app = (srvAppLayer*) user;
     BYTE* array;
     WORD old_crc = 0xFFFF;
     while (!app->terminated())
@@ -103,7 +103,7 @@ errType emergencyShutdown(void* fn)
     printf("*** EmergencyShutdown was called! ***\n");
     printf("*************************************\n");
     
-    FunctionNode* func=(FunctionNode*)fn;
+    functionNode* func=(functionNode*)fn;
     
     func->dbgPrint();
     
@@ -117,7 +117,7 @@ errType controlModeChange(void* fn)
     printf("*** ControlModeChange was called! ***\n");
     printf("*************************************\n");
 
-    FunctionNode* func=(FunctionNode*)fn;
+    functionNode* func=(functionNode*)fn;
     
     func->dbgPrint();
     
@@ -127,7 +127,7 @@ errType controlModeChange(void* fn)
 errType getStateVector(void* fn)
 {
     errType result=err_result_ok;
-    FunctionNode* func=(FunctionNode*)fn;
+    functionNode* func=(functionNode*)fn;
     func->printParams();
     func->setResult(1,&app->getStateVector());
     func->printResults();
@@ -142,7 +142,7 @@ errType addScheduleJob(void* fn)
     errType result=err_not_init;
 
 
-    FunctionNode* func=(FunctionNode*)fn;
+    functionNode* func=(functionNode*)fn;
     
     func->printParams();
     
@@ -197,7 +197,7 @@ errType CreateEmergencySchedule(void* fn)
     printf("*CreateEmergencySchedule was called!**\n");
     printf("**************************************\n");
 
-    FunctionNode* func=(FunctionNode*)fn;
+    functionNode* func=(functionNode*)fn;
     
     func->dbgPrint();
 
@@ -211,7 +211,7 @@ errType ReadGeneralSchedule(void* fn)
     printf("** ReadGeneralSchedule was called! **\n");
     printf("*************************************\n");
 
-    FunctionNode* func=(FunctionNode*)fn;
+    functionNode* func=(functionNode*)fn;
     
     func->dbgPrint();
 
@@ -225,7 +225,7 @@ errType ReadEmergencySchedule(void* fn)
     printf("*ReadEmergencySchedule was called! **\n");
     printf("*************************************\n");
 
-    FunctionNode* func=(FunctionNode*)fn;
+    functionNode* func=(functionNode*)fn;
     
     func->dbgPrint();
 
@@ -239,7 +239,7 @@ errType GetCursorPosition(void* fn)
     printf("*** GetCursorPosition was called! ***\n");
     printf("*************************************\n");
 
-    FunctionNode* func=(FunctionNode*)fn;
+    functionNode* func=(functionNode*)fn;
     
     func->dbgPrint();
 

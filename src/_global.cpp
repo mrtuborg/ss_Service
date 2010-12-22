@@ -1,3 +1,17 @@
+/**
+ * @file
+ * @author Vladimir A. Nosenko (nosenko@ieee.org)
+ * @date   December, 2010
+ * @brief  Global environment.
+ * @details
+ *      Copyright (c) 2010 Vladimir A.Nosenko.
+ *
+ *      The license and distribution terms for this file may be
+ *      found in the file LICENSE in this distribution
+ *
+ *
+ */
+
 #include <netinet/in.h>
 #include <queue>
 #include "../../rcsLib/ortsTypes/ortsTypes.h"
@@ -6,22 +20,28 @@
 #include "../../rcsLib/rcsCmd/rcsCmd.h"
 #include "ICAppLayer/FunctionNode/param_desc.h"
 #include "ICAppLayer/FunctionNode/FunctionNode.h"
-
 #include "ICAppLayer/ICAppLayer.h"
 
-int verbose_level=0;
-bool listen_mode=false;
-bool AppTerminated=false;
-bool awaitingPattern_mode=false;
-bool pattern_found=false;
 
-char eq_ip_addr[255]={0};
-char dataFile[255]={0};
-char if_name[255]={0};
-char patternFile[255]={0};
-char reactionFile[255]={0};
+int verbose_level=0; ///< Debug detail level printing.
 
-WORD wUdp=0;
-WORD eq_udp_listen_port=0;
-WORD eq_udp_sending_port=0;
-in_addr equipAddr;
+
+bool listen_mode=false;          ///< needless variable.@todo Need to be deleted.
+bool awaitingPattern_mode=false; ///< needless variable.@todo Need to be deleted.
+bool pattern_found=false;        ///< needless variable.@todo Need to be deleted.
+char patternFile[255]={0};       ///< needless variable.@todo Need to be deleted.
+char reactionFile[255]={0};      ///< needless variable.@todo Need to be deleted.
+char dataFile[255]={0};          ///< needless variable.@todo Need to be deleted.
+char if_name[255]={0};           ///< needless variable.@todo Need to be deleted.
+
+
+bool AppTerminated=false; ///< Programm termination signal.
+                          ///  All processes need to finish own job.
+char eq_ip_addr[255]={0}; ///< Equipment IP address.
+
+
+WORD wUdp=0;               ///< Server udp port number for communicate with client.
+WORD eq_udp_listen_port=0; ///< Server udp port number for listen an equipment.
+WORD eq_udp_sending_port=0;///< Server udp port number for sending into equipment.
+
+in_addr equipAddr;         ///< Storage for in_addr of equipment

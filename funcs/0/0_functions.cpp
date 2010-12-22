@@ -31,7 +31,7 @@ pthread_t PollingThreadHandle;
 typedef struct monitor_t {
     prcList *processes;
     fltrList *filters;
-    ICAppLayer *application;
+    srvAppLayer *application;
 } monitor_t;
 
 
@@ -71,7 +71,7 @@ void* PollingThread(void* user)
     
     fltrList* fltrMgr=mon->filters;                                                
     prcList* procMgr=mon->processes;                                                
-    ICAppLayer* app=mon->application;
+    srvAppLayer* app=mon->application;
     
     procMgr->scanUserProcesses();
     
@@ -127,7 +127,7 @@ errType EmergencyShutdown(void* fn)
     printf("*** EmergencyShutdown was called! ***\n");
     printf("*************************************\n");
     
-    FunctionNode* func=(FunctionNode*)fn;
+    functionNode* func=(functionNode*)fn;
     
     func->dbgPrint();
     
@@ -141,7 +141,7 @@ errType ControlModeChange(void* fn)
     printf("*** ControlModeChange was called! ***\n");
     printf("*************************************\n");
 
-    FunctionNode* func=(FunctionNode*)fn;
+    functionNode* func=(functionNode*)fn;
     
     func->dbgPrint();
     
@@ -152,7 +152,7 @@ errType GetStateVector(void* fn)
 {
     errType result=err_result_ok;
     
-    FunctionNode* func=(FunctionNode*)fn;
+    functionNode* func=(functionNode*)fn;
     func->printParams();
     
     func->setResult(1,&app->getStateVector());
@@ -166,7 +166,7 @@ errType GetProcessesList(void* fn)
 {
     errType result=err_not_init;
     
-    FunctionNode* func=(FunctionNode*)fn;
+    functionNode* func=(functionNode*)fn;
     
     WORD *sendingArray;
     BYTE res;
@@ -211,7 +211,7 @@ errType GetProcessInfo(void* fn)
     char *environment;
     WORD environment_len;
     
-    FunctionNode* func=(FunctionNode*)fn;
+    functionNode* func=(functionNode*)fn;
     
     WORD pid=*(WORD*)func->getParamPtr(0);
     
@@ -279,7 +279,7 @@ errType SearchProcess(void* fn)
 {
     errType result=err_params_value;
     
-    FunctionNode* func=(FunctionNode*)fn;
+    functionNode* func=(functionNode*)fn;
     
     func->printParams();
     
@@ -311,7 +311,7 @@ errType RebootSystem(void* fn)
 {
     errType result=err_not_init;
     
-    FunctionNode* func=(FunctionNode*)fn;
+    functionNode* func=(functionNode*)fn;
     
     func->dbgPrint();
     app->terminate(2); // terminate & reboot
@@ -322,7 +322,7 @@ errType KillProcess(void* fn)
 {
     errType result=err_not_init;
     
-    FunctionNode* func=(FunctionNode*)fn;
+    functionNode* func=(functionNode*)fn;
     
     BYTE sig=SIGKILL;
     WORD pid=*(WORD*)(func->getParamPtr(0));
@@ -344,7 +344,7 @@ errType RestartProcess(void* fn)
     printf("*** RestartProcess was called!    ***\n");
     printf("*************************************\n");
 
-    FunctionNode* func=(FunctionNode*)fn;
+    functionNode* func=(functionNode*)fn;
     
     func->dbgPrint();
     
@@ -363,7 +363,7 @@ errType InstallFilter(void* fn)
 {
     errType result=err_not_init;
     
-    FunctionNode* func=(FunctionNode*)fn;
+    functionNode* func=(functionNode*)fn;
     
     func->printParams();
     

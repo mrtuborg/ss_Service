@@ -54,7 +54,7 @@ serviceStateByte stateByte;
 
 void* pollingThread(void* user)
 {
-  ICAppLayer* app = (ICAppLayer*) user;
+  srvAppLayer* app = (srvAppLayer*) user;
   BYTE* array;
   WORD old_crc = 0xFFFF;
   while (!app->terminated())
@@ -128,7 +128,7 @@ errType srvDeinit()
 errType emergencyShutdown(void* fn)
 {
   errType result = err_not_init;
-  FunctionNode* func = (FunctionNode*) fn;
+  functionNode* func = (functionNode*) fn;
   //func->dbgPrint();
   func->printResults();
   return result;
@@ -137,7 +137,7 @@ errType emergencyShutdown(void* fn)
 errType controlModeChange(void* fn)
 {
   errType result = err_not_init;
-  FunctionNode* func = (FunctionNode*) fn;
+  functionNode* func = (functionNode*) fn;
   func->printParams();
   //func->dbgPrint();
   func->printResults();
@@ -147,7 +147,7 @@ errType controlModeChange(void* fn)
 errType getStateVector(void* fn)
 {
   errType result = err_result_ok;
-  FunctionNode* func = (FunctionNode*) fn;
+  functionNode* func = (functionNode*) fn;
   stateVector_type stateVector;
   stateVector = app->getStateVector();
 
@@ -167,7 +167,7 @@ errType shieldPowerON(void* fn)
 {
   errType result = err_result_ok;
 
-  FunctionNode* func = (FunctionNode*) fn;
+  functionNode* func = (functionNode*) fn;
 
   func->printParams();
   func->printResults();
@@ -179,7 +179,7 @@ errType shieldPowerOFF(void* fn)
 {
   errType result = err_result_ok;
 
-  FunctionNode* func = (FunctionNode*) fn;
+  functionNode* func = (functionNode*) fn;
 
   func->printParams();
   func->printResults();
@@ -191,7 +191,7 @@ errType hydroSystemPowerON(void* fn)
 {
   errType result = err_result_ok;
 
-  FunctionNode* func = (FunctionNode*) fn;
+  functionNode* func = (functionNode*) fn;
 
   func->printParams();
 
@@ -206,7 +206,7 @@ errType hydroSystemPowerOFF(void* fn)
 {
   errType result = err_result_ok;
 
-  FunctionNode* func = (FunctionNode*) fn;
+  functionNode* func = (functionNode*) fn;
 
   func->printParams();
 
@@ -221,7 +221,7 @@ errType hydroSystemGetParams(void* fn)
 {
   errType result = err_result_ok;
 
-  FunctionNode* func = (FunctionNode*) fn;
+  functionNode* func = (functionNode*) fn;
 
   func->printParams();
   
@@ -247,7 +247,7 @@ errType foldOpen(void* fn)
 {
   errType result = err_result_ok;
 
-  FunctionNode* func = (FunctionNode*) fn;
+  functionNode* func = (functionNode*) fn;
 
   func->printParams();
 
@@ -264,7 +264,7 @@ errType foldClose(void* fn)
 {
   errType result = err_result_ok;
 
-  FunctionNode* func = (FunctionNode*) fn;
+  functionNode* func = (functionNode*) fn;
 
   func->printParams();
 
@@ -281,7 +281,7 @@ errType foldStop(void* fn)
 {
   errType result = err_result_ok;
 
-  FunctionNode* func = (FunctionNode*) fn;
+  functionNode* func = (functionNode*) fn;
 
   func->printParams();
 
@@ -300,7 +300,7 @@ errType shieldOpen(void* fn)
 {
   errType result = err_result_ok;
 
-  FunctionNode* func = (FunctionNode*) fn;
+  functionNode* func = (functionNode*) fn;
 
   func->printParams();
 
@@ -315,7 +315,7 @@ errType shieldClose(void* fn)
 {
   errType result = err_result_ok;
 
-  FunctionNode* func = (FunctionNode*) fn;
+  functionNode* func = (functionNode*) fn;
 
   func->printParams();
 
@@ -330,7 +330,7 @@ errType shieldStop(void* fn)
 {
   errType result = err_result_ok;
 
-  FunctionNode* func = (FunctionNode*) fn;
+  functionNode* func = (functionNode*) fn;
 
   func->printParams();
 
@@ -348,7 +348,7 @@ errType foldGetParams(void* fn)
   
   errType result = err_not_init;
 
-  FunctionNode* func = (FunctionNode*) fn;
+  functionNode* func = (functionNode*) fn;
 
   func->printParams();
 
@@ -374,7 +374,7 @@ errType semiaxisSensorsGetState(void* fn)
 {
   errType result = err_not_init;
 
-  FunctionNode* func = (FunctionNode*) fn;
+  functionNode* func = (functionNode*) fn;
 
   func->printParams();
 
@@ -428,7 +428,7 @@ errType changeControlMode(void* fn)
 {
   errType result = err_result_ok;
 
-  FunctionNode* func = (FunctionNode*) fn;
+  functionNode* func = (functionNode*) fn;
 
   func->printParams();
 
@@ -455,7 +455,7 @@ errType changeControlMode(void* fn)
 errType getControlMode(void* fn)
 {
   errType result = err_result_ok;
-  FunctionNode* func = (FunctionNode*) fn;
+  functionNode* func = (functionNode*) fn;
   func->printParams();
   BYTE mode=3;
   if (answerFrame->isLocalControl()) mode=2;
@@ -471,7 +471,7 @@ errType startFuncControl(void* fn)
 {
 
   errType result = err_result_ok;
-  FunctionNode* func = (FunctionNode*) fn;
+  functionNode* func = (functionNode*) fn;
 
   func->printParams();
 
@@ -487,7 +487,7 @@ errType correctHydroCyl(void* fn)
 
   errType result = err_result_ok;
 
-  FunctionNode* func = (FunctionNode*) fn;
+  functionNode* func = (functionNode*) fn;
 
   func->printParams();
 
@@ -515,7 +515,7 @@ errType getUZstate(void* fn)
 {
   errType result = err_result_ok;
 
-  FunctionNode* func = (FunctionNode*) fn;
+  functionNode* func = (functionNode*) fn;
 
   func->printParams();
 
@@ -539,7 +539,7 @@ errType getUZstate(void* fn)
 errType getAllUZstate(void* fn)
 {
     errType result = err_result_ok;
-    FunctionNode* func = (FunctionNode*) fn;
+    functionNode* func = (functionNode*) fn;
     uzState_type UZ[3];
 
     for(int i=0; i<3;i ++)
@@ -587,7 +587,7 @@ typedef union semiaxisSensorsVector_t {
 errType allSemiaxisSensorsGetState(void* fn)
 {
     errType result=err_result_ok;
-    FunctionNode* func = (FunctionNode*) fn;
+    functionNode* func = (functionNode*) fn;
     
     semiaxisSensorsVector_t vector;
     
@@ -609,7 +609,7 @@ errType allSemiaxisSensorsGetState(void* fn)
 errType allFoldsGetParams(void* fn)
 {
     errType result=err_result_ok;
-    FunctionNode* func = (FunctionNode*) fn;
+    functionNode* func = (functionNode*) fn;
     BYTE foldState[3];
     WORD foldPos[3];
     

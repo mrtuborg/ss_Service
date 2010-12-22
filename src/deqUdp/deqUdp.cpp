@@ -1,3 +1,17 @@
+/**
+ * @file
+ * @author Vladimir A. Nosenko (nosenko@ieee.org)
+ * @date   December, 2010
+ * @brief  Class deqUdp implementation
+ * @details
+ *      Copyright (c) 2010 Vladimir A.Nosenko.
+ *
+ *      The license and distribution terms for this file may be
+ *      found in the file LICENSE in this distribution
+ *
+ *
+ */
+
 #include <arpa/inet.h>
 #include <deque>
 #include "../../../rcsLib/ortsTypes/ortsTypes.h"
@@ -16,8 +30,15 @@ deqUdp::~deqUdp()
 
 }
 
+/******************************************************************//**
+ * @brief       Send data to udp port from queued buffer (ssBuffer)
+ * @param[in]   buf - pointer to queue for sending data
+ * @retval      err_result_ok - execution was successful
+ * @retval      err_result_error - problems with udp sendto function
+ **********************************************************************/
 errType deqUdp::sendData(ssBuffer *buf)                                                                                                                                 
-{                                                                                                                                                                           
+{
+  /// @todo not needed to realize all sendData check ability to use base method sendData of parent class
 //    if (verbose_level) printf("udp_port::sendData()\n");                                                                                                                    
     int flags=0;                                                                                                                                                            
     errType result=err_result_ok;                                                                                                                                           
@@ -44,9 +65,18 @@ errType deqUdp::sendData(ssBuffer *buf)
     return result;                                                                                                                                                          
 }
 
-
+/******************************************************************//**
+ * @brief       Read udp port data to queued buffer (ssBuffer)
+ * @param[in]   addr - pointer to queue for readed data
+ * @param[in]   peek - PEEK MODE
+ * @param[out]  len - length of readed data
+ * @param[out]  ipaddr - information about data sender
+ * @retval      err_result_ok - execution was successful
+ * @retval      err_result_error - problems with udp sendto function
+ **********************************************************************/
 errType deqUdp::readData(ssBuffer* addr, size_t* len, in_addr *ipaddr,bool peek)
 {
+  /// @todo not needed to realize all sendData check ability to use base method sendData of parent class
 	//    if (verbose_level) printf("udp_port::readData(buffer)\n");
     errType result=err_result_ok;
     int numbytes=0, i=0;

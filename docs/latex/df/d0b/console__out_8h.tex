@@ -1,0 +1,297 @@
+\hypertarget{console__out_8h}{
+\section{src/console\_\-out.h File Reference}
+\label{df/d0b/console__out_8h}\index{src/console\_\-out.h@{src/console\_\-out.h}}
+}
+
+
+aided functions interface header  
+
+
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{console__out_8h_ad8d7b07dc1747782dad088e4f21cd684}{show\_\-help} (const char verbose)
+\begin{DoxyCompactList}\small\item\em Show cmdline help information (-\/-\/help) \item\end{DoxyCompactList}\item 
+void \hyperlink{console__out_8h_af8f154bf210b7ff6d50433da876083e6}{show\_\-version} ()
+\begin{DoxyCompactList}\small\item\em Show programm version information (-\/-\/version) \item\end{DoxyCompactList}\item 
+void \hyperlink{console__out_8h_a1e2fd4e3d1eede093afe2851974c4862}{show\_\-error} (const char $\ast$msg, const int errcode, const char help)
+\begin{DoxyCompactList}\small\item\em Show cmdLine parser error. \item\end{DoxyCompactList}\item 
+void \hyperlink{console__out_8h_a929fbf4386c2f39e00f0a0acf1e555f7}{internal\_\-error} (const char $\ast$msg)
+\begin{DoxyCompactList}\small\item\em Show cmdLine internal error. \item\end{DoxyCompactList}\item 
+const char $\ast$ \hyperlink{console__out_8h_ab4d156002271dae6629ab13fa84c999f}{optname} (const int code, const \hyperlink{structap__Option}{ap\_\-Option} options\mbox{[}$\,$\mbox{]})
+\begin{DoxyCompactList}\small\item\em Convert code with option from cmdLine argument to char buffer. \item\end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+char \hyperlink{console__out_8h_ad8297b41295ba20f45eaf1c84923bea7}{PROGVERSION} \mbox{[}$\,$\mbox{]}
+\begin{DoxyCompactList}\small\item\em version of programm \item\end{DoxyCompactList}\item 
+char \hyperlink{console__out_8h_a540174fafd3a9a0cb63a4c813563497c}{Program\_\-name} \mbox{[}$\,$\mbox{]}
+\begin{DoxyCompactList}\small\item\em name of programm \item\end{DoxyCompactList}\item 
+char \hyperlink{console__out_8h_a8eb8ac7e6e77ab6d33a01affa64c68a6}{program\_\-name} \mbox{[}$\,$\mbox{]}
+\begin{DoxyCompactList}\small\item\em filename of programm \item\end{DoxyCompactList}\item 
+char \hyperlink{console__out_8h_add3ba68bf56e8b7f83e9ab27df9286ca}{program\_\-year} \mbox{[}$\,$\mbox{]}
+\begin{DoxyCompactList}\small\item\em copyright year \item\end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+aided functions interface header \begin{DoxyAuthor}{Author}
+Vladimir A. Nosenko (\href{mailto:nosenko@ieee.org}{\tt nosenko@ieee.org}) 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+December, 2010
+\end{DoxyDate}
+Copyright (c) 2010 Vladimir A.Nosenko.
+
+The license and distribution terms for this file may be found in the file LICENSE in this distribution 
+
+Definition in file \hyperlink{console__out_8h_source}{console\_\-out.h}.
+
+
+
+\subsection{Function Documentation}
+\hypertarget{console__out_8h_ad8d7b07dc1747782dad088e4f21cd684}{
+\index{console\_\-out.h@{console\_\-out.h}!show\_\-help@{show\_\-help}}
+\index{show\_\-help@{show\_\-help}!console_out.h@{console\_\-out.h}}
+\subsubsection[{show\_\-help}]{\setlength{\rightskip}{0pt plus 5cm}void show\_\-help (
+\begin{DoxyParamCaption}
+\item[{const char}]{ verbose}
+\end{DoxyParamCaption}
+)}}
+\label{df/d0b/console__out_8h_ad8d7b07dc1747782dad088e4f21cd684}
+
+
+Show cmdline help information (-\/-\/help) 
+
+
+
+Definition at line 36 of file console\_\-out.cpp.
+
+
+
+References program\_\-name, and Program\_\-name.
+
+
+
+Referenced by process\_\-cmdLine().
+
+
+
+Here is the caller graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=378pt]{df/d0b/console__out_8h_ad8d7b07dc1747782dad088e4f21cd684_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{console__out_8h_af8f154bf210b7ff6d50433da876083e6}{
+\index{console\_\-out.h@{console\_\-out.h}!show\_\-version@{show\_\-version}}
+\index{show\_\-version@{show\_\-version}!console_out.h@{console\_\-out.h}}
+\subsubsection[{show\_\-version}]{\setlength{\rightskip}{0pt plus 5cm}void show\_\-version (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{df/d0b/console__out_8h_af8f154bf210b7ff6d50433da876083e6}
+
+
+Show programm version information (-\/-\/version) 
+
+
+
+Definition at line 58 of file console\_\-out.cpp.
+
+
+
+References Program\_\-name, PROGVERSION, and REVISION.
+
+
+
+Referenced by process\_\-cmdLine().
+
+
+
+Here is the caller graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=394pt]{df/d0b/console__out_8h_af8f154bf210b7ff6d50433da876083e6_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{console__out_8h_a1e2fd4e3d1eede093afe2851974c4862}{
+\index{console\_\-out.h@{console\_\-out.h}!show\_\-error@{show\_\-error}}
+\index{show\_\-error@{show\_\-error}!console_out.h@{console\_\-out.h}}
+\subsubsection[{show\_\-error}]{\setlength{\rightskip}{0pt plus 5cm}void show\_\-error (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{ msg, }
+\item[{const int}]{ errcode, }
+\item[{const char}]{ help}
+\end{DoxyParamCaption}
+)}}
+\label{df/d0b/console__out_8h_a1e2fd4e3d1eede093afe2851974c4862}
+
+
+Show cmdLine parser error. 
+
+
+
+Definition at line 72 of file console\_\-out.cpp.
+
+
+
+References program\_\-name.
+
+
+
+Referenced by internal\_\-error(), and process\_\-cmdLine().
+
+
+
+Here is the caller graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{df/d0b/console__out_8h_a1e2fd4e3d1eede093afe2851974c4862_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{console__out_8h_a929fbf4386c2f39e00f0a0acf1e555f7}{
+\index{console\_\-out.h@{console\_\-out.h}!internal\_\-error@{internal\_\-error}}
+\index{internal\_\-error@{internal\_\-error}!console_out.h@{console\_\-out.h}}
+\subsubsection[{internal\_\-error}]{\setlength{\rightskip}{0pt plus 5cm}void internal\_\-error (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{ msg}
+\end{DoxyParamCaption}
+)}}
+\label{df/d0b/console__out_8h_a929fbf4386c2f39e00f0a0acf1e555f7}
+
+
+Show cmdLine internal error. 
+
+
+
+Definition at line 86 of file console\_\-out.cpp.
+
+
+
+References show\_\-error().
+
+
+
+Referenced by process\_\-cmdLine().
+
+
+
+Here is the call graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=280pt]{df/d0b/console__out_8h_a929fbf4386c2f39e00f0a0acf1e555f7_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=396pt]{df/d0b/console__out_8h_a929fbf4386c2f39e00f0a0acf1e555f7_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{console__out_8h_ab4d156002271dae6629ab13fa84c999f}{
+\index{console\_\-out.h@{console\_\-out.h}!optname@{optname}}
+\index{optname@{optname}!console_out.h@{console\_\-out.h}}
+\subsubsection[{optname}]{\setlength{\rightskip}{0pt plus 5cm}const char$\ast$ optname (
+\begin{DoxyParamCaption}
+\item[{const int}]{ code, }
+\item[{const {\bf ap\_\-Option}}]{ options\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}}
+\label{df/d0b/console__out_8h_ab4d156002271dae6629ab13fa84c999f}
+
+
+Convert code with option from cmdLine argument to char buffer. 
+
+
+
+Definition at line 97 of file console\_\-out.cpp.
+
+
+
+References ap\_\-Option::code, and ap\_\-Option::name.
+
+
+
+\subsection{Variable Documentation}
+\hypertarget{console__out_8h_ad8297b41295ba20f45eaf1c84923bea7}{
+\index{console\_\-out.h@{console\_\-out.h}!PROGVERSION@{PROGVERSION}}
+\index{PROGVERSION@{PROGVERSION}!console_out.h@{console\_\-out.h}}
+\subsubsection[{PROGVERSION}]{\setlength{\rightskip}{0pt plus 5cm}char {\bf PROGVERSION}\mbox{[}$\,$\mbox{]}}}
+\label{df/d0b/console__out_8h_ad8297b41295ba20f45eaf1c84923bea7}
+
+
+version of programm 
+
+
+
+Definition at line 27 of file console\_\-out.cpp.
+
+
+
+Referenced by show\_\-version().
+
+\hypertarget{console__out_8h_a540174fafd3a9a0cb63a4c813563497c}{
+\index{console\_\-out.h@{console\_\-out.h}!Program\_\-name@{Program\_\-name}}
+\index{Program\_\-name@{Program\_\-name}!console_out.h@{console\_\-out.h}}
+\subsubsection[{Program\_\-name}]{\setlength{\rightskip}{0pt plus 5cm}char {\bf Program\_\-name}\mbox{[}$\,$\mbox{]}}}
+\label{df/d0b/console__out_8h_a540174fafd3a9a0cb63a4c813563497c}
+
+
+name of programm 
+
+
+
+Definition at line 28 of file console\_\-out.cpp.
+
+
+
+Referenced by show\_\-help(), and show\_\-version().
+
+\hypertarget{console__out_8h_a8eb8ac7e6e77ab6d33a01affa64c68a6}{
+\index{console\_\-out.h@{console\_\-out.h}!program\_\-name@{program\_\-name}}
+\index{program\_\-name@{program\_\-name}!console_out.h@{console\_\-out.h}}
+\subsubsection[{program\_\-name}]{\setlength{\rightskip}{0pt plus 5cm}char {\bf program\_\-name}\mbox{[}$\,$\mbox{]}}}
+\label{df/d0b/console__out_8h_a8eb8ac7e6e77ab6d33a01affa64c68a6}
+
+
+filename of programm 
+
+
+
+Definition at line 29 of file console\_\-out.cpp.
+
+
+
+Referenced by show\_\-error(), and show\_\-help().
+
+\hypertarget{console__out_8h_add3ba68bf56e8b7f83e9ab27df9286ca}{
+\index{console\_\-out.h@{console\_\-out.h}!program\_\-year@{program\_\-year}}
+\index{program\_\-year@{program\_\-year}!console_out.h@{console\_\-out.h}}
+\subsubsection[{program\_\-year}]{\setlength{\rightskip}{0pt plus 5cm}char {\bf program\_\-year}\mbox{[}$\,$\mbox{]}}}
+\label{df/d0b/console__out_8h_add3ba68bf56e8b7f83e9ab27df9286ca}
+
+
+copyright year 
+
+
+
+Definition at line 30 of file console\_\-out.cpp.
+

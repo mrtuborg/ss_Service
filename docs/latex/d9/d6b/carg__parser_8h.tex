@@ -1,0 +1,296 @@
+\hypertarget{carg__parser_8h}{
+\section{src/arg\_\-parser/carg\_\-parser.h File Reference}
+\label{d9/d6b/carg__parser_8h}\index{src/arg\_\-parser/carg\_\-parser.h@{src/arg\_\-parser/carg\_\-parser.h}}
+}
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structap__Option}{ap\_\-Option}
+\item 
+struct \hyperlink{structap__Record}{ap\_\-Record}
+\item 
+struct \hyperlink{structArg__parser}{Arg\_\-parser}
+\end{DoxyCompactItemize}
+\subsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \hyperlink{carg__parser_8h_a25cb436ba7a57cdaebe5e6ff174acf27}{ap\_\-Has\_\-arg} \{ \hyperlink{carg__parser_8h_a25cb436ba7a57cdaebe5e6ff174acf27a8cc4a28c7f389ca56752056bd8655298}{ap\_\-no}, 
+\hyperlink{carg__parser_8h_a25cb436ba7a57cdaebe5e6ff174acf27a17f51bff1516ad6b5daf0587b05bcba3}{ap\_\-yes}, 
+\hyperlink{carg__parser_8h_a25cb436ba7a57cdaebe5e6ff174acf27a61697ca54781012e3ee0773a44794f96}{ap\_\-maybe}
+ \}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+char \hyperlink{carg__parser_8h_a17ea4588142cd924979247065ee879a5}{ap\_\-init} (\hyperlink{structArg__parser}{Arg\_\-parser} $\ast$ap, const int argc, const char $\ast$const argv\mbox{[}$\,$\mbox{]}, const \hyperlink{structap__Option}{ap\_\-Option} options\mbox{[}$\,$\mbox{]}, const char in\_\-order)
+\item 
+void \hyperlink{carg__parser_8h_aa4bd139812fb259a6f7b959001185ef9}{ap\_\-free} (\hyperlink{structArg__parser}{Arg\_\-parser} $\ast$ap)
+\item 
+const char $\ast$ \hyperlink{carg__parser_8h_afd8cfd6a35982dd8d0194f972225b8a4}{ap\_\-error} (const \hyperlink{structArg__parser}{Arg\_\-parser} $\ast$ap)
+\item 
+int \hyperlink{carg__parser_8h_acbf8b2c6b17203b9b2e0e3fe7b334b04}{ap\_\-arguments} (const \hyperlink{structArg__parser}{Arg\_\-parser} $\ast$ap)
+\item 
+int \hyperlink{carg__parser_8h_a35a7279617ae46ff95726c08d1b90f6c}{ap\_\-code} (const \hyperlink{structArg__parser}{Arg\_\-parser} $\ast$ap, const int i)
+\item 
+const char $\ast$ \hyperlink{carg__parser_8h_a817f558f9a6fcda87ceb7a2d9c267654}{ap\_\-argument} (const \hyperlink{structArg__parser}{Arg\_\-parser} $\ast$ap, const int i)
+\end{DoxyCompactItemize}
+
+
+\subsection{Enumeration Type Documentation}
+\hypertarget{carg__parser_8h_a25cb436ba7a57cdaebe5e6ff174acf27}{
+\index{carg\_\-parser.h@{carg\_\-parser.h}!ap\_\-Has\_\-arg@{ap\_\-Has\_\-arg}}
+\index{ap\_\-Has\_\-arg@{ap\_\-Has\_\-arg}!carg_parser.h@{carg\_\-parser.h}}
+\subsubsection[{ap\_\-Has\_\-arg}]{\setlength{\rightskip}{0pt plus 5cm}enum {\bf ap\_\-Has\_\-arg}}}
+\label{d9/d6b/carg__parser_8h_a25cb436ba7a57cdaebe5e6ff174acf27}
+\begin{Desc}
+\item[Enumerator: ]\par
+\begin{description}
+\index{ap\_\-no@{ap\_\-no}!carg\_\-parser.h@{carg\_\-parser.h}}\index{carg\_\-parser.h@{carg\_\-parser.h}!ap\_\-no@{ap\_\-no}}\item[{\em 
+\hypertarget{carg__parser_8h_a25cb436ba7a57cdaebe5e6ff174acf27a8cc4a28c7f389ca56752056bd8655298}{
+ap\_\-no}
+\label{d9/d6b/carg__parser_8h_a25cb436ba7a57cdaebe5e6ff174acf27a8cc4a28c7f389ca56752056bd8655298}
+}]\index{ap\_\-yes@{ap\_\-yes}!carg\_\-parser.h@{carg\_\-parser.h}}\index{carg\_\-parser.h@{carg\_\-parser.h}!ap\_\-yes@{ap\_\-yes}}\item[{\em 
+\hypertarget{carg__parser_8h_a25cb436ba7a57cdaebe5e6ff174acf27a17f51bff1516ad6b5daf0587b05bcba3}{
+ap\_\-yes}
+\label{d9/d6b/carg__parser_8h_a25cb436ba7a57cdaebe5e6ff174acf27a17f51bff1516ad6b5daf0587b05bcba3}
+}]\index{ap\_\-maybe@{ap\_\-maybe}!carg\_\-parser.h@{carg\_\-parser.h}}\index{carg\_\-parser.h@{carg\_\-parser.h}!ap\_\-maybe@{ap\_\-maybe}}\item[{\em 
+\hypertarget{carg__parser_8h_a25cb436ba7a57cdaebe5e6ff174acf27a61697ca54781012e3ee0773a44794f96}{
+ap\_\-maybe}
+\label{d9/d6b/carg__parser_8h_a25cb436ba7a57cdaebe5e6ff174acf27a61697ca54781012e3ee0773a44794f96}
+}]\end{description}
+\end{Desc}
+
+
+
+Definition at line 42 of file carg\_\-parser.h.
+
+
+
+\subsection{Function Documentation}
+\hypertarget{carg__parser_8h_a17ea4588142cd924979247065ee879a5}{
+\index{carg\_\-parser.h@{carg\_\-parser.h}!ap\_\-init@{ap\_\-init}}
+\index{ap\_\-init@{ap\_\-init}!carg_parser.h@{carg\_\-parser.h}}
+\subsubsection[{ap\_\-init}]{\setlength{\rightskip}{0pt plus 5cm}char ap\_\-init (
+\begin{DoxyParamCaption}
+\item[{{\bf Arg\_\-parser} $\ast$}]{ ap, }
+\item[{const int}]{ argc, }
+\item[{const char $\ast$const }]{ argv\mbox{[}$\,$\mbox{]}, }
+\item[{const {\bf ap\_\-Option}}]{ options\mbox{[}$\,$\mbox{]}, }
+\item[{const char}]{ in\_\-order}
+\end{DoxyParamCaption}
+)}}
+\label{d9/d6b/carg__parser_8h_a17ea4588142cd924979247065ee879a5}
+
+
+Definition at line 194 of file carg\_\-parser.cpp.
+
+
+
+References ap\_\-resize\_\-buffer(), Arg\_\-parser::data, Arg\_\-parser::data\_\-size, Arg\_\-parser::error, Arg\_\-parser::error\_\-size, free\_\-data(), parse\_\-long\_\-option(), parse\_\-short\_\-option(), and push\_\-back\_\-record().
+
+
+
+Referenced by process\_\-cmdLine().
+
+
+
+Here is the call graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{d9/d6b/carg__parser_8h_a17ea4588142cd924979247065ee879a5_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=358pt]{d9/d6b/carg__parser_8h_a17ea4588142cd924979247065ee879a5_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{carg__parser_8h_aa4bd139812fb259a6f7b959001185ef9}{
+\index{carg\_\-parser.h@{carg\_\-parser.h}!ap\_\-free@{ap\_\-free}}
+\index{ap\_\-free@{ap\_\-free}!carg_parser.h@{carg\_\-parser.h}}
+\subsubsection[{ap\_\-free}]{\setlength{\rightskip}{0pt plus 5cm}void ap\_\-free (
+\begin{DoxyParamCaption}
+\item[{{\bf Arg\_\-parser} $\ast$}]{ ap}
+\end{DoxyParamCaption}
+)}}
+\label{d9/d6b/carg__parser_8h_aa4bd139812fb259a6f7b959001185ef9}
+
+
+Definition at line 253 of file carg\_\-parser.cpp.
+
+
+
+References Arg\_\-parser::error, Arg\_\-parser::error\_\-size, and free\_\-data().
+
+
+
+Here is the call graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=242pt]{d9/d6b/carg__parser_8h_aa4bd139812fb259a6f7b959001185ef9_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{carg__parser_8h_afd8cfd6a35982dd8d0194f972225b8a4}{
+\index{carg\_\-parser.h@{carg\_\-parser.h}!ap\_\-error@{ap\_\-error}}
+\index{ap\_\-error@{ap\_\-error}!carg_parser.h@{carg\_\-parser.h}}
+\subsubsection[{ap\_\-error}]{\setlength{\rightskip}{0pt plus 5cm}const char$\ast$ ap\_\-error (
+\begin{DoxyParamCaption}
+\item[{const {\bf Arg\_\-parser} $\ast$}]{ ap}
+\end{DoxyParamCaption}
+)}}
+\label{d9/d6b/carg__parser_8h_afd8cfd6a35982dd8d0194f972225b8a4}
+
+
+Definition at line 261 of file carg\_\-parser.cpp.
+
+
+
+References Arg\_\-parser::error.
+
+
+
+Referenced by process\_\-cmdLine().
+
+
+
+Here is the caller graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=368pt]{d9/d6b/carg__parser_8h_afd8cfd6a35982dd8d0194f972225b8a4_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{carg__parser_8h_acbf8b2c6b17203b9b2e0e3fe7b334b04}{
+\index{carg\_\-parser.h@{carg\_\-parser.h}!ap\_\-arguments@{ap\_\-arguments}}
+\index{ap\_\-arguments@{ap\_\-arguments}!carg_parser.h@{carg\_\-parser.h}}
+\subsubsection[{ap\_\-arguments}]{\setlength{\rightskip}{0pt plus 5cm}int ap\_\-arguments (
+\begin{DoxyParamCaption}
+\item[{const {\bf Arg\_\-parser} $\ast$}]{ ap}
+\end{DoxyParamCaption}
+)}}
+\label{d9/d6b/carg__parser_8h_acbf8b2c6b17203b9b2e0e3fe7b334b04}
+
+
+Definition at line 264 of file carg\_\-parser.cpp.
+
+
+
+References Arg\_\-parser::data\_\-size.
+
+
+
+Referenced by ap\_\-argument(), ap\_\-code(), and process\_\-cmdLine().
+
+
+
+Here is the caller graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{d9/d6b/carg__parser_8h_acbf8b2c6b17203b9b2e0e3fe7b334b04_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{carg__parser_8h_a35a7279617ae46ff95726c08d1b90f6c}{
+\index{carg\_\-parser.h@{carg\_\-parser.h}!ap\_\-code@{ap\_\-code}}
+\index{ap\_\-code@{ap\_\-code}!carg_parser.h@{carg\_\-parser.h}}
+\subsubsection[{ap\_\-code}]{\setlength{\rightskip}{0pt plus 5cm}int ap\_\-code (
+\begin{DoxyParamCaption}
+\item[{const {\bf Arg\_\-parser} $\ast$}]{ ap, }
+\item[{const int}]{ i}
+\end{DoxyParamCaption}
+)}}
+\label{d9/d6b/carg__parser_8h_a35a7279617ae46ff95726c08d1b90f6c}
+
+
+Definition at line 267 of file carg\_\-parser.cpp.
+
+
+
+References ap\_\-arguments(), ap\_\-Record::code, and Arg\_\-parser::data.
+
+
+
+Referenced by process\_\-cmdLine().
+
+
+
+Here is the call graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=272pt]{d9/d6b/carg__parser_8h_a35a7279617ae46ff95726c08d1b90f6c_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=368pt]{d9/d6b/carg__parser_8h_a35a7279617ae46ff95726c08d1b90f6c_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{carg__parser_8h_a817f558f9a6fcda87ceb7a2d9c267654}{
+\index{carg\_\-parser.h@{carg\_\-parser.h}!ap\_\-argument@{ap\_\-argument}}
+\index{ap\_\-argument@{ap\_\-argument}!carg_parser.h@{carg\_\-parser.h}}
+\subsubsection[{ap\_\-argument}]{\setlength{\rightskip}{0pt plus 5cm}const char$\ast$ ap\_\-argument (
+\begin{DoxyParamCaption}
+\item[{const {\bf Arg\_\-parser} $\ast$}]{ ap, }
+\item[{const int}]{ i}
+\end{DoxyParamCaption}
+)}}
+\label{d9/d6b/carg__parser_8h_a817f558f9a6fcda87ceb7a2d9c267654}
+
+
+Definition at line 274 of file carg\_\-parser.cpp.
+
+
+
+References ap\_\-arguments(), ap\_\-Record::argument, and Arg\_\-parser::data.
+
+
+
+Referenced by process\_\-cmdLine().
+
+
+
+Here is the call graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=300pt]{d9/d6b/carg__parser_8h_a817f558f9a6fcda87ceb7a2d9c267654_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=396pt]{d9/d6b/carg__parser_8h_a817f558f9a6fcda87ceb7a2d9c267654_icgraph}
+\end{center}
+\end{figure}
+
+

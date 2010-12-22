@@ -1,0 +1,15 @@
+<map id="G" name="G">
+<area shape="rect" href="$dc/d7c/commonFuncsMgr_8cpp.html#a0bc42af1ff52501af08def1e079a7cd5" title="Thread to polling listen udp for equipment data." alt="" coords="276,81,428,108"/>
+<area shape="rect" href="$d3/dbf/srvAppLayer_8cpp.html#a730236a494d356798212190aae12f103" title="Thread to listening requests from clients and form queue of clients requests." alt="" coords="273,171,431,197"/>
+<area shape="rect" href="$d3/dbf/srvAppLayer_8cpp.html#a7eaf60b2d51988d305e9c8a4f7497b83" title="Thread to sending data to clients from functions answer queue." alt="" coords="276,247,428,273"/>
+<area shape="rect" href="$d8/d72/classsrvAppLayer.html#aea6fcd3efbd3339eec368a258e7f4647" title="Method to read data from equip_listen socket." alt="" coords="496,56,733,83"/>
+<area shape="rect" href="$d8/d72/classsrvAppLayer.html#a75e5d5bd6ef3fc9a06da5392e5c29f3a" title="Method to asynchonous polling of equip_listen socket." alt="" coords="480,5,749,32"/>
+<area shape="rect" href="$d8/d72/classsrvAppLayer.html#a8dff3da333c073ffa5e535161cdf8395" title="Method to check application internal termination signal." alt="" coords="516,107,713,133"/>
+<area shape="rect" href="$d8/d72/classsrvAppLayer.html#a84f09d04ab2c92a3c0cf0b67502f3be1" title="getter for udp port number that listens all clients requests" alt="" coords="484,208,745,235"/>
+<area shape="rect" href="$db/dc2/classdeqUdp.html#afd4705cd64f0f137d1f36860761f4865" title="Read udp port data to queued buffer (ssBuffer)" alt="" coords="537,157,692,184"/>
+<area shape="rect" href="$d8/d72/classsrvAppLayer.html#aebeee7c2345c0c6a8603e0599f62a429" title="getter for AppTerminated signal" alt="" coords="520,259,709,285"/>
+<area shape="rect" href="$d0/de7/classssBuffer.html#aedd5b2d9bbf7b2ad1161fced3f2b3250" title="push datablock to queue" alt="" coords="827,157,987,184"/>
+<area shape="rect" href="$db/dc2/classdeqUdp.html#a1e50010f100ae79d810f8d4889ac361b" title="Send data to udp port from queued buffer (ssBuffer)" alt="" coords="537,309,692,336"/>
+<area shape="rect" href="$d0/de7/classssBuffer.html#a5ab17bc4d89e0f4f3bb7214c1ddc585f" title="get first in queue (front) block size in bytes" alt="" coords="799,335,1015,361"/>
+<area shape="rect" href="$d0/de7/classssBuffer.html#ad149db0b097643446ac21a53e34c9f6c" title="pop datablock from queue" alt="" coords="831,284,983,311"/>
+</map>

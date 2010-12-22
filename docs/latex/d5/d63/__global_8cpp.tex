@@ -1,0 +1,291 @@
+\hypertarget{__global_8cpp}{
+\section{src/\_\-global.cpp File Reference}
+\label{d5/d63/__global_8cpp}\index{src/\_\-global.cpp@{src/\_\-global.cpp}}
+}
+
+
+Global environment.  
+
+
+{\ttfamily \#include $<$netinet/in.h$>$}\par
+{\ttfamily \#include $<$queue$>$}\par
+{\ttfamily \#include \char`\"{}../../rcsLib/ortsTypes/ortsTypes.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}buffer/ssBuffer.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}../../udp\_\-port/udp\_\-port.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}../../rcsLib/rcsCmd/rcsCmd.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}ICAppLayer/FunctionNode/param\_\-desc.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}ICAppLayer/FunctionNode/FunctionNode.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}ICAppLayer/ICAppLayer.h\char`\"{}}\par
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{__global_8cpp_a023ce1184a44c87f1a43765ab82eea80}{verbose\_\-level} = 0
+\begin{DoxyCompactList}\small\item\em Debug detail level printing. \item\end{DoxyCompactList}\item 
+bool \hyperlink{__global_8cpp_a1f26cd977038cccb0d6c37ec6e001b20}{listen\_\-mode} = false
+\begin{DoxyCompactList}\small\item\em needless variable. \item\end{DoxyCompactList}\item 
+bool \hyperlink{__global_8cpp_a4782e050d0dcca5c4777eb721715e596}{awaitingPattern\_\-mode} = false
+\begin{DoxyCompactList}\small\item\em needless variable. \item\end{DoxyCompactList}\item 
+bool \hyperlink{__global_8cpp_a29d40fe97f4a9820e26ea8220d4cbde4}{pattern\_\-found} = false
+\begin{DoxyCompactList}\small\item\em needless variable. \item\end{DoxyCompactList}\item 
+char \hyperlink{__global_8cpp_aff6fb66143616ca6b8b418dd9129cbc6}{patternFile} \mbox{[}255\mbox{]} = \{0\}
+\begin{DoxyCompactList}\small\item\em needless variable. \item\end{DoxyCompactList}\item 
+char \hyperlink{__global_8cpp_a0566226645c0687a0b73cea36bbb329f}{reactionFile} \mbox{[}255\mbox{]} = \{0\}
+\begin{DoxyCompactList}\small\item\em needless variable. \item\end{DoxyCompactList}\item 
+char \hyperlink{__global_8cpp_ac8b387c7463c2bfccb68e1152a8c84b9}{dataFile} \mbox{[}255\mbox{]} = \{0\}
+\begin{DoxyCompactList}\small\item\em needless variable. \item\end{DoxyCompactList}\item 
+char \hyperlink{__global_8cpp_ae4f19e125034d886c58a81dbeafb3a40}{if\_\-name} \mbox{[}255\mbox{]} = \{0\}
+\begin{DoxyCompactList}\small\item\em needless variable. \item\end{DoxyCompactList}\item 
+bool \hyperlink{__global_8cpp_af310ab681473fc33636527969dd61e48}{AppTerminated} = false
+\begin{DoxyCompactList}\small\item\em Programm termination signal. \item\end{DoxyCompactList}\item 
+char \hyperlink{__global_8cpp_a795d0402ed9ca60d9a4f1ab26cdd9981}{eq\_\-ip\_\-addr} \mbox{[}255\mbox{]} = \{0\}
+\begin{DoxyCompactList}\small\item\em Equipment IP address. \item\end{DoxyCompactList}\item 
+WORD \hyperlink{__global_8cpp_ab289d359fa9ec2e2b72e4e7a09a0056d}{wUdp} = 0
+\begin{DoxyCompactList}\small\item\em Server udp port number for communicate with client. \item\end{DoxyCompactList}\item 
+WORD \hyperlink{__global_8cpp_a6090695e2fe0e91d9b0d83d3740bcb1c}{eq\_\-udp\_\-listen\_\-port} = 0
+\begin{DoxyCompactList}\small\item\em Server udp port number for listen an equipment. \item\end{DoxyCompactList}\item 
+WORD \hyperlink{__global_8cpp_a521350b76b990d1642368a4ac999bbe3}{eq\_\-udp\_\-sending\_\-port} = 0
+\begin{DoxyCompactList}\small\item\em Server udp port number for sending into equipment. \item\end{DoxyCompactList}\item 
+in\_\-addr \hyperlink{__global_8cpp_a4c3cf005a405e19167ffa1b1fe735f5a}{equipAddr}
+\begin{DoxyCompactList}\small\item\em Storage for in\_\-addr of equipment. \item\end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Global environment. \begin{DoxyAuthor}{Author}
+Vladimir A. Nosenko (\href{mailto:nosenko@ieee.org}{\tt nosenko@ieee.org}) 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+December, 2010
+\end{DoxyDate}
+Copyright (c) 2010 Vladimir A.Nosenko.
+
+The license and distribution terms for this file may be found in the file LICENSE in this distribution 
+
+Definition in file \hyperlink{__global_8cpp_source}{\_\-global.cpp}.
+
+
+
+\subsection{Variable Documentation}
+\hypertarget{__global_8cpp_a023ce1184a44c87f1a43765ab82eea80}{
+\index{\_\-global.cpp@{\_\-global.cpp}!verbose\_\-level@{verbose\_\-level}}
+\index{verbose\_\-level@{verbose\_\-level}!_global.cpp@{\_\-global.cpp}}
+\subsubsection[{verbose\_\-level}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf verbose\_\-level} = 0}}
+\label{d5/d63/__global_8cpp_a023ce1184a44c87f1a43765ab82eea80}
+
+
+Debug detail level printing. 
+
+
+
+Definition at line 26 of file \_\-global.cpp.
+
+
+
+Referenced by appInit(), process\_\-cmdLine(), srvAppLayer::StopListening(), and term\_\-handler().
+
+\hypertarget{__global_8cpp_a1f26cd977038cccb0d6c37ec6e001b20}{
+\index{\_\-global.cpp@{\_\-global.cpp}!listen\_\-mode@{listen\_\-mode}}
+\index{listen\_\-mode@{listen\_\-mode}!_global.cpp@{\_\-global.cpp}}
+\subsubsection[{listen\_\-mode}]{\setlength{\rightskip}{0pt plus 5cm}bool {\bf listen\_\-mode} = false}}
+\label{d5/d63/__global_8cpp_a1f26cd977038cccb0d6c37ec6e001b20}
+
+
+needless variable. 
+
+\begin{Desc}
+\item[\hyperlink{todo__todo000001}{Todo}]Need to be deleted. \end{Desc}
+
+
+Definition at line 29 of file \_\-global.cpp.
+
+\hypertarget{__global_8cpp_a4782e050d0dcca5c4777eb721715e596}{
+\index{\_\-global.cpp@{\_\-global.cpp}!awaitingPattern\_\-mode@{awaitingPattern\_\-mode}}
+\index{awaitingPattern\_\-mode@{awaitingPattern\_\-mode}!_global.cpp@{\_\-global.cpp}}
+\subsubsection[{awaitingPattern\_\-mode}]{\setlength{\rightskip}{0pt plus 5cm}bool {\bf awaitingPattern\_\-mode} = false}}
+\label{d5/d63/__global_8cpp_a4782e050d0dcca5c4777eb721715e596}
+
+
+needless variable. 
+
+\begin{Desc}
+\item[\hyperlink{todo__todo000002}{Todo}]Need to be deleted. \end{Desc}
+
+
+Definition at line 30 of file \_\-global.cpp.
+
+\hypertarget{__global_8cpp_a29d40fe97f4a9820e26ea8220d4cbde4}{
+\index{\_\-global.cpp@{\_\-global.cpp}!pattern\_\-found@{pattern\_\-found}}
+\index{pattern\_\-found@{pattern\_\-found}!_global.cpp@{\_\-global.cpp}}
+\subsubsection[{pattern\_\-found}]{\setlength{\rightskip}{0pt plus 5cm}bool {\bf pattern\_\-found} = false}}
+\label{d5/d63/__global_8cpp_a29d40fe97f4a9820e26ea8220d4cbde4}
+
+
+needless variable. 
+
+\begin{Desc}
+\item[\hyperlink{todo__todo000003}{Todo}]Need to be deleted. \end{Desc}
+
+
+Definition at line 31 of file \_\-global.cpp.
+
+\hypertarget{__global_8cpp_aff6fb66143616ca6b8b418dd9129cbc6}{
+\index{\_\-global.cpp@{\_\-global.cpp}!patternFile@{patternFile}}
+\index{patternFile@{patternFile}!_global.cpp@{\_\-global.cpp}}
+\subsubsection[{patternFile}]{\setlength{\rightskip}{0pt plus 5cm}char {\bf patternFile}\mbox{[}255\mbox{]} = \{0\}}}
+\label{d5/d63/__global_8cpp_aff6fb66143616ca6b8b418dd9129cbc6}
+
+
+needless variable. 
+
+\begin{Desc}
+\item[\hyperlink{todo__todo000004}{Todo}]Need to be deleted. \end{Desc}
+
+
+Definition at line 32 of file \_\-global.cpp.
+
+\hypertarget{__global_8cpp_a0566226645c0687a0b73cea36bbb329f}{
+\index{\_\-global.cpp@{\_\-global.cpp}!reactionFile@{reactionFile}}
+\index{reactionFile@{reactionFile}!_global.cpp@{\_\-global.cpp}}
+\subsubsection[{reactionFile}]{\setlength{\rightskip}{0pt plus 5cm}char {\bf reactionFile}\mbox{[}255\mbox{]} = \{0\}}}
+\label{d5/d63/__global_8cpp_a0566226645c0687a0b73cea36bbb329f}
+
+
+needless variable. 
+
+\begin{Desc}
+\item[\hyperlink{todo__todo000005}{Todo}]Need to be deleted. \end{Desc}
+
+
+Definition at line 33 of file \_\-global.cpp.
+
+\hypertarget{__global_8cpp_ac8b387c7463c2bfccb68e1152a8c84b9}{
+\index{\_\-global.cpp@{\_\-global.cpp}!dataFile@{dataFile}}
+\index{dataFile@{dataFile}!_global.cpp@{\_\-global.cpp}}
+\subsubsection[{dataFile}]{\setlength{\rightskip}{0pt plus 5cm}char {\bf dataFile}\mbox{[}255\mbox{]} = \{0\}}}
+\label{d5/d63/__global_8cpp_ac8b387c7463c2bfccb68e1152a8c84b9}
+
+
+needless variable. 
+
+\begin{Desc}
+\item[\hyperlink{todo__todo000006}{Todo}]Need to be deleted. \end{Desc}
+
+
+Definition at line 34 of file \_\-global.cpp.
+
+\hypertarget{__global_8cpp_ae4f19e125034d886c58a81dbeafb3a40}{
+\index{\_\-global.cpp@{\_\-global.cpp}!if\_\-name@{if\_\-name}}
+\index{if\_\-name@{if\_\-name}!_global.cpp@{\_\-global.cpp}}
+\subsubsection[{if\_\-name}]{\setlength{\rightskip}{0pt plus 5cm}char {\bf if\_\-name}\mbox{[}255\mbox{]} = \{0\}}}
+\label{d5/d63/__global_8cpp_ae4f19e125034d886c58a81dbeafb3a40}
+
+
+needless variable. 
+
+\begin{Desc}
+\item[\hyperlink{todo__todo000007}{Todo}]Need to be deleted. \end{Desc}
+
+
+Definition at line 35 of file \_\-global.cpp.
+
+\hypertarget{__global_8cpp_af310ab681473fc33636527969dd61e48}{
+\index{\_\-global.cpp@{\_\-global.cpp}!AppTerminated@{AppTerminated}}
+\index{AppTerminated@{AppTerminated}!_global.cpp@{\_\-global.cpp}}
+\subsubsection[{AppTerminated}]{\setlength{\rightskip}{0pt plus 5cm}bool {\bf AppTerminated} = false}}
+\label{d5/d63/__global_8cpp_af310ab681473fc33636527969dd61e48}
+
+
+Programm termination signal. 
+
+All processes need to finish own job. 
+
+Definition at line 38 of file \_\-global.cpp.
+
+
+
+Referenced by main().
+
+\hypertarget{__global_8cpp_a795d0402ed9ca60d9a4f1ab26cdd9981}{
+\index{\_\-global.cpp@{\_\-global.cpp}!eq\_\-ip\_\-addr@{eq\_\-ip\_\-addr}}
+\index{eq\_\-ip\_\-addr@{eq\_\-ip\_\-addr}!_global.cpp@{\_\-global.cpp}}
+\subsubsection[{eq\_\-ip\_\-addr}]{\setlength{\rightskip}{0pt plus 5cm}char {\bf eq\_\-ip\_\-addr}\mbox{[}255\mbox{]} = \{0\}}}
+\label{d5/d63/__global_8cpp_a795d0402ed9ca60d9a4f1ab26cdd9981}
+
+
+Equipment IP address. 
+
+
+
+Definition at line 40 of file \_\-global.cpp.
+
+
+
+Referenced by process\_\-cmdLine().
+
+\hypertarget{__global_8cpp_ab289d359fa9ec2e2b72e4e7a09a0056d}{
+\index{\_\-global.cpp@{\_\-global.cpp}!wUdp@{wUdp}}
+\index{wUdp@{wUdp}!_global.cpp@{\_\-global.cpp}}
+\subsubsection[{wUdp}]{\setlength{\rightskip}{0pt plus 5cm}WORD {\bf wUdp} = 0}}
+\label{d5/d63/__global_8cpp_ab289d359fa9ec2e2b72e4e7a09a0056d}
+
+
+Server udp port number for communicate with client. 
+
+
+
+Definition at line 43 of file \_\-global.cpp.
+
+
+
+Referenced by main(), process\_\-cmdLine(), srvAppLayer::sendResult(), udpListenerThread(), and udpSenderThread().
+
+\hypertarget{__global_8cpp_a6090695e2fe0e91d9b0d83d3740bcb1c}{
+\index{\_\-global.cpp@{\_\-global.cpp}!eq\_\-udp\_\-listen\_\-port@{eq\_\-udp\_\-listen\_\-port}}
+\index{eq\_\-udp\_\-listen\_\-port@{eq\_\-udp\_\-listen\_\-port}!_global.cpp@{\_\-global.cpp}}
+\subsubsection[{eq\_\-udp\_\-listen\_\-port}]{\setlength{\rightskip}{0pt plus 5cm}WORD {\bf eq\_\-udp\_\-listen\_\-port} = 0}}
+\label{d5/d63/__global_8cpp_a6090695e2fe0e91d9b0d83d3740bcb1c}
+
+
+Server udp port number for listen an equipment. 
+
+
+
+Definition at line 44 of file \_\-global.cpp.
+
+
+
+Referenced by main(), process\_\-cmdLine(), and srvAppLayer::StartListening().
+
+\hypertarget{__global_8cpp_a521350b76b990d1642368a4ac999bbe3}{
+\index{\_\-global.cpp@{\_\-global.cpp}!eq\_\-udp\_\-sending\_\-port@{eq\_\-udp\_\-sending\_\-port}}
+\index{eq\_\-udp\_\-sending\_\-port@{eq\_\-udp\_\-sending\_\-port}!_global.cpp@{\_\-global.cpp}}
+\subsubsection[{eq\_\-udp\_\-sending\_\-port}]{\setlength{\rightskip}{0pt plus 5cm}WORD {\bf eq\_\-udp\_\-sending\_\-port} = 0}}
+\label{d5/d63/__global_8cpp_a521350b76b990d1642368a4ac999bbe3}
+
+
+Server udp port number for sending into equipment. 
+
+
+
+Definition at line 45 of file \_\-global.cpp.
+
+
+
+Referenced by main(), and process\_\-cmdLine().
+
+\hypertarget{__global_8cpp_a4c3cf005a405e19167ffa1b1fe735f5a}{
+\index{\_\-global.cpp@{\_\-global.cpp}!equipAddr@{equipAddr}}
+\index{equipAddr@{equipAddr}!_global.cpp@{\_\-global.cpp}}
+\subsubsection[{equipAddr}]{\setlength{\rightskip}{0pt plus 5cm}in\_\-addr {\bf equipAddr}}}
+\label{d5/d63/__global_8cpp_a4c3cf005a405e19167ffa1b1fe735f5a}
+
+
+Storage for in\_\-addr of equipment. 
+
+
+
+Definition at line 47 of file \_\-global.cpp.
+
+
+
+Referenced by main(), and process\_\-cmdLine().
+

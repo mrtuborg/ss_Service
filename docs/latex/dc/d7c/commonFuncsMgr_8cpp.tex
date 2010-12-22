@@ -1,0 +1,102 @@
+\hypertarget{commonFuncsMgr_8cpp}{
+\section{src/functions/commonFuncsMgr.cpp File Reference}
+\label{dc/d7c/commonFuncsMgr_8cpp}\index{src/functions/commonFuncsMgr.cpp@{src/functions/commonFuncsMgr.cpp}}
+}
+
+
+Class \hyperlink{classcommonFuncsMgr}{commonFuncsMgr} interface header.  
+
+
+{\ttfamily \#include $<$pthread.h$>$}\par
+{\ttfamily \#include $<$netinet/in.h$>$}\par
+{\ttfamily \#include $<$queue$>$}\par
+{\ttfamily \#include \char`\"{}../../rcsLib/ortsTypes/ortsTypes.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}../buffer/ssBuffer.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}../../rcsLib/rcsCmd/rcsCmd.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}../../udp\_\-port/udp\_\-port.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}../srvAppLayer/functionNode/param\_\-desc.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}../srvAppLayer/functionNode/functionNode.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}../srvAppLayer/srvAppLayer.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}commonFuncsMgr.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}functions.h\char`\"{}}\par
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void $\ast$ \hyperlink{commonFuncsMgr_8cpp_a0bc42af1ff52501af08def1e079a7cd5}{equipListenPolling} (void $\ast$user)
+\begin{DoxyCompactList}\small\item\em Thread to polling listen udp for equipment data. \item\end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Class \hyperlink{classcommonFuncsMgr}{commonFuncsMgr} interface header. \begin{DoxyAuthor}{Author}
+Vladimir A. Nosenko (\href{mailto:nosenko@ieee.org}{\tt nosenko@ieee.org}) 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+December, 2010
+\end{DoxyDate}
+Copyright (c) 2010 Vladimir A.Nosenko.
+
+The license and distribution terms for this file may be found in the file LICENSE in this distribution 
+
+Definition in file \hyperlink{commonFuncsMgr_8cpp_source}{commonFuncsMgr.cpp}.
+
+
+
+\subsection{Function Documentation}
+\hypertarget{commonFuncsMgr_8cpp_a0bc42af1ff52501af08def1e079a7cd5}{
+\index{commonFuncsMgr.cpp@{commonFuncsMgr.cpp}!equipListenPolling@{equipListenPolling}}
+\index{equipListenPolling@{equipListenPolling}!commonFuncsMgr.cpp@{commonFuncsMgr.cpp}}
+\subsubsection[{equipListenPolling}]{\setlength{\rightskip}{0pt plus 5cm}void$\ast$ equipListenPolling (
+\begin{DoxyParamCaption}
+\item[{void $\ast$}]{ user}
+\end{DoxyParamCaption}
+)}}
+\label{dc/d7c/commonFuncsMgr_8cpp_a0bc42af1ff52501af08def1e079a7cd5}
+
+
+Thread to polling listen udp for equipment data. 
+
+Calls equipListenProcessing for decoding data received from equipment 
+\begin{DoxyRetVals}{Return values}
+{\em user} & \\
+\hline
+\end{DoxyRetVals}
+
+
+\begin{Desc}
+\item[\hyperlink{todo__todo000010}{Todo}]Listening equipment answer -\/ status vector: \end{Desc}
+
+
+
+
+Definition at line 35 of file commonFuncsMgr.cpp.
+
+
+
+References app, srvAppLayer::equip\_\-read\_\-data(), srvAppLayer::equip\_\-reading\_\-event(), and srvAppLayer::terminated().
+
+
+
+Referenced by srvAppLayer::StartListening().
+
+
+
+Here is the call graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{dc/d7c/commonFuncsMgr_8cpp_a0bc42af1ff52501af08def1e079a7cd5_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{dc/d7c/commonFuncsMgr_8cpp_a0bc42af1ff52501af08def1e079a7cd5_icgraph}
+\end{center}
+\end{figure}
+
+

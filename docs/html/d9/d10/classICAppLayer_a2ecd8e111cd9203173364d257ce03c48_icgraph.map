@@ -1,0 +1,8 @@
+<map id="G" name="G">
+<area shape="rect" href="$d8/d9c/commonFuncsMgr_8h.html#abd797e5a8e26768954fb1eb1c3621437" title="Thread to polling listen udp for equipment data." alt="" coords="252,5,404,32"/>
+<area shape="rect" href="$df/d0a/main_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97" title="Programm entrypoint." alt="" coords="837,127,896,153"/>
+<area shape="rect" href="$dc/d10/ICAppLayer_8cpp.html#a730236a494d356798212190aae12f103" title="udpListenerThread" alt="" coords="249,56,407,83"/>
+<area shape="rect" href="$dc/d10/ICAppLayer_8cpp.html#a7eaf60b2d51988d305e9c8a4f7497b83" title="udpSenderThread" alt="" coords="252,107,404,133"/>
+<area shape="rect" href="$d9/d10/classICAppLayer.html#a0724021871a9e1cfe2f1fcb405c7904c" title="ICAppLayer::StartListening" alt="" coords="457,69,668,96"/>
+<area shape="rect" href="$df/d0a/main_8cpp.html#ad68e81ce983cbcdbee68c1a830fdd873" title="Initialize ICAppLayer subsystem." alt="" coords="717,95,789,121"/>
+</map>

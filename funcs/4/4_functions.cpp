@@ -99,7 +99,7 @@ errType EmergencyShutdown(void* fn)
 {
     errType result=err_not_init;
     
-    FunctionNode* func=(FunctionNode*)fn;
+    functionNode* func=(functionNode*)fn;
     
     //func->dbgPrint();
     func->printResults();
@@ -110,7 +110,7 @@ errType ControlModeChange(void* fn)
 {
     errType result=err_not_init;
 
-    FunctionNode* func=(FunctionNode*)fn;
+    functionNode* func=(functionNode*)fn;
     
     func->printParams();
     //func->dbgPrint();
@@ -121,7 +121,7 @@ errType ControlModeChange(void* fn)
 errType GetStateVector(void* fn)
 {
     errType result=err_result_ok;
-    FunctionNode* func=(FunctionNode*)fn;
+    functionNode* func=(functionNode*)fn;
     func->printParams();
     func->setResult(1,&app->getStateVector());
     func->printResults();
@@ -134,7 +134,7 @@ errType SASC_PowerON(void* fn)
 {
     errType result=err_result_ok;
     
-    FunctionNode* func=(FunctionNode*)fn;
+    functionNode* func=(functionNode*)fn;
     
     func->printParams();
     
@@ -153,7 +153,7 @@ errType SASC_PowerOFF(void* fn)
 {
     errType result=err_result_ok;
     
-    FunctionNode* func=(FunctionNode*)fn;
+    functionNode* func=(functionNode*)fn;
     
     func->printParams();
     
@@ -172,7 +172,7 @@ errType StartMeasuring(void* fn)
 {
     errType result=err_result_ok;
 
-    FunctionNode* func=(FunctionNode*)fn;
+    functionNode* func=(functionNode*)fn;
     
     func->printParams();
     
@@ -208,7 +208,7 @@ errType ZeroMeasuring(void* fn)
 {
     errType result=err_result_ok;
     
-    FunctionNode* func=(FunctionNode*)fn;
+    functionNode* func=(functionNode*)fn;
     
     func->printParams();
     
@@ -254,7 +254,7 @@ errType PrepareMeasuringResult(void* fn)
 {
     errType result=err_result_ok;
     
-    FunctionNode* func=(FunctionNode*)fn;
+    functionNode* func=(functionNode*)fn;
     
     func->printParams();
     
@@ -282,7 +282,7 @@ errType GetMeasuringResult(void* fn)
     BYTE* buffer=0;
     DWORD length=resultStorage->length();
     
-    FunctionNode* func=(FunctionNode*)fn;
+    functionNode* func=(functionNode*)fn;
     
     func->printParams();
     #error Надо предположить - собраны ли все данные
@@ -300,7 +300,7 @@ errType ZeroDB(void* fn)
 {
     errType result=err_result_ok;
     
-    FunctionNode* func=(FunctionNode*)fn;
+    functionNode* func=(functionNode*)fn;
     
     func->printParams();
     
@@ -319,7 +319,7 @@ errType TaringStart(void* fn)
 {
     errType result=err_result_ok;
     
-    FunctionNode* func=(FunctionNode*)fn;
+    functionNode* func=(functionNode*)fn;
     
     func->printParams();
 
@@ -351,7 +351,7 @@ errType GetTaringPoint(void* fn)
 {
     errType result=err_result_ok;
     
-    FunctionNode* func=(FunctionNode*)fn;
+    functionNode* func=(functionNode*)fn;
     
     func->printParams();
     
@@ -401,7 +401,7 @@ errType TaringStop(void* fn)
 {
     errType result=err_result_ok;
     
-    FunctionNode* func=(FunctionNode*)fn;
+    functionNode* func=(functionNode*)fn;
     
     func->printParams();
     
@@ -436,7 +436,7 @@ errType linkTest(void* fn)
 {
     errType result=err_result_ok;
     
-    FunctionNode* func=(FunctionNode*)fn;
+    functionNode* func=(functionNode*)fn;
     
     func->printParams();
     

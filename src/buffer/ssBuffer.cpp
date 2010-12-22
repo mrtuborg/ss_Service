@@ -1,3 +1,17 @@
+/**
+ * @file
+ * @author Vladimir A. Nosenko (nosenko@ieee.org)
+ * @date   December, 2010
+ * @brief  Class ssBuffer implementation
+ * @details
+ *      Copyright (c) 2010 Vladimir A.Nosenko.
+ *
+ *      The license and distribution terms for this file may be
+ *      found in the file LICENSE in this distribution
+ *
+ *
+ */
+
 #include <string.h>
 #include <stdio.h>
 #include <deque>
@@ -16,9 +30,17 @@ ssBuffer::~ssBuffer()
     buffer.clear();
 }
 
+/*******************************************************************************//**
+ * @brief push datablock to queue
+ * @details copies data from \b block and \b addr pointers to new memory locations
+ * @param[in]   addr  - recepient address (owner of datablock)
+ * @param[in]   block - datablock
+ * @param[in]   len   - size in bytes of datablock
+ * @retval      err_result_ok - pushing was successfully
+ **********************************************************************************/
 errType ssBuffer::pushBlock(sockaddr_in* addr, BYTE* block, DWORD len)
 {
-    errType result=err_not_init;
+    errType result=err_result_ok;
     ssBlock* dataBlock=new ssBlock;
     //printf("Wanna send to IP: %s\n",inet_ntoa(addr->sin_addr));
     //printf("to udp port: %d\n",ntohs(addr->sin_port));
@@ -31,6 +53,11 @@ errType ssBuffer::pushBlock(sockaddr_in* addr, BYTE* block, DWORD len)
     return result;
 }
 
+/*******************************************************************************//**
+ * @brief get first in queue (front) block size in bytes
+ * @details need to be prepared for reading next queue element
+ * @retval      dataLen - size in bytes of data block
+ **********************************************************************************/
 DWORD ssBuffer::getFrontBlockSize()
 {
     ssBlock* dataBlock;
@@ -38,6 +65,15 @@ DWORD ssBuffer::getFrontBlockSize()
     return dataBlock->dataLen;
 }
 
+/*******************************************************************************//**
+ * @brief pop datablock from queue
+ * @details copies data from queue to \b block and \b addr pointers
+ * @details \b block and \b addr need to be allocated before calling this method.
+ * @details queue element will be removed from queue
+ * @param[in]   addr  - recepient address (owner of datablock)
+ * @param[in]   block - datablock
+ * @retval      lenght - size in bytes of readed datablock
+ **********************************************************************************/
 DWORD ssBuffer::popBlock(sockaddr_in* addr, BYTE* block)
 {
     errType result=err_not_init;
@@ -55,14 +91,23 @@ DWORD ssBuffer::popBlock(sockaddr_in* addr, BYTE* block)
     return len;
 }
 
+/*******************************************************************************//**
+ * @brief read item from queue by \b index
+ * @param[in]   index  - queue item index
+ * @param[out]   block - readed queue item
+ **********************************************************************************/
 errType ssBuffer::getBlockPtrAt(int index, ssBlock* block)
 {
-    errType result=err_not_init;
+    errType result=err_result_ok;
     
     block=buffer.at(index);
     
     return result;
 }
+
+/******************************************************************************//**
+ * @brief return length (items quantity) of queue
+ **********************************************************************************/
 
 DWORD ssBuffer::size()
 {
@@ -71,6 +116,10 @@ DWORD ssBuffer::size()
     //else return 0;
 }
 
+
+/***********************************************************************************//**
+ * @brief Print for debug purposes contents of stored queue (in a hexadecimal notation)
+ ***************************************************************************************/
 void ssBuffer::dbgPrint()
 {
     ssBlock* dataBlock;

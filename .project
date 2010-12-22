@@ -3,6 +3,7 @@
 	<name>ss_Service</name>
 	<comment></comment>
 	<projects>
+		<project>rcsLib</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

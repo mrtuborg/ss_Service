@@ -9,19 +9,19 @@
 #include "SpecFuncs.h"                                                                                            
 #include "functions.h" 
 
-SpecFuncs::SpecFuncs(ICAppLayer *appl)
+specFuncsMgr::specFuncsMgr(srvAppLayer *appl)
 {
     appLayer=appl;
 }
 
-SpecFuncs::~SpecFuncs()
+specFuncsMgr::~specFuncsMgr()
 {
 }
 
-errType SpecFuncs::StartSpecFuncs()
+errType specFuncsMgr::startSpecFuncs()
 {
     errType result=err_not_init;
-    FunctionNode* func;
+    functionNode* func;
         
     // SAMPLE FOR FUTURE PURPOSES
     //--------------------------------------------
@@ -30,7 +30,7 @@ errType SpecFuncs::StartSpecFuncs()
     // 1. Function definition
     //    Function #0..31 have <k> parameters  and <n> result arguments
     //    Set pointer to function implementaion
-    //code: func=new FunctionNode(<func_id>,<k>,<n>,<function_name>);
+    //code: func=new functionNode(<func_id>,<k>,<n>,<function_name>);
     //
     // 2. Definitions for parameters:
     //code: func->setParamDescriptor(<k[i]>,<k[i]_length>);
@@ -41,19 +41,19 @@ errType SpecFuncs::StartSpecFuncs()
     //
     // 4. Add function to Application interchange layer:
     //code: appLayer->CreateNewFunction(func);
-	    func=new FunctionNode(1,0,1,SASC_PowerON);
+	    func=new functionNode(1,0,1,SASC_PowerON);
 	    func->setFuncName("Запрос на включение СКСЮ");
 	    func->setResultDescriptor(0,type_ERRTYPE);
 	    func->setResultName(0, "Квитанция исполнения");
 	    appLayer->CreateNewFunction(func);
 	    
-	    func=new FunctionNode(2,0,1,SASC_PowerOFF);
+	    func=new functionNode(2,0,1,SASC_PowerOFF);
 	    func->setFuncName("Запрос на выключение СКСЮ");
 	    func->setResultDescriptor(0,type_ERRTYPE);
 	    func->setResultName(0, "Квитанция исполнения");
 	    appLayer->CreateNewFunction(func);
 	    
-	    func=new FunctionNode(3,7,1,StartMeasuring);
+	    func=new functionNode(3,7,1,StartMeasuring);
 	    func->setFuncName("Запрос на начало измерений");
 	    
 	    func->setParamDescriptor(0,type_DWORD);
@@ -76,7 +76,7 @@ errType SpecFuncs::StartSpecFuncs()
 	    appLayer->CreateNewFunction(func);
 	    
 	    
-	    func=new FunctionNode(4,6,1,ZeroMeasuring);
+	    func=new functionNode(4,6,1,ZeroMeasuring);
 	    func->setFuncName("Запрос на измерение нуля");
 	
 	    func->setParamDescriptor(0,type_DWORD);
@@ -98,7 +98,7 @@ errType SpecFuncs::StartSpecFuncs()
 
 	    appLayer->CreateNewFunction(func);
 	    
-	    func=new FunctionNode(5,0,1,linkTest);
+	    func=new functionNode(5,0,1,linkTest);
 	    func->setFuncName("Тест связи между сервером и АРМ СКСЮ");
 	
 	    func->setResultDescriptor(0,type_ERRTYPE);
@@ -108,20 +108,20 @@ errType SpecFuncs::StartSpecFuncs()
 	    
 	    
 	    
-	    func=new FunctionNode(6,0,1,GetMeasuringResult);
+	    func=new functionNode(6,0,1,GetMeasuringResult);
 	    func->setFuncName("Запрос получения результатов измерения");
 	    func->setResultDescriptor(0,type_ERRTYPE);
 	    func->setResultName(0, "Квитанция исполнения");
 	    
 	    appLayer->CreateNewFunction(func);
 	    
-	    func=new FunctionNode(7,0,1,ZeroDB);
+	    func=new functionNode(7,0,1,ZeroDB);
 	    func->setFuncName("Запрос на обнуление базы измерений");
 	    func->setResultDescriptor(0,type_ERRTYPE);
 	    func->setResultName(0, "Квитанция исполнения");
 	    appLayer->CreateNewFunction(func);
 	    
-	    func=new FunctionNode(8,5,1,TaringStart);
+	    func=new functionNode(8,5,1,TaringStart);
 	    func->setFuncName("Запрос на начало процесса тарировки");
 	    
 	    func->setParamDescriptor(0,type_FLOAT);
@@ -139,7 +139,7 @@ errType SpecFuncs::StartSpecFuncs()
 	    func->setResultName(0, "Квитанция исполнения");
 	    appLayer->CreateNewFunction(func);
 	    
-	    func=new FunctionNode(9,12,1,GetTaringPoint);
+	    func=new functionNode(9,12,1,GetTaringPoint);
 	    func->setFuncName("Запрос на получение тарировочной точки");
 	    
 	    func->setParamDescriptor(0,type_DWORD);
@@ -172,7 +172,7 @@ errType SpecFuncs::StartSpecFuncs()
 	    func->setResultName(0, "Квитанция исполнения");
 	    appLayer->CreateNewFunction(func);
 	    
-	    func=new FunctionNode(10,5,1,TaringStop);
+	    func=new functionNode(10,5,1,TaringStop);
 	    func->setFuncName("Запрос остановки процесса тарировки");
 	    
 	    func->setParamDescriptor(0,type_FLOAT);
@@ -194,7 +194,7 @@ errType SpecFuncs::StartSpecFuncs()
     return result;
 }
 
-errType SpecFuncs::StopSpecFuncs()
+errType specFuncsMgr::stopSpecFuncs()
 {
     errType result=err_not_init;
     

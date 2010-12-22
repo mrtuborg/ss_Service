@@ -1,0 +1,618 @@
+\indexentry{src/arg\_\discretionary {-}{}{}parser/ Directory Reference@{src/arg\_\discretionary {-}{}{}parser/ Directory Reference}|hyperpage}{9}
+\indexentry{src/buffer/ Directory Reference@{src/buffer/ Directory Reference}|hyperpage}{10}
+\indexentry{src/deqUdp/ Directory Reference@{src/deqUdp/ Directory Reference}|hyperpage}{11}
+\indexentry{src/srvAppLayer/functionNode/ Directory Reference@{src/srvAppLayer/functionNode/ Directory Reference}|hyperpage}{12}
+\indexentry{src/functions/ Directory Reference@{src/functions/ Directory Reference}|hyperpage}{13}
+\indexentry{src/ Directory Reference@{src/ Directory Reference}|hyperpage}{14}
+\indexentry{src/srvAppLayer/ Directory Reference@{src/srvAppLayer/ Directory Reference}|hyperpage}{15}
+\indexentry{ap\_\discretionary {-}{}{}Option@{ap\_\discretionary {-}{}{}Option}|hyperpage}{17}
+\indexentry{ap\_\discretionary {-}{}{}Option@{ap\_\discretionary {-}{}{}Option}!code@{code}|hyperpage}{17}
+\indexentry{code@{code}!ap_Option@{ap\_\discretionary {-}{}{}Option}|hyperpage}{17}
+\indexentry{ap\_\discretionary {-}{}{}Option@{ap\_\discretionary {-}{}{}Option}!name@{name}|hyperpage}{17}
+\indexentry{name@{name}!ap_Option@{ap\_\discretionary {-}{}{}Option}|hyperpage}{17}
+\indexentry{ap\_\discretionary {-}{}{}Option@{ap\_\discretionary {-}{}{}Option}!has\_\discretionary {-}{}{}arg@{has\_\discretionary {-}{}{}arg}|hyperpage}{17}
+\indexentry{has\_\discretionary {-}{}{}arg@{has\_\discretionary {-}{}{}arg}!ap_Option@{ap\_\discretionary {-}{}{}Option}|hyperpage}{17}
+\indexentry{ap\_\discretionary {-}{}{}Record@{ap\_\discretionary {-}{}{}Record}|hyperpage}{18}
+\indexentry{ap\_\discretionary {-}{}{}Record@{ap\_\discretionary {-}{}{}Record}!code@{code}|hyperpage}{18}
+\indexentry{code@{code}!ap_Record@{ap\_\discretionary {-}{}{}Record}|hyperpage}{18}
+\indexentry{ap\_\discretionary {-}{}{}Record@{ap\_\discretionary {-}{}{}Record}!argument@{argument}|hyperpage}{18}
+\indexentry{argument@{argument}!ap_Record@{ap\_\discretionary {-}{}{}Record}|hyperpage}{18}
+\indexentry{Arg\_\discretionary {-}{}{}parser@{Arg\_\discretionary {-}{}{}parser}|hyperpage}{18}
+\indexentry{Arg\_\discretionary {-}{}{}parser@{Arg\_\discretionary {-}{}{}parser}!data@{data}|hyperpage}{19}
+\indexentry{data@{data}!Arg_parser@{Arg\_\discretionary {-}{}{}parser}|hyperpage}{19}
+\indexentry{Arg\_\discretionary {-}{}{}parser@{Arg\_\discretionary {-}{}{}parser}!error@{error}|hyperpage}{19}
+\indexentry{error@{error}!Arg_parser@{Arg\_\discretionary {-}{}{}parser}|hyperpage}{19}
+\indexentry{Arg\_\discretionary {-}{}{}parser@{Arg\_\discretionary {-}{}{}parser}!data\_\discretionary {-}{}{}size@{data\_\discretionary {-}{}{}size}|hyperpage}{20}
+\indexentry{data\_\discretionary {-}{}{}size@{data\_\discretionary {-}{}{}size}!Arg_parser@{Arg\_\discretionary {-}{}{}parser}|hyperpage}{20}
+\indexentry{Arg\_\discretionary {-}{}{}parser@{Arg\_\discretionary {-}{}{}parser}!error\_\discretionary {-}{}{}size@{error\_\discretionary {-}{}{}size}|hyperpage}{20}
+\indexentry{error\_\discretionary {-}{}{}size@{error\_\discretionary {-}{}{}size}!Arg_parser@{Arg\_\discretionary {-}{}{}parser}|hyperpage}{20}
+\indexentry{buffer@{buffer}|hyperpage}{20}
+\indexentry{buffer@{buffer}!buffer@{buffer}|hyperpage}{21}
+\indexentry{buffer@{buffer}!buffer@{buffer}|hyperpage}{21}
+\indexentry{buffer@{buffer}!$\sim $buffer@{$\sim $buffer}|hyperpage}{21}
+\indexentry{$\sim $buffer@{$\sim $buffer}!buffer@{buffer}|hyperpage}{21}
+\indexentry{buffer@{buffer}!write@{write}|hyperpage}{21}
+\indexentry{write@{write}!buffer@{buffer}|hyperpage}{21}
+\indexentry{buffer@{buffer}!read@{read}|hyperpage}{22}
+\indexentry{read@{read}!buffer@{buffer}|hyperpage}{22}
+\indexentry{buffer@{buffer}!length@{length}|hyperpage}{22}
+\indexentry{length@{length}!buffer@{buffer}|hyperpage}{22}
+\indexentry{buffer@{buffer}!lockBufferChunkForExternWriting@{lockBufferChunkForExternWriting}|hyperpage}{23}
+\indexentry{lockBufferChunkForExternWriting@{lockBufferChunkForExternWriting}!buffer@{buffer}|hyperpage}{23}
+\indexentry{buffer@{buffer}!unlockBufferChunkForExternWriting@{unlockBufferChunkForExternWriting}|hyperpage}{23}
+\indexentry{unlockBufferChunkForExternWriting@{unlockBufferChunkForExternWriting}!buffer@{buffer}|hyperpage}{23}
+\indexentry{buffer@{buffer}!removeBufferChunk@{removeBufferChunk}|hyperpage}{24}
+\indexentry{removeBufferChunk@{removeBufferChunk}!buffer@{buffer}|hyperpage}{24}
+\indexentry{buffer@{buffer}!copyBufferChunkTo@{copyBufferChunkTo}|hyperpage}{24}
+\indexentry{copyBufferChunkTo@{copyBufferChunkTo}!buffer@{buffer}|hyperpage}{24}
+\indexentry{buffer@{buffer}!dbgPrint@{dbgPrint}|hyperpage}{24}
+\indexentry{dbgPrint@{dbgPrint}!buffer@{buffer}|hyperpage}{24}
+\indexentry{buffer@{buffer}!buff@{buff}|hyperpage}{24}
+\indexentry{buff@{buff}!buffer@{buffer}|hyperpage}{24}
+\indexentry{buffer@{buffer}!WrRef@{WrRef}|hyperpage}{25}
+\indexentry{WrRef@{WrRef}!buffer@{buffer}|hyperpage}{25}
+\indexentry{buffer@{buffer}!RdRef@{RdRef}|hyperpage}{25}
+\indexentry{RdRef@{RdRef}!buffer@{buffer}|hyperpage}{25}
+\indexentry{buffer@{buffer}!buffSize@{buffSize}|hyperpage}{25}
+\indexentry{buffSize@{buffSize}!buffer@{buffer}|hyperpage}{25}
+\indexentry{buffer@{buffer}!writingLock@{writingLock}|hyperpage}{25}
+\indexentry{writingLock@{writingLock}!buffer@{buffer}|hyperpage}{25}
+\indexentry{commonFuncsMgr@{commonFuncsMgr}|hyperpage}{25}
+\indexentry{commonFuncsMgr@{commonFuncsMgr}!commonFuncsMgr@{commonFuncsMgr}|hyperpage}{27}
+\indexentry{commonFuncsMgr@{commonFuncsMgr}!commonFuncsMgr@{commonFuncsMgr}|hyperpage}{27}
+\indexentry{commonFuncsMgr@{commonFuncsMgr}!$\sim $commonFuncsMgr@{$\sim $commonFuncsMgr}|hyperpage}{27}
+\indexentry{$\sim $commonFuncsMgr@{$\sim $commonFuncsMgr}!commonFuncsMgr@{commonFuncsMgr}|hyperpage}{27}
+\indexentry{commonFuncsMgr@{commonFuncsMgr}!startCommonFuncs@{startCommonFuncs}|hyperpage}{27}
+\indexentry{startCommonFuncs@{startCommonFuncs}!commonFuncsMgr@{commonFuncsMgr}|hyperpage}{27}
+\indexentry{commonFuncsMgr@{commonFuncsMgr}!stopCommonFuncs@{stopCommonFuncs}|hyperpage}{28}
+\indexentry{stopCommonFuncs@{stopCommonFuncs}!commonFuncsMgr@{commonFuncsMgr}|hyperpage}{28}
+\indexentry{commonFuncsMgr@{commonFuncsMgr}!appLayer@{appLayer}|hyperpage}{29}
+\indexentry{appLayer@{appLayer}!commonFuncsMgr@{commonFuncsMgr}|hyperpage}{29}
+\indexentry{deqUdp@{deqUdp}|hyperpage}{29}
+\indexentry{deqUdp@{deqUdp}!deqUdp@{deqUdp}|hyperpage}{30}
+\indexentry{deqUdp@{deqUdp}!deqUdp@{deqUdp}|hyperpage}{30}
+\indexentry{deqUdp@{deqUdp}!$\sim $deqUdp@{$\sim $deqUdp}|hyperpage}{30}
+\indexentry{$\sim $deqUdp@{$\sim $deqUdp}!deqUdp@{deqUdp}|hyperpage}{30}
+\indexentry{deqUdp@{deqUdp}!sendData@{sendData}|hyperpage}{30}
+\indexentry{sendData@{sendData}!deqUdp@{deqUdp}|hyperpage}{30}
+\indexentry{deqUdp@{deqUdp}!readData@{readData}|hyperpage}{31}
+\indexentry{readData@{readData}!deqUdp@{deqUdp}|hyperpage}{31}
+\indexentry{functionNode@{functionNode}|hyperpage}{32}
+\indexentry{functionNode@{functionNode}!functionNode@{functionNode}|hyperpage}{36}
+\indexentry{functionNode@{functionNode}!functionNode@{functionNode}|hyperpage}{36}
+\indexentry{functionNode@{functionNode}!$\sim $functionNode@{$\sim $functionNode}|hyperpage}{36}
+\indexentry{$\sim $functionNode@{$\sim $functionNode}!functionNode@{functionNode}|hyperpage}{36}
+\indexentry{functionNode@{functionNode}!setFuncName@{setFuncName}|hyperpage}{37}
+\indexentry{setFuncName@{setFuncName}!functionNode@{functionNode}|hyperpage}{37}
+\indexentry{functionNode@{functionNode}!setParamDescriptor@{setParamDescriptor}|hyperpage}{37}
+\indexentry{setParamDescriptor@{setParamDescriptor}!functionNode@{functionNode}|hyperpage}{37}
+\indexentry{functionNode@{functionNode}!setResultDescriptor@{setResultDescriptor}|hyperpage}{38}
+\indexentry{setResultDescriptor@{setResultDescriptor}!functionNode@{functionNode}|hyperpage}{38}
+\indexentry{functionNode@{functionNode}!setParamName@{setParamName}|hyperpage}{38}
+\indexentry{setParamName@{setParamName}!functionNode@{functionNode}|hyperpage}{38}
+\indexentry{functionNode@{functionNode}!setResultName@{setResultName}|hyperpage}{39}
+\indexentry{setResultName@{setResultName}!functionNode@{functionNode}|hyperpage}{39}
+\indexentry{functionNode@{functionNode}!getParamLength@{getParamLength}|hyperpage}{40}
+\indexentry{getParamLength@{getParamLength}!functionNode@{functionNode}|hyperpage}{40}
+\indexentry{functionNode@{functionNode}!getParamType@{getParamType}|hyperpage}{40}
+\indexentry{getParamType@{getParamType}!functionNode@{functionNode}|hyperpage}{40}
+\indexentry{functionNode@{functionNode}!getParamsQuantity@{getParamsQuantity}|hyperpage}{41}
+\indexentry{getParamsQuantity@{getParamsQuantity}!functionNode@{functionNode}|hyperpage}{41}
+\indexentry{functionNode@{functionNode}!getAllParamsLength@{getAllParamsLength}|hyperpage}{41}
+\indexentry{getAllParamsLength@{getAllParamsLength}!functionNode@{functionNode}|hyperpage}{41}
+\indexentry{functionNode@{functionNode}!decodeParams@{decodeParams}|hyperpage}{41}
+\indexentry{decodeParams@{decodeParams}!functionNode@{functionNode}|hyperpage}{41}
+\indexentry{functionNode@{functionNode}!setParam@{setParam}|hyperpage}{42}
+\indexentry{setParam@{setParam}!functionNode@{functionNode}|hyperpage}{42}
+\indexentry{functionNode@{functionNode}!getParamPtr@{getParamPtr}|hyperpage}{42}
+\indexentry{getParamPtr@{getParamPtr}!functionNode@{functionNode}|hyperpage}{42}
+\indexentry{functionNode@{functionNode}!getResultsQuantity@{getResultsQuantity}|hyperpage}{43}
+\indexentry{getResultsQuantity@{getResultsQuantity}!functionNode@{functionNode}|hyperpage}{43}
+\indexentry{functionNode@{functionNode}!getAllResultsLength@{getAllResultsLength}|hyperpage}{43}
+\indexentry{getAllResultsLength@{getAllResultsLength}!functionNode@{functionNode}|hyperpage}{43}
+\indexentry{functionNode@{functionNode}!getResultLength@{getResultLength}|hyperpage}{44}
+\indexentry{getResultLength@{getResultLength}!functionNode@{functionNode}|hyperpage}{44}
+\indexentry{functionNode@{functionNode}!getResultType@{getResultType}|hyperpage}{44}
+\indexentry{getResultType@{getResultType}!functionNode@{functionNode}|hyperpage}{44}
+\indexentry{functionNode@{functionNode}!getResult@{getResult}|hyperpage}{44}
+\indexentry{getResult@{getResult}!functionNode@{functionNode}|hyperpage}{44}
+\indexentry{functionNode@{functionNode}!setResult@{setResult}|hyperpage}{45}
+\indexentry{setResult@{setResult}!functionNode@{functionNode}|hyperpage}{45}
+\indexentry{functionNode@{functionNode}!printParams@{printParams}|hyperpage}{46}
+\indexentry{printParams@{printParams}!functionNode@{functionNode}|hyperpage}{46}
+\indexentry{functionNode@{functionNode}!printResults@{printResults}|hyperpage}{46}
+\indexentry{printResults@{printResults}!functionNode@{functionNode}|hyperpage}{46}
+\indexentry{functionNode@{functionNode}!callFunction@{callFunction}|hyperpage}{47}
+\indexentry{callFunction@{callFunction}!functionNode@{functionNode}|hyperpage}{47}
+\indexentry{functionNode@{functionNode}!id@{id}|hyperpage}{47}
+\indexentry{id@{id}!functionNode@{functionNode}|hyperpage}{47}
+\indexentry{functionNode@{functionNode}!dbgPrint@{dbgPrint}|hyperpage}{47}
+\indexentry{dbgPrint@{dbgPrint}!functionNode@{functionNode}|hyperpage}{47}
+\indexentry{functionNode@{functionNode}!func\_\discretionary {-}{}{}id@{func\_\discretionary {-}{}{}id}|hyperpage}{48}
+\indexentry{func\_\discretionary {-}{}{}id@{func\_\discretionary {-}{}{}id}!functionNode@{functionNode}|hyperpage}{48}
+\indexentry{functionNode@{functionNode}!func\_\discretionary {-}{}{}name@{func\_\discretionary {-}{}{}name}|hyperpage}{48}
+\indexentry{func\_\discretionary {-}{}{}name@{func\_\discretionary {-}{}{}name}!functionNode@{functionNode}|hyperpage}{48}
+\indexentry{functionNode@{functionNode}!func\_\discretionary {-}{}{}paramsQuantity@{func\_\discretionary {-}{}{}paramsQuantity}|hyperpage}{48}
+\indexentry{func\_\discretionary {-}{}{}paramsQuantity@{func\_\discretionary {-}{}{}paramsQuantity}!functionNode@{functionNode}|hyperpage}{48}
+\indexentry{functionNode@{functionNode}!func\_\discretionary {-}{}{}resultsQuantity@{func\_\discretionary {-}{}{}resultsQuantity}|hyperpage}{48}
+\indexentry{func\_\discretionary {-}{}{}resultsQuantity@{func\_\discretionary {-}{}{}resultsQuantity}!functionNode@{functionNode}|hyperpage}{48}
+\indexentry{functionNode@{functionNode}!func\_\discretionary {-}{}{}paramsLength@{func\_\discretionary {-}{}{}paramsLength}|hyperpage}{48}
+\indexentry{func\_\discretionary {-}{}{}paramsLength@{func\_\discretionary {-}{}{}paramsLength}!functionNode@{functionNode}|hyperpage}{48}
+\indexentry{functionNode@{functionNode}!func\_\discretionary {-}{}{}resultsLength@{func\_\discretionary {-}{}{}resultsLength}|hyperpage}{49}
+\indexentry{func\_\discretionary {-}{}{}resultsLength@{func\_\discretionary {-}{}{}resultsLength}!functionNode@{functionNode}|hyperpage}{49}
+\indexentry{functionNode@{functionNode}!func\_\discretionary {-}{}{}params@{func\_\discretionary {-}{}{}params}|hyperpage}{49}
+\indexentry{func\_\discretionary {-}{}{}params@{func\_\discretionary {-}{}{}params}!functionNode@{functionNode}|hyperpage}{49}
+\indexentry{functionNode@{functionNode}!func\_\discretionary {-}{}{}results@{func\_\discretionary {-}{}{}results}|hyperpage}{49}
+\indexentry{func\_\discretionary {-}{}{}results@{func\_\discretionary {-}{}{}results}!functionNode@{functionNode}|hyperpage}{49}
+\indexentry{functionNode@{functionNode}!func@{func}|hyperpage}{49}
+\indexentry{func@{func}!functionNode@{functionNode}|hyperpage}{49}
+\indexentry{param\_\discretionary {-}{}{}desc@{param\_\discretionary {-}{}{}desc}|hyperpage}{49}
+\indexentry{param\_\discretionary {-}{}{}desc@{param\_\discretionary {-}{}{}desc}!param\_\discretionary {-}{}{}desc@{param\_\discretionary {-}{}{}desc}|hyperpage}{51}
+\indexentry{param\_\discretionary {-}{}{}desc@{param\_\discretionary {-}{}{}desc}!param_desc@{param\_\discretionary {-}{}{}desc}|hyperpage}{51}
+\indexentry{param\_\discretionary {-}{}{}desc@{param\_\discretionary {-}{}{}desc}!param\_\discretionary {-}{}{}desc@{param\_\discretionary {-}{}{}desc}|hyperpage}{51}
+\indexentry{param\_\discretionary {-}{}{}desc@{param\_\discretionary {-}{}{}desc}!param_desc@{param\_\discretionary {-}{}{}desc}|hyperpage}{51}
+\indexentry{param\_\discretionary {-}{}{}desc@{param\_\discretionary {-}{}{}desc}!$\sim $param\_\discretionary {-}{}{}desc@{$\sim $param\_\discretionary {-}{}{}desc}|hyperpage}{52}
+\indexentry{$\sim $param\_\discretionary {-}{}{}desc@{$\sim $param\_\discretionary {-}{}{}desc}!param_desc@{param\_\discretionary {-}{}{}desc}|hyperpage}{52}
+\indexentry{param\_\discretionary {-}{}{}desc@{param\_\discretionary {-}{}{}desc}!resize@{resize}|hyperpage}{52}
+\indexentry{resize@{resize}!param_desc@{param\_\discretionary {-}{}{}desc}|hyperpage}{52}
+\indexentry{param\_\discretionary {-}{}{}desc@{param\_\discretionary {-}{}{}desc}!value@{value}|hyperpage}{53}
+\indexentry{value@{value}!param_desc@{param\_\discretionary {-}{}{}desc}|hyperpage}{53}
+\indexentry{param\_\discretionary {-}{}{}desc@{param\_\discretionary {-}{}{}desc}!length@{length}|hyperpage}{53}
+\indexentry{length@{length}!param_desc@{param\_\discretionary {-}{}{}desc}|hyperpage}{53}
+\indexentry{param\_\discretionary {-}{}{}desc@{param\_\discretionary {-}{}{}desc}!type@{type}|hyperpage}{54}
+\indexentry{type@{type}!param_desc@{param\_\discretionary {-}{}{}desc}|hyperpage}{54}
+\indexentry{param\_\discretionary {-}{}{}desc@{param\_\discretionary {-}{}{}desc}!isVector@{isVector}|hyperpage}{55}
+\indexentry{isVector@{isVector}!param_desc@{param\_\discretionary {-}{}{}desc}|hyperpage}{55}
+\indexentry{param\_\discretionary {-}{}{}desc@{param\_\discretionary {-}{}{}desc}!setParam@{setParam}|hyperpage}{55}
+\indexentry{setParam@{setParam}!param_desc@{param\_\discretionary {-}{}{}desc}|hyperpage}{55}
+\indexentry{param\_\discretionary {-}{}{}desc@{param\_\discretionary {-}{}{}desc}!setName@{setName}|hyperpage}{56}
+\indexentry{setName@{setName}!param_desc@{param\_\discretionary {-}{}{}desc}|hyperpage}{56}
+\indexentry{param\_\discretionary {-}{}{}desc@{param\_\discretionary {-}{}{}desc}!printParam@{printParam}|hyperpage}{57}
+\indexentry{printParam@{printParam}!param_desc@{param\_\discretionary {-}{}{}desc}|hyperpage}{57}
+\indexentry{param\_\discretionary {-}{}{}desc@{param\_\discretionary {-}{}{}desc}!dbgPrint@{dbgPrint}|hyperpage}{57}
+\indexentry{dbgPrint@{dbgPrint}!param_desc@{param\_\discretionary {-}{}{}desc}|hyperpage}{57}
+\indexentry{param\_\discretionary {-}{}{}desc@{param\_\discretionary {-}{}{}desc}!param@{param}|hyperpage}{58}
+\indexentry{param@{param}!param_desc@{param\_\discretionary {-}{}{}desc}|hyperpage}{58}
+\indexentry{param\_\discretionary {-}{}{}desc@{param\_\discretionary {-}{}{}desc}!param\_\discretionary {-}{}{}name@{param\_\discretionary {-}{}{}name}|hyperpage}{58}
+\indexentry{param\_\discretionary {-}{}{}name@{param\_\discretionary {-}{}{}name}!param_desc@{param\_\discretionary {-}{}{}desc}|hyperpage}{58}
+\indexentry{param\_\discretionary {-}{}{}desc@{param\_\discretionary {-}{}{}desc}!\_\discretionary {-}{}{}length@{\_\discretionary {-}{}{}length}|hyperpage}{58}
+\indexentry{\_\discretionary {-}{}{}length@{\_\discretionary {-}{}{}length}!param_desc@{param\_\discretionary {-}{}{}desc}|hyperpage}{58}
+\indexentry{param\_\discretionary {-}{}{}desc@{param\_\discretionary {-}{}{}desc}!\_\discretionary {-}{}{}type@{\_\discretionary {-}{}{}type}|hyperpage}{58}
+\indexentry{\_\discretionary {-}{}{}type@{\_\discretionary {-}{}{}type}!param_desc@{param\_\discretionary {-}{}{}desc}|hyperpage}{58}
+\indexentry{param\_\discretionary {-}{}{}desc@{param\_\discretionary {-}{}{}desc}!\_\discretionary {-}{}{}isVector@{\_\discretionary {-}{}{}isVector}|hyperpage}{58}
+\indexentry{\_\discretionary {-}{}{}isVector@{\_\discretionary {-}{}{}isVector}!param_desc@{param\_\discretionary {-}{}{}desc}|hyperpage}{58}
+\indexentry{serviceState@{serviceState}|hyperpage}{58}
+\indexentry{serviceState@{serviceState}!linked@{linked}|hyperpage}{59}
+\indexentry{linked@{linked}!serviceState@{serviceState}|hyperpage}{59}
+\indexentry{serviceState@{serviceState}!reserved@{reserved}|hyperpage}{59}
+\indexentry{reserved@{reserved}!serviceState@{serviceState}|hyperpage}{59}
+\indexentry{serviceState@{serviceState}!inprocess@{inprocess}|hyperpage}{59}
+\indexentry{inprocess@{inprocess}!serviceState@{serviceState}|hyperpage}{59}
+\indexentry{serviceState@{serviceState}!mode\_\discretionary {-}{}{}emergency@{mode\_\discretionary {-}{}{}emergency}|hyperpage}{59}
+\indexentry{mode\_\discretionary {-}{}{}emergency@{mode\_\discretionary {-}{}{}emergency}!serviceState@{serviceState}|hyperpage}{59}
+\indexentry{serviceState@{serviceState}!mode\_\discretionary {-}{}{}manual@{mode\_\discretionary {-}{}{}manual}|hyperpage}{59}
+\indexentry{mode\_\discretionary {-}{}{}manual@{mode\_\discretionary {-}{}{}manual}!serviceState@{serviceState}|hyperpage}{59}
+\indexentry{serviceState@{serviceState}!mode\_\discretionary {-}{}{}auto@{mode\_\discretionary {-}{}{}auto}|hyperpage}{59}
+\indexentry{mode\_\discretionary {-}{}{}auto@{mode\_\discretionary {-}{}{}auto}!serviceState@{serviceState}|hyperpage}{59}
+\indexentry{specFuncsMgr@{specFuncsMgr}|hyperpage}{60}
+\indexentry{specFuncsMgr@{specFuncsMgr}!specFuncsMgr@{specFuncsMgr}|hyperpage}{62}
+\indexentry{specFuncsMgr@{specFuncsMgr}!specFuncsMgr@{specFuncsMgr}|hyperpage}{62}
+\indexentry{specFuncsMgr@{specFuncsMgr}!$\sim $specFuncsMgr@{$\sim $specFuncsMgr}|hyperpage}{62}
+\indexentry{$\sim $specFuncsMgr@{$\sim $specFuncsMgr}!specFuncsMgr@{specFuncsMgr}|hyperpage}{62}
+\indexentry{specFuncsMgr@{specFuncsMgr}!startSpecFuncs@{startSpecFuncs}|hyperpage}{62}
+\indexentry{startSpecFuncs@{startSpecFuncs}!specFuncsMgr@{specFuncsMgr}|hyperpage}{62}
+\indexentry{specFuncsMgr@{specFuncsMgr}!stopSpecFuncs@{stopSpecFuncs}|hyperpage}{63}
+\indexentry{stopSpecFuncs@{stopSpecFuncs}!specFuncsMgr@{specFuncsMgr}|hyperpage}{63}
+\indexentry{specFuncsMgr@{specFuncsMgr}!appLayer@{appLayer}|hyperpage}{63}
+\indexentry{appLayer@{appLayer}!specFuncsMgr@{specFuncsMgr}|hyperpage}{63}
+\indexentry{srvAppLayer@{srvAppLayer}|hyperpage}{63}
+\indexentry{srvAppLayer@{srvAppLayer}!srvAppLayer@{srvAppLayer}|hyperpage}{67}
+\indexentry{srvAppLayer@{srvAppLayer}!srvAppLayer@{srvAppLayer}|hyperpage}{67}
+\indexentry{srvAppLayer@{srvAppLayer}!$\sim $srvAppLayer@{$\sim $srvAppLayer}|hyperpage}{67}
+\indexentry{$\sim $srvAppLayer@{$\sim $srvAppLayer}!srvAppLayer@{srvAppLayer}|hyperpage}{67}
+\indexentry{srvAppLayer@{srvAppLayer}!decodeMessage@{decodeMessage}|hyperpage}{68}
+\indexentry{decodeMessage@{decodeMessage}!srvAppLayer@{srvAppLayer}|hyperpage}{68}
+\indexentry{srvAppLayer@{srvAppLayer}!execMessage@{execMessage}|hyperpage}{68}
+\indexentry{execMessage@{execMessage}!srvAppLayer@{srvAppLayer}|hyperpage}{68}
+\indexentry{srvAppLayer@{srvAppLayer}!encodeFuncResult@{encodeFuncResult}|hyperpage}{69}
+\indexentry{encodeFuncResult@{encodeFuncResult}!srvAppLayer@{srvAppLayer}|hyperpage}{69}
+\indexentry{srvAppLayer@{srvAppLayer}!sendResult@{sendResult}|hyperpage}{70}
+\indexentry{sendResult@{sendResult}!srvAppLayer@{srvAppLayer}|hyperpage}{70}
+\indexentry{srvAppLayer@{srvAppLayer}!CreateNewFunction@{CreateNewFunction}|hyperpage}{71}
+\indexentry{CreateNewFunction@{CreateNewFunction}!srvAppLayer@{srvAppLayer}|hyperpage}{71}
+\indexentry{srvAppLayer@{srvAppLayer}!DeleteFunction@{DeleteFunction}|hyperpage}{71}
+\indexentry{DeleteFunction@{DeleteFunction}!srvAppLayer@{srvAppLayer}|hyperpage}{71}
+\indexentry{srvAppLayer@{srvAppLayer}!encodeBlock@{encodeBlock}|hyperpage}{72}
+\indexentry{encodeBlock@{encodeBlock}!srvAppLayer@{srvAppLayer}|hyperpage}{72}
+\indexentry{srvAppLayer@{srvAppLayer}!StartListening@{StartListening}|hyperpage}{72}
+\indexentry{StartListening@{StartListening}!srvAppLayer@{srvAppLayer}|hyperpage}{72}
+\indexentry{srvAppLayer@{srvAppLayer}!StopListening@{StopListening}|hyperpage}{74}
+\indexentry{StopListening@{StopListening}!srvAppLayer@{srvAppLayer}|hyperpage}{74}
+\indexentry{srvAppLayer@{srvAppLayer}!equip\_\discretionary {-}{}{}reading\_\discretionary {-}{}{}event@{equip\_\discretionary {-}{}{}reading\_\discretionary {-}{}{}event}|hyperpage}{74}
+\indexentry{equip\_\discretionary {-}{}{}reading\_\discretionary {-}{}{}event@{equip\_\discretionary {-}{}{}reading\_\discretionary {-}{}{}event}!srvAppLayer@{srvAppLayer}|hyperpage}{74}
+\indexentry{srvAppLayer@{srvAppLayer}!equip\_\discretionary {-}{}{}read\_\discretionary {-}{}{}data@{equip\_\discretionary {-}{}{}read\_\discretionary {-}{}{}data}|hyperpage}{75}
+\indexentry{equip\_\discretionary {-}{}{}read\_\discretionary {-}{}{}data@{equip\_\discretionary {-}{}{}read\_\discretionary {-}{}{}data}!srvAppLayer@{srvAppLayer}|hyperpage}{75}
+\indexentry{srvAppLayer@{srvAppLayer}!ProcessMessages@{ProcessMessages}|hyperpage}{75}
+\indexentry{ProcessMessages@{ProcessMessages}!srvAppLayer@{srvAppLayer}|hyperpage}{75}
+\indexentry{srvAppLayer@{srvAppLayer}!getListenerPortNum@{getListenerPortNum}|hyperpage}{77}
+\indexentry{getListenerPortNum@{getListenerPortNum}!srvAppLayer@{srvAppLayer}|hyperpage}{77}
+\indexentry{srvAppLayer@{srvAppLayer}!terminated@{terminated}|hyperpage}{77}
+\indexentry{terminated@{terminated}!srvAppLayer@{srvAppLayer}|hyperpage}{77}
+\indexentry{srvAppLayer@{srvAppLayer}!terminate@{terminate}|hyperpage}{78}
+\indexentry{terminate@{terminate}!srvAppLayer@{srvAppLayer}|hyperpage}{78}
+\indexentry{srvAppLayer@{srvAppLayer}!getStateVector@{getStateVector}|hyperpage}{78}
+\indexentry{getStateVector@{getStateVector}!srvAppLayer@{srvAppLayer}|hyperpage}{78}
+\indexentry{srvAppLayer@{srvAppLayer}!AppTerminated@{AppTerminated}|hyperpage}{78}
+\indexentry{AppTerminated@{AppTerminated}!srvAppLayer@{srvAppLayer}|hyperpage}{78}
+\indexentry{srvAppLayer@{srvAppLayer}!Functions@{Functions}|hyperpage}{79}
+\indexentry{Functions@{Functions}!srvAppLayer@{srvAppLayer}|hyperpage}{79}
+\indexentry{srvAppLayer@{srvAppLayer}!func\_\discretionary {-}{}{}quantity@{func\_\discretionary {-}{}{}quantity}|hyperpage}{79}
+\indexentry{func\_\discretionary {-}{}{}quantity@{func\_\discretionary {-}{}{}quantity}!srvAppLayer@{srvAppLayer}|hyperpage}{79}
+\indexentry{srvAppLayer@{srvAppLayer}!ifCount@{ifCount}|hyperpage}{79}
+\indexentry{ifCount@{ifCount}!srvAppLayer@{srvAppLayer}|hyperpage}{79}
+\indexentry{srvAppLayer@{srvAppLayer}!listenerThread@{listenerThread}|hyperpage}{79}
+\indexentry{listenerThread@{listenerThread}!srvAppLayer@{srvAppLayer}|hyperpage}{79}
+\indexentry{srvAppLayer@{srvAppLayer}!senderThread@{senderThread}|hyperpage}{79}
+\indexentry{senderThread@{senderThread}!srvAppLayer@{srvAppLayer}|hyperpage}{79}
+\indexentry{srvAppLayer@{srvAppLayer}!equipListenThread@{equipListenThread}|hyperpage}{80}
+\indexentry{equipListenThread@{equipListenThread}!srvAppLayer@{srvAppLayer}|hyperpage}{80}
+\indexentry{srvAppLayer@{srvAppLayer}!cpListenerPortNum@{cpListenerPortNum}|hyperpage}{80}
+\indexentry{cpListenerPortNum@{cpListenerPortNum}!srvAppLayer@{srvAppLayer}|hyperpage}{80}
+\indexentry{srvAppLayer@{srvAppLayer}!equip\_\discretionary {-}{}{}listen@{equip\_\discretionary {-}{}{}listen}|hyperpage}{80}
+\indexentry{equip\_\discretionary {-}{}{}listen@{equip\_\discretionary {-}{}{}listen}!srvAppLayer@{srvAppLayer}|hyperpage}{80}
+\indexentry{srvAppLayer@{srvAppLayer}!ServiceState@{ServiceState}|hyperpage}{80}
+\indexentry{ServiceState@{ServiceState}!srvAppLayer@{srvAppLayer}|hyperpage}{80}
+\indexentry{srvAppLayer@{srvAppLayer}!clientsRequestsQueue@{clientsRequestsQueue}|hyperpage}{80}
+\indexentry{clientsRequestsQueue@{clientsRequestsQueue}!srvAppLayer@{srvAppLayer}|hyperpage}{80}
+\indexentry{srvAppLayer@{srvAppLayer}!functionsAnswersQueue@{functionsAnswersQueue}|hyperpage}{80}
+\indexentry{functionsAnswersQueue@{functionsAnswersQueue}!srvAppLayer@{srvAppLayer}|hyperpage}{80}
+\indexentry{ssBlock@{ssBlock}|hyperpage}{81}
+\indexentry{ssBlock@{ssBlock}!addr\_\discretionary {-}{}{}in@{addr\_\discretionary {-}{}{}in}|hyperpage}{81}
+\indexentry{addr\_\discretionary {-}{}{}in@{addr\_\discretionary {-}{}{}in}!ssBlock@{ssBlock}|hyperpage}{81}
+\indexentry{ssBlock@{ssBlock}!dataLen@{dataLen}|hyperpage}{81}
+\indexentry{dataLen@{dataLen}!ssBlock@{ssBlock}|hyperpage}{81}
+\indexentry{ssBlock@{ssBlock}!data@{data}|hyperpage}{82}
+\indexentry{data@{data}!ssBlock@{ssBlock}|hyperpage}{82}
+\indexentry{ssBuffer@{ssBuffer}|hyperpage}{82}
+\indexentry{ssBuffer@{ssBuffer}!ssBuffer@{ssBuffer}|hyperpage}{84}
+\indexentry{ssBuffer@{ssBuffer}!ssBuffer@{ssBuffer}|hyperpage}{84}
+\indexentry{ssBuffer@{ssBuffer}!$\sim $ssBuffer@{$\sim $ssBuffer}|hyperpage}{84}
+\indexentry{$\sim $ssBuffer@{$\sim $ssBuffer}!ssBuffer@{ssBuffer}|hyperpage}{84}
+\indexentry{ssBuffer@{ssBuffer}!pushBlock@{pushBlock}|hyperpage}{84}
+\indexentry{pushBlock@{pushBlock}!ssBuffer@{ssBuffer}|hyperpage}{84}
+\indexentry{ssBuffer@{ssBuffer}!popBlock@{popBlock}|hyperpage}{85}
+\indexentry{popBlock@{popBlock}!ssBuffer@{ssBuffer}|hyperpage}{85}
+\indexentry{ssBuffer@{ssBuffer}!getBlockPtrAt@{getBlockPtrAt}|hyperpage}{86}
+\indexentry{getBlockPtrAt@{getBlockPtrAt}!ssBuffer@{ssBuffer}|hyperpage}{86}
+\indexentry{ssBuffer@{ssBuffer}!getFrontBlockSize@{getFrontBlockSize}|hyperpage}{86}
+\indexentry{getFrontBlockSize@{getFrontBlockSize}!ssBuffer@{ssBuffer}|hyperpage}{86}
+\indexentry{ssBuffer@{ssBuffer}!size@{size}|hyperpage}{86}
+\indexentry{size@{size}!ssBuffer@{ssBuffer}|hyperpage}{86}
+\indexentry{ssBuffer@{ssBuffer}!dbgPrint@{dbgPrint}|hyperpage}{87}
+\indexentry{dbgPrint@{dbgPrint}!ssBuffer@{ssBuffer}|hyperpage}{87}
+\indexentry{ssBuffer@{ssBuffer}!buffer@{buffer}|hyperpage}{87}
+\indexentry{buffer@{buffer}!ssBuffer@{ssBuffer}|hyperpage}{87}
+\indexentry{stateVector\_\discretionary {-}{}{}type@{stateVector\_\discretionary {-}{}{}type}|hyperpage}{88}
+\indexentry{stateVector\_\discretionary {-}{}{}type@{stateVector\_\discretionary {-}{}{}type}!reserved@{reserved}|hyperpage}{89}
+\indexentry{reserved@{reserved}!stateVector_type@{stateVector\_\discretionary {-}{}{}type}|hyperpage}{89}
+\indexentry{stateVector\_\discretionary {-}{}{}type@{stateVector\_\discretionary {-}{}{}type}!state@{state}|hyperpage}{89}
+\indexentry{state@{state}!stateVector_type@{stateVector\_\discretionary {-}{}{}type}|hyperpage}{89}
+\indexentry{stateVector\_\discretionary {-}{}{}type@{stateVector\_\discretionary {-}{}{}type}!lastResult@{lastResult}|hyperpage}{89}
+\indexentry{lastResult@{lastResult}!stateVector_type@{stateVector\_\discretionary {-}{}{}type}|hyperpage}{89}
+\indexentry{stateVector\_\discretionary {-}{}{}type@{stateVector\_\discretionary {-}{}{}type}!lastFuncId@{lastFuncId}|hyperpage}{89}
+\indexentry{lastFuncId@{lastFuncId}!stateVector_type@{stateVector\_\discretionary {-}{}{}type}|hyperpage}{89}
+\indexentry{src/\_\discretionary {-}{}{}auto\_\discretionary {-}{}{}config.h@{src/\_\discretionary {-}{}{}auto\_\discretionary {-}{}{}config.h}|hyperpage}{91}
+\indexentry{\_\discretionary {-}{}{}auto\_\discretionary {-}{}{}config.h@{\_\discretionary {-}{}{}auto\_\discretionary {-}{}{}config.h}!HAVE\_\discretionary {-}{}{}ARPA\_\discretionary {-}{}{}INET\_\discretionary {-}{}{}H@{HAVE\_\discretionary {-}{}{}ARPA\_\discretionary {-}{}{}INET\_\discretionary {-}{}{}H}|hyperpage}{92}
+\indexentry{HAVE\_\discretionary {-}{}{}ARPA\_\discretionary {-}{}{}INET\_\discretionary {-}{}{}H@{HAVE\_\discretionary {-}{}{}ARPA\_\discretionary {-}{}{}INET\_\discretionary {-}{}{}H}!_auto_config.h@{\_\discretionary {-}{}{}auto\_\discretionary {-}{}{}config.h}|hyperpage}{92}
+\indexentry{\_\discretionary {-}{}{}auto\_\discretionary {-}{}{}config.h@{\_\discretionary {-}{}{}auto\_\discretionary {-}{}{}config.h}!HAVE\_\discretionary {-}{}{}INTTYPES\_\discretionary {-}{}{}H@{HAVE\_\discretionary {-}{}{}INTTYPES\_\discretionary {-}{}{}H}|hyperpage}{92}
+\indexentry{HAVE\_\discretionary {-}{}{}INTTYPES\_\discretionary {-}{}{}H@{HAVE\_\discretionary {-}{}{}INTTYPES\_\discretionary {-}{}{}H}!_auto_config.h@{\_\discretionary {-}{}{}auto\_\discretionary {-}{}{}config.h}|hyperpage}{92}
+\indexentry{\_\discretionary {-}{}{}auto\_\discretionary {-}{}{}config.h@{\_\discretionary {-}{}{}auto\_\discretionary {-}{}{}config.h}!HAVE\_\discretionary {-}{}{}MALLOC@{HAVE\_\discretionary {-}{}{}MALLOC}|hyperpage}{92}
+\indexentry{HAVE\_\discretionary {-}{}{}MALLOC@{HAVE\_\discretionary {-}{}{}MALLOC}!_auto_config.h@{\_\discretionary {-}{}{}auto\_\discretionary {-}{}{}config.h}|hyperpage}{92}
+\indexentry{\_\discretionary {-}{}{}auto\_\discretionary {-}{}{}config.h@{\_\discretionary {-}{}{}auto\_\discretionary {-}{}{}config.h}!HAVE\_\discretionary {-}{}{}MEMORY\_\discretionary {-}{}{}H@{HAVE\_\discretionary {-}{}{}MEMORY\_\discretionary {-}{}{}H}|hyperpage}{92}
+\indexentry{HAVE\_\discretionary {-}{}{}MEMORY\_\discretionary {-}{}{}H@{HAVE\_\discretionary {-}{}{}MEMORY\_\discretionary {-}{}{}H}!_auto_config.h@{\_\discretionary {-}{}{}auto\_\discretionary {-}{}{}config.h}|hyperpage}{92}
+\indexentry{\_\discretionary {-}{}{}auto\_\discretionary {-}{}{}config.h@{\_\discretionary {-}{}{}auto\_\discretionary {-}{}{}config.h}!HAVE\_\discretionary {-}{}{}NETINET\_\discretionary {-}{}{}IN\_\discretionary {-}{}{}H@{HAVE\_\discretionary {-}{}{}NETINET\_\discretionary {-}{}{}IN\_\discretionary {-}{}{}H}|hyperpage}{92}
+\indexentry{HAVE\_\discretionary {-}{}{}NETINET\_\discretionary {-}{}{}IN\_\discretionary {-}{}{}H@{HAVE\_\discretionary {-}{}{}NETINET\_\discretionary {-}{}{}IN\_\discretionary {-}{}{}H}!_auto_config.h@{\_\discretionary {-}{}{}auto\_\discretionary {-}{}{}config.h}|hyperpage}{92}
+\indexentry{\_\discretionary {-}{}{}auto\_\discretionary {-}{}{}config.h@{\_\discretionary {-}{}{}auto\_\discretionary {-}{}{}config.h}!HAVE\_\discretionary {-}{}{}REALLOC@{HAVE\_\discretionary {-}{}{}REALLOC}|hyperpage}{92}
+\indexentry{HAVE\_\discretionary {-}{}{}REALLOC@{HAVE\_\discretionary {-}{}{}REALLOC}!_auto_config.h@{\_\discretionary {-}{}{}auto\_\discretionary {-}{}{}config.h}|hyperpage}{92}
+\indexentry{\_\discretionary {-}{}{}auto\_\discretionary {-}{}{}config.h@{\_\discretionary {-}{}{}auto\_\discretionary {-}{}{}config.h}!HAVE\_\discretionary {-}{}{}SOCKET@{HAVE\_\discretionary {-}{}{}SOCKET}|hyperpage}{92}
+\indexentry{HAVE\_\discretionary {-}{}{}SOCKET@{HAVE\_\discretionary {-}{}{}SOCKET}!_auto_config.h@{\_\discretionary {-}{}{}auto\_\discretionary {-}{}{}config.h}|hyperpage}{92}
+\indexentry{\_\discretionary {-}{}{}auto\_\discretionary {-}{}{}config.h@{\_\discretionary {-}{}{}auto\_\discretionary {-}{}{}config.h}!HAVE\_\discretionary {-}{}{}STDBOOL\_\discretionary {-}{}{}H@{HAVE\_\discretionary {-}{}{}STDBOOL\_\discretionary {-}{}{}H}|hyperpage}{92}
+\indexentry{HAVE\_\discretionary {-}{}{}STDBOOL\_\discretionary {-}{}{}H@{HAVE\_\discretionary {-}{}{}STDBOOL\_\discretionary {-}{}{}H}!_auto_config.h@{\_\discretionary {-}{}{}auto\_\discretionary {-}{}{}config.h}|hyperpage}{92}
+\indexentry{\_\discretionary {-}{}{}auto\_\discretionary {-}{}{}config.h@{\_\discretionary {-}{}{}auto\_\discretionary {-}{}{}config.h}!HAVE\_\discretionary {-}{}{}STDDEF\_\discretionary {-}{}{}H@{HAVE\_\discretionary {-}{}{}STDDEF\_\discretionary {-}{}{}H}|hyperpage}{92}
+\indexentry{HAVE\_\discretionary {-}{}{}STDDEF\_\discretionary {-}{}{}H@{HAVE\_\discretionary {-}{}{}STDDEF\_\discretionary {-}{}{}H}!_auto_config.h@{\_\discretionary {-}{}{}auto\_\discretionary {-}{}{}config.h}|hyperpage}{92}
+\indexentry{\_\discretionary {-}{}{}auto\_\discretionary {-}{}{}config.h@{\_\discretionary {-}{}{}auto\_\discretionary {-}{}{}config.h}!HAVE\_\discretionary {-}{}{}STDINT\_\discretionary {-}{}{}H@{HAVE\_\discretionary {-}{}{}STDINT\_\discretionary {-}{}{}H}|hyperpage}{92}
+\indexentry{HAVE\_\discretionary {-}{}{}STDINT\_\discretionary {-}{}{}H@{HAVE\_\discretionary {-}{}{}STDINT\_\discretionary {-}{}{}H}!_auto_config.h@{\_\discretionary {-}{}{}auto\_\discretionary {-}{}{}config.h}|hyperpage}{92}
+\indexentry{\_\discretionary {-}{}{}auto\_\discretionary {-}{}{}config.h@{\_\discretionary {-}{}{}auto\_\discretionary {-}{}{}config.h}!HAVE\_\discretionary {-}{}{}STDLIB\_\discretionary {-}{}{}H@{HAVE\_\discretionary {-}{}{}STDLIB\_\discretionary {-}{}{}H}|hyperpage}{92}
+\indexentry{HAVE\_\discretionary {-}{}{}STDLIB\_\discretionary {-}{}{}H@{HAVE\_\discretionary {-}{}{}STDLIB\_\discretionary {-}{}{}H}!_auto_config.h@{\_\discretionary {-}{}{}auto\_\discretionary {-}{}{}config.h}|hyperpage}{92}
+\indexentry{\_\discretionary {-}{}{}auto\_\discretionary {-}{}{}config.h@{\_\discretionary {-}{}{}auto\_\discretionary {-}{}{}config.h}!HAVE\_\discretionary {-}{}{}STRINGS\_\discretionary {-}{}{}H@{HAVE\_\discretionary {-}{}{}STRINGS\_\discretionary {-}{}{}H}|hyperpage}{93}
+\indexentry{HAVE\_\discretionary {-}{}{}STRINGS\_\discretionary {-}{}{}H@{HAVE\_\discretionary {-}{}{}STRINGS\_\discretionary {-}{}{}H}!_auto_config.h@{\_\discretionary {-}{}{}auto\_\discretionary {-}{}{}config.h}|hyperpage}{93}
+\indexentry{\_\discretionary {-}{}{}auto\_\discretionary {-}{}{}config.h@{\_\discretionary {-}{}{}auto\_\discretionary {-}{}{}config.h}!HAVE\_\discretionary {-}{}{}STRING\_\discretionary {-}{}{}H@{HAVE\_\discretionary {-}{}{}STRING\_\discretionary {-}{}{}H}|hyperpage}{93}
+\indexentry{HAVE\_\discretionary {-}{}{}STRING\_\discretionary {-}{}{}H@{HAVE\_\discretionary {-}{}{}STRING\_\discretionary {-}{}{}H}!_auto_config.h@{\_\discretionary {-}{}{}auto\_\discretionary {-}{}{}config.h}|hyperpage}{93}
+\indexentry{\_\discretionary {-}{}{}auto\_\discretionary {-}{}{}config.h@{\_\discretionary {-}{}{}auto\_\discretionary {-}{}{}config.h}!HAVE\_\discretionary {-}{}{}SYS\_\discretionary {-}{}{}SOCKET\_\discretionary {-}{}{}H@{HAVE\_\discretionary {-}{}{}SYS\_\discretionary {-}{}{}SOCKET\_\discretionary {-}{}{}H}|hyperpage}{93}
+\indexentry{HAVE\_\discretionary {-}{}{}SYS\_\discretionary {-}{}{}SOCKET\_\discretionary {-}{}{}H@{HAVE\_\discretionary {-}{}{}SYS\_\discretionary {-}{}{}SOCKET\_\discretionary {-}{}{}H}!_auto_config.h@{\_\discretionary {-}{}{}auto\_\discretionary {-}{}{}config.h}|hyperpage}{93}
+\indexentry{\_\discretionary {-}{}{}auto\_\discretionary {-}{}{}config.h@{\_\discretionary {-}{}{}auto\_\discretionary {-}{}{}config.h}!HAVE\_\discretionary {-}{}{}SYS\_\discretionary {-}{}{}STAT\_\discretionary {-}{}{}H@{HAVE\_\discretionary {-}{}{}SYS\_\discretionary {-}{}{}STAT\_\discretionary {-}{}{}H}|hyperpage}{93}
+\indexentry{HAVE\_\discretionary {-}{}{}SYS\_\discretionary {-}{}{}STAT\_\discretionary {-}{}{}H@{HAVE\_\discretionary {-}{}{}SYS\_\discretionary {-}{}{}STAT\_\discretionary {-}{}{}H}!_auto_config.h@{\_\discretionary {-}{}{}auto\_\discretionary {-}{}{}config.h}|hyperpage}{93}
+\indexentry{\_\discretionary {-}{}{}auto\_\discretionary {-}{}{}config.h@{\_\discretionary {-}{}{}auto\_\discretionary {-}{}{}config.h}!HAVE\_\discretionary {-}{}{}SYS\_\discretionary {-}{}{}TYPES\_\discretionary {-}{}{}H@{HAVE\_\discretionary {-}{}{}SYS\_\discretionary {-}{}{}TYPES\_\discretionary {-}{}{}H}|hyperpage}{93}
+\indexentry{HAVE\_\discretionary {-}{}{}SYS\_\discretionary {-}{}{}TYPES\_\discretionary {-}{}{}H@{HAVE\_\discretionary {-}{}{}SYS\_\discretionary {-}{}{}TYPES\_\discretionary {-}{}{}H}!_auto_config.h@{\_\discretionary {-}{}{}auto\_\discretionary {-}{}{}config.h}|hyperpage}{93}
+\indexentry{\_\discretionary {-}{}{}auto\_\discretionary {-}{}{}config.h@{\_\discretionary {-}{}{}auto\_\discretionary {-}{}{}config.h}!HAVE\_\discretionary {-}{}{}UNISTD\_\discretionary {-}{}{}H@{HAVE\_\discretionary {-}{}{}UNISTD\_\discretionary {-}{}{}H}|hyperpage}{93}
+\indexentry{HAVE\_\discretionary {-}{}{}UNISTD\_\discretionary {-}{}{}H@{HAVE\_\discretionary {-}{}{}UNISTD\_\discretionary {-}{}{}H}!_auto_config.h@{\_\discretionary {-}{}{}auto\_\discretionary {-}{}{}config.h}|hyperpage}{93}
+\indexentry{\_\discretionary {-}{}{}auto\_\discretionary {-}{}{}config.h@{\_\discretionary {-}{}{}auto\_\discretionary {-}{}{}config.h}!HAVE\_\discretionary {-}{}{}\_\discretionary {-}{}{}BOOL@{HAVE\_\discretionary {-}{}{}\_\discretionary {-}{}{}BOOL}|hyperpage}{93}
+\indexentry{HAVE\_\discretionary {-}{}{}\_\discretionary {-}{}{}BOOL@{HAVE\_\discretionary {-}{}{}\_\discretionary {-}{}{}BOOL}!_auto_config.h@{\_\discretionary {-}{}{}auto\_\discretionary {-}{}{}config.h}|hyperpage}{93}
+\indexentry{\_\discretionary {-}{}{}auto\_\discretionary {-}{}{}config.h@{\_\discretionary {-}{}{}auto\_\discretionary {-}{}{}config.h}!PACKAGE@{PACKAGE}|hyperpage}{93}
+\indexentry{PACKAGE@{PACKAGE}!_auto_config.h@{\_\discretionary {-}{}{}auto\_\discretionary {-}{}{}config.h}|hyperpage}{93}
+\indexentry{\_\discretionary {-}{}{}auto\_\discretionary {-}{}{}config.h@{\_\discretionary {-}{}{}auto\_\discretionary {-}{}{}config.h}!PACKAGE\_\discretionary {-}{}{}BUGREPORT@{PACKAGE\_\discretionary {-}{}{}BUGREPORT}|hyperpage}{93}
+\indexentry{PACKAGE\_\discretionary {-}{}{}BUGREPORT@{PACKAGE\_\discretionary {-}{}{}BUGREPORT}!_auto_config.h@{\_\discretionary {-}{}{}auto\_\discretionary {-}{}{}config.h}|hyperpage}{93}
+\indexentry{\_\discretionary {-}{}{}auto\_\discretionary {-}{}{}config.h@{\_\discretionary {-}{}{}auto\_\discretionary {-}{}{}config.h}!PACKAGE\_\discretionary {-}{}{}NAME@{PACKAGE\_\discretionary {-}{}{}NAME}|hyperpage}{93}
+\indexentry{PACKAGE\_\discretionary {-}{}{}NAME@{PACKAGE\_\discretionary {-}{}{}NAME}!_auto_config.h@{\_\discretionary {-}{}{}auto\_\discretionary {-}{}{}config.h}|hyperpage}{93}
+\indexentry{\_\discretionary {-}{}{}auto\_\discretionary {-}{}{}config.h@{\_\discretionary {-}{}{}auto\_\discretionary {-}{}{}config.h}!PACKAGE\_\discretionary {-}{}{}STRING@{PACKAGE\_\discretionary {-}{}{}STRING}|hyperpage}{94}
+\indexentry{PACKAGE\_\discretionary {-}{}{}STRING@{PACKAGE\_\discretionary {-}{}{}STRING}!_auto_config.h@{\_\discretionary {-}{}{}auto\_\discretionary {-}{}{}config.h}|hyperpage}{94}
+\indexentry{\_\discretionary {-}{}{}auto\_\discretionary {-}{}{}config.h@{\_\discretionary {-}{}{}auto\_\discretionary {-}{}{}config.h}!PACKAGE\_\discretionary {-}{}{}TARNAME@{PACKAGE\_\discretionary {-}{}{}TARNAME}|hyperpage}{94}
+\indexentry{PACKAGE\_\discretionary {-}{}{}TARNAME@{PACKAGE\_\discretionary {-}{}{}TARNAME}!_auto_config.h@{\_\discretionary {-}{}{}auto\_\discretionary {-}{}{}config.h}|hyperpage}{94}
+\indexentry{\_\discretionary {-}{}{}auto\_\discretionary {-}{}{}config.h@{\_\discretionary {-}{}{}auto\_\discretionary {-}{}{}config.h}!PACKAGE\_\discretionary {-}{}{}URL@{PACKAGE\_\discretionary {-}{}{}URL}|hyperpage}{94}
+\indexentry{PACKAGE\_\discretionary {-}{}{}URL@{PACKAGE\_\discretionary {-}{}{}URL}!_auto_config.h@{\_\discretionary {-}{}{}auto\_\discretionary {-}{}{}config.h}|hyperpage}{94}
+\indexentry{\_\discretionary {-}{}{}auto\_\discretionary {-}{}{}config.h@{\_\discretionary {-}{}{}auto\_\discretionary {-}{}{}config.h}!PACKAGE\_\discretionary {-}{}{}VERSION@{PACKAGE\_\discretionary {-}{}{}VERSION}|hyperpage}{94}
+\indexentry{PACKAGE\_\discretionary {-}{}{}VERSION@{PACKAGE\_\discretionary {-}{}{}VERSION}!_auto_config.h@{\_\discretionary {-}{}{}auto\_\discretionary {-}{}{}config.h}|hyperpage}{94}
+\indexentry{\_\discretionary {-}{}{}auto\_\discretionary {-}{}{}config.h@{\_\discretionary {-}{}{}auto\_\discretionary {-}{}{}config.h}!STDC\_\discretionary {-}{}{}HEADERS@{STDC\_\discretionary {-}{}{}HEADERS}|hyperpage}{94}
+\indexentry{STDC\_\discretionary {-}{}{}HEADERS@{STDC\_\discretionary {-}{}{}HEADERS}!_auto_config.h@{\_\discretionary {-}{}{}auto\_\discretionary {-}{}{}config.h}|hyperpage}{94}
+\indexentry{\_\discretionary {-}{}{}auto\_\discretionary {-}{}{}config.h@{\_\discretionary {-}{}{}auto\_\discretionary {-}{}{}config.h}!VERSION@{VERSION}|hyperpage}{94}
+\indexentry{VERSION@{VERSION}!_auto_config.h@{\_\discretionary {-}{}{}auto\_\discretionary {-}{}{}config.h}|hyperpage}{94}
+\indexentry{src/\_\discretionary {-}{}{}global.cpp@{src/\_\discretionary {-}{}{}global.cpp}|hyperpage}{94}
+\indexentry{\_\discretionary {-}{}{}global.cpp@{\_\discretionary {-}{}{}global.cpp}!verbose\_\discretionary {-}{}{}level@{verbose\_\discretionary {-}{}{}level}|hyperpage}{96}
+\indexentry{verbose\_\discretionary {-}{}{}level@{verbose\_\discretionary {-}{}{}level}!_global.cpp@{\_\discretionary {-}{}{}global.cpp}|hyperpage}{96}
+\indexentry{\_\discretionary {-}{}{}global.cpp@{\_\discretionary {-}{}{}global.cpp}!listen\_\discretionary {-}{}{}mode@{listen\_\discretionary {-}{}{}mode}|hyperpage}{96}
+\indexentry{listen\_\discretionary {-}{}{}mode@{listen\_\discretionary {-}{}{}mode}!_global.cpp@{\_\discretionary {-}{}{}global.cpp}|hyperpage}{96}
+\indexentry{\_\discretionary {-}{}{}global.cpp@{\_\discretionary {-}{}{}global.cpp}!awaitingPattern\_\discretionary {-}{}{}mode@{awaitingPattern\_\discretionary {-}{}{}mode}|hyperpage}{96}
+\indexentry{awaitingPattern\_\discretionary {-}{}{}mode@{awaitingPattern\_\discretionary {-}{}{}mode}!_global.cpp@{\_\discretionary {-}{}{}global.cpp}|hyperpage}{96}
+\indexentry{\_\discretionary {-}{}{}global.cpp@{\_\discretionary {-}{}{}global.cpp}!pattern\_\discretionary {-}{}{}found@{pattern\_\discretionary {-}{}{}found}|hyperpage}{96}
+\indexentry{pattern\_\discretionary {-}{}{}found@{pattern\_\discretionary {-}{}{}found}!_global.cpp@{\_\discretionary {-}{}{}global.cpp}|hyperpage}{96}
+\indexentry{\_\discretionary {-}{}{}global.cpp@{\_\discretionary {-}{}{}global.cpp}!patternFile@{patternFile}|hyperpage}{97}
+\indexentry{patternFile@{patternFile}!_global.cpp@{\_\discretionary {-}{}{}global.cpp}|hyperpage}{97}
+\indexentry{\_\discretionary {-}{}{}global.cpp@{\_\discretionary {-}{}{}global.cpp}!reactionFile@{reactionFile}|hyperpage}{97}
+\indexentry{reactionFile@{reactionFile}!_global.cpp@{\_\discretionary {-}{}{}global.cpp}|hyperpage}{97}
+\indexentry{\_\discretionary {-}{}{}global.cpp@{\_\discretionary {-}{}{}global.cpp}!dataFile@{dataFile}|hyperpage}{97}
+\indexentry{dataFile@{dataFile}!_global.cpp@{\_\discretionary {-}{}{}global.cpp}|hyperpage}{97}
+\indexentry{\_\discretionary {-}{}{}global.cpp@{\_\discretionary {-}{}{}global.cpp}!if\_\discretionary {-}{}{}name@{if\_\discretionary {-}{}{}name}|hyperpage}{97}
+\indexentry{if\_\discretionary {-}{}{}name@{if\_\discretionary {-}{}{}name}!_global.cpp@{\_\discretionary {-}{}{}global.cpp}|hyperpage}{97}
+\indexentry{\_\discretionary {-}{}{}global.cpp@{\_\discretionary {-}{}{}global.cpp}!AppTerminated@{AppTerminated}|hyperpage}{97}
+\indexentry{AppTerminated@{AppTerminated}!_global.cpp@{\_\discretionary {-}{}{}global.cpp}|hyperpage}{97}
+\indexentry{\_\discretionary {-}{}{}global.cpp@{\_\discretionary {-}{}{}global.cpp}!eq\_\discretionary {-}{}{}ip\_\discretionary {-}{}{}addr@{eq\_\discretionary {-}{}{}ip\_\discretionary {-}{}{}addr}|hyperpage}{98}
+\indexentry{eq\_\discretionary {-}{}{}ip\_\discretionary {-}{}{}addr@{eq\_\discretionary {-}{}{}ip\_\discretionary {-}{}{}addr}!_global.cpp@{\_\discretionary {-}{}{}global.cpp}|hyperpage}{98}
+\indexentry{\_\discretionary {-}{}{}global.cpp@{\_\discretionary {-}{}{}global.cpp}!wUdp@{wUdp}|hyperpage}{98}
+\indexentry{wUdp@{wUdp}!_global.cpp@{\_\discretionary {-}{}{}global.cpp}|hyperpage}{98}
+\indexentry{\_\discretionary {-}{}{}global.cpp@{\_\discretionary {-}{}{}global.cpp}!eq\_\discretionary {-}{}{}udp\_\discretionary {-}{}{}listen\_\discretionary {-}{}{}port@{eq\_\discretionary {-}{}{}udp\_\discretionary {-}{}{}listen\_\discretionary {-}{}{}port}|hyperpage}{98}
+\indexentry{eq\_\discretionary {-}{}{}udp\_\discretionary {-}{}{}listen\_\discretionary {-}{}{}port@{eq\_\discretionary {-}{}{}udp\_\discretionary {-}{}{}listen\_\discretionary {-}{}{}port}!_global.cpp@{\_\discretionary {-}{}{}global.cpp}|hyperpage}{98}
+\indexentry{\_\discretionary {-}{}{}global.cpp@{\_\discretionary {-}{}{}global.cpp}!eq\_\discretionary {-}{}{}udp\_\discretionary {-}{}{}sending\_\discretionary {-}{}{}port@{eq\_\discretionary {-}{}{}udp\_\discretionary {-}{}{}sending\_\discretionary {-}{}{}port}|hyperpage}{98}
+\indexentry{eq\_\discretionary {-}{}{}udp\_\discretionary {-}{}{}sending\_\discretionary {-}{}{}port@{eq\_\discretionary {-}{}{}udp\_\discretionary {-}{}{}sending\_\discretionary {-}{}{}port}!_global.cpp@{\_\discretionary {-}{}{}global.cpp}|hyperpage}{98}
+\indexentry{\_\discretionary {-}{}{}global.cpp@{\_\discretionary {-}{}{}global.cpp}!equipAddr@{equipAddr}|hyperpage}{98}
+\indexentry{equipAddr@{equipAddr}!_global.cpp@{\_\discretionary {-}{}{}global.cpp}|hyperpage}{98}
+\indexentry{src/\_\discretionary {-}{}{}global.h@{src/\_\discretionary {-}{}{}global.h}|hyperpage}{99}
+\indexentry{\_\discretionary {-}{}{}global.h@{\_\discretionary {-}{}{}global.h}!AppTerminated@{AppTerminated}|hyperpage}{100}
+\indexentry{AppTerminated@{AppTerminated}!_global.h@{\_\discretionary {-}{}{}global.h}|hyperpage}{100}
+\indexentry{\_\discretionary {-}{}{}global.h@{\_\discretionary {-}{}{}global.h}!awaitingPattern\_\discretionary {-}{}{}mode@{awaitingPattern\_\discretionary {-}{}{}mode}|hyperpage}{100}
+\indexentry{awaitingPattern\_\discretionary {-}{}{}mode@{awaitingPattern\_\discretionary {-}{}{}mode}!_global.h@{\_\discretionary {-}{}{}global.h}|hyperpage}{100}
+\indexentry{\_\discretionary {-}{}{}global.h@{\_\discretionary {-}{}{}global.h}!pattern\_\discretionary {-}{}{}found@{pattern\_\discretionary {-}{}{}found}|hyperpage}{100}
+\indexentry{pattern\_\discretionary {-}{}{}found@{pattern\_\discretionary {-}{}{}found}!_global.h@{\_\discretionary {-}{}{}global.h}|hyperpage}{100}
+\indexentry{\_\discretionary {-}{}{}global.h@{\_\discretionary {-}{}{}global.h}!verbose\_\discretionary {-}{}{}level@{verbose\_\discretionary {-}{}{}level}|hyperpage}{101}
+\indexentry{verbose\_\discretionary {-}{}{}level@{verbose\_\discretionary {-}{}{}level}!_global.h@{\_\discretionary {-}{}{}global.h}|hyperpage}{101}
+\indexentry{\_\discretionary {-}{}{}global.h@{\_\discretionary {-}{}{}global.h}!listen\_\discretionary {-}{}{}mode@{listen\_\discretionary {-}{}{}mode}|hyperpage}{101}
+\indexentry{listen\_\discretionary {-}{}{}mode@{listen\_\discretionary {-}{}{}mode}!_global.h@{\_\discretionary {-}{}{}global.h}|hyperpage}{101}
+\indexentry{\_\discretionary {-}{}{}global.h@{\_\discretionary {-}{}{}global.h}!eq\_\discretionary {-}{}{}ip\_\discretionary {-}{}{}addr@{eq\_\discretionary {-}{}{}ip\_\discretionary {-}{}{}addr}|hyperpage}{101}
+\indexentry{eq\_\discretionary {-}{}{}ip\_\discretionary {-}{}{}addr@{eq\_\discretionary {-}{}{}ip\_\discretionary {-}{}{}addr}!_global.h@{\_\discretionary {-}{}{}global.h}|hyperpage}{101}
+\indexentry{\_\discretionary {-}{}{}global.h@{\_\discretionary {-}{}{}global.h}!dataFile@{dataFile}|hyperpage}{101}
+\indexentry{dataFile@{dataFile}!_global.h@{\_\discretionary {-}{}{}global.h}|hyperpage}{101}
+\indexentry{\_\discretionary {-}{}{}global.h@{\_\discretionary {-}{}{}global.h}!if\_\discretionary {-}{}{}name@{if\_\discretionary {-}{}{}name}|hyperpage}{101}
+\indexentry{if\_\discretionary {-}{}{}name@{if\_\discretionary {-}{}{}name}!_global.h@{\_\discretionary {-}{}{}global.h}|hyperpage}{101}
+\indexentry{\_\discretionary {-}{}{}global.h@{\_\discretionary {-}{}{}global.h}!patternFile@{patternFile}|hyperpage}{101}
+\indexentry{patternFile@{patternFile}!_global.h@{\_\discretionary {-}{}{}global.h}|hyperpage}{101}
+\indexentry{\_\discretionary {-}{}{}global.h@{\_\discretionary {-}{}{}global.h}!reactionFile@{reactionFile}|hyperpage}{102}
+\indexentry{reactionFile@{reactionFile}!_global.h@{\_\discretionary {-}{}{}global.h}|hyperpage}{102}
+\indexentry{\_\discretionary {-}{}{}global.h@{\_\discretionary {-}{}{}global.h}!eq\_\discretionary {-}{}{}udp\_\discretionary {-}{}{}listen\_\discretionary {-}{}{}port@{eq\_\discretionary {-}{}{}udp\_\discretionary {-}{}{}listen\_\discretionary {-}{}{}port}|hyperpage}{102}
+\indexentry{eq\_\discretionary {-}{}{}udp\_\discretionary {-}{}{}listen\_\discretionary {-}{}{}port@{eq\_\discretionary {-}{}{}udp\_\discretionary {-}{}{}listen\_\discretionary {-}{}{}port}!_global.h@{\_\discretionary {-}{}{}global.h}|hyperpage}{102}
+\indexentry{\_\discretionary {-}{}{}global.h@{\_\discretionary {-}{}{}global.h}!eq\_\discretionary {-}{}{}udp\_\discretionary {-}{}{}sending\_\discretionary {-}{}{}port@{eq\_\discretionary {-}{}{}udp\_\discretionary {-}{}{}sending\_\discretionary {-}{}{}port}|hyperpage}{102}
+\indexentry{eq\_\discretionary {-}{}{}udp\_\discretionary {-}{}{}sending\_\discretionary {-}{}{}port@{eq\_\discretionary {-}{}{}udp\_\discretionary {-}{}{}sending\_\discretionary {-}{}{}port}!_global.h@{\_\discretionary {-}{}{}global.h}|hyperpage}{102}
+\indexentry{\_\discretionary {-}{}{}global.h@{\_\discretionary {-}{}{}global.h}!equipAddr@{equipAddr}|hyperpage}{102}
+\indexentry{equipAddr@{equipAddr}!_global.h@{\_\discretionary {-}{}{}global.h}|hyperpage}{102}
+\indexentry{\_\discretionary {-}{}{}global.h@{\_\discretionary {-}{}{}global.h}!wUdp@{wUdp}|hyperpage}{102}
+\indexentry{wUdp@{wUdp}!_global.h@{\_\discretionary {-}{}{}global.h}|hyperpage}{102}
+\indexentry{src/arg\_\discretionary {-}{}{}parser/carg\_\discretionary {-}{}{}parser.cpp@{src/arg\_\discretionary {-}{}{}parser/carg\_\discretionary {-}{}{}parser.cpp}|hyperpage}{103}
+\indexentry{carg\_\discretionary {-}{}{}parser.cpp@{carg\_\discretionary {-}{}{}parser.cpp}!ap\_\discretionary {-}{}{}resize\_\discretionary {-}{}{}buffer@{ap\_\discretionary {-}{}{}resize\_\discretionary {-}{}{}buffer}|hyperpage}{103}
+\indexentry{ap\_\discretionary {-}{}{}resize\_\discretionary {-}{}{}buffer@{ap\_\discretionary {-}{}{}resize\_\discretionary {-}{}{}buffer}!carg_parser.cpp@{carg\_\discretionary {-}{}{}parser.cpp}|hyperpage}{103}
+\indexentry{carg\_\discretionary {-}{}{}parser.cpp@{carg\_\discretionary {-}{}{}parser.cpp}!push\_\discretionary {-}{}{}back\_\discretionary {-}{}{}record@{push\_\discretionary {-}{}{}back\_\discretionary {-}{}{}record}|hyperpage}{103}
+\indexentry{push\_\discretionary {-}{}{}back\_\discretionary {-}{}{}record@{push\_\discretionary {-}{}{}back\_\discretionary {-}{}{}record}!carg_parser.cpp@{carg\_\discretionary {-}{}{}parser.cpp}|hyperpage}{103}
+\indexentry{carg\_\discretionary {-}{}{}parser.cpp@{carg\_\discretionary {-}{}{}parser.cpp}!add\_\discretionary {-}{}{}error@{add\_\discretionary {-}{}{}error}|hyperpage}{104}
+\indexentry{add\_\discretionary {-}{}{}error@{add\_\discretionary {-}{}{}error}!carg_parser.cpp@{carg\_\discretionary {-}{}{}parser.cpp}|hyperpage}{104}
+\indexentry{carg\_\discretionary {-}{}{}parser.cpp@{carg\_\discretionary {-}{}{}parser.cpp}!free\_\discretionary {-}{}{}data@{free\_\discretionary {-}{}{}data}|hyperpage}{105}
+\indexentry{free\_\discretionary {-}{}{}data@{free\_\discretionary {-}{}{}data}!carg_parser.cpp@{carg\_\discretionary {-}{}{}parser.cpp}|hyperpage}{105}
+\indexentry{carg\_\discretionary {-}{}{}parser.cpp@{carg\_\discretionary {-}{}{}parser.cpp}!parse\_\discretionary {-}{}{}long\_\discretionary {-}{}{}option@{parse\_\discretionary {-}{}{}long\_\discretionary {-}{}{}option}|hyperpage}{105}
+\indexentry{parse\_\discretionary {-}{}{}long\_\discretionary {-}{}{}option@{parse\_\discretionary {-}{}{}long\_\discretionary {-}{}{}option}!carg_parser.cpp@{carg\_\discretionary {-}{}{}parser.cpp}|hyperpage}{105}
+\indexentry{carg\_\discretionary {-}{}{}parser.cpp@{carg\_\discretionary {-}{}{}parser.cpp}!parse\_\discretionary {-}{}{}short\_\discretionary {-}{}{}option@{parse\_\discretionary {-}{}{}short\_\discretionary {-}{}{}option}|hyperpage}{106}
+\indexentry{parse\_\discretionary {-}{}{}short\_\discretionary {-}{}{}option@{parse\_\discretionary {-}{}{}short\_\discretionary {-}{}{}option}!carg_parser.cpp@{carg\_\discretionary {-}{}{}parser.cpp}|hyperpage}{106}
+\indexentry{carg\_\discretionary {-}{}{}parser.cpp@{carg\_\discretionary {-}{}{}parser.cpp}!ap\_\discretionary {-}{}{}init@{ap\_\discretionary {-}{}{}init}|hyperpage}{107}
+\indexentry{ap\_\discretionary {-}{}{}init@{ap\_\discretionary {-}{}{}init}!carg_parser.cpp@{carg\_\discretionary {-}{}{}parser.cpp}|hyperpage}{107}
+\indexentry{carg\_\discretionary {-}{}{}parser.cpp@{carg\_\discretionary {-}{}{}parser.cpp}!ap\_\discretionary {-}{}{}free@{ap\_\discretionary {-}{}{}free}|hyperpage}{108}
+\indexentry{ap\_\discretionary {-}{}{}free@{ap\_\discretionary {-}{}{}free}!carg_parser.cpp@{carg\_\discretionary {-}{}{}parser.cpp}|hyperpage}{108}
+\indexentry{carg\_\discretionary {-}{}{}parser.cpp@{carg\_\discretionary {-}{}{}parser.cpp}!ap\_\discretionary {-}{}{}error@{ap\_\discretionary {-}{}{}error}|hyperpage}{109}
+\indexentry{ap\_\discretionary {-}{}{}error@{ap\_\discretionary {-}{}{}error}!carg_parser.cpp@{carg\_\discretionary {-}{}{}parser.cpp}|hyperpage}{109}
+\indexentry{carg\_\discretionary {-}{}{}parser.cpp@{carg\_\discretionary {-}{}{}parser.cpp}!ap\_\discretionary {-}{}{}arguments@{ap\_\discretionary {-}{}{}arguments}|hyperpage}{109}
+\indexentry{ap\_\discretionary {-}{}{}arguments@{ap\_\discretionary {-}{}{}arguments}!carg_parser.cpp@{carg\_\discretionary {-}{}{}parser.cpp}|hyperpage}{109}
+\indexentry{carg\_\discretionary {-}{}{}parser.cpp@{carg\_\discretionary {-}{}{}parser.cpp}!ap\_\discretionary {-}{}{}code@{ap\_\discretionary {-}{}{}code}|hyperpage}{109}
+\indexentry{ap\_\discretionary {-}{}{}code@{ap\_\discretionary {-}{}{}code}!carg_parser.cpp@{carg\_\discretionary {-}{}{}parser.cpp}|hyperpage}{109}
+\indexentry{carg\_\discretionary {-}{}{}parser.cpp@{carg\_\discretionary {-}{}{}parser.cpp}!ap\_\discretionary {-}{}{}argument@{ap\_\discretionary {-}{}{}argument}|hyperpage}{110}
+\indexentry{ap\_\discretionary {-}{}{}argument@{ap\_\discretionary {-}{}{}argument}!carg_parser.cpp@{carg\_\discretionary {-}{}{}parser.cpp}|hyperpage}{110}
+\indexentry{src/arg\_\discretionary {-}{}{}parser/carg\_\discretionary {-}{}{}parser.h@{src/arg\_\discretionary {-}{}{}parser/carg\_\discretionary {-}{}{}parser.h}|hyperpage}{111}
+\indexentry{carg\_\discretionary {-}{}{}parser.h@{carg\_\discretionary {-}{}{}parser.h}!ap\_\discretionary {-}{}{}Has\_\discretionary {-}{}{}arg@{ap\_\discretionary {-}{}{}Has\_\discretionary {-}{}{}arg}|hyperpage}{111}
+\indexentry{ap\_\discretionary {-}{}{}Has\_\discretionary {-}{}{}arg@{ap\_\discretionary {-}{}{}Has\_\discretionary {-}{}{}arg}!carg_parser.h@{carg\_\discretionary {-}{}{}parser.h}|hyperpage}{111}
+\indexentry{ap\_\-no@{ap\_\-no}!carg\_\-parser.h@{carg\_\-parser.h}|hyperpage}{111}
+\indexentry{carg\_\-parser.h@{carg\_\-parser.h}!ap\_\-no@{ap\_\-no}|hyperpage}{111}
+\indexentry{ap\_\-yes@{ap\_\-yes}!carg\_\-parser.h@{carg\_\-parser.h}|hyperpage}{111}
+\indexentry{carg\_\-parser.h@{carg\_\-parser.h}!ap\_\-yes@{ap\_\-yes}|hyperpage}{111}
+\indexentry{ap\_\-maybe@{ap\_\-maybe}!carg\_\-parser.h@{carg\_\-parser.h}|hyperpage}{111}
+\indexentry{carg\_\-parser.h@{carg\_\-parser.h}!ap\_\-maybe@{ap\_\-maybe}|hyperpage}{111}
+\indexentry{carg\_\discretionary {-}{}{}parser.h@{carg\_\discretionary {-}{}{}parser.h}!ap\_\discretionary {-}{}{}init@{ap\_\discretionary {-}{}{}init}|hyperpage}{112}
+\indexentry{ap\_\discretionary {-}{}{}init@{ap\_\discretionary {-}{}{}init}!carg_parser.h@{carg\_\discretionary {-}{}{}parser.h}|hyperpage}{112}
+\indexentry{carg\_\discretionary {-}{}{}parser.h@{carg\_\discretionary {-}{}{}parser.h}!ap\_\discretionary {-}{}{}free@{ap\_\discretionary {-}{}{}free}|hyperpage}{112}
+\indexentry{ap\_\discretionary {-}{}{}free@{ap\_\discretionary {-}{}{}free}!carg_parser.h@{carg\_\discretionary {-}{}{}parser.h}|hyperpage}{112}
+\indexentry{carg\_\discretionary {-}{}{}parser.h@{carg\_\discretionary {-}{}{}parser.h}!ap\_\discretionary {-}{}{}error@{ap\_\discretionary {-}{}{}error}|hyperpage}{113}
+\indexentry{ap\_\discretionary {-}{}{}error@{ap\_\discretionary {-}{}{}error}!carg_parser.h@{carg\_\discretionary {-}{}{}parser.h}|hyperpage}{113}
+\indexentry{carg\_\discretionary {-}{}{}parser.h@{carg\_\discretionary {-}{}{}parser.h}!ap\_\discretionary {-}{}{}arguments@{ap\_\discretionary {-}{}{}arguments}|hyperpage}{113}
+\indexentry{ap\_\discretionary {-}{}{}arguments@{ap\_\discretionary {-}{}{}arguments}!carg_parser.h@{carg\_\discretionary {-}{}{}parser.h}|hyperpage}{113}
+\indexentry{carg\_\discretionary {-}{}{}parser.h@{carg\_\discretionary {-}{}{}parser.h}!ap\_\discretionary {-}{}{}code@{ap\_\discretionary {-}{}{}code}|hyperpage}{114}
+\indexentry{ap\_\discretionary {-}{}{}code@{ap\_\discretionary {-}{}{}code}!carg_parser.h@{carg\_\discretionary {-}{}{}parser.h}|hyperpage}{114}
+\indexentry{carg\_\discretionary {-}{}{}parser.h@{carg\_\discretionary {-}{}{}parser.h}!ap\_\discretionary {-}{}{}argument@{ap\_\discretionary {-}{}{}argument}|hyperpage}{114}
+\indexentry{ap\_\discretionary {-}{}{}argument@{ap\_\discretionary {-}{}{}argument}!carg_parser.h@{carg\_\discretionary {-}{}{}parser.h}|hyperpage}{114}
+\indexentry{src/auto\_\discretionary {-}{}{}config.h@{src/auto\_\discretionary {-}{}{}config.h}|hyperpage}{115}
+\indexentry{auto\_\discretionary {-}{}{}config.h@{auto\_\discretionary {-}{}{}config.h}!HAVE\_\discretionary {-}{}{}ARPA\_\discretionary {-}{}{}INET\_\discretionary {-}{}{}H@{HAVE\_\discretionary {-}{}{}ARPA\_\discretionary {-}{}{}INET\_\discretionary {-}{}{}H}|hyperpage}{116}
+\indexentry{HAVE\_\discretionary {-}{}{}ARPA\_\discretionary {-}{}{}INET\_\discretionary {-}{}{}H@{HAVE\_\discretionary {-}{}{}ARPA\_\discretionary {-}{}{}INET\_\discretionary {-}{}{}H}!auto_config.h@{auto\_\discretionary {-}{}{}config.h}|hyperpage}{116}
+\indexentry{auto\_\discretionary {-}{}{}config.h@{auto\_\discretionary {-}{}{}config.h}!HAVE\_\discretionary {-}{}{}INTTYPES\_\discretionary {-}{}{}H@{HAVE\_\discretionary {-}{}{}INTTYPES\_\discretionary {-}{}{}H}|hyperpage}{116}
+\indexentry{HAVE\_\discretionary {-}{}{}INTTYPES\_\discretionary {-}{}{}H@{HAVE\_\discretionary {-}{}{}INTTYPES\_\discretionary {-}{}{}H}!auto_config.h@{auto\_\discretionary {-}{}{}config.h}|hyperpage}{116}
+\indexentry{auto\_\discretionary {-}{}{}config.h@{auto\_\discretionary {-}{}{}config.h}!HAVE\_\discretionary {-}{}{}MALLOC@{HAVE\_\discretionary {-}{}{}MALLOC}|hyperpage}{116}
+\indexentry{HAVE\_\discretionary {-}{}{}MALLOC@{HAVE\_\discretionary {-}{}{}MALLOC}!auto_config.h@{auto\_\discretionary {-}{}{}config.h}|hyperpage}{116}
+\indexentry{auto\_\discretionary {-}{}{}config.h@{auto\_\discretionary {-}{}{}config.h}!HAVE\_\discretionary {-}{}{}MEMORY\_\discretionary {-}{}{}H@{HAVE\_\discretionary {-}{}{}MEMORY\_\discretionary {-}{}{}H}|hyperpage}{116}
+\indexentry{HAVE\_\discretionary {-}{}{}MEMORY\_\discretionary {-}{}{}H@{HAVE\_\discretionary {-}{}{}MEMORY\_\discretionary {-}{}{}H}!auto_config.h@{auto\_\discretionary {-}{}{}config.h}|hyperpage}{116}
+\indexentry{auto\_\discretionary {-}{}{}config.h@{auto\_\discretionary {-}{}{}config.h}!HAVE\_\discretionary {-}{}{}NETINET\_\discretionary {-}{}{}IN\_\discretionary {-}{}{}H@{HAVE\_\discretionary {-}{}{}NETINET\_\discretionary {-}{}{}IN\_\discretionary {-}{}{}H}|hyperpage}{116}
+\indexentry{HAVE\_\discretionary {-}{}{}NETINET\_\discretionary {-}{}{}IN\_\discretionary {-}{}{}H@{HAVE\_\discretionary {-}{}{}NETINET\_\discretionary {-}{}{}IN\_\discretionary {-}{}{}H}!auto_config.h@{auto\_\discretionary {-}{}{}config.h}|hyperpage}{116}
+\indexentry{auto\_\discretionary {-}{}{}config.h@{auto\_\discretionary {-}{}{}config.h}!HAVE\_\discretionary {-}{}{}REALLOC@{HAVE\_\discretionary {-}{}{}REALLOC}|hyperpage}{116}
+\indexentry{HAVE\_\discretionary {-}{}{}REALLOC@{HAVE\_\discretionary {-}{}{}REALLOC}!auto_config.h@{auto\_\discretionary {-}{}{}config.h}|hyperpage}{116}
+\indexentry{auto\_\discretionary {-}{}{}config.h@{auto\_\discretionary {-}{}{}config.h}!HAVE\_\discretionary {-}{}{}SOCKET@{HAVE\_\discretionary {-}{}{}SOCKET}|hyperpage}{116}
+\indexentry{HAVE\_\discretionary {-}{}{}SOCKET@{HAVE\_\discretionary {-}{}{}SOCKET}!auto_config.h@{auto\_\discretionary {-}{}{}config.h}|hyperpage}{116}
+\indexentry{auto\_\discretionary {-}{}{}config.h@{auto\_\discretionary {-}{}{}config.h}!HAVE\_\discretionary {-}{}{}STDBOOL\_\discretionary {-}{}{}H@{HAVE\_\discretionary {-}{}{}STDBOOL\_\discretionary {-}{}{}H}|hyperpage}{117}
+\indexentry{HAVE\_\discretionary {-}{}{}STDBOOL\_\discretionary {-}{}{}H@{HAVE\_\discretionary {-}{}{}STDBOOL\_\discretionary {-}{}{}H}!auto_config.h@{auto\_\discretionary {-}{}{}config.h}|hyperpage}{117}
+\indexentry{auto\_\discretionary {-}{}{}config.h@{auto\_\discretionary {-}{}{}config.h}!HAVE\_\discretionary {-}{}{}STDDEF\_\discretionary {-}{}{}H@{HAVE\_\discretionary {-}{}{}STDDEF\_\discretionary {-}{}{}H}|hyperpage}{117}
+\indexentry{HAVE\_\discretionary {-}{}{}STDDEF\_\discretionary {-}{}{}H@{HAVE\_\discretionary {-}{}{}STDDEF\_\discretionary {-}{}{}H}!auto_config.h@{auto\_\discretionary {-}{}{}config.h}|hyperpage}{117}
+\indexentry{auto\_\discretionary {-}{}{}config.h@{auto\_\discretionary {-}{}{}config.h}!HAVE\_\discretionary {-}{}{}STDINT\_\discretionary {-}{}{}H@{HAVE\_\discretionary {-}{}{}STDINT\_\discretionary {-}{}{}H}|hyperpage}{117}
+\indexentry{HAVE\_\discretionary {-}{}{}STDINT\_\discretionary {-}{}{}H@{HAVE\_\discretionary {-}{}{}STDINT\_\discretionary {-}{}{}H}!auto_config.h@{auto\_\discretionary {-}{}{}config.h}|hyperpage}{117}
+\indexentry{auto\_\discretionary {-}{}{}config.h@{auto\_\discretionary {-}{}{}config.h}!HAVE\_\discretionary {-}{}{}STDLIB\_\discretionary {-}{}{}H@{HAVE\_\discretionary {-}{}{}STDLIB\_\discretionary {-}{}{}H}|hyperpage}{117}
+\indexentry{HAVE\_\discretionary {-}{}{}STDLIB\_\discretionary {-}{}{}H@{HAVE\_\discretionary {-}{}{}STDLIB\_\discretionary {-}{}{}H}!auto_config.h@{auto\_\discretionary {-}{}{}config.h}|hyperpage}{117}
+\indexentry{auto\_\discretionary {-}{}{}config.h@{auto\_\discretionary {-}{}{}config.h}!HAVE\_\discretionary {-}{}{}STRINGS\_\discretionary {-}{}{}H@{HAVE\_\discretionary {-}{}{}STRINGS\_\discretionary {-}{}{}H}|hyperpage}{117}
+\indexentry{HAVE\_\discretionary {-}{}{}STRINGS\_\discretionary {-}{}{}H@{HAVE\_\discretionary {-}{}{}STRINGS\_\discretionary {-}{}{}H}!auto_config.h@{auto\_\discretionary {-}{}{}config.h}|hyperpage}{117}
+\indexentry{auto\_\discretionary {-}{}{}config.h@{auto\_\discretionary {-}{}{}config.h}!HAVE\_\discretionary {-}{}{}STRING\_\discretionary {-}{}{}H@{HAVE\_\discretionary {-}{}{}STRING\_\discretionary {-}{}{}H}|hyperpage}{117}
+\indexentry{HAVE\_\discretionary {-}{}{}STRING\_\discretionary {-}{}{}H@{HAVE\_\discretionary {-}{}{}STRING\_\discretionary {-}{}{}H}!auto_config.h@{auto\_\discretionary {-}{}{}config.h}|hyperpage}{117}
+\indexentry{auto\_\discretionary {-}{}{}config.h@{auto\_\discretionary {-}{}{}config.h}!HAVE\_\discretionary {-}{}{}SYS\_\discretionary {-}{}{}SOCKET\_\discretionary {-}{}{}H@{HAVE\_\discretionary {-}{}{}SYS\_\discretionary {-}{}{}SOCKET\_\discretionary {-}{}{}H}|hyperpage}{117}
+\indexentry{HAVE\_\discretionary {-}{}{}SYS\_\discretionary {-}{}{}SOCKET\_\discretionary {-}{}{}H@{HAVE\_\discretionary {-}{}{}SYS\_\discretionary {-}{}{}SOCKET\_\discretionary {-}{}{}H}!auto_config.h@{auto\_\discretionary {-}{}{}config.h}|hyperpage}{117}
+\indexentry{auto\_\discretionary {-}{}{}config.h@{auto\_\discretionary {-}{}{}config.h}!HAVE\_\discretionary {-}{}{}SYS\_\discretionary {-}{}{}STAT\_\discretionary {-}{}{}H@{HAVE\_\discretionary {-}{}{}SYS\_\discretionary {-}{}{}STAT\_\discretionary {-}{}{}H}|hyperpage}{117}
+\indexentry{HAVE\_\discretionary {-}{}{}SYS\_\discretionary {-}{}{}STAT\_\discretionary {-}{}{}H@{HAVE\_\discretionary {-}{}{}SYS\_\discretionary {-}{}{}STAT\_\discretionary {-}{}{}H}!auto_config.h@{auto\_\discretionary {-}{}{}config.h}|hyperpage}{117}
+\indexentry{auto\_\discretionary {-}{}{}config.h@{auto\_\discretionary {-}{}{}config.h}!HAVE\_\discretionary {-}{}{}SYS\_\discretionary {-}{}{}TYPES\_\discretionary {-}{}{}H@{HAVE\_\discretionary {-}{}{}SYS\_\discretionary {-}{}{}TYPES\_\discretionary {-}{}{}H}|hyperpage}{117}
+\indexentry{HAVE\_\discretionary {-}{}{}SYS\_\discretionary {-}{}{}TYPES\_\discretionary {-}{}{}H@{HAVE\_\discretionary {-}{}{}SYS\_\discretionary {-}{}{}TYPES\_\discretionary {-}{}{}H}!auto_config.h@{auto\_\discretionary {-}{}{}config.h}|hyperpage}{117}
+\indexentry{auto\_\discretionary {-}{}{}config.h@{auto\_\discretionary {-}{}{}config.h}!HAVE\_\discretionary {-}{}{}UNISTD\_\discretionary {-}{}{}H@{HAVE\_\discretionary {-}{}{}UNISTD\_\discretionary {-}{}{}H}|hyperpage}{117}
+\indexentry{HAVE\_\discretionary {-}{}{}UNISTD\_\discretionary {-}{}{}H@{HAVE\_\discretionary {-}{}{}UNISTD\_\discretionary {-}{}{}H}!auto_config.h@{auto\_\discretionary {-}{}{}config.h}|hyperpage}{117}
+\indexentry{auto\_\discretionary {-}{}{}config.h@{auto\_\discretionary {-}{}{}config.h}!HAVE\_\discretionary {-}{}{}\_\discretionary {-}{}{}BOOL@{HAVE\_\discretionary {-}{}{}\_\discretionary {-}{}{}BOOL}|hyperpage}{118}
+\indexentry{HAVE\_\discretionary {-}{}{}\_\discretionary {-}{}{}BOOL@{HAVE\_\discretionary {-}{}{}\_\discretionary {-}{}{}BOOL}!auto_config.h@{auto\_\discretionary {-}{}{}config.h}|hyperpage}{118}
+\indexentry{auto\_\discretionary {-}{}{}config.h@{auto\_\discretionary {-}{}{}config.h}!PACKAGE@{PACKAGE}|hyperpage}{118}
+\indexentry{PACKAGE@{PACKAGE}!auto_config.h@{auto\_\discretionary {-}{}{}config.h}|hyperpage}{118}
+\indexentry{auto\_\discretionary {-}{}{}config.h@{auto\_\discretionary {-}{}{}config.h}!PACKAGE\_\discretionary {-}{}{}BUGREPORT@{PACKAGE\_\discretionary {-}{}{}BUGREPORT}|hyperpage}{118}
+\indexentry{PACKAGE\_\discretionary {-}{}{}BUGREPORT@{PACKAGE\_\discretionary {-}{}{}BUGREPORT}!auto_config.h@{auto\_\discretionary {-}{}{}config.h}|hyperpage}{118}
+\indexentry{auto\_\discretionary {-}{}{}config.h@{auto\_\discretionary {-}{}{}config.h}!PACKAGE\_\discretionary {-}{}{}NAME@{PACKAGE\_\discretionary {-}{}{}NAME}|hyperpage}{118}
+\indexentry{PACKAGE\_\discretionary {-}{}{}NAME@{PACKAGE\_\discretionary {-}{}{}NAME}!auto_config.h@{auto\_\discretionary {-}{}{}config.h}|hyperpage}{118}
+\indexentry{auto\_\discretionary {-}{}{}config.h@{auto\_\discretionary {-}{}{}config.h}!PACKAGE\_\discretionary {-}{}{}STRING@{PACKAGE\_\discretionary {-}{}{}STRING}|hyperpage}{118}
+\indexentry{PACKAGE\_\discretionary {-}{}{}STRING@{PACKAGE\_\discretionary {-}{}{}STRING}!auto_config.h@{auto\_\discretionary {-}{}{}config.h}|hyperpage}{118}
+\indexentry{auto\_\discretionary {-}{}{}config.h@{auto\_\discretionary {-}{}{}config.h}!PACKAGE\_\discretionary {-}{}{}TARNAME@{PACKAGE\_\discretionary {-}{}{}TARNAME}|hyperpage}{118}
+\indexentry{PACKAGE\_\discretionary {-}{}{}TARNAME@{PACKAGE\_\discretionary {-}{}{}TARNAME}!auto_config.h@{auto\_\discretionary {-}{}{}config.h}|hyperpage}{118}
+\indexentry{auto\_\discretionary {-}{}{}config.h@{auto\_\discretionary {-}{}{}config.h}!PACKAGE\_\discretionary {-}{}{}URL@{PACKAGE\_\discretionary {-}{}{}URL}|hyperpage}{118}
+\indexentry{PACKAGE\_\discretionary {-}{}{}URL@{PACKAGE\_\discretionary {-}{}{}URL}!auto_config.h@{auto\_\discretionary {-}{}{}config.h}|hyperpage}{118}
+\indexentry{auto\_\discretionary {-}{}{}config.h@{auto\_\discretionary {-}{}{}config.h}!PACKAGE\_\discretionary {-}{}{}VERSION@{PACKAGE\_\discretionary {-}{}{}VERSION}|hyperpage}{118}
+\indexentry{PACKAGE\_\discretionary {-}{}{}VERSION@{PACKAGE\_\discretionary {-}{}{}VERSION}!auto_config.h@{auto\_\discretionary {-}{}{}config.h}|hyperpage}{118}
+\indexentry{auto\_\discretionary {-}{}{}config.h@{auto\_\discretionary {-}{}{}config.h}!STDC\_\discretionary {-}{}{}HEADERS@{STDC\_\discretionary {-}{}{}HEADERS}|hyperpage}{118}
+\indexentry{STDC\_\discretionary {-}{}{}HEADERS@{STDC\_\discretionary {-}{}{}HEADERS}!auto_config.h@{auto\_\discretionary {-}{}{}config.h}|hyperpage}{118}
+\indexentry{auto\_\discretionary {-}{}{}config.h@{auto\_\discretionary {-}{}{}config.h}!VERSION@{VERSION}|hyperpage}{118}
+\indexentry{VERSION@{VERSION}!auto_config.h@{auto\_\discretionary {-}{}{}config.h}|hyperpage}{118}
+\indexentry{src/buffer/buffer.cpp@{src/buffer/buffer.cpp}|hyperpage}{119}
+\indexentry{src/buffer/buffer.h@{src/buffer/buffer.h}|hyperpage}{119}
+\indexentry{src/buffer/ssBuffer.cpp@{src/buffer/ssBuffer.cpp}|hyperpage}{120}
+\indexentry{src/buffer/ssBuffer.h@{src/buffer/ssBuffer.h}|hyperpage}{120}
+\indexentry{ssBuffer.h@{ssBuffer.h}!ssBlock@{ssBlock}|hyperpage}{121}
+\indexentry{ssBlock@{ssBlock}!ssBuffer.h@{ssBuffer.h}|hyperpage}{121}
+\indexentry{src/config.h@{src/config.h}|hyperpage}{121}
+\indexentry{src/console\_\discretionary {-}{}{}out.cpp@{src/console\_\discretionary {-}{}{}out.cpp}|hyperpage}{121}
+\indexentry{console\_\discretionary {-}{}{}out.cpp@{console\_\discretionary {-}{}{}out.cpp}!REVISION@{REVISION}|hyperpage}{123}
+\indexentry{REVISION@{REVISION}!console_out.cpp@{console\_\discretionary {-}{}{}out.cpp}|hyperpage}{123}
+\indexentry{console\_\discretionary {-}{}{}out.cpp@{console\_\discretionary {-}{}{}out.cpp}!show\_\discretionary {-}{}{}help@{show\_\discretionary {-}{}{}help}|hyperpage}{123}
+\indexentry{show\_\discretionary {-}{}{}help@{show\_\discretionary {-}{}{}help}!console_out.cpp@{console\_\discretionary {-}{}{}out.cpp}|hyperpage}{123}
+\indexentry{console\_\discretionary {-}{}{}out.cpp@{console\_\discretionary {-}{}{}out.cpp}!show\_\discretionary {-}{}{}version@{show\_\discretionary {-}{}{}version}|hyperpage}{123}
+\indexentry{show\_\discretionary {-}{}{}version@{show\_\discretionary {-}{}{}version}!console_out.cpp@{console\_\discretionary {-}{}{}out.cpp}|hyperpage}{123}
+\indexentry{console\_\discretionary {-}{}{}out.cpp@{console\_\discretionary {-}{}{}out.cpp}!show\_\discretionary {-}{}{}error@{show\_\discretionary {-}{}{}error}|hyperpage}{124}
+\indexentry{show\_\discretionary {-}{}{}error@{show\_\discretionary {-}{}{}error}!console_out.cpp@{console\_\discretionary {-}{}{}out.cpp}|hyperpage}{124}
+\indexentry{console\_\discretionary {-}{}{}out.cpp@{console\_\discretionary {-}{}{}out.cpp}!internal\_\discretionary {-}{}{}error@{internal\_\discretionary {-}{}{}error}|hyperpage}{124}
+\indexentry{internal\_\discretionary {-}{}{}error@{internal\_\discretionary {-}{}{}error}!console_out.cpp@{console\_\discretionary {-}{}{}out.cpp}|hyperpage}{124}
+\indexentry{console\_\discretionary {-}{}{}out.cpp@{console\_\discretionary {-}{}{}out.cpp}!optname@{optname}|hyperpage}{125}
+\indexentry{optname@{optname}!console_out.cpp@{console\_\discretionary {-}{}{}out.cpp}|hyperpage}{125}
+\indexentry{console\_\discretionary {-}{}{}out.cpp@{console\_\discretionary {-}{}{}out.cpp}!PROGVERSION@{PROGVERSION}|hyperpage}{125}
+\indexentry{PROGVERSION@{PROGVERSION}!console_out.cpp@{console\_\discretionary {-}{}{}out.cpp}|hyperpage}{125}
+\indexentry{console\_\discretionary {-}{}{}out.cpp@{console\_\discretionary {-}{}{}out.cpp}!Program\_\discretionary {-}{}{}name@{Program\_\discretionary {-}{}{}name}|hyperpage}{125}
+\indexentry{Program\_\discretionary {-}{}{}name@{Program\_\discretionary {-}{}{}name}!console_out.cpp@{console\_\discretionary {-}{}{}out.cpp}|hyperpage}{125}
+\indexentry{console\_\discretionary {-}{}{}out.cpp@{console\_\discretionary {-}{}{}out.cpp}!program\_\discretionary {-}{}{}name@{program\_\discretionary {-}{}{}name}|hyperpage}{125}
+\indexentry{program\_\discretionary {-}{}{}name@{program\_\discretionary {-}{}{}name}!console_out.cpp@{console\_\discretionary {-}{}{}out.cpp}|hyperpage}{125}
+\indexentry{console\_\discretionary {-}{}{}out.cpp@{console\_\discretionary {-}{}{}out.cpp}!program\_\discretionary {-}{}{}year@{program\_\discretionary {-}{}{}year}|hyperpage}{126}
+\indexentry{program\_\discretionary {-}{}{}year@{program\_\discretionary {-}{}{}year}!console_out.cpp@{console\_\discretionary {-}{}{}out.cpp}|hyperpage}{126}
+\indexentry{src/console\_\discretionary {-}{}{}out.h@{src/console\_\discretionary {-}{}{}out.h}|hyperpage}{126}
+\indexentry{console\_\discretionary {-}{}{}out.h@{console\_\discretionary {-}{}{}out.h}!show\_\discretionary {-}{}{}help@{show\_\discretionary {-}{}{}help}|hyperpage}{127}
+\indexentry{show\_\discretionary {-}{}{}help@{show\_\discretionary {-}{}{}help}!console_out.h@{console\_\discretionary {-}{}{}out.h}|hyperpage}{127}
+\indexentry{console\_\discretionary {-}{}{}out.h@{console\_\discretionary {-}{}{}out.h}!show\_\discretionary {-}{}{}version@{show\_\discretionary {-}{}{}version}|hyperpage}{127}
+\indexentry{show\_\discretionary {-}{}{}version@{show\_\discretionary {-}{}{}version}!console_out.h@{console\_\discretionary {-}{}{}out.h}|hyperpage}{127}
+\indexentry{console\_\discretionary {-}{}{}out.h@{console\_\discretionary {-}{}{}out.h}!show\_\discretionary {-}{}{}error@{show\_\discretionary {-}{}{}error}|hyperpage}{128}
+\indexentry{show\_\discretionary {-}{}{}error@{show\_\discretionary {-}{}{}error}!console_out.h@{console\_\discretionary {-}{}{}out.h}|hyperpage}{128}
+\indexentry{console\_\discretionary {-}{}{}out.h@{console\_\discretionary {-}{}{}out.h}!internal\_\discretionary {-}{}{}error@{internal\_\discretionary {-}{}{}error}|hyperpage}{128}
+\indexentry{internal\_\discretionary {-}{}{}error@{internal\_\discretionary {-}{}{}error}!console_out.h@{console\_\discretionary {-}{}{}out.h}|hyperpage}{128}
+\indexentry{console\_\discretionary {-}{}{}out.h@{console\_\discretionary {-}{}{}out.h}!optname@{optname}|hyperpage}{129}
+\indexentry{optname@{optname}!console_out.h@{console\_\discretionary {-}{}{}out.h}|hyperpage}{129}
+\indexentry{console\_\discretionary {-}{}{}out.h@{console\_\discretionary {-}{}{}out.h}!PROGVERSION@{PROGVERSION}|hyperpage}{129}
+\indexentry{PROGVERSION@{PROGVERSION}!console_out.h@{console\_\discretionary {-}{}{}out.h}|hyperpage}{129}
+\indexentry{console\_\discretionary {-}{}{}out.h@{console\_\discretionary {-}{}{}out.h}!Program\_\discretionary {-}{}{}name@{Program\_\discretionary {-}{}{}name}|hyperpage}{129}
+\indexentry{Program\_\discretionary {-}{}{}name@{Program\_\discretionary {-}{}{}name}!console_out.h@{console\_\discretionary {-}{}{}out.h}|hyperpage}{129}
+\indexentry{console\_\discretionary {-}{}{}out.h@{console\_\discretionary {-}{}{}out.h}!program\_\discretionary {-}{}{}name@{program\_\discretionary {-}{}{}name}|hyperpage}{130}
+\indexentry{program\_\discretionary {-}{}{}name@{program\_\discretionary {-}{}{}name}!console_out.h@{console\_\discretionary {-}{}{}out.h}|hyperpage}{130}
+\indexentry{console\_\discretionary {-}{}{}out.h@{console\_\discretionary {-}{}{}out.h}!program\_\discretionary {-}{}{}year@{program\_\discretionary {-}{}{}year}|hyperpage}{130}
+\indexentry{program\_\discretionary {-}{}{}year@{program\_\discretionary {-}{}{}year}!console_out.h@{console\_\discretionary {-}{}{}out.h}|hyperpage}{130}
+\indexentry{src/deqUdp/deqUdp.cpp@{src/deqUdp/deqUdp.cpp}|hyperpage}{130}
+\indexentry{src/deqUdp/deqUdp.h@{src/deqUdp/deqUdp.h}|hyperpage}{131}
+\indexentry{src/functions/commonFuncsMgr.cpp@{src/functions/commonFuncsMgr.cpp}|hyperpage}{131}
+\indexentry{commonFuncsMgr.cpp@{commonFuncsMgr.cpp}!equipListenPolling@{equipListenPolling}|hyperpage}{132}
+\indexentry{equipListenPolling@{equipListenPolling}!commonFuncsMgr.cpp@{commonFuncsMgr.cpp}|hyperpage}{132}
+\indexentry{src/functions/commonFuncsMgr.h@{src/functions/commonFuncsMgr.h}|hyperpage}{133}
+\indexentry{commonFuncsMgr.h@{commonFuncsMgr.h}!equipListenPolling@{equipListenPolling}|hyperpage}{134}
+\indexentry{equipListenPolling@{equipListenPolling}!commonFuncsMgr.h@{commonFuncsMgr.h}|hyperpage}{134}
+\indexentry{src/functions/specFuncsMgr.h@{src/functions/specFuncsMgr.h}|hyperpage}{135}
+\indexentry{src/main.cpp@{src/main.cpp}|hyperpage}{136}
+\indexentry{main.cpp@{main.cpp}!process\_\discretionary {-}{}{}cmdLine@{process\_\discretionary {-}{}{}cmdLine}|hyperpage}{137}
+\indexentry{process\_\discretionary {-}{}{}cmdLine@{process\_\discretionary {-}{}{}cmdLine}!main.cpp@{main.cpp}|hyperpage}{137}
+\indexentry{main.cpp@{main.cpp}!fileRead@{fileRead}|hyperpage}{139}
+\indexentry{fileRead@{fileRead}!main.cpp@{main.cpp}|hyperpage}{139}
+\indexentry{main.cpp@{main.cpp}!dbg\_\discretionary {-}{}{}hex\_\discretionary {-}{}{}print@{dbg\_\discretionary {-}{}{}hex\_\discretionary {-}{}{}print}|hyperpage}{139}
+\indexentry{dbg\_\discretionary {-}{}{}hex\_\discretionary {-}{}{}print@{dbg\_\discretionary {-}{}{}hex\_\discretionary {-}{}{}print}!main.cpp@{main.cpp}|hyperpage}{139}
+\indexentry{main.cpp@{main.cpp}!appInit@{appInit}|hyperpage}{140}
+\indexentry{appInit@{appInit}!main.cpp@{main.cpp}|hyperpage}{140}
+\indexentry{main.cpp@{main.cpp}!appDeinit@{appDeinit}|hyperpage}{141}
+\indexentry{appDeinit@{appDeinit}!main.cpp@{main.cpp}|hyperpage}{141}
+\indexentry{main.cpp@{main.cpp}!main@{main}|hyperpage}{142}
+\indexentry{main@{main}!main.cpp@{main.cpp}|hyperpage}{142}
+\indexentry{src/SIG\_\discretionary {-}{}{}handler.cpp@{src/SIG\_\discretionary {-}{}{}handler.cpp}|hyperpage}{143}
+\indexentry{SIG\_\discretionary {-}{}{}handler.cpp@{SIG\_\discretionary {-}{}{}handler.cpp}!term\_\discretionary {-}{}{}handler@{term\_\discretionary {-}{}{}handler}|hyperpage}{145}
+\indexentry{term\_\discretionary {-}{}{}handler@{term\_\discretionary {-}{}{}handler}!SIG_handler.cpp@{SIG\_\discretionary {-}{}{}handler.cpp}|hyperpage}{145}
+\indexentry{SIG\_\discretionary {-}{}{}handler.cpp@{SIG\_\discretionary {-}{}{}handler.cpp}!installSIGhandlers@{installSIGhandlers}|hyperpage}{145}
+\indexentry{installSIGhandlers@{installSIGhandlers}!SIG_handler.cpp@{SIG\_\discretionary {-}{}{}handler.cpp}|hyperpage}{145}
+\indexentry{SIG\_\discretionary {-}{}{}handler.cpp@{SIG\_\discretionary {-}{}{}handler.cpp}!SIGTERM\_\discretionary {-}{}{}handler@{SIGTERM\_\discretionary {-}{}{}handler}|hyperpage}{146}
+\indexentry{SIGTERM\_\discretionary {-}{}{}handler@{SIGTERM\_\discretionary {-}{}{}handler}!SIG_handler.cpp@{SIG\_\discretionary {-}{}{}handler.cpp}|hyperpage}{146}
+\indexentry{src/SIG\_\discretionary {-}{}{}handler.h@{src/SIG\_\discretionary {-}{}{}handler.h}|hyperpage}{146}
+\indexentry{SIG\_\discretionary {-}{}{}handler.h@{SIG\_\discretionary {-}{}{}handler.h}!installSIGhandlers@{installSIGhandlers}|hyperpage}{147}
+\indexentry{installSIGhandlers@{installSIGhandlers}!SIG_handler.h@{SIG\_\discretionary {-}{}{}handler.h}|hyperpage}{147}
+\indexentry{src/srvAppLayer/functionNode/functionNode.cpp@{src/srvAppLayer/functionNode/functionNode.cpp}|hyperpage}{147}
+\indexentry{src/srvAppLayer/functionNode/functionNode.h@{src/srvAppLayer/functionNode/functionNode.h}|hyperpage}{148}
+\indexentry{src/srvAppLayer/functionNode/param\_\discretionary {-}{}{}desc.cpp@{src/srvAppLayer/functionNode/param\_\discretionary {-}{}{}desc.cpp}|hyperpage}{149}
+\indexentry{src/srvAppLayer/functionNode/param\_\discretionary {-}{}{}desc.h@{src/srvAppLayer/functionNode/param\_\discretionary {-}{}{}desc.h}|hyperpage}{149}
+\indexentry{src/srvAppLayer/srvAppLayer.cpp@{src/srvAppLayer/srvAppLayer.cpp}|hyperpage}{150}
+\indexentry{srvAppLayer.cpp@{srvAppLayer.cpp}!udpSenderThread@{udpSenderThread}|hyperpage}{151}
+\indexentry{udpSenderThread@{udpSenderThread}!srvAppLayer.cpp@{srvAppLayer.cpp}|hyperpage}{151}
+\indexentry{srvAppLayer.cpp@{srvAppLayer.cpp}!udpListenerThread@{udpListenerThread}|hyperpage}{152}
+\indexentry{udpListenerThread@{udpListenerThread}!srvAppLayer.cpp@{srvAppLayer.cpp}|hyperpage}{152}
+\indexentry{srvAppLayer.cpp@{srvAppLayer.cpp}!rcvComplete\_\discretionary {-}{}{}flag@{rcvComplete\_\discretionary {-}{}{}flag}|hyperpage}{153}
+\indexentry{rcvComplete\_\discretionary {-}{}{}flag@{rcvComplete\_\discretionary {-}{}{}flag}!srvAppLayer.cpp@{srvAppLayer.cpp}|hyperpage}{153}
+\indexentry{srvAppLayer.cpp@{srvAppLayer.cpp}!sndAllow\_\discretionary {-}{}{}flag@{sndAllow\_\discretionary {-}{}{}flag}|hyperpage}{153}
+\indexentry{sndAllow\_\discretionary {-}{}{}flag@{sndAllow\_\discretionary {-}{}{}flag}!srvAppLayer.cpp@{srvAppLayer.cpp}|hyperpage}{153}
+\indexentry{srvAppLayer.cpp@{srvAppLayer.cpp}!app@{app}|hyperpage}{153}
+\indexentry{app@{app}!srvAppLayer.cpp@{srvAppLayer.cpp}|hyperpage}{153}
+\indexentry{src/srvAppLayer/srvAppLayer.h@{src/srvAppLayer/srvAppLayer.h}|hyperpage}{154}
+\indexentry{srvAppLayer.h@{srvAppLayer.h}!serviceState@{serviceState}|hyperpage}{155}
+\indexentry{serviceState@{serviceState}!srvAppLayer.h@{srvAppLayer.h}|hyperpage}{155}
+\indexentry{srvAppLayer.h@{srvAppLayer.h}!stateVector\_\discretionary {-}{}{}type@{stateVector\_\discretionary {-}{}{}type}|hyperpage}{155}
+\indexentry{stateVector\_\discretionary {-}{}{}type@{stateVector\_\discretionary {-}{}{}type}!srvAppLayer.h@{srvAppLayer.h}|hyperpage}{155}
+\indexentry{srvAppLayer.h@{srvAppLayer.h}!app@{app}|hyperpage}{155}
+\indexentry{app@{app}!srvAppLayer.h@{srvAppLayer.h}|hyperpage}{155}

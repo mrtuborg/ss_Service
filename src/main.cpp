@@ -1,3 +1,17 @@
+/**
+ * @file
+ * @author Vladimir A. Nosenko (nosenko@ieee.org)
+ * @date   December, 2010
+ * @brief  Programm entry point.
+ * @details
+ *      Copyright (c) 2010 Vladimir A.Nosenko.
+ *
+ *      The license and distribution terms for this file may be
+ *      found in the file LICENSE in this distribution
+ *
+ *
+ */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -12,7 +26,6 @@
 #include "../../udp_port/udp_port.h"
 #include "arg_parser/carg_parser.h"
 #include "console_out.h"
-//#include "ICAppLayer/cmd.h"
 #include "../../rcsLib/rcsCmd/rcsCmd.h"
 #include "ICAppLayer/FunctionNode/param_desc.h"
 #include "ICAppLayer/FunctionNode/FunctionNode.h"
@@ -25,11 +38,24 @@
 
 #include "global.h"
 
-
+/******************************************************************//**
+ * @brief       Parsing commandline arguments.
+ *
+ * @param[in]   argc    - count of arguments strings
+ * @param[in]   argv[]  - array of arguments strings
+ *
+ * @retval      err_result_ok - if execution was successful
+ * @retval      err_not_found - if no arguments found
+ * @retval      err_result_error - if parsing was unsuccessful
+ *********************************************************************/
 errType process_cmdLine(int argc, char *argv[])
 {
-  errType result=err_result_ok;
+  /**
+   * @todo reorganize process to external library
+   */
 
+  errType result=err_result_ok;
+  /// 1. Define arguments type: with (\a ap_yes) or without (\a ap_no) parameters
   const ap_Option options[] =
     {
     { 'V', "version",             ap_no },
@@ -43,18 +69,23 @@ errType process_cmdLine(int argc, char *argv[])
 
   Arg_parser parser;
   int argind;
-
+  ///2. Initialize arguments parser ::ap_init
   if( !ap_init( &parser, argc, argv, options, 0 ) )
-    { show_error( "Необходимо задать аргументы запуска!", 0, 0 ); return err_result_error; }
+    { show_error( "Необходимо задать аргументы запуска!", 0, 0 ); return err_not_found; }
+  ///3. Check for parsing errors ::ap_error
   if( ap_error( &parser ) )                             /* bad option */
     { show_error( ap_error( &parser ), 0, 1 ); return err_result_error; }
 
+  ///4. Execute all arguments after it parsing
  for( argind = 0; argind < ap_arguments( &parser ); ++argind )
  {
+     /// - get code of argument ::ap_code
     const int code = ap_code( &parser, argind );
     if( !code ) break;                                  // no more options
-    switch( code )
-      {
+    /// - switch with argument code value
+
+    switch( code ){
+    /// - execute
       case 'V': show_version(); return err_extra;
       case 'h': show_help( verbose_level ); return err_extra;
       case 'v': verbose_level = 1; break;
@@ -66,12 +97,16 @@ errType process_cmdLine(int argc, char *argv[])
       }
     } // end process options
 
+ ///4. Execute only arguments with parameters after it parsing
   for( argind = 0; argind < ap_arguments( &parser ); ++argind )
   {
+    /// - get code of argument ::ap_code
     const int code = ap_code( &parser, argind );
+    /// - get argument parameter ::ap_argument
     const char * arg = ap_argument( &parser, argind );
-
+    /// - switch with argument code value
     switch(code){
+    /// - execute
         case 'u':
 	    wUdp=atol(arg);
         break;
@@ -105,7 +140,13 @@ errType process_cmdLine(int argc, char *argv[])
     return result;
 }
 
-errType fileRead (char* fname, BYTE** buffer, size_t *sz){
+/**
+ * @brief useless function in this programm.
+ * @details stays from good old times
+ */
+errType fileRead (char* fname, BYTE** buffer, size_t *sz)
+{
+   /// @todo reorganize function to reading xml-files for future purposes
     errType result=err_not_init;
     FILE *pFile;
     BYTE *buf;
@@ -141,28 +182,51 @@ errType fileRead (char* fname, BYTE** buffer, size_t *sz){
     return result;
 }
 
-void dbg_hex_print(BYTE* buffer, size_t len){
+/**
+ * @brief prints hex bytes from \a buffer with size \a len.
+ */
+void dbg_hex_print(BYTE* buffer, size_t len)
+{
+    ///  @todo use this function in new debug print system
     printf("[");
     for (int i=0; i<len; i++) printf("%.2X ",buffer[i]);
     printf("]\n");
 }
 
+/******************************************************************//**
+ * @brief       Initialize srvAppLayer subsystem.
+ *
+ * @details    result copied from srvAppLayer::StartListening
+ * @retval      err_result_ok - execution was successful
+ * @retval      err_sock_error - problems with communications subsystem
+ **********************************************************************/
 errType appInit(void)
 {
     errType result=err_not_init;
     if (verbose_level) printf("Инициализация подсистем приложения... \n");
 
-    
+    /** Starting main programm threads srvAppLayer::StartListening():
+     *  -# Prepare queues for sending and listening to/from clients
+     *  -# Send & Listen threads for clients communication
+     *  -# Listen thread for equipment communication
+     */
     result= app->StartListening();
     
+    /**
+     * If threads started successfully - starts service specific function initialize ::srvInit()
+     */
     if (result==err_result_ok) srvInit();
 
-    
     else printf("Ошибка запуска системы сокетной коммуникации\n");
     printf("Результат инициализации сервиса: %s\n", strErrTypes[(int)result]);
     return result;
 }
 
+/******************************************************************//**
+ * @brief       Deinitialize srvAppLayer subsystem.
+ *
+ * @retval      always return err_result_ok, why not?
+ **********************************************************************/
 errType appDeinit(void)
 {
     printf("Деинициализация подсистем программного средства ... \n");
@@ -171,14 +235,23 @@ errType appDeinit(void)
     return err_result_ok;
 }
 
+/******************************************************************//**
+ * @brief       Programm entrypoint
+ *
+ * @retval      EXIT_FAILURE
+ * @retval      err_not_init
+ **********************************************************************/
 int main(int argc, char *argv[]) {
 	errType result=err_result_ok;
 	
 	memset(&equipAddr,0,sizeof(in_addr));
 	
+	/// 1. Process command line arguments \b argc and \b argv[] in ::process_cmdLine
 	errType ret=process_cmdLine(argc, argv);
-	
+	///     - if arguments parsing is unsuccessfull exiting from programm
         if (ret!=err_result_ok) return ret;
+        /// 2. Check arguments:
+        /// - check for missing one of exact argument
         if ((eq_udp_sending_port==0) || (eq_udp_listen_port==0) || (equipAddr.s_addr==0)) {
 	    printf("Пропущен один из обязательных параметров:\n");
 	    printf( "  -u -  сокет для сервисного общения с верхней иерархией системы\n" );            
@@ -188,38 +261,51 @@ int main(int argc, char *argv[]) {
 	    return err_not_init;
         }
         
+        /// - check for equipment communication settings:
+        ///     - sending port need to be not equal to listen port values
+        ///     - sending or listen port neet to be not equal to client listen port
         if ((eq_udp_sending_port==eq_udp_listen_port) || (eq_udp_sending_port==wUdp) || (eq_udp_listen_port==wUdp)) 
         {
     	    printf("Ошибка параметров введены совпадающие номера сокетов\n");
     	    return err_not_init;
     	}
-    	
+
+        ///     - check for sending port number or listening port number was far from client port number on one port number
+        ///     that reserved for client sending port.
         if ((eq_udp_sending_port==wUdp+1) || (eq_udp_listen_port==wUdp+1)) 
         {
     	    printf("Ошибка параметров: номер сокета оборудования взят из уже занятого пространства\n");
     	    return err_not_init;
         }
         
-	CommonFuncs *cf;
-	SpecFuncs *sf;
+
+	commonFuncsMgr *cf;
+	specFuncsMgr *sf;
 	
+	/// 3. Install system signals handlers ::installSIGhandlers()
 	installSIGhandlers(appDeinit);
 	
-	app=new ICAppLayer(wUdp);
+	app=new srvAppLayer(wUdp);
 	
+	/// 4. Initialize application ::appInit()
 	if (appInit()!=err_result_ok) AppTerminated=true;
 	else {
 	    
-	    cf=new CommonFuncs(app);
-	    sf=new SpecFuncs(app);
+	    cf=new commonFuncsMgr(app);
+	    sf=new specFuncsMgr(app);
 	
-	    cf->StartCommonFuncs();
-	    sf->StartSpecFuncs();
+	    ///4. Start functions generate from declarations
+	    ///- for common functions commonFuncsMgr::startCommonFuncs()
+	    cf->startCommonFuncs();
+	    ///- for special functions specFuncsMgr::startSpecFuncs()
+	    sf->startSpecFuncs();
 	
+	    /// 5. Main programm loop srvAppLayer::ProcessMessages() while not terminated by signal srvAppLayer::terminated()
 	    while(!app->terminated()) {
 		app->ProcessMessages();
 	    }
-	
+
+	    /// 6. Deinitialize application ::appDeinit()
 	    appDeinit();
 	
 	    if (app->terminated()==2) reboot(RB_AUTOBOOT);

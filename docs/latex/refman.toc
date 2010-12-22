@@ -1,0 +1,428 @@
+\contentsline {chapter}{\numberline {1}Todo List}{1}{chapter.1}
+\contentsline {chapter}{\numberline {2}Directory Hierarchy}{3}{chapter.2}
+\contentsline {section}{\numberline {2.1}Directories}{3}{section.2.1}
+\contentsline {chapter}{\numberline {3}Class Index}{5}{chapter.3}
+\contentsline {section}{\numberline {3.1}Class List}{5}{section.3.1}
+\contentsline {chapter}{\numberline {4}File Index}{7}{chapter.4}
+\contentsline {section}{\numberline {4.1}File List}{7}{section.4.1}
+\contentsline {chapter}{\numberline {5}Directory Documentation}{9}{chapter.5}
+\contentsline {section}{\numberline {5.1}src/arg\_\discretionary {-}{}{}parser/ Directory Reference}{9}{section.5.1}
+\contentsline {section}{\numberline {5.2}src/buffer/ Directory Reference}{10}{section.5.2}
+\contentsline {section}{\numberline {5.3}src/deqUdp/ Directory Reference}{11}{section.5.3}
+\contentsline {section}{\numberline {5.4}src/srvAppLayer/functionNode/ Directory Reference}{12}{section.5.4}
+\contentsline {section}{\numberline {5.5}src/functions/ Directory Reference}{13}{section.5.5}
+\contentsline {section}{\numberline {5.6}src/ Directory Reference}{14}{section.5.6}
+\contentsline {section}{\numberline {5.7}src/srvAppLayer/ Directory Reference}{15}{section.5.7}
+\contentsline {chapter}{\numberline {6}Class Documentation}{17}{chapter.6}
+\contentsline {section}{\numberline {6.1}ap\_\discretionary {-}{}{}Option Struct Reference}{17}{section.6.1}
+\contentsline {subsection}{\numberline {6.1.1}Detailed Description}{17}{subsection.6.1.1}
+\contentsline {subsection}{\numberline {6.1.2}Member Data Documentation}{17}{subsection.6.1.2}
+\contentsline {subsubsection}{\numberline {6.1.2.1}code}{17}{subsubsection.6.1.2.1}
+\contentsline {subsubsection}{\numberline {6.1.2.2}name}{17}{subsubsection.6.1.2.2}
+\contentsline {subsubsection}{\numberline {6.1.2.3}has\_\discretionary {-}{}{}arg}{18}{subsubsection.6.1.2.3}
+\contentsline {section}{\numberline {6.2}ap\_\discretionary {-}{}{}Record Struct Reference}{18}{section.6.2}
+\contentsline {subsection}{\numberline {6.2.1}Detailed Description}{18}{subsection.6.2.1}
+\contentsline {subsection}{\numberline {6.2.2}Member Data Documentation}{18}{subsection.6.2.2}
+\contentsline {subsubsection}{\numberline {6.2.2.1}code}{18}{subsubsection.6.2.2.1}
+\contentsline {subsubsection}{\numberline {6.2.2.2}argument}{18}{subsubsection.6.2.2.2}
+\contentsline {section}{\numberline {6.3}Arg\_\discretionary {-}{}{}parser Struct Reference}{18}{section.6.3}
+\contentsline {subsection}{\numberline {6.3.1}Detailed Description}{19}{subsection.6.3.1}
+\contentsline {subsection}{\numberline {6.3.2}Member Data Documentation}{19}{subsection.6.3.2}
+\contentsline {subsubsection}{\numberline {6.3.2.1}data}{19}{subsubsection.6.3.2.1}
+\contentsline {subsubsection}{\numberline {6.3.2.2}error}{20}{subsubsection.6.3.2.2}
+\contentsline {subsubsection}{\numberline {6.3.2.3}data\_\discretionary {-}{}{}size}{20}{subsubsection.6.3.2.3}
+\contentsline {subsubsection}{\numberline {6.3.2.4}error\_\discretionary {-}{}{}size}{20}{subsubsection.6.3.2.4}
+\contentsline {section}{\numberline {6.4}buffer Class Reference}{20}{section.6.4}
+\contentsline {subsection}{\numberline {6.4.1}Detailed Description}{21}{subsection.6.4.1}
+\contentsline {subsection}{\numberline {6.4.2}Constructor \& Destructor Documentation}{21}{subsection.6.4.2}
+\contentsline {subsubsection}{\numberline {6.4.2.1}buffer}{21}{subsubsection.6.4.2.1}
+\contentsline {subsubsection}{\numberline {6.4.2.2}$\sim $buffer}{21}{subsubsection.6.4.2.2}
+\contentsline {subsection}{\numberline {6.4.3}Member Function Documentation}{21}{subsection.6.4.3}
+\contentsline {subsubsection}{\numberline {6.4.3.1}write}{21}{subsubsection.6.4.3.1}
+\contentsline {subsubsection}{\numberline {6.4.3.2}read}{22}{subsubsection.6.4.3.2}
+\contentsline {subsubsection}{\numberline {6.4.3.3}length}{22}{subsubsection.6.4.3.3}
+\contentsline {subsubsection}{\numberline {6.4.3.4}lockBufferChunkForExternWriting}{23}{subsubsection.6.4.3.4}
+\contentsline {subsubsection}{\numberline {6.4.3.5}unlockBufferChunkForExternWriting}{23}{subsubsection.6.4.3.5}
+\contentsline {subsubsection}{\numberline {6.4.3.6}removeBufferChunk}{24}{subsubsection.6.4.3.6}
+\contentsline {subsubsection}{\numberline {6.4.3.7}copyBufferChunkTo}{24}{subsubsection.6.4.3.7}
+\contentsline {subsubsection}{\numberline {6.4.3.8}dbgPrint}{24}{subsubsection.6.4.3.8}
+\contentsline {subsection}{\numberline {6.4.4}Member Data Documentation}{24}{subsection.6.4.4}
+\contentsline {subsubsection}{\numberline {6.4.4.1}buff}{24}{subsubsection.6.4.4.1}
+\contentsline {subsubsection}{\numberline {6.4.4.2}WrRef}{25}{subsubsection.6.4.4.2}
+\contentsline {subsubsection}{\numberline {6.4.4.3}RdRef}{25}{subsubsection.6.4.4.3}
+\contentsline {subsubsection}{\numberline {6.4.4.4}buffSize}{25}{subsubsection.6.4.4.4}
+\contentsline {subsubsection}{\numberline {6.4.4.5}writingLock}{25}{subsubsection.6.4.4.5}
+\contentsline {section}{\numberline {6.5}commonFuncsMgr Class Reference}{25}{section.6.5}
+\contentsline {subsection}{\numberline {6.5.1}Detailed Description}{27}{subsection.6.5.1}
+\contentsline {subsection}{\numberline {6.5.2}Constructor \& Destructor Documentation}{27}{subsection.6.5.2}
+\contentsline {subsubsection}{\numberline {6.5.2.1}commonFuncsMgr}{27}{subsubsection.6.5.2.1}
+\contentsline {subsubsection}{\numberline {6.5.2.2}$\sim $commonFuncsMgr}{27}{subsubsection.6.5.2.2}
+\contentsline {subsection}{\numberline {6.5.3}Member Function Documentation}{27}{subsection.6.5.3}
+\contentsline {subsubsection}{\numberline {6.5.3.1}startCommonFuncs}{27}{subsubsection.6.5.3.1}
+\contentsline {subsubsection}{\numberline {6.5.3.2}stopCommonFuncs}{28}{subsubsection.6.5.3.2}
+\contentsline {subsection}{\numberline {6.5.4}Member Data Documentation}{29}{subsection.6.5.4}
+\contentsline {subsubsection}{\numberline {6.5.4.1}appLayer}{29}{subsubsection.6.5.4.1}
+\contentsline {section}{\numberline {6.6}deqUdp Class Reference}{29}{section.6.6}
+\contentsline {subsection}{\numberline {6.6.1}Detailed Description}{30}{subsection.6.6.1}
+\contentsline {subsection}{\numberline {6.6.2}Constructor \& Destructor Documentation}{30}{subsection.6.6.2}
+\contentsline {subsubsection}{\numberline {6.6.2.1}deqUdp}{30}{subsubsection.6.6.2.1}
+\contentsline {subsubsection}{\numberline {6.6.2.2}$\sim $deqUdp}{30}{subsubsection.6.6.2.2}
+\contentsline {subsection}{\numberline {6.6.3}Member Function Documentation}{30}{subsection.6.6.3}
+\contentsline {subsubsection}{\numberline {6.6.3.1}sendData}{30}{subsubsection.6.6.3.1}
+\contentsline {subsubsection}{\numberline {6.6.3.2}readData}{31}{subsubsection.6.6.3.2}
+\contentsline {section}{\numberline {6.7}functionNode Class Reference}{32}{section.6.7}
+\contentsline {subsection}{\numberline {6.7.1}Detailed Description}{36}{subsection.6.7.1}
+\contentsline {subsection}{\numberline {6.7.2}Constructor \& Destructor Documentation}{36}{subsection.6.7.2}
+\contentsline {subsubsection}{\numberline {6.7.2.1}functionNode}{36}{subsubsection.6.7.2.1}
+\contentsline {subsubsection}{\numberline {6.7.2.2}$\sim $functionNode}{37}{subsubsection.6.7.2.2}
+\contentsline {subsection}{\numberline {6.7.3}Member Function Documentation}{37}{subsection.6.7.3}
+\contentsline {subsubsection}{\numberline {6.7.3.1}setFuncName}{37}{subsubsection.6.7.3.1}
+\contentsline {subsubsection}{\numberline {6.7.3.2}setParamDescriptor}{37}{subsubsection.6.7.3.2}
+\contentsline {subsubsection}{\numberline {6.7.3.3}setResultDescriptor}{38}{subsubsection.6.7.3.3}
+\contentsline {subsubsection}{\numberline {6.7.3.4}setParamName}{39}{subsubsection.6.7.3.4}
+\contentsline {subsubsection}{\numberline {6.7.3.5}setResultName}{39}{subsubsection.6.7.3.5}
+\contentsline {subsubsection}{\numberline {6.7.3.6}getParamLength}{40}{subsubsection.6.7.3.6}
+\contentsline {subsubsection}{\numberline {6.7.3.7}getParamType}{41}{subsubsection.6.7.3.7}
+\contentsline {subsubsection}{\numberline {6.7.3.8}getParamsQuantity}{41}{subsubsection.6.7.3.8}
+\contentsline {subsubsection}{\numberline {6.7.3.9}getAllParamsLength}{41}{subsubsection.6.7.3.9}
+\contentsline {subsubsection}{\numberline {6.7.3.10}decodeParams}{41}{subsubsection.6.7.3.10}
+\contentsline {subsubsection}{\numberline {6.7.3.11}setParam}{42}{subsubsection.6.7.3.11}
+\contentsline {subsubsection}{\numberline {6.7.3.12}getParamPtr}{43}{subsubsection.6.7.3.12}
+\contentsline {subsubsection}{\numberline {6.7.3.13}getResultsQuantity}{43}{subsubsection.6.7.3.13}
+\contentsline {subsubsection}{\numberline {6.7.3.14}getAllResultsLength}{43}{subsubsection.6.7.3.14}
+\contentsline {subsubsection}{\numberline {6.7.3.15}getResultLength}{44}{subsubsection.6.7.3.15}
+\contentsline {subsubsection}{\numberline {6.7.3.16}getResultType}{44}{subsubsection.6.7.3.16}
+\contentsline {subsubsection}{\numberline {6.7.3.17}getResult}{44}{subsubsection.6.7.3.17}
+\contentsline {subsubsection}{\numberline {6.7.3.18}setResult}{45}{subsubsection.6.7.3.18}
+\contentsline {subsubsection}{\numberline {6.7.3.19}printParams}{46}{subsubsection.6.7.3.19}
+\contentsline {subsubsection}{\numberline {6.7.3.20}printResults}{46}{subsubsection.6.7.3.20}
+\contentsline {subsubsection}{\numberline {6.7.3.21}callFunction}{47}{subsubsection.6.7.3.21}
+\contentsline {subsubsection}{\numberline {6.7.3.22}id}{47}{subsubsection.6.7.3.22}
+\contentsline {subsubsection}{\numberline {6.7.3.23}dbgPrint}{48}{subsubsection.6.7.3.23}
+\contentsline {subsection}{\numberline {6.7.4}Member Data Documentation}{48}{subsection.6.7.4}
+\contentsline {subsubsection}{\numberline {6.7.4.1}func\_\discretionary {-}{}{}id}{48}{subsubsection.6.7.4.1}
+\contentsline {subsubsection}{\numberline {6.7.4.2}func\_\discretionary {-}{}{}name}{48}{subsubsection.6.7.4.2}
+\contentsline {subsubsection}{\numberline {6.7.4.3}func\_\discretionary {-}{}{}paramsQuantity}{48}{subsubsection.6.7.4.3}
+\contentsline {subsubsection}{\numberline {6.7.4.4}func\_\discretionary {-}{}{}resultsQuantity}{48}{subsubsection.6.7.4.4}
+\contentsline {subsubsection}{\numberline {6.7.4.5}func\_\discretionary {-}{}{}paramsLength}{48}{subsubsection.6.7.4.5}
+\contentsline {subsubsection}{\numberline {6.7.4.6}func\_\discretionary {-}{}{}resultsLength}{49}{subsubsection.6.7.4.6}
+\contentsline {subsubsection}{\numberline {6.7.4.7}func\_\discretionary {-}{}{}params}{49}{subsubsection.6.7.4.7}
+\contentsline {subsubsection}{\numberline {6.7.4.8}func\_\discretionary {-}{}{}results}{49}{subsubsection.6.7.4.8}
+\contentsline {subsubsection}{\numberline {6.7.4.9}func}{49}{subsubsection.6.7.4.9}
+\contentsline {section}{\numberline {6.8}param\_\discretionary {-}{}{}desc Class Reference}{49}{section.6.8}
+\contentsline {subsection}{\numberline {6.8.1}Detailed Description}{51}{subsection.6.8.1}
+\contentsline {subsection}{\numberline {6.8.2}Constructor \& Destructor Documentation}{51}{subsection.6.8.2}
+\contentsline {subsubsection}{\numberline {6.8.2.1}param\_\discretionary {-}{}{}desc}{51}{subsubsection.6.8.2.1}
+\contentsline {subsubsection}{\numberline {6.8.2.2}param\_\discretionary {-}{}{}desc}{52}{subsubsection.6.8.2.2}
+\contentsline {subsubsection}{\numberline {6.8.2.3}$\sim $param\_\discretionary {-}{}{}desc}{52}{subsubsection.6.8.2.3}
+\contentsline {subsection}{\numberline {6.8.3}Member Function Documentation}{52}{subsection.6.8.3}
+\contentsline {subsubsection}{\numberline {6.8.3.1}resize}{52}{subsubsection.6.8.3.1}
+\contentsline {subsubsection}{\numberline {6.8.3.2}value}{53}{subsubsection.6.8.3.2}
+\contentsline {subsubsection}{\numberline {6.8.3.3}length}{54}{subsubsection.6.8.3.3}
+\contentsline {subsubsection}{\numberline {6.8.3.4}type}{54}{subsubsection.6.8.3.4}
+\contentsline {subsubsection}{\numberline {6.8.3.5}isVector}{55}{subsubsection.6.8.3.5}
+\contentsline {subsubsection}{\numberline {6.8.3.6}setParam}{55}{subsubsection.6.8.3.6}
+\contentsline {subsubsection}{\numberline {6.8.3.7}setName}{56}{subsubsection.6.8.3.7}
+\contentsline {subsubsection}{\numberline {6.8.3.8}printParam}{57}{subsubsection.6.8.3.8}
+\contentsline {subsubsection}{\numberline {6.8.3.9}dbgPrint}{57}{subsubsection.6.8.3.9}
+\contentsline {subsection}{\numberline {6.8.4}Member Data Documentation}{58}{subsection.6.8.4}
+\contentsline {subsubsection}{\numberline {6.8.4.1}param}{58}{subsubsection.6.8.4.1}
+\contentsline {subsubsection}{\numberline {6.8.4.2}param\_\discretionary {-}{}{}name}{58}{subsubsection.6.8.4.2}
+\contentsline {subsubsection}{\numberline {6.8.4.3}\_\discretionary {-}{}{}length}{58}{subsubsection.6.8.4.3}
+\contentsline {subsubsection}{\numberline {6.8.4.4}\_\discretionary {-}{}{}type}{58}{subsubsection.6.8.4.4}
+\contentsline {subsubsection}{\numberline {6.8.4.5}\_\discretionary {-}{}{}isVector}{58}{subsubsection.6.8.4.5}
+\contentsline {section}{\numberline {6.9}serviceState Struct Reference}{58}{section.6.9}
+\contentsline {subsection}{\numberline {6.9.1}Detailed Description}{59}{subsection.6.9.1}
+\contentsline {subsection}{\numberline {6.9.2}Member Data Documentation}{59}{subsection.6.9.2}
+\contentsline {subsubsection}{\numberline {6.9.2.1}linked}{59}{subsubsection.6.9.2.1}
+\contentsline {subsubsection}{\numberline {6.9.2.2}reserved}{59}{subsubsection.6.9.2.2}
+\contentsline {subsubsection}{\numberline {6.9.2.3}inprocess}{59}{subsubsection.6.9.2.3}
+\contentsline {subsubsection}{\numberline {6.9.2.4}mode\_\discretionary {-}{}{}emergency}{59}{subsubsection.6.9.2.4}
+\contentsline {subsubsection}{\numberline {6.9.2.5}mode\_\discretionary {-}{}{}manual}{59}{subsubsection.6.9.2.5}
+\contentsline {subsubsection}{\numberline {6.9.2.6}mode\_\discretionary {-}{}{}auto}{59}{subsubsection.6.9.2.6}
+\contentsline {section}{\numberline {6.10}specFuncsMgr Class Reference}{60}{section.6.10}
+\contentsline {subsection}{\numberline {6.10.1}Detailed Description}{62}{subsection.6.10.1}
+\contentsline {subsection}{\numberline {6.10.2}Constructor \& Destructor Documentation}{62}{subsection.6.10.2}
+\contentsline {subsubsection}{\numberline {6.10.2.1}specFuncsMgr}{62}{subsubsection.6.10.2.1}
+\contentsline {subsubsection}{\numberline {6.10.2.2}$\sim $specFuncsMgr}{62}{subsubsection.6.10.2.2}
+\contentsline {subsection}{\numberline {6.10.3}Member Function Documentation}{62}{subsection.6.10.3}
+\contentsline {subsubsection}{\numberline {6.10.3.1}startSpecFuncs}{62}{subsubsection.6.10.3.1}
+\contentsline {subsubsection}{\numberline {6.10.3.2}stopSpecFuncs}{63}{subsubsection.6.10.3.2}
+\contentsline {subsection}{\numberline {6.10.4}Member Data Documentation}{63}{subsection.6.10.4}
+\contentsline {subsubsection}{\numberline {6.10.4.1}appLayer}{63}{subsubsection.6.10.4.1}
+\contentsline {section}{\numberline {6.11}srvAppLayer Class Reference}{63}{section.6.11}
+\contentsline {subsection}{\numberline {6.11.1}Detailed Description}{67}{subsection.6.11.1}
+\contentsline {subsection}{\numberline {6.11.2}Constructor \& Destructor Documentation}{67}{subsection.6.11.2}
+\contentsline {subsubsection}{\numberline {6.11.2.1}srvAppLayer}{67}{subsubsection.6.11.2.1}
+\contentsline {subsubsection}{\numberline {6.11.2.2}$\sim $srvAppLayer}{67}{subsubsection.6.11.2.2}
+\contentsline {subsection}{\numberline {6.11.3}Member Function Documentation}{68}{subsection.6.11.3}
+\contentsline {subsubsection}{\numberline {6.11.3.1}decodeMessage}{68}{subsubsection.6.11.3.1}
+\contentsline {subsubsection}{\numberline {6.11.3.2}execMessage}{68}{subsubsection.6.11.3.2}
+\contentsline {subsubsection}{\numberline {6.11.3.3}encodeFuncResult}{69}{subsubsection.6.11.3.3}
+\contentsline {subsubsection}{\numberline {6.11.3.4}sendResult}{70}{subsubsection.6.11.3.4}
+\contentsline {subsubsection}{\numberline {6.11.3.5}CreateNewFunction}{71}{subsubsection.6.11.3.5}
+\contentsline {subsubsection}{\numberline {6.11.3.6}DeleteFunction}{72}{subsubsection.6.11.3.6}
+\contentsline {subsubsection}{\numberline {6.11.3.7}encodeBlock}{72}{subsubsection.6.11.3.7}
+\contentsline {subsubsection}{\numberline {6.11.3.8}StartListening}{72}{subsubsection.6.11.3.8}
+\contentsline {subsubsection}{\numberline {6.11.3.9}StopListening}{74}{subsubsection.6.11.3.9}
+\contentsline {subsubsection}{\numberline {6.11.3.10}equip\_\discretionary {-}{}{}reading\_\discretionary {-}{}{}event}{74}{subsubsection.6.11.3.10}
+\contentsline {subsubsection}{\numberline {6.11.3.11}equip\_\discretionary {-}{}{}read\_\discretionary {-}{}{}data}{75}{subsubsection.6.11.3.11}
+\contentsline {subsubsection}{\numberline {6.11.3.12}ProcessMessages}{76}{subsubsection.6.11.3.12}
+\contentsline {subsubsection}{\numberline {6.11.3.13}getListenerPortNum}{77}{subsubsection.6.11.3.13}
+\contentsline {subsubsection}{\numberline {6.11.3.14}terminated}{77}{subsubsection.6.11.3.14}
+\contentsline {subsubsection}{\numberline {6.11.3.15}terminate}{78}{subsubsection.6.11.3.15}
+\contentsline {subsubsection}{\numberline {6.11.3.16}getStateVector}{78}{subsubsection.6.11.3.16}
+\contentsline {subsection}{\numberline {6.11.4}Member Data Documentation}{78}{subsection.6.11.4}
+\contentsline {subsubsection}{\numberline {6.11.4.1}AppTerminated}{78}{subsubsection.6.11.4.1}
+\contentsline {subsubsection}{\numberline {6.11.4.2}Functions}{79}{subsubsection.6.11.4.2}
+\contentsline {subsubsection}{\numberline {6.11.4.3}func\_\discretionary {-}{}{}quantity}{79}{subsubsection.6.11.4.3}
+\contentsline {subsubsection}{\numberline {6.11.4.4}ifCount}{79}{subsubsection.6.11.4.4}
+\contentsline {subsubsection}{\numberline {6.11.4.5}listenerThread}{79}{subsubsection.6.11.4.5}
+\contentsline {subsubsection}{\numberline {6.11.4.6}senderThread}{79}{subsubsection.6.11.4.6}
+\contentsline {subsubsection}{\numberline {6.11.4.7}equipListenThread}{80}{subsubsection.6.11.4.7}
+\contentsline {subsubsection}{\numberline {6.11.4.8}cpListenerPortNum}{80}{subsubsection.6.11.4.8}
+\contentsline {subsubsection}{\numberline {6.11.4.9}equip\_\discretionary {-}{}{}listen}{80}{subsubsection.6.11.4.9}
+\contentsline {subsubsection}{\numberline {6.11.4.10}ServiceState}{80}{subsubsection.6.11.4.10}
+\contentsline {subsubsection}{\numberline {6.11.4.11}clientsRequestsQueue}{80}{subsubsection.6.11.4.11}
+\contentsline {subsubsection}{\numberline {6.11.4.12}functionsAnswersQueue}{81}{subsubsection.6.11.4.12}
+\contentsline {section}{\numberline {6.12}ssBlock Struct Reference}{81}{section.6.12}
+\contentsline {subsection}{\numberline {6.12.1}Detailed Description}{81}{subsection.6.12.1}
+\contentsline {subsection}{\numberline {6.12.2}Member Data Documentation}{81}{subsection.6.12.2}
+\contentsline {subsubsection}{\numberline {6.12.2.1}addr\_\discretionary {-}{}{}in}{81}{subsubsection.6.12.2.1}
+\contentsline {subsubsection}{\numberline {6.12.2.2}dataLen}{82}{subsubsection.6.12.2.2}
+\contentsline {subsubsection}{\numberline {6.12.2.3}data}{82}{subsubsection.6.12.2.3}
+\contentsline {section}{\numberline {6.13}ssBuffer Class Reference}{82}{section.6.13}
+\contentsline {subsection}{\numberline {6.13.1}Detailed Description}{84}{subsection.6.13.1}
+\contentsline {subsection}{\numberline {6.13.2}Constructor \& Destructor Documentation}{84}{subsection.6.13.2}
+\contentsline {subsubsection}{\numberline {6.13.2.1}ssBuffer}{84}{subsubsection.6.13.2.1}
+\contentsline {subsubsection}{\numberline {6.13.2.2}$\sim $ssBuffer}{84}{subsubsection.6.13.2.2}
+\contentsline {subsection}{\numberline {6.13.3}Member Function Documentation}{84}{subsection.6.13.3}
+\contentsline {subsubsection}{\numberline {6.13.3.1}pushBlock}{84}{subsubsection.6.13.3.1}
+\contentsline {subsubsection}{\numberline {6.13.3.2}popBlock}{85}{subsubsection.6.13.3.2}
+\contentsline {subsubsection}{\numberline {6.13.3.3}getBlockPtrAt}{86}{subsubsection.6.13.3.3}
+\contentsline {subsubsection}{\numberline {6.13.3.4}getFrontBlockSize}{86}{subsubsection.6.13.3.4}
+\contentsline {subsubsection}{\numberline {6.13.3.5}size}{86}{subsubsection.6.13.3.5}
+\contentsline {subsubsection}{\numberline {6.13.3.6}dbgPrint}{87}{subsubsection.6.13.3.6}
+\contentsline {subsection}{\numberline {6.13.4}Member Data Documentation}{87}{subsection.6.13.4}
+\contentsline {subsubsection}{\numberline {6.13.4.1}buffer}{87}{subsubsection.6.13.4.1}
+\contentsline {section}{\numberline {6.14}stateVector\_\discretionary {-}{}{}type Struct Reference}{88}{section.6.14}
+\contentsline {subsection}{\numberline {6.14.1}Detailed Description}{89}{subsection.6.14.1}
+\contentsline {subsection}{\numberline {6.14.2}Member Data Documentation}{89}{subsection.6.14.2}
+\contentsline {subsubsection}{\numberline {6.14.2.1}reserved}{89}{subsubsection.6.14.2.1}
+\contentsline {subsubsection}{\numberline {6.14.2.2}state}{89}{subsubsection.6.14.2.2}
+\contentsline {subsubsection}{\numberline {6.14.2.3}lastResult}{89}{subsubsection.6.14.2.3}
+\contentsline {subsubsection}{\numberline {6.14.2.4}lastFuncId}{89}{subsubsection.6.14.2.4}
+\contentsline {chapter}{\numberline {7}File Documentation}{91}{chapter.7}
+\contentsline {section}{\numberline {7.1}src/\_\discretionary {-}{}{}auto\_\discretionary {-}{}{}config.h File Reference}{91}{section.7.1}
+\contentsline {subsection}{\numberline {7.1.1}Define Documentation}{92}{subsection.7.1.1}
+\contentsline {subsubsection}{\numberline {7.1.1.1}HAVE\_\discretionary {-}{}{}ARPA\_\discretionary {-}{}{}INET\_\discretionary {-}{}{}H}{92}{subsubsection.7.1.1.1}
+\contentsline {subsubsection}{\numberline {7.1.1.2}HAVE\_\discretionary {-}{}{}INTTYPES\_\discretionary {-}{}{}H}{92}{subsubsection.7.1.1.2}
+\contentsline {subsubsection}{\numberline {7.1.1.3}HAVE\_\discretionary {-}{}{}MALLOC}{92}{subsubsection.7.1.1.3}
+\contentsline {subsubsection}{\numberline {7.1.1.4}HAVE\_\discretionary {-}{}{}MEMORY\_\discretionary {-}{}{}H}{92}{subsubsection.7.1.1.4}
+\contentsline {subsubsection}{\numberline {7.1.1.5}HAVE\_\discretionary {-}{}{}NETINET\_\discretionary {-}{}{}IN\_\discretionary {-}{}{}H}{92}{subsubsection.7.1.1.5}
+\contentsline {subsubsection}{\numberline {7.1.1.6}HAVE\_\discretionary {-}{}{}REALLOC}{92}{subsubsection.7.1.1.6}
+\contentsline {subsubsection}{\numberline {7.1.1.7}HAVE\_\discretionary {-}{}{}SOCKET}{92}{subsubsection.7.1.1.7}
+\contentsline {subsubsection}{\numberline {7.1.1.8}HAVE\_\discretionary {-}{}{}STDBOOL\_\discretionary {-}{}{}H}{92}{subsubsection.7.1.1.8}
+\contentsline {subsubsection}{\numberline {7.1.1.9}HAVE\_\discretionary {-}{}{}STDDEF\_\discretionary {-}{}{}H}{92}{subsubsection.7.1.1.9}
+\contentsline {subsubsection}{\numberline {7.1.1.10}HAVE\_\discretionary {-}{}{}STDINT\_\discretionary {-}{}{}H}{92}{subsubsection.7.1.1.10}
+\contentsline {subsubsection}{\numberline {7.1.1.11}HAVE\_\discretionary {-}{}{}STDLIB\_\discretionary {-}{}{}H}{93}{subsubsection.7.1.1.11}
+\contentsline {subsubsection}{\numberline {7.1.1.12}HAVE\_\discretionary {-}{}{}STRINGS\_\discretionary {-}{}{}H}{93}{subsubsection.7.1.1.12}
+\contentsline {subsubsection}{\numberline {7.1.1.13}HAVE\_\discretionary {-}{}{}STRING\_\discretionary {-}{}{}H}{93}{subsubsection.7.1.1.13}
+\contentsline {subsubsection}{\numberline {7.1.1.14}HAVE\_\discretionary {-}{}{}SYS\_\discretionary {-}{}{}SOCKET\_\discretionary {-}{}{}H}{93}{subsubsection.7.1.1.14}
+\contentsline {subsubsection}{\numberline {7.1.1.15}HAVE\_\discretionary {-}{}{}SYS\_\discretionary {-}{}{}STAT\_\discretionary {-}{}{}H}{93}{subsubsection.7.1.1.15}
+\contentsline {subsubsection}{\numberline {7.1.1.16}HAVE\_\discretionary {-}{}{}SYS\_\discretionary {-}{}{}TYPES\_\discretionary {-}{}{}H}{93}{subsubsection.7.1.1.16}
+\contentsline {subsubsection}{\numberline {7.1.1.17}HAVE\_\discretionary {-}{}{}UNISTD\_\discretionary {-}{}{}H}{93}{subsubsection.7.1.1.17}
+\contentsline {subsubsection}{\numberline {7.1.1.18}HAVE\_\discretionary {-}{}{}\_\discretionary {-}{}{}BOOL}{93}{subsubsection.7.1.1.18}
+\contentsline {subsubsection}{\numberline {7.1.1.19}PACKAGE}{93}{subsubsection.7.1.1.19}
+\contentsline {subsubsection}{\numberline {7.1.1.20}PACKAGE\_\discretionary {-}{}{}BUGREPORT}{93}{subsubsection.7.1.1.20}
+\contentsline {subsubsection}{\numberline {7.1.1.21}PACKAGE\_\discretionary {-}{}{}NAME}{94}{subsubsection.7.1.1.21}
+\contentsline {subsubsection}{\numberline {7.1.1.22}PACKAGE\_\discretionary {-}{}{}STRING}{94}{subsubsection.7.1.1.22}
+\contentsline {subsubsection}{\numberline {7.1.1.23}PACKAGE\_\discretionary {-}{}{}TARNAME}{94}{subsubsection.7.1.1.23}
+\contentsline {subsubsection}{\numberline {7.1.1.24}PACKAGE\_\discretionary {-}{}{}URL}{94}{subsubsection.7.1.1.24}
+\contentsline {subsubsection}{\numberline {7.1.1.25}PACKAGE\_\discretionary {-}{}{}VERSION}{94}{subsubsection.7.1.1.25}
+\contentsline {subsubsection}{\numberline {7.1.1.26}STDC\_\discretionary {-}{}{}HEADERS}{94}{subsubsection.7.1.1.26}
+\contentsline {subsubsection}{\numberline {7.1.1.27}VERSION}{94}{subsubsection.7.1.1.27}
+\contentsline {section}{\numberline {7.2}src/\_\discretionary {-}{}{}global.cpp File Reference}{94}{section.7.2}
+\contentsline {subsection}{\numberline {7.2.1}Detailed Description}{96}{subsection.7.2.1}
+\contentsline {subsection}{\numberline {7.2.2}Variable Documentation}{96}{subsection.7.2.2}
+\contentsline {subsubsection}{\numberline {7.2.2.1}verbose\_\discretionary {-}{}{}level}{96}{subsubsection.7.2.2.1}
+\contentsline {subsubsection}{\numberline {7.2.2.2}listen\_\discretionary {-}{}{}mode}{96}{subsubsection.7.2.2.2}
+\contentsline {subsubsection}{\numberline {7.2.2.3}awaitingPattern\_\discretionary {-}{}{}mode}{96}{subsubsection.7.2.2.3}
+\contentsline {subsubsection}{\numberline {7.2.2.4}pattern\_\discretionary {-}{}{}found}{97}{subsubsection.7.2.2.4}
+\contentsline {subsubsection}{\numberline {7.2.2.5}patternFile}{97}{subsubsection.7.2.2.5}
+\contentsline {subsubsection}{\numberline {7.2.2.6}reactionFile}{97}{subsubsection.7.2.2.6}
+\contentsline {subsubsection}{\numberline {7.2.2.7}dataFile}{97}{subsubsection.7.2.2.7}
+\contentsline {subsubsection}{\numberline {7.2.2.8}if\_\discretionary {-}{}{}name}{97}{subsubsection.7.2.2.8}
+\contentsline {subsubsection}{\numberline {7.2.2.9}AppTerminated}{98}{subsubsection.7.2.2.9}
+\contentsline {subsubsection}{\numberline {7.2.2.10}eq\_\discretionary {-}{}{}ip\_\discretionary {-}{}{}addr}{98}{subsubsection.7.2.2.10}
+\contentsline {subsubsection}{\numberline {7.2.2.11}wUdp}{98}{subsubsection.7.2.2.11}
+\contentsline {subsubsection}{\numberline {7.2.2.12}eq\_\discretionary {-}{}{}udp\_\discretionary {-}{}{}listen\_\discretionary {-}{}{}port}{98}{subsubsection.7.2.2.12}
+\contentsline {subsubsection}{\numberline {7.2.2.13}eq\_\discretionary {-}{}{}udp\_\discretionary {-}{}{}sending\_\discretionary {-}{}{}port}{98}{subsubsection.7.2.2.13}
+\contentsline {subsubsection}{\numberline {7.2.2.14}equipAddr}{98}{subsubsection.7.2.2.14}
+\contentsline {section}{\numberline {7.3}src/\_\discretionary {-}{}{}global.h File Reference}{99}{section.7.3}
+\contentsline {subsection}{\numberline {7.3.1}Detailed Description}{100}{subsection.7.3.1}
+\contentsline {subsection}{\numberline {7.3.2}Variable Documentation}{100}{subsection.7.3.2}
+\contentsline {subsubsection}{\numberline {7.3.2.1}AppTerminated}{100}{subsubsection.7.3.2.1}
+\contentsline {subsubsection}{\numberline {7.3.2.2}awaitingPattern\_\discretionary {-}{}{}mode}{100}{subsubsection.7.3.2.2}
+\contentsline {subsubsection}{\numberline {7.3.2.3}pattern\_\discretionary {-}{}{}found}{100}{subsubsection.7.3.2.3}
+\contentsline {subsubsection}{\numberline {7.3.2.4}verbose\_\discretionary {-}{}{}level}{101}{subsubsection.7.3.2.4}
+\contentsline {subsubsection}{\numberline {7.3.2.5}listen\_\discretionary {-}{}{}mode}{101}{subsubsection.7.3.2.5}
+\contentsline {subsubsection}{\numberline {7.3.2.6}eq\_\discretionary {-}{}{}ip\_\discretionary {-}{}{}addr}{101}{subsubsection.7.3.2.6}
+\contentsline {subsubsection}{\numberline {7.3.2.7}dataFile}{101}{subsubsection.7.3.2.7}
+\contentsline {subsubsection}{\numberline {7.3.2.8}if\_\discretionary {-}{}{}name}{101}{subsubsection.7.3.2.8}
+\contentsline {subsubsection}{\numberline {7.3.2.9}patternFile}{102}{subsubsection.7.3.2.9}
+\contentsline {subsubsection}{\numberline {7.3.2.10}reactionFile}{102}{subsubsection.7.3.2.10}
+\contentsline {subsubsection}{\numberline {7.3.2.11}eq\_\discretionary {-}{}{}udp\_\discretionary {-}{}{}listen\_\discretionary {-}{}{}port}{102}{subsubsection.7.3.2.11}
+\contentsline {subsubsection}{\numberline {7.3.2.12}eq\_\discretionary {-}{}{}udp\_\discretionary {-}{}{}sending\_\discretionary {-}{}{}port}{102}{subsubsection.7.3.2.12}
+\contentsline {subsubsection}{\numberline {7.3.2.13}equipAddr}{102}{subsubsection.7.3.2.13}
+\contentsline {subsubsection}{\numberline {7.3.2.14}wUdp}{102}{subsubsection.7.3.2.14}
+\contentsline {section}{\numberline {7.4}src/arg\_\discretionary {-}{}{}parser/carg\_\discretionary {-}{}{}parser.cpp File Reference}{103}{section.7.4}
+\contentsline {subsection}{\numberline {7.4.1}Function Documentation}{103}{subsection.7.4.1}
+\contentsline {subsubsection}{\numberline {7.4.1.1}ap\_\discretionary {-}{}{}resize\_\discretionary {-}{}{}buffer}{103}{subsubsection.7.4.1.1}
+\contentsline {subsubsection}{\numberline {7.4.1.2}push\_\discretionary {-}{}{}back\_\discretionary {-}{}{}record}{104}{subsubsection.7.4.1.2}
+\contentsline {subsubsection}{\numberline {7.4.1.3}add\_\discretionary {-}{}{}error}{104}{subsubsection.7.4.1.3}
+\contentsline {subsubsection}{\numberline {7.4.1.4}free\_\discretionary {-}{}{}data}{105}{subsubsection.7.4.1.4}
+\contentsline {subsubsection}{\numberline {7.4.1.5}parse\_\discretionary {-}{}{}long\_\discretionary {-}{}{}option}{106}{subsubsection.7.4.1.5}
+\contentsline {subsubsection}{\numberline {7.4.1.6}parse\_\discretionary {-}{}{}short\_\discretionary {-}{}{}option}{106}{subsubsection.7.4.1.6}
+\contentsline {subsubsection}{\numberline {7.4.1.7}ap\_\discretionary {-}{}{}init}{107}{subsubsection.7.4.1.7}
+\contentsline {subsubsection}{\numberline {7.4.1.8}ap\_\discretionary {-}{}{}free}{108}{subsubsection.7.4.1.8}
+\contentsline {subsubsection}{\numberline {7.4.1.9}ap\_\discretionary {-}{}{}error}{109}{subsubsection.7.4.1.9}
+\contentsline {subsubsection}{\numberline {7.4.1.10}ap\_\discretionary {-}{}{}arguments}{109}{subsubsection.7.4.1.10}
+\contentsline {subsubsection}{\numberline {7.4.1.11}ap\_\discretionary {-}{}{}code}{109}{subsubsection.7.4.1.11}
+\contentsline {subsubsection}{\numberline {7.4.1.12}ap\_\discretionary {-}{}{}argument}{110}{subsubsection.7.4.1.12}
+\contentsline {section}{\numberline {7.5}src/arg\_\discretionary {-}{}{}parser/carg\_\discretionary {-}{}{}parser.h File Reference}{111}{section.7.5}
+\contentsline {subsection}{\numberline {7.5.1}Enumeration Type Documentation}{111}{subsection.7.5.1}
+\contentsline {subsubsection}{\numberline {7.5.1.1}ap\_\discretionary {-}{}{}Has\_\discretionary {-}{}{}arg}{111}{subsubsection.7.5.1.1}
+\contentsline {subsection}{\numberline {7.5.2}Function Documentation}{112}{subsection.7.5.2}
+\contentsline {subsubsection}{\numberline {7.5.2.1}ap\_\discretionary {-}{}{}init}{112}{subsubsection.7.5.2.1}
+\contentsline {subsubsection}{\numberline {7.5.2.2}ap\_\discretionary {-}{}{}free}{112}{subsubsection.7.5.2.2}
+\contentsline {subsubsection}{\numberline {7.5.2.3}ap\_\discretionary {-}{}{}error}{113}{subsubsection.7.5.2.3}
+\contentsline {subsubsection}{\numberline {7.5.2.4}ap\_\discretionary {-}{}{}arguments}{113}{subsubsection.7.5.2.4}
+\contentsline {subsubsection}{\numberline {7.5.2.5}ap\_\discretionary {-}{}{}code}{114}{subsubsection.7.5.2.5}
+\contentsline {subsubsection}{\numberline {7.5.2.6}ap\_\discretionary {-}{}{}argument}{115}{subsubsection.7.5.2.6}
+\contentsline {section}{\numberline {7.6}src/auto\_\discretionary {-}{}{}config.h File Reference}{115}{section.7.6}
+\contentsline {subsection}{\numberline {7.6.1}Define Documentation}{116}{subsection.7.6.1}
+\contentsline {subsubsection}{\numberline {7.6.1.1}HAVE\_\discretionary {-}{}{}ARPA\_\discretionary {-}{}{}INET\_\discretionary {-}{}{}H}{116}{subsubsection.7.6.1.1}
+\contentsline {subsubsection}{\numberline {7.6.1.2}HAVE\_\discretionary {-}{}{}INTTYPES\_\discretionary {-}{}{}H}{116}{subsubsection.7.6.1.2}
+\contentsline {subsubsection}{\numberline {7.6.1.3}HAVE\_\discretionary {-}{}{}MALLOC}{116}{subsubsection.7.6.1.3}
+\contentsline {subsubsection}{\numberline {7.6.1.4}HAVE\_\discretionary {-}{}{}MEMORY\_\discretionary {-}{}{}H}{116}{subsubsection.7.6.1.4}
+\contentsline {subsubsection}{\numberline {7.6.1.5}HAVE\_\discretionary {-}{}{}NETINET\_\discretionary {-}{}{}IN\_\discretionary {-}{}{}H}{116}{subsubsection.7.6.1.5}
+\contentsline {subsubsection}{\numberline {7.6.1.6}HAVE\_\discretionary {-}{}{}REALLOC}{116}{subsubsection.7.6.1.6}
+\contentsline {subsubsection}{\numberline {7.6.1.7}HAVE\_\discretionary {-}{}{}SOCKET}{117}{subsubsection.7.6.1.7}
+\contentsline {subsubsection}{\numberline {7.6.1.8}HAVE\_\discretionary {-}{}{}STDBOOL\_\discretionary {-}{}{}H}{117}{subsubsection.7.6.1.8}
+\contentsline {subsubsection}{\numberline {7.6.1.9}HAVE\_\discretionary {-}{}{}STDDEF\_\discretionary {-}{}{}H}{117}{subsubsection.7.6.1.9}
+\contentsline {subsubsection}{\numberline {7.6.1.10}HAVE\_\discretionary {-}{}{}STDINT\_\discretionary {-}{}{}H}{117}{subsubsection.7.6.1.10}
+\contentsline {subsubsection}{\numberline {7.6.1.11}HAVE\_\discretionary {-}{}{}STDLIB\_\discretionary {-}{}{}H}{117}{subsubsection.7.6.1.11}
+\contentsline {subsubsection}{\numberline {7.6.1.12}HAVE\_\discretionary {-}{}{}STRINGS\_\discretionary {-}{}{}H}{117}{subsubsection.7.6.1.12}
+\contentsline {subsubsection}{\numberline {7.6.1.13}HAVE\_\discretionary {-}{}{}STRING\_\discretionary {-}{}{}H}{117}{subsubsection.7.6.1.13}
+\contentsline {subsubsection}{\numberline {7.6.1.14}HAVE\_\discretionary {-}{}{}SYS\_\discretionary {-}{}{}SOCKET\_\discretionary {-}{}{}H}{117}{subsubsection.7.6.1.14}
+\contentsline {subsubsection}{\numberline {7.6.1.15}HAVE\_\discretionary {-}{}{}SYS\_\discretionary {-}{}{}STAT\_\discretionary {-}{}{}H}{117}{subsubsection.7.6.1.15}
+\contentsline {subsubsection}{\numberline {7.6.1.16}HAVE\_\discretionary {-}{}{}SYS\_\discretionary {-}{}{}TYPES\_\discretionary {-}{}{}H}{117}{subsubsection.7.6.1.16}
+\contentsline {subsubsection}{\numberline {7.6.1.17}HAVE\_\discretionary {-}{}{}UNISTD\_\discretionary {-}{}{}H}{118}{subsubsection.7.6.1.17}
+\contentsline {subsubsection}{\numberline {7.6.1.18}HAVE\_\discretionary {-}{}{}\_\discretionary {-}{}{}BOOL}{118}{subsubsection.7.6.1.18}
+\contentsline {subsubsection}{\numberline {7.6.1.19}PACKAGE}{118}{subsubsection.7.6.1.19}
+\contentsline {subsubsection}{\numberline {7.6.1.20}PACKAGE\_\discretionary {-}{}{}BUGREPORT}{118}{subsubsection.7.6.1.20}
+\contentsline {subsubsection}{\numberline {7.6.1.21}PACKAGE\_\discretionary {-}{}{}NAME}{118}{subsubsection.7.6.1.21}
+\contentsline {subsubsection}{\numberline {7.6.1.22}PACKAGE\_\discretionary {-}{}{}STRING}{118}{subsubsection.7.6.1.22}
+\contentsline {subsubsection}{\numberline {7.6.1.23}PACKAGE\_\discretionary {-}{}{}TARNAME}{118}{subsubsection.7.6.1.23}
+\contentsline {subsubsection}{\numberline {7.6.1.24}PACKAGE\_\discretionary {-}{}{}URL}{118}{subsubsection.7.6.1.24}
+\contentsline {subsubsection}{\numberline {7.6.1.25}PACKAGE\_\discretionary {-}{}{}VERSION}{118}{subsubsection.7.6.1.25}
+\contentsline {subsubsection}{\numberline {7.6.1.26}STDC\_\discretionary {-}{}{}HEADERS}{118}{subsubsection.7.6.1.26}
+\contentsline {subsubsection}{\numberline {7.6.1.27}VERSION}{119}{subsubsection.7.6.1.27}
+\contentsline {section}{\numberline {7.7}src/buffer/buffer.cpp File Reference}{119}{section.7.7}
+\contentsline {subsection}{\numberline {7.7.1}Detailed Description}{119}{subsection.7.7.1}
+\contentsline {section}{\numberline {7.8}src/buffer/buffer.h File Reference}{119}{section.7.8}
+\contentsline {subsection}{\numberline {7.8.1}Detailed Description}{119}{subsection.7.8.1}
+\contentsline {section}{\numberline {7.9}src/buffer/ssBuffer.cpp File Reference}{120}{section.7.9}
+\contentsline {subsection}{\numberline {7.9.1}Detailed Description}{120}{subsection.7.9.1}
+\contentsline {section}{\numberline {7.10}src/buffer/ssBuffer.h File Reference}{120}{section.7.10}
+\contentsline {subsection}{\numberline {7.10.1}Detailed Description}{121}{subsection.7.10.1}
+\contentsline {subsection}{\numberline {7.10.2}Typedef Documentation}{121}{subsection.7.10.2}
+\contentsline {subsubsection}{\numberline {7.10.2.1}ssBlock}{121}{subsubsection.7.10.2.1}
+\contentsline {section}{\numberline {7.11}src/config.h File Reference}{121}{section.7.11}
+\contentsline {section}{\numberline {7.12}src/console\_\discretionary {-}{}{}out.cpp File Reference}{121}{section.7.12}
+\contentsline {subsection}{\numberline {7.12.1}Detailed Description}{122}{subsection.7.12.1}
+\contentsline {subsection}{\numberline {7.12.2}Define Documentation}{123}{subsection.7.12.2}
+\contentsline {subsubsection}{\numberline {7.12.2.1}REVISION}{123}{subsubsection.7.12.2.1}
+\contentsline {subsection}{\numberline {7.12.3}Function Documentation}{123}{subsection.7.12.3}
+\contentsline {subsubsection}{\numberline {7.12.3.1}show\_\discretionary {-}{}{}help}{123}{subsubsection.7.12.3.1}
+\contentsline {subsubsection}{\numberline {7.12.3.2}show\_\discretionary {-}{}{}version}{123}{subsubsection.7.12.3.2}
+\contentsline {subsubsection}{\numberline {7.12.3.3}show\_\discretionary {-}{}{}error}{124}{subsubsection.7.12.3.3}
+\contentsline {subsubsection}{\numberline {7.12.3.4}internal\_\discretionary {-}{}{}error}{124}{subsubsection.7.12.3.4}
+\contentsline {subsubsection}{\numberline {7.12.3.5}optname}{125}{subsubsection.7.12.3.5}
+\contentsline {subsection}{\numberline {7.12.4}Variable Documentation}{125}{subsection.7.12.4}
+\contentsline {subsubsection}{\numberline {7.12.4.1}PROGVERSION}{125}{subsubsection.7.12.4.1}
+\contentsline {subsubsection}{\numberline {7.12.4.2}Program\_\discretionary {-}{}{}name}{125}{subsubsection.7.12.4.2}
+\contentsline {subsubsection}{\numberline {7.12.4.3}program\_\discretionary {-}{}{}name}{126}{subsubsection.7.12.4.3}
+\contentsline {subsubsection}{\numberline {7.12.4.4}program\_\discretionary {-}{}{}year}{126}{subsubsection.7.12.4.4}
+\contentsline {section}{\numberline {7.13}src/console\_\discretionary {-}{}{}out.h File Reference}{126}{section.7.13}
+\contentsline {subsection}{\numberline {7.13.1}Detailed Description}{127}{subsection.7.13.1}
+\contentsline {subsection}{\numberline {7.13.2}Function Documentation}{127}{subsection.7.13.2}
+\contentsline {subsubsection}{\numberline {7.13.2.1}show\_\discretionary {-}{}{}help}{127}{subsubsection.7.13.2.1}
+\contentsline {subsubsection}{\numberline {7.13.2.2}show\_\discretionary {-}{}{}version}{128}{subsubsection.7.13.2.2}
+\contentsline {subsubsection}{\numberline {7.13.2.3}show\_\discretionary {-}{}{}error}{128}{subsubsection.7.13.2.3}
+\contentsline {subsubsection}{\numberline {7.13.2.4}internal\_\discretionary {-}{}{}error}{128}{subsubsection.7.13.2.4}
+\contentsline {subsubsection}{\numberline {7.13.2.5}optname}{129}{subsubsection.7.13.2.5}
+\contentsline {subsection}{\numberline {7.13.3}Variable Documentation}{129}{subsection.7.13.3}
+\contentsline {subsubsection}{\numberline {7.13.3.1}PROGVERSION}{129}{subsubsection.7.13.3.1}
+\contentsline {subsubsection}{\numberline {7.13.3.2}Program\_\discretionary {-}{}{}name}{129}{subsubsection.7.13.3.2}
+\contentsline {subsubsection}{\numberline {7.13.3.3}program\_\discretionary {-}{}{}name}{130}{subsubsection.7.13.3.3}
+\contentsline {subsubsection}{\numberline {7.13.3.4}program\_\discretionary {-}{}{}year}{130}{subsubsection.7.13.3.4}
+\contentsline {section}{\numberline {7.14}src/deqUdp/deqUdp.cpp File Reference}{130}{section.7.14}
+\contentsline {subsection}{\numberline {7.14.1}Detailed Description}{130}{subsection.7.14.1}
+\contentsline {section}{\numberline {7.15}src/deqUdp/deqUdp.h File Reference}{131}{section.7.15}
+\contentsline {subsection}{\numberline {7.15.1}Detailed Description}{131}{subsection.7.15.1}
+\contentsline {section}{\numberline {7.16}src/functions/commonFuncsMgr.cpp File Reference}{131}{section.7.16}
+\contentsline {subsection}{\numberline {7.16.1}Detailed Description}{132}{subsection.7.16.1}
+\contentsline {subsection}{\numberline {7.16.2}Function Documentation}{132}{subsection.7.16.2}
+\contentsline {subsubsection}{\numberline {7.16.2.1}equipListenPolling}{132}{subsubsection.7.16.2.1}
+\contentsline {section}{\numberline {7.17}src/functions/commonFuncsMgr.h File Reference}{133}{section.7.17}
+\contentsline {subsection}{\numberline {7.17.1}Detailed Description}{134}{subsection.7.17.1}
+\contentsline {subsection}{\numberline {7.17.2}Function Documentation}{134}{subsection.7.17.2}
+\contentsline {subsubsection}{\numberline {7.17.2.1}equipListenPolling}{134}{subsubsection.7.17.2.1}
+\contentsline {section}{\numberline {7.18}src/functions/specFuncsMgr.h File Reference}{135}{section.7.18}
+\contentsline {subsection}{\numberline {7.18.1}Detailed Description}{135}{subsection.7.18.1}
+\contentsline {section}{\numberline {7.19}src/main.cpp File Reference}{136}{section.7.19}
+\contentsline {subsection}{\numberline {7.19.1}Detailed Description}{137}{subsection.7.19.1}
+\contentsline {subsection}{\numberline {7.19.2}Function Documentation}{137}{subsection.7.19.2}
+\contentsline {subsubsection}{\numberline {7.19.2.1}process\_\discretionary {-}{}{}cmdLine}{137}{subsubsection.7.19.2.1}
+\contentsline {subsubsection}{\numberline {7.19.2.2}fileRead}{139}{subsubsection.7.19.2.2}
+\contentsline {subsubsection}{\numberline {7.19.2.3}dbg\_\discretionary {-}{}{}hex\_\discretionary {-}{}{}print}{139}{subsubsection.7.19.2.3}
+\contentsline {subsubsection}{\numberline {7.19.2.4}appInit}{140}{subsubsection.7.19.2.4}
+\contentsline {subsubsection}{\numberline {7.19.2.5}appDeinit}{141}{subsubsection.7.19.2.5}
+\contentsline {subsubsection}{\numberline {7.19.2.6}main}{142}{subsubsection.7.19.2.6}
+\contentsline {section}{\numberline {7.20}src/SIG\_\discretionary {-}{}{}handler.cpp File Reference}{143}{section.7.20}
+\contentsline {subsection}{\numberline {7.20.1}Detailed Description}{144}{subsection.7.20.1}
+\contentsline {subsection}{\numberline {7.20.2}Function Documentation}{145}{subsection.7.20.2}
+\contentsline {subsubsection}{\numberline {7.20.2.1}term\_\discretionary {-}{}{}handler}{145}{subsubsection.7.20.2.1}
+\contentsline {subsubsection}{\numberline {7.20.2.2}installSIGhandlers}{145}{subsubsection.7.20.2.2}
+\contentsline {subsection}{\numberline {7.20.3}Variable Documentation}{146}{subsection.7.20.3}
+\contentsline {subsubsection}{\numberline {7.20.3.1}SIGTERM\_\discretionary {-}{}{}handler}{146}{subsubsection.7.20.3.1}
+\contentsline {section}{\numberline {7.21}src/SIG\_\discretionary {-}{}{}handler.h File Reference}{146}{section.7.21}
+\contentsline {subsection}{\numberline {7.21.1}Detailed Description}{146}{subsection.7.21.1}
+\contentsline {subsection}{\numberline {7.21.2}Function Documentation}{147}{subsection.7.21.2}
+\contentsline {subsubsection}{\numberline {7.21.2.1}installSIGhandlers}{147}{subsubsection.7.21.2.1}
+\contentsline {section}{\numberline {7.22}src/srvAppLayer/functionNode/functionNode.cpp File Reference}{147}{section.7.22}
+\contentsline {subsection}{\numberline {7.22.1}Detailed Description}{148}{subsection.7.22.1}
+\contentsline {section}{\numberline {7.23}src/srvAppLayer/functionNode/functionNode.h File Reference}{148}{section.7.23}
+\contentsline {subsection}{\numberline {7.23.1}Detailed Description}{148}{subsection.7.23.1}
+\contentsline {section}{\numberline {7.24}src/srvAppLayer/functionNode/param\_\discretionary {-}{}{}desc.cpp File Reference}{149}{section.7.24}
+\contentsline {subsection}{\numberline {7.24.1}Detailed Description}{149}{subsection.7.24.1}
+\contentsline {section}{\numberline {7.25}src/srvAppLayer/functionNode/param\_\discretionary {-}{}{}desc.h File Reference}{149}{section.7.25}
+\contentsline {subsection}{\numberline {7.25.1}Detailed Description}{150}{subsection.7.25.1}
+\contentsline {section}{\numberline {7.26}src/srvAppLayer/srvAppLayer.cpp File Reference}{150}{section.7.26}
+\contentsline {subsection}{\numberline {7.26.1}Detailed Description}{151}{subsection.7.26.1}
+\contentsline {subsection}{\numberline {7.26.2}Function Documentation}{151}{subsection.7.26.2}
+\contentsline {subsubsection}{\numberline {7.26.2.1}udpSenderThread}{151}{subsubsection.7.26.2.1}
+\contentsline {subsubsection}{\numberline {7.26.2.2}udpListenerThread}{152}{subsubsection.7.26.2.2}
+\contentsline {subsection}{\numberline {7.26.3}Variable Documentation}{153}{subsection.7.26.3}
+\contentsline {subsubsection}{\numberline {7.26.3.1}rcvComplete\_\discretionary {-}{}{}flag}{153}{subsubsection.7.26.3.1}
+\contentsline {subsubsection}{\numberline {7.26.3.2}sndAllow\_\discretionary {-}{}{}flag}{153}{subsubsection.7.26.3.2}
+\contentsline {subsubsection}{\numberline {7.26.3.3}app}{154}{subsubsection.7.26.3.3}
+\contentsline {section}{\numberline {7.27}src/srvAppLayer/srvAppLayer.h File Reference}{154}{section.7.27}
+\contentsline {subsection}{\numberline {7.27.1}Detailed Description}{154}{subsection.7.27.1}
+\contentsline {subsection}{\numberline {7.27.2}Typedef Documentation}{155}{subsection.7.27.2}
+\contentsline {subsubsection}{\numberline {7.27.2.1}serviceState}{155}{subsubsection.7.27.2.1}
+\contentsline {subsubsection}{\numberline {7.27.2.2}stateVector\_\discretionary {-}{}{}type}{155}{subsubsection.7.27.2.2}
+\contentsline {subsection}{\numberline {7.27.3}Variable Documentation}{155}{subsection.7.27.3}
+\contentsline {subsubsection}{\numberline {7.27.3.1}app}{155}{subsubsection.7.27.3.1}

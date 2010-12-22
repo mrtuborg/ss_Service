@@ -12,19 +12,19 @@
 #include "SpecFuncs.h"
 #include "functions.h"
 
-SpecFuncs::SpecFuncs(ICAppLayer *appl)
+specFuncsMgr::specFuncsMgr(srvAppLayer *appl)
 {
     appLayer=appl;
 }
 
-SpecFuncs::~SpecFuncs()
+specFuncsMgr::~specFuncsMgr()
 {
 }
 
-errType SpecFuncs::StartSpecFuncs()
+errType specFuncsMgr::startSpecFuncs()
 {
     errType result=err_not_init;
-    FunctionNode* func;
+    functionNode* func;
         
     // SAMPLE FOR FUTURE PURPOSES
     //--------------------------------------------
@@ -33,7 +33,7 @@ errType SpecFuncs::StartSpecFuncs()
     // 1. Function definition
     //    Function #0..31 have <k> parameters  and <n> result arguments
     //    Set pointer to function implementaion
-    //code: func=new FunctionNode(<func_id>,<k>,<n>,<function_name>);
+    //code: func=new functionNode(<func_id>,<k>,<n>,<function_name>);
     //
     // 2. Definitions for parameters:
     //code: func->setParamDescriptor(<k[i]>,<k[i]_length>);
@@ -44,7 +44,7 @@ errType SpecFuncs::StartSpecFuncs()
     //
     // 4. Add function to Application interchange layer:
     //code: appLayer->CreateNewFunction(func);
-	    func=new FunctionNode(1,8,2,addScheduleJob);
+	    func=new functionNode(1,8,2,addScheduleJob);
 
 	    func->setParamDescriptor(0, type_BYTE);
 	    func->setParamName(0,"Признак аварийной операции");
@@ -79,7 +79,7 @@ errType SpecFuncs::StartSpecFuncs()
     return result;
 }
 
-errType SpecFuncs::StopSpecFuncs()
+errType specFuncsMgr::stopSpecFuncs()
 {
     errType result=err_not_init;
     

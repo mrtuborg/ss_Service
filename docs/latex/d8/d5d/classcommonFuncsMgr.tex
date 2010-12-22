@@ -1,0 +1,202 @@
+\hypertarget{classcommonFuncsMgr}{
+\section{commonFuncsMgr Class Reference}
+\label{d8/d5d/classcommonFuncsMgr}\index{commonFuncsMgr@{commonFuncsMgr}}
+}
+
+
+common functions manager implementation (set of function independs on target)  
+
+
+
+
+{\ttfamily \#include $<$commonFuncsMgr.h$>$}
+
+
+
+Collaboration diagram for commonFuncsMgr:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=600pt]{d8/d39/classcommonFuncsMgr__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classcommonFuncsMgr_a1f9fa1d92384285d9dab3d039e75a640}{commonFuncsMgr} (\hyperlink{classsrvAppLayer}{srvAppLayer} $\ast$appl)
+\item 
+\hyperlink{classcommonFuncsMgr_ac3e961817500b0862274cb5dbb1bff7b}{$\sim$commonFuncsMgr} ()
+\item 
+errType \hyperlink{classcommonFuncsMgr_a9bd0bd8c733b05611a2d013811b45351}{startCommonFuncs} ()
+\begin{DoxyCompactList}\small\item\em Declaration of common functions. \item\end{DoxyCompactList}\item 
+errType \hyperlink{classcommonFuncsMgr_a4c9a0f27ac4b60e41fc549e0c98bd914}{stopCommonFuncs} ()
+\begin{DoxyCompactList}\small\item\em Undeclaration of common functions. \item\end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classsrvAppLayer}{srvAppLayer} $\ast$ \hyperlink{classcommonFuncsMgr_a2dfac40cc291ca40160c829adef3ecfc}{appLayer}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+common functions manager implementation (set of function independs on target) 
+
+Definition at line 23 of file commonFuncsMgr.h.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{classcommonFuncsMgr_a1f9fa1d92384285d9dab3d039e75a640}{
+\index{commonFuncsMgr@{commonFuncsMgr}!commonFuncsMgr@{commonFuncsMgr}}
+\index{commonFuncsMgr@{commonFuncsMgr}!commonFuncsMgr@{commonFuncsMgr}}
+\subsubsection[{commonFuncsMgr}]{\setlength{\rightskip}{0pt plus 5cm}commonFuncsMgr::commonFuncsMgr (
+\begin{DoxyParamCaption}
+\item[{{\bf srvAppLayer} $\ast$}]{ appl}
+\end{DoxyParamCaption}
+)}}
+\label{d8/d5d/classcommonFuncsMgr_a1f9fa1d92384285d9dab3d039e75a640}
+
+
+Definition at line 60 of file commonFuncsMgr.cpp.
+
+
+
+References appLayer.
+
+\hypertarget{classcommonFuncsMgr_ac3e961817500b0862274cb5dbb1bff7b}{
+\index{commonFuncsMgr@{commonFuncsMgr}!$\sim$commonFuncsMgr@{$\sim$commonFuncsMgr}}
+\index{$\sim$commonFuncsMgr@{$\sim$commonFuncsMgr}!commonFuncsMgr@{commonFuncsMgr}}
+\subsubsection[{$\sim$commonFuncsMgr}]{\setlength{\rightskip}{0pt plus 5cm}commonFuncsMgr::$\sim$commonFuncsMgr (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{d8/d5d/classcommonFuncsMgr_ac3e961817500b0862274cb5dbb1bff7b}
+
+
+Definition at line 65 of file commonFuncsMgr.cpp.
+
+
+
+\subsection{Member Function Documentation}
+\hypertarget{classcommonFuncsMgr_a9bd0bd8c733b05611a2d013811b45351}{
+\index{commonFuncsMgr@{commonFuncsMgr}!startCommonFuncs@{startCommonFuncs}}
+\index{startCommonFuncs@{startCommonFuncs}!commonFuncsMgr@{commonFuncsMgr}}
+\subsubsection[{startCommonFuncs}]{\setlength{\rightskip}{0pt plus 5cm}errType commonFuncsMgr::startCommonFuncs (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{d8/d5d/classcommonFuncsMgr_a9bd0bd8c733b05611a2d013811b45351}
+
+
+Declaration of common functions. 
+
+Declares functions:
+
+
+\begin{DoxyItemize}
+\item emergencyShutdown, controlModeChange, getStateVector 
+\begin{DoxyRetVals}{Return values}
+{\em err\_\-result\_\-ok} & -\/ declaration was successful \\
+\hline
+\end{DoxyRetVals}
+
+\end{DoxyItemize}
+
+Definition at line 76 of file commonFuncsMgr.cpp.
+
+
+
+References appLayer, srvAppLayer::CreateNewFunction(), functionNode::setFuncName(), functionNode::setParamDescriptor(), functionNode::setParamName(), functionNode::setResultDescriptor(), and functionNode::setResultName().
+
+
+
+Referenced by main().
+
+
+
+Here is the call graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{d8/d5d/classcommonFuncsMgr_a9bd0bd8c733b05611a2d013811b45351_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=388pt]{d8/d5d/classcommonFuncsMgr_a9bd0bd8c733b05611a2d013811b45351_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{classcommonFuncsMgr_a4c9a0f27ac4b60e41fc549e0c98bd914}{
+\index{commonFuncsMgr@{commonFuncsMgr}!stopCommonFuncs@{stopCommonFuncs}}
+\index{stopCommonFuncs@{stopCommonFuncs}!commonFuncsMgr@{commonFuncsMgr}}
+\subsubsection[{stopCommonFuncs}]{\setlength{\rightskip}{0pt plus 5cm}errType commonFuncsMgr::stopCommonFuncs (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{d8/d5d/classcommonFuncsMgr_a4c9a0f27ac4b60e41fc549e0c98bd914}
+
+
+Undeclaration of common functions. 
+
+Undeclares functions:
+
+
+\begin{DoxyItemize}
+\item emergencyShutdown, controlModeChange, getStateVector 
+\begin{DoxyRetVals}{Return values}
+{\em err\_\-result\_\-ok} & -\/ undeclaration was successful \\
+\hline
+\end{DoxyRetVals}
+
+\end{DoxyItemize}
+
+Definition at line 151 of file commonFuncsMgr.cpp.
+
+
+
+References appLayer, and srvAppLayer::DeleteFunction().
+
+
+
+Here is the call graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{d8/d5d/classcommonFuncsMgr_a4c9a0f27ac4b60e41fc549e0c98bd914_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\subsection{Member Data Documentation}
+\hypertarget{classcommonFuncsMgr_a2dfac40cc291ca40160c829adef3ecfc}{
+\index{commonFuncsMgr@{commonFuncsMgr}!appLayer@{appLayer}}
+\index{appLayer@{appLayer}!commonFuncsMgr@{commonFuncsMgr}}
+\subsubsection[{appLayer}]{\setlength{\rightskip}{0pt plus 5cm}{\bf srvAppLayer}$\ast$ {\bf commonFuncsMgr::appLayer}\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}
+\label{d8/d5d/classcommonFuncsMgr_a2dfac40cc291ca40160c829adef3ecfc}
+
+
+Definition at line 25 of file commonFuncsMgr.h.
+
+
+
+Referenced by commonFuncsMgr(), startCommonFuncs(), and stopCommonFuncs().
+
+
+
+The documentation for this class was generated from the following files:\begin{DoxyCompactItemize}
+\item 
+src/functions/\hyperlink{commonFuncsMgr_8h}{commonFuncsMgr.h}\item 
+src/functions/\hyperlink{commonFuncsMgr_8cpp}{commonFuncsMgr.cpp}\end{DoxyCompactItemize}

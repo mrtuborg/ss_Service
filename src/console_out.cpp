@@ -1,3 +1,17 @@
+/**
+ * @file
+ * @author Vladimir A. Nosenko (nosenko@ieee.org)
+ * @date   December, 2010
+ * @brief  aided functions to process_cmdLine
+ * @details
+ *      Copyright (c) 2010 Vladimir A.Nosenko.
+ *
+ *      The license and distribution terms for this file may be
+ *      found in the file LICENSE in this distribution
+ *
+ *
+ */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -5,17 +19,20 @@
 
 #include "./arg_parser/carg_parser.h"
 
-
+/// programm revision number
 #ifndef REVISION
- #define REVISION 0
+ #define REVISION 0     ///< - revision by default is 0
 #endif
 
-char PROGVERSION[255] 	  = "0.1";
-char Program_name[255]    = "Сервис служебной системы";
-char program_name[255]    = "ss_Service";
-char program_year[255]    = "2010";
+char PROGVERSION[255] 	  = "0.1";                     ///< version of programm
+char Program_name[255]    = "Сервис служебной системы";///< name of programm
+char program_name[255]    = "ss_Service";              ///< filename of programm
+char program_year[255]    = "2010";                    ///< copyright year
 
 
+/******************************************************************//**
+ * @brief       Show cmdline help information (--help)
+ **********************************************************************/
 void show_help( const char verbose )
 {
   printf( "%s - Сервис служебной подсистемы НОЛС ТИ-3.12 (14Ш39). \n", Program_name );
@@ -32,9 +49,12 @@ void show_help( const char verbose )
     {
     printf( "  -H, --hidden              example of hidden option (shown with -v -h)\n" );
     }
-  printf( "\nОбо всех обнаруженных ошибках программы просьба сообщать по адресу: nosenko@nic.spb.ru\n");
+  printf( "\nОбо всех обнаруженных ошибках программы просьба сообщать по адресу: nosenko@ieee.org\n");
 }
 
+/******************************************************************//**
+ * @brief       Show programm version information (--version)
+ **********************************************************************/
 void show_version()
 {
   
@@ -46,6 +66,9 @@ void show_version()
   */
 }
 
+/******************************************************************//**
+ * @brief       Show cmdLine parser error
+ **********************************************************************/
 void show_error( const char * msg, const int errcode, const char help )
 {
   if( msg && msg[0] != 0 )
@@ -57,7 +80,9 @@ void show_error( const char * msg, const int errcode, const char help )
     fprintf( stderr, "Введите `%s --help' для получения справки по использованию параметров командной строки.\n",program_name);
 }
 
-
+/******************************************************************//**
+ * @brief       Show cmdLine internal error
+ **********************************************************************/
 void internal_error( const char * msg )
 {
   char buf[80];
@@ -66,6 +91,9 @@ void internal_error( const char * msg )
   exit( 3 );
 }
 
+/**************************************************************************//**
+ * @brief       Convert code with option from cmdLine argument to char buffer
+ ******************************************************************************/
 const char * optname( const int code, const ap_Option options[] )
 {
   static char buf[2] = "?";

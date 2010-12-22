@@ -11,19 +11,19 @@
 #include "SpecFuncs.h"
 #include "functions.h"
 
-SpecFuncs::SpecFuncs(ICAppLayer *appl)
+specFuncsMgr::specFuncsMgr(srvAppLayer *appl)
 {
     appLayer=appl;
 }
 
-SpecFuncs::~SpecFuncs()
+specFuncsMgr::~specFuncsMgr()
 {
 }
 
-errType SpecFuncs::StartSpecFuncs()
+errType specFuncsMgr::startSpecFuncs()
 {
     errType result=err_not_init;
-    FunctionNode* func;
+    functionNode* func;
         
     // SAMPLE FOR FUTURE PURPOSES
     //--------------------------------------------
@@ -32,7 +32,7 @@ errType SpecFuncs::StartSpecFuncs()
     // 1. Function definition
     //    Function #0..31 have <k> parameters  and <n> result arguments
     //    Set pointer to function implementaion
-    //code: func=new FunctionNode(<func_id>,<k>,<n>,<function_name>);
+    //code: func=new functionNode(<func_id>,<k>,<n>,<function_name>);
     //
     // 2. Definitions for parameters:
     //code: func->setParamDescriptor(<k[i]>,<k[i]_length>);
@@ -50,7 +50,7 @@ errType SpecFuncs::StartSpecFuncs()
     extern errType SetSearchingMode(void*);                                                                           
     extern errType StopSearchingMode(void*);
     
-	    func=new FunctionNode(1,0,2,GetFunctionMode);
+	    func=new functionNode(1,0,2,GetFunctionMode);
 	    func->setFuncName("Запрос текущего функционального режима");
 	    func->setResultDescriptor(0,type_ERRTYPE);
 	    func->setResultName(0,"Квитанция исполнения");
@@ -58,7 +58,7 @@ errType SpecFuncs::StartSpecFuncs()
 	    func->setResultName(1,"Режим функционирования");
 	    appLayer->CreateNewFunction(func);
 	    
-	    func=new FunctionNode(2,0,7,GetCurrentCoordinates);
+	    func=new functionNode(2,0,7,GetCurrentCoordinates);
 	    func->setFuncName("Запрос текущих координат системы наведения");
 	    
 	    func->setResultDescriptor(0,type_ERRTYPE);
@@ -78,7 +78,7 @@ errType SpecFuncs::StartSpecFuncs()
 
 	    appLayer->CreateNewFunction(func);
 	    
-	    func=new FunctionNode(3,0,14,GetPointingExtraParams);
+	    func=new functionNode(3,0,14,GetPointingExtraParams);
 	    func->setFuncName("Запрос расширенных параметров системы АРМ");
 	    func->setResultDescriptor(0,type_ERRTYPE);
 	    func->setResultName(0,"Квитанция исполнения");
@@ -111,7 +111,7 @@ errType SpecFuncs::StartSpecFuncs()
 	    appLayer->CreateNewFunction(func);
 	    
 	    
-	    func=new FunctionNode(4,3,1,SetCorrection);
+	    func=new functionNode(4,3,1,SetCorrection);
 	    func->setFuncName("Задать поправки АРМ");
 	    
 	    func->setParamDescriptor(0,type_DWORD);
@@ -127,25 +127,25 @@ errType SpecFuncs::StartSpecFuncs()
 	    
 	    
 	    appLayer->CreateNewFunction(func);
-	    func=new FunctionNode(5,0,1,SetProgrammMode);
+	    func=new functionNode(5,0,1,SetProgrammMode);
 	    func->setFuncName("Переключиться в режим программного наведения");
 	    func->setResultDescriptor(0,type_ERRTYPE);
 	    func->setResultName(0,"Квитанция исполнения");
 	    appLayer->CreateNewFunction(func);
 	    
-	    func=new FunctionNode(6,0,1,SetKNMode);
+	    func=new functionNode(6,0,1,SetKNMode);
 	    func->setFuncName("Переключиться в режим программного наведения");
 	    func->setResultDescriptor(0,type_ERRTYPE);
 	    func->setResultName(0,"Квитанция исполнения");
 	    appLayer->CreateNewFunction(func);
 	        
-	    func=new FunctionNode(7,0,1,SetZVVMode);
+	    func=new functionNode(7,0,1,SetZVVMode);
 	    func->setFuncName("Переключиться в режим программного наведения");
 	    func->setResultDescriptor(0,type_ERRTYPE);
 	    func->setResultName(0,"Квитанция исполнения");
 	    appLayer->CreateNewFunction(func);
 	    
-	    func=new FunctionNode(8,3,1,StartSearchingMode);
+	    func=new functionNode(8,3,1,StartSearchingMode);
 	    func->setFuncName("Включить режим поиска");
 	    
 	    func->setParamDescriptor(0,type_BYTE);
@@ -160,7 +160,7 @@ errType SpecFuncs::StartSpecFuncs()
 	    func->setResultName(0,"Квитанция исполнения");
 	    appLayer->CreateNewFunction(func);
 	    
-	    func=new FunctionNode(9,0,1,StopSearchingMode);
+	    func=new functionNode(9,0,1,StopSearchingMode);
 	    func->setFuncName("Отключить режим поиска");
 	    func->setResultDescriptor(0,type_ERRTYPE);
 	    func->setResultName(0,"Квитанция исполнения");
@@ -169,7 +169,7 @@ errType SpecFuncs::StartSpecFuncs()
     return result;
 }
 
-errType SpecFuncs::StopSpecFuncs()
+errType specFuncsMgr::stopSpecFuncs()
 {
     errType result=err_not_init;
     

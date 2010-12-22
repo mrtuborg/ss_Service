@@ -1,0 +1,434 @@
+\hypertarget{classbuffer}{
+\section{buffer Class Reference}
+\label{da/d40/classbuffer}\index{buffer@{buffer}}
+}
+
+
+Simple queue of bytes.  
+
+
+
+
+{\ttfamily \#include $<$buffer.h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classbuffer_a65bd401aac7064d2f1f5a67c3fe6c97e}{buffer} (DWORD size)
+\begin{DoxyCompactList}\small\item\em Constructs buffer as bytes array of {\bfseries size}. \item\end{DoxyCompactList}\item 
+\hyperlink{classbuffer_a2676a1a64b89fd492537129a618b88cf}{$\sim$buffer} ()
+\item 
+errType \hyperlink{classbuffer_a5e510e2da347809a6bc181b77f5c7e95}{write} (BYTE $\ast$addr, DWORD len)
+\begin{DoxyCompactList}\small\item\em Try to write to array data from {\bfseries addr} pointer with {\bfseries len} bytes size. \item\end{DoxyCompactList}\item 
+DWORD \hyperlink{classbuffer_af2e7e8bdfac867843d3ac15ac335d582}{read} (BYTE $\ast$addr, DWORD len=0)
+\begin{DoxyCompactList}\small\item\em Try to read from array data to {\bfseries addr} pointer with {\bfseries len} bytes size. \item\end{DoxyCompactList}\item 
+DWORD \hyperlink{classbuffer_abfbcac007f4613e9b638da7486c49583}{length} ()
+\begin{DoxyCompactList}\small\item\em Returns length of stored data. \item\end{DoxyCompactList}\item 
+BYTE $\ast$ \hyperlink{classbuffer_a23c22c6b1c9069d6f89e7e24ddb79098}{lockBufferChunkForExternWriting} ()
+\begin{DoxyCompactList}\small\item\em Allow direct mode writing for external methods. \item\end{DoxyCompactList}\item 
+errType \hyperlink{classbuffer_ad30546067be59176c1b5949c2aa8edf3}{unlockBufferChunkForExternWriting} (DWORD offset)
+\begin{DoxyCompactList}\small\item\em Disable direct mode writing from external methods. \item\end{DoxyCompactList}\item 
+errType \hyperlink{classbuffer_a46f65224d87068ad28b113bcd17e2dd6}{removeBufferChunk} (DWORD backward\_\-offset, DWORD len)
+\begin{DoxyCompactList}\small\item\em Remove data from buffer. \item\end{DoxyCompactList}\item 
+errType \hyperlink{classbuffer_a9570605f76e0f56c409852b350560003}{copyBufferChunkTo} (BYTE $\ast$addr, DWORD offset=0, DWORD len=0)
+\begin{DoxyCompactList}\small\item\em Try to read from array {\bfseries offset} data to {\bfseries addr} pointer with {\bfseries len} bytes size. \item\end{DoxyCompactList}\item 
+errType \hyperlink{classbuffer_a62a0c1433fb163e7c1958bc370ebbeb2}{dbgPrint} ()
+\begin{DoxyCompactList}\small\item\em Print for debug purposes contents of stored buffer (in a hexadecimal notation) \item\end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+BYTE $\ast$ \hyperlink{classbuffer_ae70ebdaeb6cf086f70dd4a49a4ece346}{buff}
+\item 
+DWORD \hyperlink{classbuffer_a885ec1136d2da49c6ca00137016a4020}{WrRef}
+\item 
+DWORD \hyperlink{classbuffer_adc90e509cdd156719b87c39fbb3af666}{RdRef}
+\item 
+DWORD \hyperlink{classbuffer_a9197dbc0e3e7e28442da5efb341d3616}{buffSize}
+\item 
+bool \hyperlink{classbuffer_ae345578999bc86d4ccda1ea66aeab11d}{writingLock}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Simple queue of bytes. 
+
+Definition at line 20 of file buffer.h.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{classbuffer_a65bd401aac7064d2f1f5a67c3fe6c97e}{
+\index{buffer@{buffer}!buffer@{buffer}}
+\index{buffer@{buffer}!buffer@{buffer}}
+\subsubsection[{buffer}]{\setlength{\rightskip}{0pt plus 5cm}buffer::buffer (
+\begin{DoxyParamCaption}
+\item[{DWORD}]{ size}
+\end{DoxyParamCaption}
+)}}
+\label{da/d40/classbuffer_a65bd401aac7064d2f1f5a67c3fe6c97e}
+
+
+Constructs buffer as bytes array of {\bfseries size}. 
+
+
+
+Definition at line 23 of file buffer.cpp.
+
+
+
+References buff, buffSize, RdRef, writingLock, and WrRef.
+
+\hypertarget{classbuffer_a2676a1a64b89fd492537129a618b88cf}{
+\index{buffer@{buffer}!$\sim$buffer@{$\sim$buffer}}
+\index{$\sim$buffer@{$\sim$buffer}!buffer@{buffer}}
+\subsubsection[{$\sim$buffer}]{\setlength{\rightskip}{0pt plus 5cm}buffer::$\sim$buffer (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{da/d40/classbuffer_a2676a1a64b89fd492537129a618b88cf}
+
+
+Definition at line 33 of file buffer.cpp.
+
+
+
+References buff, RdRef, writingLock, and WrRef.
+
+
+
+\subsection{Member Function Documentation}
+\hypertarget{classbuffer_a5e510e2da347809a6bc181b77f5c7e95}{
+\index{buffer@{buffer}!write@{write}}
+\index{write@{write}!buffer@{buffer}}
+\subsubsection[{write}]{\setlength{\rightskip}{0pt plus 5cm}errType buffer::write (
+\begin{DoxyParamCaption}
+\item[{BYTE $\ast$}]{ addr, }
+\item[{DWORD}]{ len}
+\end{DoxyParamCaption}
+)}}
+\label{da/d40/classbuffer_a5e510e2da347809a6bc181b77f5c7e95}
+
+
+Try to write to array data from {\bfseries addr} pointer with {\bfseries len} bytes size. 
+
+
+\begin{DoxyRetVals}{Return values}
+{\em err\_\-result\_\-ok} & -\/ writing was succeeded \\
+\hline
+{\em err\_\-result\_\-error} & -\/ not enough space. Data was written partially. \\
+\hline
+\end{DoxyRetVals}
+
+
+Definition at line 58 of file buffer.cpp.
+
+
+
+References buff, buffSize, and WrRef.
+
+\hypertarget{classbuffer_af2e7e8bdfac867843d3ac15ac335d582}{
+\index{buffer@{buffer}!read@{read}}
+\index{read@{read}!buffer@{buffer}}
+\subsubsection[{read}]{\setlength{\rightskip}{0pt plus 5cm}DWORD buffer::read (
+\begin{DoxyParamCaption}
+\item[{BYTE $\ast$}]{ addr, }
+\item[{DWORD}]{ len = {\ttfamily 0}}
+\end{DoxyParamCaption}
+)}}
+\label{da/d40/classbuffer_af2e7e8bdfac867843d3ac15ac335d582}
+
+
+Try to read from array data to {\bfseries addr} pointer with {\bfseries len} bytes size. 
+
+If {\bfseries len} not specified (or equal to 0) method reads all array.
+
+Readed data has been deleted in buffer. \begin{DoxySeeAlso}{See also}
+\hyperlink{classbuffer_a9570605f76e0f56c409852b350560003}{buffer::copyBufferChunkTo}
+\end{DoxySeeAlso}
+
+\begin{DoxyRetVals}{Return values}
+{\em length} & -\/ size in bytes of readed data. \\
+\hline
+\end{DoxyRetVals}
+
+
+Definition at line 81 of file buffer.cpp.
+
+
+
+References buff, length(), RdRef, writingLock, and WrRef.
+
+
+
+Here is the call graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=286pt]{da/d40/classbuffer_af2e7e8bdfac867843d3ac15ac335d582_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{classbuffer_abfbcac007f4613e9b638da7486c49583}{
+\index{buffer@{buffer}!length@{length}}
+\index{length@{length}!buffer@{buffer}}
+\subsubsection[{length}]{\setlength{\rightskip}{0pt plus 5cm}DWORD buffer::length (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{da/d40/classbuffer_abfbcac007f4613e9b638da7486c49583}
+
+
+Returns length of stored data. 
+
+length is writing reference index minus reading reference index
+
+
+\begin{DoxyRetVals}{Return values}
+{\em length} & -\/ stored data length in bytes \\
+\hline
+\end{DoxyRetVals}
+
+
+Definition at line 48 of file buffer.cpp.
+
+
+
+References RdRef, and WrRef.
+
+
+
+Referenced by read().
+
+
+
+Here is the caller graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=286pt]{da/d40/classbuffer_abfbcac007f4613e9b638da7486c49583_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{classbuffer_a23c22c6b1c9069d6f89e7e24ddb79098}{
+\index{buffer@{buffer}!lockBufferChunkForExternWriting@{lockBufferChunkForExternWriting}}
+\index{lockBufferChunkForExternWriting@{lockBufferChunkForExternWriting}!buffer@{buffer}}
+\subsubsection[{lockBufferChunkForExternWriting}]{\setlength{\rightskip}{0pt plus 5cm}BYTE $\ast$ buffer::lockBufferChunkForExternWriting (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{da/d40/classbuffer_a23c22c6b1c9069d6f89e7e24ddb79098}
+
+
+Allow direct mode writing for external methods. 
+
+While direct mode writing is locking array -\/ nobody can't to write. \begin{DoxySeeAlso}{See also}
+Unlock with \hyperlink{classbuffer_ad30546067be59176c1b5949c2aa8edf3}{buffer::unlockBufferChunkForExternWriting}.
+\end{DoxySeeAlso}
+
+\begin{DoxyRetVals}{Return values}
+{\em ptr} & -\/ pointer to array for writing data \\
+\hline
+\end{DoxyRetVals}
+
+
+Definition at line 116 of file buffer.cpp.
+
+
+
+References buff, writingLock, and WrRef.
+
+\hypertarget{classbuffer_ad30546067be59176c1b5949c2aa8edf3}{
+\index{buffer@{buffer}!unlockBufferChunkForExternWriting@{unlockBufferChunkForExternWriting}}
+\index{unlockBufferChunkForExternWriting@{unlockBufferChunkForExternWriting}!buffer@{buffer}}
+\subsubsection[{unlockBufferChunkForExternWriting}]{\setlength{\rightskip}{0pt plus 5cm}errType buffer::unlockBufferChunkForExternWriting (
+\begin{DoxyParamCaption}
+\item[{DWORD}]{ offset}
+\end{DoxyParamCaption}
+)}}
+\label{da/d40/classbuffer_ad30546067be59176c1b5949c2aa8edf3}
+
+
+Disable direct mode writing from external methods. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em offset} & -\/ length of writing bytes by external methods\\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{Return values}
+{\em err\_\-result\_\-ok} & -\/ unlocking was successfull \\
+\hline
+{\em err\_\-result\_\-error} & -\/ writing bytes was more than space in buffer. Data unlocked to buffer partially. \\
+\hline
+\end{DoxyRetVals}
+
+
+Definition at line 131 of file buffer.cpp.
+
+
+
+References buffSize, RdRef, writingLock, and WrRef.
+
+\hypertarget{classbuffer_a46f65224d87068ad28b113bcd17e2dd6}{
+\index{buffer@{buffer}!removeBufferChunk@{removeBufferChunk}}
+\index{removeBufferChunk@{removeBufferChunk}!buffer@{buffer}}
+\subsubsection[{removeBufferChunk}]{\setlength{\rightskip}{0pt plus 5cm}errType buffer::removeBufferChunk (
+\begin{DoxyParamCaption}
+\item[{DWORD}]{ backward\_\-offset, }
+\item[{DWORD}]{ len}
+\end{DoxyParamCaption}
+)}}
+\label{da/d40/classbuffer_a46f65224d87068ad28b113bcd17e2dd6}
+
+
+Remove data from buffer. 
+
+Removes data from buffer array, backward writing reference to {\bfseries backward\_\-offset} and move data from {\bfseries backward\_\-offset} + {\bfseries len} to current writing referense position. 
+\begin{DoxyRetVals}{Return values}
+{\em err\_\-result\_\-ok} & -\/ removing was successful. \\
+\hline
+{\em err\_\-result\_\-error} & -\/ cannot remove data length more than data size in buffer \\
+\hline
+\end{DoxyRetVals}
+
+
+Definition at line 153 of file buffer.cpp.
+
+
+
+References buff, RdRef, and WrRef.
+
+\hypertarget{classbuffer_a9570605f76e0f56c409852b350560003}{
+\index{buffer@{buffer}!copyBufferChunkTo@{copyBufferChunkTo}}
+\index{copyBufferChunkTo@{copyBufferChunkTo}!buffer@{buffer}}
+\subsubsection[{copyBufferChunkTo}]{\setlength{\rightskip}{0pt plus 5cm}errType buffer::copyBufferChunkTo (
+\begin{DoxyParamCaption}
+\item[{BYTE $\ast$}]{ addr, }
+\item[{DWORD}]{ offset = {\ttfamily 0}, }
+\item[{DWORD}]{ len = {\ttfamily 0}}
+\end{DoxyParamCaption}
+)}}
+\label{da/d40/classbuffer_a9570605f76e0f56c409852b350560003}
+
+
+Try to read from array {\bfseries offset} data to {\bfseries addr} pointer with {\bfseries len} bytes size. 
+
+Extract buffer data without deleting it in buffer. \begin{DoxySeeAlso}{See also}
+\hyperlink{classbuffer_af2e7e8bdfac867843d3ac15ac335d582}{buffer::read}
+\end{DoxySeeAlso}
+
+\begin{DoxyRetVals}{Return values}
+{\em err\_\-result\_\-ok} & -\/ successfully copied. \\
+\hline
+{\em err\_\-result\_\-error} & -\/ start of block ({\bfseries offset}) is greater than stored data length. \\
+\hline
+\end{DoxyRetVals}
+
+
+Definition at line 175 of file buffer.cpp.
+
+
+
+References buff, RdRef, and WrRef.
+
+\hypertarget{classbuffer_a62a0c1433fb163e7c1958bc370ebbeb2}{
+\index{buffer@{buffer}!dbgPrint@{dbgPrint}}
+\index{dbgPrint@{dbgPrint}!buffer@{buffer}}
+\subsubsection[{dbgPrint}]{\setlength{\rightskip}{0pt plus 5cm}errType buffer::dbgPrint (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{da/d40/classbuffer_a62a0c1433fb163e7c1958bc370ebbeb2}
+
+
+Print for debug purposes contents of stored buffer (in a hexadecimal notation) 
+
+
+
+Definition at line 190 of file buffer.cpp.
+
+
+
+References buff, RdRef, and WrRef.
+
+
+
+\subsection{Member Data Documentation}
+\hypertarget{classbuffer_ae70ebdaeb6cf086f70dd4a49a4ece346}{
+\index{buffer@{buffer}!buff@{buff}}
+\index{buff@{buff}!buffer@{buffer}}
+\subsubsection[{buff}]{\setlength{\rightskip}{0pt plus 5cm}BYTE$\ast$ {\bf buffer::buff}\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}
+\label{da/d40/classbuffer_ae70ebdaeb6cf086f70dd4a49a4ece346}
+
+
+Definition at line 21 of file buffer.h.
+
+
+
+Referenced by buffer(), copyBufferChunkTo(), dbgPrint(), lockBufferChunkForExternWriting(), read(), removeBufferChunk(), write(), and $\sim$buffer().
+
+\hypertarget{classbuffer_a885ec1136d2da49c6ca00137016a4020}{
+\index{buffer@{buffer}!WrRef@{WrRef}}
+\index{WrRef@{WrRef}!buffer@{buffer}}
+\subsubsection[{WrRef}]{\setlength{\rightskip}{0pt plus 5cm}DWORD {\bf buffer::WrRef}\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}
+\label{da/d40/classbuffer_a885ec1136d2da49c6ca00137016a4020}
+
+
+Definition at line 22 of file buffer.h.
+
+
+
+Referenced by buffer(), copyBufferChunkTo(), dbgPrint(), length(), lockBufferChunkForExternWriting(), read(), removeBufferChunk(), unlockBufferChunkForExternWriting(), write(), and $\sim$buffer().
+
+\hypertarget{classbuffer_adc90e509cdd156719b87c39fbb3af666}{
+\index{buffer@{buffer}!RdRef@{RdRef}}
+\index{RdRef@{RdRef}!buffer@{buffer}}
+\subsubsection[{RdRef}]{\setlength{\rightskip}{0pt plus 5cm}DWORD {\bf buffer::RdRef}\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}
+\label{da/d40/classbuffer_adc90e509cdd156719b87c39fbb3af666}
+
+
+Definition at line 22 of file buffer.h.
+
+
+
+Referenced by buffer(), copyBufferChunkTo(), dbgPrint(), length(), read(), removeBufferChunk(), unlockBufferChunkForExternWriting(), and $\sim$buffer().
+
+\hypertarget{classbuffer_a9197dbc0e3e7e28442da5efb341d3616}{
+\index{buffer@{buffer}!buffSize@{buffSize}}
+\index{buffSize@{buffSize}!buffer@{buffer}}
+\subsubsection[{buffSize}]{\setlength{\rightskip}{0pt plus 5cm}DWORD {\bf buffer::buffSize}\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}
+\label{da/d40/classbuffer_a9197dbc0e3e7e28442da5efb341d3616}
+
+
+Definition at line 22 of file buffer.h.
+
+
+
+Referenced by buffer(), unlockBufferChunkForExternWriting(), and write().
+
+\hypertarget{classbuffer_ae345578999bc86d4ccda1ea66aeab11d}{
+\index{buffer@{buffer}!writingLock@{writingLock}}
+\index{writingLock@{writingLock}!buffer@{buffer}}
+\subsubsection[{writingLock}]{\setlength{\rightskip}{0pt plus 5cm}bool {\bf buffer::writingLock}\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}
+\label{da/d40/classbuffer_ae345578999bc86d4ccda1ea66aeab11d}
+
+
+Definition at line 24 of file buffer.h.
+
+
+
+Referenced by buffer(), lockBufferChunkForExternWriting(), read(), unlockBufferChunkForExternWriting(), and $\sim$buffer().
+
+
+
+The documentation for this class was generated from the following files:\begin{DoxyCompactItemize}
+\item 
+src/buffer/\hyperlink{buffer_8h}{buffer.h}\item 
+src/buffer/\hyperlink{buffer_8cpp}{buffer.cpp}\end{DoxyCompactItemize}

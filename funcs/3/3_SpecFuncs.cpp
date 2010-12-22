@@ -14,19 +14,19 @@
 #include "SpecFuncs.h"
 #include "functions.h"
 
-SpecFuncs::SpecFuncs(ICAppLayer *appl)
+specFuncsMgr::specFuncsMgr(srvAppLayer *appl)
 {
     appLayer=appl;
 }
 
-SpecFuncs::~SpecFuncs()
+specFuncsMgr::~specFuncsMgr()
 {
 }
 
-errType SpecFuncs::StartSpecFuncs()
+errType specFuncsMgr::startSpecFuncs()
 {
     errType result=err_not_init;
-    FunctionNode* func;
+    functionNode* func;
         
     // SAMPLE FOR FUTURE PURPOSES
     //--------------------------------------------
@@ -35,7 +35,7 @@ errType SpecFuncs::StartSpecFuncs()
     // 1. Function definition
     //    Function #0..31 have <k> parameters  and <n> result arguments
     //    Set pointer to function implementaion
-    //code: func=new FunctionNode(<func_id>,<k>,<n>,<function_name>);
+    //code: func=new functionNode(<func_id>,<k>,<n>,<function_name>);
     //
     // 2. Definitions for parameters:
     //code: func->setParamDescriptor(<k[i]>,<k[i]_length>);
@@ -47,7 +47,7 @@ errType SpecFuncs::StartSpecFuncs()
     // 4. Add function to Application interchange layer:
     //code: appLayer->CreateNewFunction(func);
 
-	func=new FunctionNode(1,1,2,shieldPowerON);
+	func=new functionNode(1,1,2,shieldPowerON);
 	func->setFuncName("Включить питание укрытия");
 
 	func->setParamDescriptor(0,type_WORD);
@@ -60,7 +60,7 @@ errType SpecFuncs::StartSpecFuncs()
 
 	appLayer->CreateNewFunction(func);
 	
-	func=new FunctionNode(2,0,1,shieldPowerOFF);
+	func=new functionNode(2,0,1,shieldPowerOFF);
 	func->setFuncName("Выключить питание укрытия");
 
 	func->setResultDescriptor(0, type_ERRTYPE);
@@ -68,7 +68,7 @@ errType SpecFuncs::StartSpecFuncs()
 
 	appLayer->CreateNewFunction(func);
 	
-	func=new FunctionNode(3,0,1,hydroSystemPowerON);
+	func=new functionNode(3,0,1,hydroSystemPowerON);
 	func->setFuncName("Включить питание гидросистемы");
 
 	func->setResultDescriptor(0, type_ERRTYPE);
@@ -76,7 +76,7 @@ errType SpecFuncs::StartSpecFuncs()
 
 	appLayer->CreateNewFunction(func);
 	
-	func=new FunctionNode(4,0,1,hydroSystemPowerOFF);
+	func=new functionNode(4,0,1,hydroSystemPowerOFF);
 	func->setFuncName("Выключить питание гидросистемы");
 
 	func->setResultDescriptor(0, type_ERRTYPE);
@@ -84,7 +84,7 @@ errType SpecFuncs::StartSpecFuncs()
 
 	appLayer->CreateNewFunction(func);
 	
-	func=new FunctionNode(5,0,6,hydroSystemGetParams);
+	func=new functionNode(5,0,6,hydroSystemGetParams);
 	func->setFuncName("Получить параметры гидросистемы");
 	func->setResultDescriptor(0, type_ERRTYPE);
 	func->setResultName(0,"Квитанция исполнения");
@@ -101,7 +101,7 @@ errType SpecFuncs::StartSpecFuncs()
 	
 	appLayer->CreateNewFunction(func);
 	
-	func=new FunctionNode(6,1,2,foldOpen);
+	func=new functionNode(6,1,2,foldOpen);
 	func->setFuncName("Открыть створку");
 
 	func->setParamDescriptor(0, type_BYTE);
@@ -114,7 +114,7 @@ errType SpecFuncs::StartSpecFuncs()
 	
 	appLayer->CreateNewFunction(func);
 	
-	func=new FunctionNode(7,1,2,foldClose);
+	func=new functionNode(7,1,2,foldClose);
 	func->setFuncName("Закрыть створку");
 
 	func->setParamDescriptor(0, type_BYTE);
@@ -128,7 +128,7 @@ errType SpecFuncs::StartSpecFuncs()
 	
 	appLayer->CreateNewFunction(func);
 	
-	func=new FunctionNode(8,1,2,foldStop);
+	func=new functionNode(8,1,2,foldStop);
 	func->setFuncName("Остановить створку");
 
 	func->setParamDescriptor(0, type_BYTE);
@@ -142,7 +142,7 @@ errType SpecFuncs::StartSpecFuncs()
 	appLayer->CreateNewFunction(func);
 	
 	
-	func=new FunctionNode(9,0,1,shieldOpen);
+	func=new functionNode(9,0,1,shieldOpen);
 	func->setFuncName("Открыть укрытие полностью");
 	
 	func->setResultDescriptor(0, type_ERRTYPE);
@@ -150,7 +150,7 @@ errType SpecFuncs::StartSpecFuncs()
 	
 	appLayer->CreateNewFunction(func);
 	
-	func=new FunctionNode(10,0,1,shieldClose);
+	func=new functionNode(10,0,1,shieldClose);
 	func->setFuncName("Закрыть укрытие полностью");
 	
 	func->setResultDescriptor(0, type_ERRTYPE);
@@ -158,7 +158,7 @@ errType SpecFuncs::StartSpecFuncs()
 	
 	appLayer->CreateNewFunction(func);
 	
-	func=new FunctionNode(11,0,1,shieldStop);
+	func=new functionNode(11,0,1,shieldStop);
 	func->setFuncName("Аварийный останов движения укрытия");
 	
 	func->setResultDescriptor(0, type_ERRTYPE);
@@ -166,7 +166,7 @@ errType SpecFuncs::StartSpecFuncs()
 	
 	appLayer->CreateNewFunction(func);
 	
-	func=new FunctionNode(12,1,4,foldGetParams);
+	func=new functionNode(12,1,4,foldGetParams);
 	func->setFuncName("Получить параметры створки");
 	
 	func->setParamDescriptor(0, type_BYTE);
@@ -186,7 +186,7 @@ errType SpecFuncs::StartSpecFuncs()
 	
 	appLayer->CreateNewFunction(func);
 	
-	func=new FunctionNode(13,3,5,semiaxisSensorsGetState);
+	func=new functionNode(13,3,5,semiaxisSensorsGetState);
 	func->setFuncName("Получить значения полуосей");
 
 	func->setParamDescriptor(0, type_BYTE);
@@ -215,7 +215,7 @@ errType SpecFuncs::StartSpecFuncs()
 
 	appLayer->CreateNewFunction(func);
 		
-	func=new FunctionNode(14,1,3,getUZstate);
+	func=new functionNode(14,1,3,getUZstate);
 	func->setFuncName("Получить вектор состояния УЗ");
 
 	func->setParamDescriptor(0, type_BYTE);
@@ -232,7 +232,7 @@ errType SpecFuncs::StartSpecFuncs()
 
 	appLayer->CreateNewFunction(func);
 
-	func=new FunctionNode(15,1,1,changeControlMode);
+	func=new functionNode(15,1,1,changeControlMode);
 	func->setFuncName("Переключить режим управления");
 	
 	func->setParamDescriptor(0, type_BYTE);
@@ -243,7 +243,7 @@ errType SpecFuncs::StartSpecFuncs()
 	
 	appLayer->CreateNewFunction(func);
 	
-        func=new FunctionNode(16,0,2,getControlMode);
+        func=new functionNode(16,0,2,getControlMode);
         func->setFuncName("Запросить значение выбранного пульта управления");
 
         func->setResultDescriptor(0, type_ERRTYPE);
@@ -253,7 +253,7 @@ errType SpecFuncs::StartSpecFuncs()
 
         appLayer->CreateNewFunction(func);
 
-	func=new FunctionNode(17,0,1,startFuncControl);
+	func=new functionNode(17,0,1,startFuncControl);
 	func->setFuncName("Запуск процесса контроля функционирования САУ");
 
 	func->setResultDescriptor(0, type_ERRTYPE);
@@ -261,7 +261,7 @@ errType SpecFuncs::StartSpecFuncs()
 	
 	appLayer->CreateNewFunction(func);
 	
-	func=new FunctionNode(18,0,1,correctHydroCyl);
+	func=new functionNode(18,0,1,correctHydroCyl);
 	func->setFuncName("Произвести коррекцию гидроцилиндров");
 
 	func->setResultDescriptor(0, type_ERRTYPE);
@@ -269,7 +269,7 @@ errType SpecFuncs::StartSpecFuncs()
 	
 	appLayer->CreateNewFunction(func);
 	
-	func=new FunctionNode(19,0,6,allFoldsGetParams);
+	func=new functionNode(19,0,6,allFoldsGetParams);
 	func->setFuncName("Получить параметры всех створок");
 	
 	func->setResultDescriptor(0, type_ERRTYPE);
@@ -295,7 +295,7 @@ errType SpecFuncs::StartSpecFuncs()
 	
 	appLayer->CreateNewFunction(func);
 	
-	func=new FunctionNode(20,0,2,allSemiaxisSensorsGetState);
+	func=new functionNode(20,0,2,allSemiaxisSensorsGetState);
 	func->setFuncName("Получить значения всех датчиков полуосей");
 
 	func->setResultDescriptor(0, type_ERRTYPE);
@@ -305,7 +305,7 @@ errType SpecFuncs::StartSpecFuncs()
 	func->setResultName(1,"Вектор состояния датчиков");
 	appLayer->CreateNewFunction(func);
 	
-	func=new FunctionNode(21,0,2,getAllUZstate);
+	func=new functionNode(21,0,2,getAllUZstate);
 	func->setFuncName("Получить вектор состояния УЗ");
 
 	func->setResultDescriptor(0, type_ERRTYPE);
@@ -320,7 +320,7 @@ errType SpecFuncs::StartSpecFuncs()
     return result;
 }
 
-errType SpecFuncs::StopSpecFuncs()
+errType specFuncsMgr::stopSpecFuncs()
 {
     errType result=err_not_init;
     

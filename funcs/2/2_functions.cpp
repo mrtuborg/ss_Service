@@ -65,7 +65,7 @@ errType EmergencyShutdown(void* fn)
     printf("*** EmergencyShutdown was called! ***\n");
     printf("*************************************\n");
     
-    FunctionNode* func=(FunctionNode*)fn;
+    functionNode* func=(functionNode*)fn;
     
     func->dbgPrint();
     
@@ -79,7 +79,7 @@ errType ControlModeChange(void* fn)
     printf("*** ControlModeChange was called! ***\n");
     printf("*************************************\n");
 
-    FunctionNode* func=(FunctionNode*)fn;
+    functionNode* func=(functionNode*)fn;
     
     func->dbgPrint();
     
@@ -89,7 +89,7 @@ errType ControlModeChange(void* fn)
 errType GetStateVector(void* fn)
 {
     errType result=err_result_ok;
-    FunctionNode* func=(FunctionNode*)fn;
+    functionNode* func=(functionNode*)fn;
     func->printParams();
     func->setResult(1,&app->getStateVector());
     func->printResults();
@@ -105,7 +105,7 @@ errType InstallStarsSet(void *fn)
     printf("*** InstallStarsSet was called!   ***\n");
     printf("*************************************\n");
 
-    FunctionNode* func=(FunctionNode*)fn;
+    functionNode* func=(functionNode*)fn;
     func->dbgPrint();
     
     // Request to "Balistic Center" for stars brihtnesses set by:
@@ -150,7 +150,7 @@ errType SetMeasuringTerm(void *fn)
     printf("*** SetMeasuringTerm was called!  ***\n");
     printf("*************************************\n");
 
-    FunctionNode* func=(FunctionNode*)fn;
+    functionNode* func=(functionNode*)fn;
     func->dbgPrint();
     
     time_term *period;
@@ -170,7 +170,7 @@ errType GetMeasuringResult(void *fn)
     printf("*** GetMeasuringResult was called!***\n");
     printf("*************************************\n");
 
-    FunctionNode* func=(FunctionNode*)fn;
+    functionNode* func=(functionNode*)fn;
     
     func->dbgPrint();
 

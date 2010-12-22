@@ -41,7 +41,7 @@ errType EmergencyShutdown(void* fn)
     printf("*** EmergencyShutdown was called! ***\n");
     printf("*************************************\n");
     
-    FunctionNode* func=(FunctionNode*)fn;
+    functionNode* func=(functionNode*)fn;
     
     func->dbgPrint();
     
@@ -55,7 +55,7 @@ errType ControlModeChange(void* fn)
     printf("*** ControlModeChange was called! ***\n");
     printf("*************************************\n");
 
-    FunctionNode* func=(FunctionNode*)fn;
+    functionNode* func=(functionNode*)fn;
     
     func->dbgPrint();
     
@@ -69,7 +69,7 @@ errType GetStateVector(void* fn)
     printf("*** GetStateVector was called! ***\n");
     printf("*************************************\n");
 
-    FunctionNode* func=(FunctionNode*)fn;
+    functionNode* func=(functionNode*)fn;
     
     func->dbgPrint();
 

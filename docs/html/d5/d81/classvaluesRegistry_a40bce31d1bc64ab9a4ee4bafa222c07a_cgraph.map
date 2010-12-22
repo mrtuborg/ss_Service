@@ -1,0 +1,6 @@
+<map id="G" name="G">
+<area shape="rect" href="$d5/d81/classvaluesRegistry.html#aed32e355611d1f12bbdc9c4cfd0c75ef" title="valuesRegistry::getValuePtr" alt="" coords="325,5,541,32"/>
+<area shape="rect" href="$d5/d81/classvaluesRegistry.html#afea3b687556e15f08301a229f39ffe14" title="valuesRegistry::removeFromRegistry" alt="" coords="292,56,575,83"/>
+<area shape="rect" href="$d5/d81/classvaluesRegistry.html#a607a437421d74f9120075b4458b6d0d3" title="valuesRegistry::searchIndexByName" alt="" coords="292,107,575,133"/>
+<area shape="rect" href="$d5/d81/classvaluesRegistry.html#aced405222968448a0b996b4153a7d165" title="valuesRegistry::quantity" alt="" coords="625,107,817,133"/>
+</map>

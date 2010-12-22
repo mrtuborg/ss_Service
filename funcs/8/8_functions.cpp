@@ -65,7 +65,7 @@ errType srvDeinit()
 errType EmergencyShutdown(void* fn)
 {
     errType result=err_result_ok;
-    FunctionNode* func=(FunctionNode*)fn;
+    functionNode* func=(functionNode*)fn;
     
     //func->dbgPrint();
     func->printResults();
@@ -76,7 +76,7 @@ errType ControlModeChange(void* fn)
 {
     errType result=err_result_ok;
     
-    FunctionNode* func=(FunctionNode*)fn;
+    functionNode* func=(functionNode*)fn;
     func->printParams();
     //func->dbgPrint();
     func->printResults();
@@ -87,7 +87,7 @@ errType GetStateVector(void* fn)
 {
     errType result=err_result_ok;
 
-    FunctionNode* func=(FunctionNode*)fn;
+    functionNode* func=(functionNode*)fn;
     
     type_StateVector stateVector;
     stateVector=app->getStateVector();
@@ -108,7 +108,7 @@ errType StartMeasuringProcess(void* fn) // func_id=1
     BYTE res=0;
     BYTE mode=1;
 
-    FunctionNode* func=(FunctionNode*)fn;
+    functionNode* func=(functionNode*)fn;
     func->printParams();
     equip_sending->sendData(equipAddr, (BYTE*)&mode, 1);
     
@@ -124,7 +124,7 @@ errType FinishMeasuringProcess(void* fn) // func_id=2
 {
     errType result=err_result_ok;
 
-    FunctionNode* func=(FunctionNode*)fn;
+    functionNode* func=(functionNode*)fn;
     
     BYTE res=0;
     BYTE mode=3;

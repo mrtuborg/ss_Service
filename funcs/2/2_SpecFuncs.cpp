@@ -8,19 +8,19 @@
 #include "SpecFuncs.h"
 #include "functions.h"
 
-SpecFuncs::SpecFuncs(ICAppLayer *appl)
+specFuncsMgr::specFuncsMgr(srvAppLayer *appl)
 {
     appLayer=appl;
 }
 
-SpecFuncs::~SpecFuncs()
+specFuncsMgr::~specFuncsMgr()
 {
 }
 
-errType SpecFuncs::StartSpecFuncs()
+errType specFuncsMgr::startSpecFuncs()
 {
     errType result=err_not_init;
-    FunctionNode* func;
+    functionNode* func;
         
     // SAMPLE FOR FUTURE PURPOSES
     //--------------------------------------------
@@ -29,8 +29,8 @@ errType SpecFuncs::StartSpecFuncs()
     // 1. Function definition
     //    Function #0..31 have <k> parameters  and <n> result arguments
     //    Set pointer to function implementaion
-    //code: func=new FunctionNode(<func_id>,<k>,<n>,<function_name>);
-	    func=new FunctionNode(2,2,1,InstallStarsSet);
+    //code: func=new functionNode(<func_id>,<k>,<n>,<function_name>);
+	    func=new functionNode(2,2,1,InstallStarsSet);
     // 2. Definitions for parameters:
     //code: func->setParamDescriptor(<k[i]>,<k[i]_length>);
 	    func->setParamDescriptor(0, 2);
@@ -43,12 +43,12 @@ errType SpecFuncs::StartSpecFuncs()
     //code: appLayer->CreateNewFunction(func);
 	    appLayer->CreateNewFunction(func);
 	    
-	    func=new FunctionNode(3,1,1,SetMeasuringTerm);
+	    func=new functionNode(3,1,1,SetMeasuringTerm);
 	    func->setParamDescriptor(0, 8);
 	    func->setResultDescriptor(0, 1);
 	    appLayer->CreateNewFunction(func);
 	    
-	    func=new FunctionNode(4,0,2,GetMeasuringResult);
+	    func=new functionNode(4,0,2,GetMeasuringResult);
 	    func->setResultDescriptor(0, 1);
 	    func->setResultDescriptor(1, 60);
 	    appLayer->CreateNewFunction(func);
@@ -56,7 +56,7 @@ errType SpecFuncs::StartSpecFuncs()
     return result;
 }
 
-errType SpecFuncs::StopSpecFuncs()
+errType specFuncsMgr::stopSpecFuncs()
 {
     errType result=err_not_init;
     

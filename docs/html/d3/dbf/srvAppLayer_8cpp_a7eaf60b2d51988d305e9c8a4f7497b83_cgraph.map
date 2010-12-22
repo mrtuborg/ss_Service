@@ -1,0 +1,7 @@
+<map id="G" name="G">
+<area shape="rect" href="$db/dc2/classdeqUdp.html#a1e50010f100ae79d810f8d4889ac361b" title="Send data to udp port from queued buffer (ssBuffer)" alt="" coords="231,31,385,57"/>
+<area shape="rect" href="$d8/d72/classsrvAppLayer.html#aebeee7c2345c0c6a8603e0599f62a429" title="getter for AppTerminated signal" alt="" coords="213,81,403,108"/>
+<area shape="rect" href="$d8/d72/classsrvAppLayer.html#a8dff3da333c073ffa5e535161cdf8395" title="Method to check application internal termination signal." alt="" coords="209,132,407,159"/>
+<area shape="rect" href="$d0/de7/classssBuffer.html#a5ab17bc4d89e0f4f3bb7214c1ddc585f" title="get first in queue (front) block size in bytes" alt="" coords="457,5,673,32"/>
+<area shape="rect" href="$d0/de7/classssBuffer.html#ad149db0b097643446ac21a53e34c9f6c" title="pop datablock from queue" alt="" coords="489,56,641,83"/>
+</map>

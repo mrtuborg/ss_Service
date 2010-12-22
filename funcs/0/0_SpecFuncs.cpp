@@ -12,19 +12,19 @@
 #include "SpecFuncs.h"
 #include "functions.h"
 
-SpecFuncs::SpecFuncs(ICAppLayer *appl)
+specFuncsMgr::specFuncsMgr(srvAppLayer *appl)
 {
     appLayer=appl;
 }
 
-SpecFuncs::~SpecFuncs()
+specFuncsMgr::~specFuncsMgr()
 {
 }
 
-errType SpecFuncs::StartSpecFuncs()
+errType specFuncsMgr::startSpecFuncs()
 {
     errType result=err_not_init;
-    FunctionNode* func;
+    functionNode* func;
         
     // SAMPLE FOR FUTURE PURPOSES
     //--------------------------------------------
@@ -33,7 +33,7 @@ errType SpecFuncs::StartSpecFuncs()
     // 1. Function definition
     //    Function #0..31 have <k> parameters  and <n> result arguments
     //    Set pointer to function implementaion
-    //code: func=new FunctionNode(<func_id>,<k>,<n>,<function_name>);
+    //code: func=new functionNode(<func_id>,<k>,<n>,<function_name>);
     //
     // 2. Definitions for parameters:
     //code: func->setParamDescriptor(<k[i]>,<k[i]_length>);
@@ -49,13 +49,13 @@ errType SpecFuncs::StartSpecFuncs()
     
     
 	    
-	    func=new FunctionNode(1,0,2,GetProcessesList);
+	    func=new functionNode(1,0,2,GetProcessesList);
 	    func->setFuncName("Запрос идентификаторов списка подконтрольных процессов");
 	    func->setResultDescriptor(0,type_ERRTYPE);
 	    func->setResultDescriptor(1,type_WORDVECTOR); // is not scalar
 	    appLayer->CreateNewFunction(func);
 	    
-	    func=new FunctionNode(2,1,10,GetProcessInfo);
+	    func=new functionNode(2,1,10,GetProcessInfo);
 	    func->setFuncName("Запрос информации о процессе");
 	    func->setParamDescriptor(0,type_WORD);
 	    
@@ -91,11 +91,11 @@ errType SpecFuncs::StartSpecFuncs()
 	    
 	    appLayer->CreateNewFunction(func);
 	    
-	    func=new FunctionNode(3,0,1,RebootSystem);
+	    func=new functionNode(3,0,1,RebootSystem);
 	    func->setResultDescriptor(0,type_ERRTYPE);
 	    appLayer->CreateNewFunction(func);
 	    
-	    func=new FunctionNode(4,1,2,SearchProcess);
+	    func=new functionNode(4,1,2,SearchProcess);
 	    func->setFuncName("Поиск идентификатора");
 	    func->setParamDescriptor(0, type_CHARVECTOR);
 	    func->setParamName(0, "Часть имени процесса");
@@ -110,7 +110,7 @@ errType SpecFuncs::StartSpecFuncs()
 	    appLayer->CreateNewFunction(func);
     
 
-	    func=new FunctionNode(5,1,1,KillProcess);
+	    func=new functionNode(5,1,1,KillProcess);
 	    func->setFuncName("Завершить процесс");
 	    func->setParamDescriptor(0,type_WORD);
 	    func->setParamName(0,"Идентификатор процесса");
@@ -118,12 +118,12 @@ errType SpecFuncs::StartSpecFuncs()
 	    func->setResultName(0,"Квитанция исполнения");
 	    appLayer->CreateNewFunction(func);
 	    
-	    func=new FunctionNode(6,1,1,RestartProcess);
+	    func=new functionNode(6,1,1,RestartProcess);
 	    func->setParamDescriptor(0,type_ERRTYPE);
 	    func->setResultDescriptor(0,type_ERRTYPE);
 	    appLayer->CreateNewFunction(func);
 	    
-	    func=new FunctionNode(7,4,1,InstallFilter);
+	    func=new functionNode(7,4,1,InstallFilter);
 	    func->setFuncName("Установить фильтр");
 	    func->setParamDescriptor(0,type_CHARVECTOR);
 	    func->setParamName(0, "Строка запуска");
@@ -139,7 +139,7 @@ errType SpecFuncs::StartSpecFuncs()
     return result;
 }
 
-errType SpecFuncs::StopSpecFuncs()
+errType specFuncsMgr::stopSpecFuncs()
 {
     errType result=err_not_init;
     
