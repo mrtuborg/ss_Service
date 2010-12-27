@@ -8,10 +8,10 @@
 #include "../buffer/ssBuffer.h"
 #include "../../../rcsLib/rcsCmd/rcsCmd.h"
 #include "../../../udp_port/udp_port.h"
-#include "../ICAppLayer/FunctionNode/param_desc.h"
-#include "../ICAppLayer/FunctionNode/FunctionNode.h"
-#include "../ICAppLayer/ICAppLayer.h"
-#include "SpecFuncs.h"
+#include "../srvAppLayer/FunctionNode/param_desc.h"
+#include "../srvAppLayer/FunctionNode/FunctionNode.h"
+#include "../srvAppLayer/srvAppLayer.h"
+#include "SpecFuncsMgr.h"
 #include "functions.h"
 
 specFuncsMgr::specFuncsMgr(srvAppLayer *appl)
@@ -316,7 +316,22 @@ errType specFuncsMgr::startSpecFuncs()
 
 	appLayer->CreateNewFunction(func);
 
+	func=new functionNode(22,0,4,getHydroCylConsystency);
+	func->setFuncName("Получить вектор согласованности всех гидроцилиндров");
 	
+	func->setResultDescriptor(0, type_ERRTYPE);
+	func->setResultName(0,"Квитанция исполнения");
+
+	func->setResultDescriptor(1, type_BYTE);
+	func->setResultName(1,"Согласованность гидроцилиндров верхней створки");
+
+	func->setResultDescriptor(2, type_BYTE);
+	func->setResultName(2,"Согласованность гидроцилиндров нижней створки Б");
+
+	func->setResultDescriptor(3, type_BYTE);
+	func->setResultName(3,"Согласованность гидроцилиндров нижней створки А");
+	appLayer->CreateNewFunction(func);
+
     return result;
 }
 

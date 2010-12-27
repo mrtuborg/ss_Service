@@ -48,13 +48,13 @@ am__installdirs = "$(DESTDIR)$(bindir)"
 PROGRAMS = $(bin_PROGRAMS)
 am_ss_Service_OBJECTS = main.$(OBJEXT) global.$(OBJEXT) \
 	carg_parser.$(OBJEXT) console_out.$(OBJEXT) \
-	ICAppLayer.$(OBJEXT) FunctionNode.$(OBJEXT) \
-	param_desc.$(OBJEXT) CommonFuncs.$(OBJEXT) SpecFuncs.$(OBJEXT) \
-	functions.$(OBJEXT) ssBuffer.$(OBJEXT) buffer.$(OBJEXT) \
-	SIG_handler.$(OBJEXT) deqUdp.$(OBJEXT) ValueTrig.$(OBJEXT) \
-	trigList.$(OBJEXT) valuesRegistry.$(OBJEXT) crc16.$(OBJEXT) \
-	udp_port.$(OBJEXT) rcsCmd.$(OBJEXT) cm688_packet.$(OBJEXT) \
-	statusFrame.$(OBJEXT) cmdFrame.$(OBJEXT) ortsTypes.$(OBJEXT)
+	srvAppLayer.$(OBJEXT) FunctionNode.$(OBJEXT) \
+	param_desc.$(OBJEXT) CommonFuncsMgr.$(OBJEXT) \
+	SpecFuncsMgr.$(OBJEXT) functions.$(OBJEXT) ssBuffer.$(OBJEXT) \
+	buffer.$(OBJEXT) SIG_handler.$(OBJEXT) deqUdp.$(OBJEXT) \
+	crc16.$(OBJEXT) udp_port.$(OBJEXT) rcsCmd.$(OBJEXT) \
+	cm688_packet.$(OBJEXT) statusFrame.$(OBJEXT) \
+	cmdFrame.$(OBJEXT) ortsTypes.$(OBJEXT)
 ss_Service_OBJECTS = $(am_ss_Service_OBJECTS)
 ss_Service_LDADD = $(LDADD)
 ss_Service_LINK = $(CXXLD) $(AM_CXXFLAGS) $(CXXFLAGS) \
@@ -170,11 +170,11 @@ top_srcdir = @top_srcdir@
 ss_Service_SOURCES = main.cpp global.cpp arg_parser/carg_parser.cpp  \
 				console_out.cpp \
 				auto_config.h\
-				ICAppLayer/ICAppLayer.cpp\
-				ICAppLayer/FunctionNode/FunctionNode.cpp\
-				ICAppLayer/FunctionNode/param_desc.cpp\
-				Functions/CommonFuncs.cpp\
-				Functions/SpecFuncs.cpp\
+				srvAppLayer/srvAppLayer.cpp\
+				srvAppLayer/FunctionNode/FunctionNode.cpp\
+				srvAppLayer/FunctionNode/param_desc.cpp\
+				Functions/CommonFuncsMgr.cpp\
+				Functions/SpecFuncsMgr.cpp\
 				Functions/functions.cpp\
 				buffer/ssBuffer.cpp\
 				buffer/buffer.cpp\
@@ -189,9 +189,6 @@ ss_Service_SOURCES = main.cpp global.cpp arg_parser/carg_parser.cpp  \
 				SIG_handler.cpp\
 				SIG_handler.h\
 				deqUdp/deqUdp.cpp deqUdp/deqUdp.h\
-				valuesRegistry/ValueTrig.cpp valuesRegistry/ValueTrig.h\
-				valuesRegistry/trigList.cpp valuesRegistry/trigList.h\
-				valuesRegistry/valuesRegistry.cpp valuesRegistry/valuesRegistry.h\
 				../../rcsLib/crc/crc16.cpp ../../rcsLib/crc/crc16.h\
 				../../rcsLib/udp_port/udp_port.cpp ../../rcsLib/udp_port/udp_port.h\
 				../../rcsLib/rcsCmd/rcsCmd.cpp ../../rcsLib/rcsCmd/rcsCmd.h\
@@ -304,12 +301,10 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/CommonFuncs.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/CommonFuncsMgr.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/FunctionNode.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ICAppLayer.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/SIG_handler.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/SpecFuncs.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ValueTrig.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/SpecFuncsMgr.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/buffer.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/carg_parser.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/cm688_packet.Po@am__quote@
@@ -323,11 +318,10 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ortsTypes.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/param_desc.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/rcsCmd.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/srvAppLayer.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ssBuffer.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/statusFrame.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/trigList.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/udp_port.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/valuesRegistry.Po@am__quote@
 
 .cpp.o:
 @am__fastdepCXX_TRUE@	$(CXXCOMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
@@ -357,75 +351,75 @@ carg_parser.obj: arg_parser/carg_parser.cpp
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o carg_parser.obj `if test -f 'arg_parser/carg_parser.cpp'; then $(CYGPATH_W) 'arg_parser/carg_parser.cpp'; else $(CYGPATH_W) '$(srcdir)/arg_parser/carg_parser.cpp'; fi`
 
-ICAppLayer.o: ICAppLayer/ICAppLayer.cpp
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT ICAppLayer.o -MD -MP -MF $(DEPDIR)/ICAppLayer.Tpo -c -o ICAppLayer.o `test -f 'ICAppLayer/ICAppLayer.cpp' || echo '$(srcdir)/'`ICAppLayer/ICAppLayer.cpp
-@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/ICAppLayer.Tpo $(DEPDIR)/ICAppLayer.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='ICAppLayer/ICAppLayer.cpp' object='ICAppLayer.o' libtool=no @AMDEPBACKSLASH@
+srvAppLayer.o: srvAppLayer/srvAppLayer.cpp
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT srvAppLayer.o -MD -MP -MF $(DEPDIR)/srvAppLayer.Tpo -c -o srvAppLayer.o `test -f 'srvAppLayer/srvAppLayer.cpp' || echo '$(srcdir)/'`srvAppLayer/srvAppLayer.cpp
+@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/srvAppLayer.Tpo $(DEPDIR)/srvAppLayer.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='srvAppLayer/srvAppLayer.cpp' object='srvAppLayer.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o ICAppLayer.o `test -f 'ICAppLayer/ICAppLayer.cpp' || echo '$(srcdir)/'`ICAppLayer/ICAppLayer.cpp
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o srvAppLayer.o `test -f 'srvAppLayer/srvAppLayer.cpp' || echo '$(srcdir)/'`srvAppLayer/srvAppLayer.cpp
 
-ICAppLayer.obj: ICAppLayer/ICAppLayer.cpp
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT ICAppLayer.obj -MD -MP -MF $(DEPDIR)/ICAppLayer.Tpo -c -o ICAppLayer.obj `if test -f 'ICAppLayer/ICAppLayer.cpp'; then $(CYGPATH_W) 'ICAppLayer/ICAppLayer.cpp'; else $(CYGPATH_W) '$(srcdir)/ICAppLayer/ICAppLayer.cpp'; fi`
-@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/ICAppLayer.Tpo $(DEPDIR)/ICAppLayer.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='ICAppLayer/ICAppLayer.cpp' object='ICAppLayer.obj' libtool=no @AMDEPBACKSLASH@
+srvAppLayer.obj: srvAppLayer/srvAppLayer.cpp
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT srvAppLayer.obj -MD -MP -MF $(DEPDIR)/srvAppLayer.Tpo -c -o srvAppLayer.obj `if test -f 'srvAppLayer/srvAppLayer.cpp'; then $(CYGPATH_W) 'srvAppLayer/srvAppLayer.cpp'; else $(CYGPATH_W) '$(srcdir)/srvAppLayer/srvAppLayer.cpp'; fi`
+@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/srvAppLayer.Tpo $(DEPDIR)/srvAppLayer.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='srvAppLayer/srvAppLayer.cpp' object='srvAppLayer.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o ICAppLayer.obj `if test -f 'ICAppLayer/ICAppLayer.cpp'; then $(CYGPATH_W) 'ICAppLayer/ICAppLayer.cpp'; else $(CYGPATH_W) '$(srcdir)/ICAppLayer/ICAppLayer.cpp'; fi`
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o srvAppLayer.obj `if test -f 'srvAppLayer/srvAppLayer.cpp'; then $(CYGPATH_W) 'srvAppLayer/srvAppLayer.cpp'; else $(CYGPATH_W) '$(srcdir)/srvAppLayer/srvAppLayer.cpp'; fi`
 
-FunctionNode.o: ICAppLayer/FunctionNode/FunctionNode.cpp
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT FunctionNode.o -MD -MP -MF $(DEPDIR)/FunctionNode.Tpo -c -o FunctionNode.o `test -f 'ICAppLayer/FunctionNode/FunctionNode.cpp' || echo '$(srcdir)/'`ICAppLayer/FunctionNode/FunctionNode.cpp
+FunctionNode.o: srvAppLayer/FunctionNode/FunctionNode.cpp
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT FunctionNode.o -MD -MP -MF $(DEPDIR)/FunctionNode.Tpo -c -o FunctionNode.o `test -f 'srvAppLayer/FunctionNode/FunctionNode.cpp' || echo '$(srcdir)/'`srvAppLayer/FunctionNode/FunctionNode.cpp
 @am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/FunctionNode.Tpo $(DEPDIR)/FunctionNode.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='ICAppLayer/FunctionNode/FunctionNode.cpp' object='FunctionNode.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='srvAppLayer/FunctionNode/FunctionNode.cpp' object='FunctionNode.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o FunctionNode.o `test -f 'ICAppLayer/FunctionNode/FunctionNode.cpp' || echo '$(srcdir)/'`ICAppLayer/FunctionNode/FunctionNode.cpp
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o FunctionNode.o `test -f 'srvAppLayer/FunctionNode/FunctionNode.cpp' || echo '$(srcdir)/'`srvAppLayer/FunctionNode/FunctionNode.cpp
 
-FunctionNode.obj: ICAppLayer/FunctionNode/FunctionNode.cpp
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT FunctionNode.obj -MD -MP -MF $(DEPDIR)/FunctionNode.Tpo -c -o FunctionNode.obj `if test -f 'ICAppLayer/FunctionNode/FunctionNode.cpp'; then $(CYGPATH_W) 'ICAppLayer/FunctionNode/FunctionNode.cpp'; else $(CYGPATH_W) '$(srcdir)/ICAppLayer/FunctionNode/FunctionNode.cpp'; fi`
+FunctionNode.obj: srvAppLayer/FunctionNode/FunctionNode.cpp
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT FunctionNode.obj -MD -MP -MF $(DEPDIR)/FunctionNode.Tpo -c -o FunctionNode.obj `if test -f 'srvAppLayer/FunctionNode/FunctionNode.cpp'; then $(CYGPATH_W) 'srvAppLayer/FunctionNode/FunctionNode.cpp'; else $(CYGPATH_W) '$(srcdir)/srvAppLayer/FunctionNode/FunctionNode.cpp'; fi`
 @am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/FunctionNode.Tpo $(DEPDIR)/FunctionNode.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='ICAppLayer/FunctionNode/FunctionNode.cpp' object='FunctionNode.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='srvAppLayer/FunctionNode/FunctionNode.cpp' object='FunctionNode.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o FunctionNode.obj `if test -f 'ICAppLayer/FunctionNode/FunctionNode.cpp'; then $(CYGPATH_W) 'ICAppLayer/FunctionNode/FunctionNode.cpp'; else $(CYGPATH_W) '$(srcdir)/ICAppLayer/FunctionNode/FunctionNode.cpp'; fi`
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o FunctionNode.obj `if test -f 'srvAppLayer/FunctionNode/FunctionNode.cpp'; then $(CYGPATH_W) 'srvAppLayer/FunctionNode/FunctionNode.cpp'; else $(CYGPATH_W) '$(srcdir)/srvAppLayer/FunctionNode/FunctionNode.cpp'; fi`
 
-param_desc.o: ICAppLayer/FunctionNode/param_desc.cpp
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT param_desc.o -MD -MP -MF $(DEPDIR)/param_desc.Tpo -c -o param_desc.o `test -f 'ICAppLayer/FunctionNode/param_desc.cpp' || echo '$(srcdir)/'`ICAppLayer/FunctionNode/param_desc.cpp
+param_desc.o: srvAppLayer/FunctionNode/param_desc.cpp
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT param_desc.o -MD -MP -MF $(DEPDIR)/param_desc.Tpo -c -o param_desc.o `test -f 'srvAppLayer/FunctionNode/param_desc.cpp' || echo '$(srcdir)/'`srvAppLayer/FunctionNode/param_desc.cpp
 @am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/param_desc.Tpo $(DEPDIR)/param_desc.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='ICAppLayer/FunctionNode/param_desc.cpp' object='param_desc.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='srvAppLayer/FunctionNode/param_desc.cpp' object='param_desc.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o param_desc.o `test -f 'ICAppLayer/FunctionNode/param_desc.cpp' || echo '$(srcdir)/'`ICAppLayer/FunctionNode/param_desc.cpp
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o param_desc.o `test -f 'srvAppLayer/FunctionNode/param_desc.cpp' || echo '$(srcdir)/'`srvAppLayer/FunctionNode/param_desc.cpp
 
-param_desc.obj: ICAppLayer/FunctionNode/param_desc.cpp
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT param_desc.obj -MD -MP -MF $(DEPDIR)/param_desc.Tpo -c -o param_desc.obj `if test -f 'ICAppLayer/FunctionNode/param_desc.cpp'; then $(CYGPATH_W) 'ICAppLayer/FunctionNode/param_desc.cpp'; else $(CYGPATH_W) '$(srcdir)/ICAppLayer/FunctionNode/param_desc.cpp'; fi`
+param_desc.obj: srvAppLayer/FunctionNode/param_desc.cpp
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT param_desc.obj -MD -MP -MF $(DEPDIR)/param_desc.Tpo -c -o param_desc.obj `if test -f 'srvAppLayer/FunctionNode/param_desc.cpp'; then $(CYGPATH_W) 'srvAppLayer/FunctionNode/param_desc.cpp'; else $(CYGPATH_W) '$(srcdir)/srvAppLayer/FunctionNode/param_desc.cpp'; fi`
 @am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/param_desc.Tpo $(DEPDIR)/param_desc.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='ICAppLayer/FunctionNode/param_desc.cpp' object='param_desc.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='srvAppLayer/FunctionNode/param_desc.cpp' object='param_desc.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o param_desc.obj `if test -f 'ICAppLayer/FunctionNode/param_desc.cpp'; then $(CYGPATH_W) 'ICAppLayer/FunctionNode/param_desc.cpp'; else $(CYGPATH_W) '$(srcdir)/ICAppLayer/FunctionNode/param_desc.cpp'; fi`
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o param_desc.obj `if test -f 'srvAppLayer/FunctionNode/param_desc.cpp'; then $(CYGPATH_W) 'srvAppLayer/FunctionNode/param_desc.cpp'; else $(CYGPATH_W) '$(srcdir)/srvAppLayer/FunctionNode/param_desc.cpp'; fi`
 
-CommonFuncs.o: Functions/CommonFuncs.cpp
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT CommonFuncs.o -MD -MP -MF $(DEPDIR)/CommonFuncs.Tpo -c -o CommonFuncs.o `test -f 'Functions/CommonFuncs.cpp' || echo '$(srcdir)/'`Functions/CommonFuncs.cpp
-@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/CommonFuncs.Tpo $(DEPDIR)/CommonFuncs.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='Functions/CommonFuncs.cpp' object='CommonFuncs.o' libtool=no @AMDEPBACKSLASH@
+CommonFuncsMgr.o: Functions/CommonFuncsMgr.cpp
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT CommonFuncsMgr.o -MD -MP -MF $(DEPDIR)/CommonFuncsMgr.Tpo -c -o CommonFuncsMgr.o `test -f 'Functions/CommonFuncsMgr.cpp' || echo '$(srcdir)/'`Functions/CommonFuncsMgr.cpp
+@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/CommonFuncsMgr.Tpo $(DEPDIR)/CommonFuncsMgr.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='Functions/CommonFuncsMgr.cpp' object='CommonFuncsMgr.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o CommonFuncs.o `test -f 'Functions/CommonFuncs.cpp' || echo '$(srcdir)/'`Functions/CommonFuncs.cpp
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o CommonFuncsMgr.o `test -f 'Functions/CommonFuncsMgr.cpp' || echo '$(srcdir)/'`Functions/CommonFuncsMgr.cpp
 
-CommonFuncs.obj: Functions/CommonFuncs.cpp
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT CommonFuncs.obj -MD -MP -MF $(DEPDIR)/CommonFuncs.Tpo -c -o CommonFuncs.obj `if test -f 'Functions/CommonFuncs.cpp'; then $(CYGPATH_W) 'Functions/CommonFuncs.cpp'; else $(CYGPATH_W) '$(srcdir)/Functions/CommonFuncs.cpp'; fi`
-@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/CommonFuncs.Tpo $(DEPDIR)/CommonFuncs.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='Functions/CommonFuncs.cpp' object='CommonFuncs.obj' libtool=no @AMDEPBACKSLASH@
+CommonFuncsMgr.obj: Functions/CommonFuncsMgr.cpp
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT CommonFuncsMgr.obj -MD -MP -MF $(DEPDIR)/CommonFuncsMgr.Tpo -c -o CommonFuncsMgr.obj `if test -f 'Functions/CommonFuncsMgr.cpp'; then $(CYGPATH_W) 'Functions/CommonFuncsMgr.cpp'; else $(CYGPATH_W) '$(srcdir)/Functions/CommonFuncsMgr.cpp'; fi`
+@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/CommonFuncsMgr.Tpo $(DEPDIR)/CommonFuncsMgr.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='Functions/CommonFuncsMgr.cpp' object='CommonFuncsMgr.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o CommonFuncs.obj `if test -f 'Functions/CommonFuncs.cpp'; then $(CYGPATH_W) 'Functions/CommonFuncs.cpp'; else $(CYGPATH_W) '$(srcdir)/Functions/CommonFuncs.cpp'; fi`
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o CommonFuncsMgr.obj `if test -f 'Functions/CommonFuncsMgr.cpp'; then $(CYGPATH_W) 'Functions/CommonFuncsMgr.cpp'; else $(CYGPATH_W) '$(srcdir)/Functions/CommonFuncsMgr.cpp'; fi`
 
-SpecFuncs.o: Functions/SpecFuncs.cpp
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT SpecFuncs.o -MD -MP -MF $(DEPDIR)/SpecFuncs.Tpo -c -o SpecFuncs.o `test -f 'Functions/SpecFuncs.cpp' || echo '$(srcdir)/'`Functions/SpecFuncs.cpp
-@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/SpecFuncs.Tpo $(DEPDIR)/SpecFuncs.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='Functions/SpecFuncs.cpp' object='SpecFuncs.o' libtool=no @AMDEPBACKSLASH@
+SpecFuncsMgr.o: Functions/SpecFuncsMgr.cpp
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT SpecFuncsMgr.o -MD -MP -MF $(DEPDIR)/SpecFuncsMgr.Tpo -c -o SpecFuncsMgr.o `test -f 'Functions/SpecFuncsMgr.cpp' || echo '$(srcdir)/'`Functions/SpecFuncsMgr.cpp
+@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/SpecFuncsMgr.Tpo $(DEPDIR)/SpecFuncsMgr.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='Functions/SpecFuncsMgr.cpp' object='SpecFuncsMgr.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o SpecFuncs.o `test -f 'Functions/SpecFuncs.cpp' || echo '$(srcdir)/'`Functions/SpecFuncs.cpp
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o SpecFuncsMgr.o `test -f 'Functions/SpecFuncsMgr.cpp' || echo '$(srcdir)/'`Functions/SpecFuncsMgr.cpp
 
-SpecFuncs.obj: Functions/SpecFuncs.cpp
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT SpecFuncs.obj -MD -MP -MF $(DEPDIR)/SpecFuncs.Tpo -c -o SpecFuncs.obj `if test -f 'Functions/SpecFuncs.cpp'; then $(CYGPATH_W) 'Functions/SpecFuncs.cpp'; else $(CYGPATH_W) '$(srcdir)/Functions/SpecFuncs.cpp'; fi`
-@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/SpecFuncs.Tpo $(DEPDIR)/SpecFuncs.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='Functions/SpecFuncs.cpp' object='SpecFuncs.obj' libtool=no @AMDEPBACKSLASH@
+SpecFuncsMgr.obj: Functions/SpecFuncsMgr.cpp
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT SpecFuncsMgr.obj -MD -MP -MF $(DEPDIR)/SpecFuncsMgr.Tpo -c -o SpecFuncsMgr.obj `if test -f 'Functions/SpecFuncsMgr.cpp'; then $(CYGPATH_W) 'Functions/SpecFuncsMgr.cpp'; else $(CYGPATH_W) '$(srcdir)/Functions/SpecFuncsMgr.cpp'; fi`
+@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/SpecFuncsMgr.Tpo $(DEPDIR)/SpecFuncsMgr.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='Functions/SpecFuncsMgr.cpp' object='SpecFuncsMgr.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o SpecFuncs.obj `if test -f 'Functions/SpecFuncs.cpp'; then $(CYGPATH_W) 'Functions/SpecFuncs.cpp'; else $(CYGPATH_W) '$(srcdir)/Functions/SpecFuncs.cpp'; fi`
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o SpecFuncsMgr.obj `if test -f 'Functions/SpecFuncsMgr.cpp'; then $(CYGPATH_W) 'Functions/SpecFuncsMgr.cpp'; else $(CYGPATH_W) '$(srcdir)/Functions/SpecFuncsMgr.cpp'; fi`
 
 functions.o: Functions/functions.cpp
 @am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT functions.o -MD -MP -MF $(DEPDIR)/functions.Tpo -c -o functions.o `test -f 'Functions/functions.cpp' || echo '$(srcdir)/'`Functions/functions.cpp
@@ -482,48 +476,6 @@ deqUdp.obj: deqUdp/deqUdp.cpp
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='deqUdp/deqUdp.cpp' object='deqUdp.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o deqUdp.obj `if test -f 'deqUdp/deqUdp.cpp'; then $(CYGPATH_W) 'deqUdp/deqUdp.cpp'; else $(CYGPATH_W) '$(srcdir)/deqUdp/deqUdp.cpp'; fi`
-
-ValueTrig.o: valuesRegistry/ValueTrig.cpp
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT ValueTrig.o -MD -MP -MF $(DEPDIR)/ValueTrig.Tpo -c -o ValueTrig.o `test -f 'valuesRegistry/ValueTrig.cpp' || echo '$(srcdir)/'`valuesRegistry/ValueTrig.cpp
-@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/ValueTrig.Tpo $(DEPDIR)/ValueTrig.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='valuesRegistry/ValueTrig.cpp' object='ValueTrig.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o ValueTrig.o `test -f 'valuesRegistry/ValueTrig.cpp' || echo '$(srcdir)/'`valuesRegistry/ValueTrig.cpp
-
-ValueTrig.obj: valuesRegistry/ValueTrig.cpp
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT ValueTrig.obj -MD -MP -MF $(DEPDIR)/ValueTrig.Tpo -c -o ValueTrig.obj `if test -f 'valuesRegistry/ValueTrig.cpp'; then $(CYGPATH_W) 'valuesRegistry/ValueTrig.cpp'; else $(CYGPATH_W) '$(srcdir)/valuesRegistry/ValueTrig.cpp'; fi`
-@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/ValueTrig.Tpo $(DEPDIR)/ValueTrig.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='valuesRegistry/ValueTrig.cpp' object='ValueTrig.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o ValueTrig.obj `if test -f 'valuesRegistry/ValueTrig.cpp'; then $(CYGPATH_W) 'valuesRegistry/ValueTrig.cpp'; else $(CYGPATH_W) '$(srcdir)/valuesRegistry/ValueTrig.cpp'; fi`
-
-trigList.o: valuesRegistry/trigList.cpp
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT trigList.o -MD -MP -MF $(DEPDIR)/trigList.Tpo -c -o trigList.o `test -f 'valuesRegistry/trigList.cpp' || echo '$(srcdir)/'`valuesRegistry/trigList.cpp
-@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/trigList.Tpo $(DEPDIR)/trigList.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='valuesRegistry/trigList.cpp' object='trigList.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o trigList.o `test -f 'valuesRegistry/trigList.cpp' || echo '$(srcdir)/'`valuesRegistry/trigList.cpp
-
-trigList.obj: valuesRegistry/trigList.cpp
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT trigList.obj -MD -MP -MF $(DEPDIR)/trigList.Tpo -c -o trigList.obj `if test -f 'valuesRegistry/trigList.cpp'; then $(CYGPATH_W) 'valuesRegistry/trigList.cpp'; else $(CYGPATH_W) '$(srcdir)/valuesRegistry/trigList.cpp'; fi`
-@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/trigList.Tpo $(DEPDIR)/trigList.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='valuesRegistry/trigList.cpp' object='trigList.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o trigList.obj `if test -f 'valuesRegistry/trigList.cpp'; then $(CYGPATH_W) 'valuesRegistry/trigList.cpp'; else $(CYGPATH_W) '$(srcdir)/valuesRegistry/trigList.cpp'; fi`
-
-valuesRegistry.o: valuesRegistry/valuesRegistry.cpp
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT valuesRegistry.o -MD -MP -MF $(DEPDIR)/valuesRegistry.Tpo -c -o valuesRegistry.o `test -f 'valuesRegistry/valuesRegistry.cpp' || echo '$(srcdir)/'`valuesRegistry/valuesRegistry.cpp
-@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/valuesRegistry.Tpo $(DEPDIR)/valuesRegistry.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='valuesRegistry/valuesRegistry.cpp' object='valuesRegistry.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o valuesRegistry.o `test -f 'valuesRegistry/valuesRegistry.cpp' || echo '$(srcdir)/'`valuesRegistry/valuesRegistry.cpp
-
-valuesRegistry.obj: valuesRegistry/valuesRegistry.cpp
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT valuesRegistry.obj -MD -MP -MF $(DEPDIR)/valuesRegistry.Tpo -c -o valuesRegistry.obj `if test -f 'valuesRegistry/valuesRegistry.cpp'; then $(CYGPATH_W) 'valuesRegistry/valuesRegistry.cpp'; else $(CYGPATH_W) '$(srcdir)/valuesRegistry/valuesRegistry.cpp'; fi`
-@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/valuesRegistry.Tpo $(DEPDIR)/valuesRegistry.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='valuesRegistry/valuesRegistry.cpp' object='valuesRegistry.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o valuesRegistry.obj `if test -f 'valuesRegistry/valuesRegistry.cpp'; then $(CYGPATH_W) 'valuesRegistry/valuesRegistry.cpp'; else $(CYGPATH_W) '$(srcdir)/valuesRegistry/valuesRegistry.cpp'; fi`
 
 crc16.o: ../../rcsLib/crc/crc16.cpp
 @am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT crc16.o -MD -MP -MF $(DEPDIR)/crc16.Tpo -c -o crc16.o `test -f '../../rcsLib/crc/crc16.cpp' || echo '$(srcdir)/'`../../rcsLib/crc/crc16.cpp
