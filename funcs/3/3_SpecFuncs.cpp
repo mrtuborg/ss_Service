@@ -269,7 +269,7 @@ errType specFuncsMgr::startSpecFuncs()
 	
 	appLayer->CreateNewFunction(func);
 	
-	func=new functionNode(19,0,6,allFoldsGetParams);
+	func=new functionNode(19,0,7,allFoldsGetParams);
 	func->setFuncName("Получить параметры всех створок");
 	
 	func->setResultDescriptor(0, type_ERRTYPE);
@@ -305,14 +305,20 @@ errType specFuncsMgr::startSpecFuncs()
 	func->setResultName(1,"Вектор состояния датчиков");
 	appLayer->CreateNewFunction(func);
 	
-	func=new functionNode(21,0,2,getAllUZstate);
+	func=new functionNode(21,0,4,getAllUZstate);
 	func->setFuncName("Получить вектор состояния УЗ");
 
 	func->setResultDescriptor(0, type_ERRTYPE);
 	func->setResultName(0,"Квитанция исполнения");
 	
 	func->setResultDescriptor(1, type_BYTE);
-	func->setResultName(1,"Вектор состояния УЗ");
+	func->setResultName(1,"Вектор состояния УЗ верхней створки");
+
+	func->setResultDescriptor(2, type_BYTE);
+	func->setResultName(2,"Вектор состояния УЗ нижней створки Б");
+
+	func->setResultDescriptor(3, type_BYTE);
+	func->setResultName(3,"Вектор состояния УЗ нижней створки А");
 
 	appLayer->CreateNewFunction(func);
 

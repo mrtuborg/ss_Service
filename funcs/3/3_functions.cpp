@@ -610,12 +610,12 @@ errType allFoldsGetParams(void* fn)
 {
     errType result=err_result_ok;
     functionNode* func = (functionNode*) fn;
-    BYTE foldState[3];
-    WORD foldPos[3];
+    BYTE foldState;
+    WORD foldPos;
     
     for (int i=0; i<3; i++){
-	foldState[i] = answerFrame->getFoldState(i);
-	foldPos[i] = answerFrame->getFoldPosition(i);
+	foldState = answerFrame->getFoldState(i);
+	foldPos = answerFrame->getFoldPosition(i);
 	func->setResult(2*i+1, &foldState); // index: 1, 3 ,5
 	func->setResult(2*i+2, &foldPos);   // index: 2, 4, 6
     }

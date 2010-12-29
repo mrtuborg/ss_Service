@@ -104,13 +104,14 @@ typedef struct statusFrame_t {
 	    struct {
 		booleanBit UZ[3];
 		BYTE nullBit: 1;
-		BYTE reserve: 3;
 	    } fields;
 	    
-	    BYTE bValue: 7;
+	    BYTE bValue: 4;
 	} UZ_alert;
 	
-        union {
+	booleanBit foldStopped[3];
+
+	union {
 	    struct {
 		BYTE reseting: 1;
 		booleanBit invalid_fold[3];

@@ -113,23 +113,39 @@ BYTE statusFrame::getFoldState(BYTE num)
 {
     //0 Up opened
     //1 Up closed
+    //  Up stopped
     //2 B opened
     //3 B closed
+    //  B stopped
     //4 A opened
     //5 A closed
+    //  A stopped
     
     BYTE result=0;
+    // 0 - opened
+    // 1 - closed
+    // 2 - stopped
+
     //printf("get: num=%d,",num);
-    switch (num)
-    {
-	case 0: result=frame.foldStatus.fields.id[0].fields.value_0; break;
-	case 1: result=frame.foldStatus.fields.id[0].fields.value_1; break;
-	case 2: result=frame.foldStatus.fields.id[1].fields.value_0; break;
-	case 3: result=frame.foldStatus.fields.id[1].fields.value_1; break;
-	case 4: result=frame.foldStatus.fields.id[2].fields.value_0; break;
-	case 5: result=frame.foldStatus.fields.id[2].fields.value_1; break;
-    }
-    //printf("result=%d\n",result);
+
+    if (frame.foldStatus.fields.id[num].fields.value_0==1)
+      {
+         if (result==0) result=1;
+         else result=4;
+      }
+
+    if ((result!=0)&&(frame.foldStatus.fields.id[num].fields.value_1==1))
+      {
+        if (result==0) result=2;
+        else result=4;
+      }
+
+    if ((result!=0)&&(frame.foldStopped[num].value==1))
+      {
+        if (result==0) result=3;
+        else result=4;
+      }
+
 
     return result;
 }
@@ -191,19 +207,20 @@ WORD statusFrame::getFoldPosition(BYTE num) // 0 - U, 1 - B, 2 - A
     switch (num){
 	case 0:  // upper fold
 	    result = (frame.foldU_value<<1);
-	    //printf("\nfoldU_value=%d\n", foldU_value);
+	    printf("\nfoldU_value=%d\n", frame.foldU_value);
 	    break;
 	case 1:  // B-fold
 	    result = (frame.foldB_value<<1);
-	    //printf("\nfoldB_value=%d\n", foldB_value);
+	    printf("\nfoldB_value=%d\n", frame.foldB_value);
 	    break;
 	case 2:  // A-fold
 	    result = (frame.foldA_value<<1);
-	    //printf("\nfoldA_value=%d\n", foldA_value);
+	    printf("\nfoldA_value=%d\n", frame.foldA_value);
 	    break;
     }
     result|= (frame.fold_val_p0.fields.fold[num].value & 0x01);
     result|=((WORD)(frame.fold_val_p8.fields.fold[num].value & 0x01) << 8);
+    printf("result=%d\n",result);
     
     return result;
 }

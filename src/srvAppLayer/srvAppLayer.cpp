@@ -79,6 +79,7 @@ void* udpSenderThread (void* user)
 		    printf("-------------------------------------------------");
 		    printf("\n\n\n\n\n\n\n\n\n\n");
 		    sndAllow_flag=false;
+		    rcvComplete_flag=false;
 		}
 		
 		sched_yield();
@@ -121,13 +122,14 @@ void* udpListenerThread (void* user)
 	    while (!app->terminated()){
 		if (rcvComplete_flag==false) {
 		//Get DataPtr from RecvBuffer
+		*sz=1024;//sizeof(struct ip)+sizeof(struct udphdr);
 		uPort->readData(app->clientsRequestsQueue,sz);
 		// Put ip, udp to RecvBuffer
 		
-		    rcvComplete_flag=true;
+		 rcvComplete_flag=true;
 		}
 		
-		*sz=1024;//sizeof(struct ip)+sizeof(struct udphdr);
+
 		sched_yield();
 	    }
 	
@@ -550,9 +552,10 @@ errType srvAppLayer::ProcessMessages()
 
 /// 8)  Sync listening and sending threads by \ref rcvComplete_flag and \ref sndAllow_flag
 
-	rcvComplete_flag=false;
+
     if (result==err_result_ok) {
-	sndAllow_flag=true;
+        sndAllow_flag=true;
+
     }
 
     
