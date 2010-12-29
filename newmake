@@ -1,0 +1,5 @@
+include funcs/3/funcs.mk
+objects = functions.o SpecFuncsMgr.o CommonFuncsMgr.o 
+	FunctionNode.o param_desc.o rcsCmd.o srvAppLayer.o SIG_handler.o  
+	buffer.o carg_parser.o console_out.o crc16.o deqUdp.o main.o ortsTypes.o
+	  ssBuffer.o udp_port.o 
