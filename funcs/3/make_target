@@ -1,0 +1,7 @@
+s3:
+cm688_packet/cm688_packet.cpp\
+cm688_packet/cm688_packet.h\
+cm688_packet/statusFrame.cpp\
+cm688_packet/statusFrame.h\
+cm688_packet/cmdFrame.cpp\
+cm688_packet/cmdFrame.h\
