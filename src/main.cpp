@@ -27,12 +27,12 @@
 #include "arg_parser/carg_parser.h"
 #include "console_out.h"
 #include "../../rcsLib/rcsCmd/rcsCmd.h"
-#include "ICAppLayer/FunctionNode/param_desc.h"
-#include "ICAppLayer/FunctionNode/FunctionNode.h"
+#include "srvAppLayer/FunctionNode/param_desc.h"
+#include "srvAppLayer/FunctionNode/FunctionNode.h"
 
-#include "ICAppLayer/ICAppLayer.h"
-#include "Functions/CommonFuncs.h"
-#include "Functions/SpecFuncs.h"
+#include "srvAppLayer/srvAppLayer.h"
+#include "Functions/CommonFuncsMgr.h"
+#include "Functions/SpecFuncsMgr.h"
 #include "Functions/functions.h"
 #include "SIG_handler.h"
 

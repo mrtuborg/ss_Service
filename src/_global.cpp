@@ -18,9 +18,9 @@
 #include "buffer/ssBuffer.h"
 #include "../../udp_port/udp_port.h"
 #include "../../rcsLib/rcsCmd/rcsCmd.h"
-#include "ICAppLayer/FunctionNode/param_desc.h"
-#include "ICAppLayer/FunctionNode/FunctionNode.h"
-#include "ICAppLayer/ICAppLayer.h"
+#include "srvAppLayer/FunctionNode/param_desc.h"
+#include "srvAppLayer/FunctionNode/FunctionNode.h"
+#include "srvAppLayer/srvAppLayer.h"
 
 
 int verbose_level=0; ///< Debug detail level printing.

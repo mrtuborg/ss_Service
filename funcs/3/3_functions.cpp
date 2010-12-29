@@ -10,9 +10,9 @@
 #include "../buffer/buffer.h" 
 #include "../../../udp_port/udp_port.h" 
 #include "../../../rcsLib/rcsCmd/rcsCmd.h" 
-#include "../ICAppLayer/FunctionNode/param_desc.h" 
-#include "../ICAppLayer/FunctionNode/FunctionNode.h" 
-#include "../ICAppLayer/ICAppLayer.h" 
+#include "../srvAppLayer/FunctionNode/param_desc.h" 
+#include "../srvAppLayer/FunctionNode/FunctionNode.h" 
+#include "../srvAppLayer/srvAppLayer.h" 
 #include "../global.h" 
 
 #include "../cm688_packet/cmdFrame.h"
@@ -621,4 +621,17 @@ errType allFoldsGetParams(void* fn)
     }
     
     return result;
+}
+
+errType getHydroCylConsystency(void* fn)
+{
+  errType result=err_result_ok;
+  functionNode* func = (functionNode*) fn;
+  BYTE hcConsistency=answerFrame->getHydroCylStatus(0);
+  func->setResult(1, &hcConsistency);
+  hcConsistency=answerFrame->getHydroCylStatus(0);
+  func->setResult(2, &hcConsistency);
+  hcConsistency=answerFrame->getHydroCylStatus(0);
+  func->setResult(3, &hcConsistency);
+  return result;
 }

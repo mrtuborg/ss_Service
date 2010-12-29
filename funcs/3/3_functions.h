@@ -37,3 +37,4 @@ extern errType correctHydroCyl(void*);
 extern errType allFoldsGetParams(void* fn);
 extern errType allSemiaxisSensorsGetState(void* fn); 
 extern errType getAllUZstate(void* fn);
+extern errType getHydroCylConsystency(void* fn);

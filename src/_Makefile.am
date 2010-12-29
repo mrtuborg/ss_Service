@@ -2,11 +2,11 @@ bin_PROGRAMS = ss_Service
 ss_Service_SOURCES=main.cpp global.cpp arg_parser/carg_parser.cpp  \
 				console_out.cpp \
 				auto_config.h\
-				ICAppLayer/ICAppLayer.cpp\
-				ICAppLayer/FunctionNode/FunctionNode.cpp\
-				ICAppLayer/FunctionNode/param_desc.cpp\
-				Functions/CommonFuncs.cpp\
-				Functions/SpecFuncs.cpp\
+				srvAppLayer/srvAppLayer.cpp\
+				srvAppLayer/FunctionNode/FunctionNode.cpp\
+				srvAppLayer/FunctionNode/param_desc.cpp\
+				Functions/CommonFuncsMgr.cpp\
+				Functions/SpecFuncsMgr.cpp\
 				Functions/functions.cpp\
 				buffer/ssBuffer.cpp\
 				buffer/buffer.cpp\
@@ -21,9 +21,6 @@ ss_Service_SOURCES=main.cpp global.cpp arg_parser/carg_parser.cpp  \
 				SIG_handler.cpp\
 				SIG_handler.h\
 				deqUdp/deqUdp.cpp deqUdp/deqUdp.h\
-				valuesRegistry/ValueTrig.cpp valuesRegistry/ValueTrig.h\
-				valuesRegistry/trigList.cpp valuesRegistry/trigList.h\
-				valuesRegistry/valuesRegistry.cpp valuesRegistry/valuesRegistry.h\
 				../../rcsLib/crc/crc16.cpp ../../rcsLib/crc/crc16.h\
 				../../rcsLib/udp_port/udp_port.cpp ../../rcsLib/udp_port/udp_port.h\
 				../../rcsLib/rcsCmd/rcsCmd.cpp ../../rcsLib/rcsCmd/rcsCmd.h\

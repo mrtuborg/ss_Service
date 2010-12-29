@@ -1,6 +1,6 @@
 cp  funcs/$1/$1_functions.cpp src/Functions/functions.cpp
 cp  funcs/$1/$1_functions.h src/Functions/functions.h
-cp  funcs/$1/$1_SpecFuncs.cpp src/Functions/SpecFuncs.cpp
+cp  funcs/$1/$1_SpecFuncs.cpp src/Functions/SpecFuncsMgr.cpp
 
 ./funcs/$1/prebuild funcs/$1
 
