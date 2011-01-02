@@ -1,5 +1,40 @@
-include funcs/3/funcs.mk
-objects = functions.o SpecFuncsMgr.o CommonFuncsMgr.o 
-	rcsCmd.o param_desc.o FunctionNode.o srvAppLayer.o SIG_handler.o
-	buffer.o carg_parser.o console_out.o crc16.o deqUdp.o main.o ortsTypes.o
-	ssBuffer.o udp_port.o 
+vpath = %.h src/ src/arg_parser/ src/buffer/ src/deqUdp/ src/functions/ src/srvAppLayer/ src/srvAppLayer/functionNode/ funcs/3/ funcs/3/cm688_packet/
+
+objects = cm688_packet.o statusFrame.o cmdFrame.o\
+	functions.o SpecFuncsMgr.o CommonFuncsMgr.o\
+	param_desc.o rcsCmd.o FunctionNode.o srvAppLayer.o\
+	buffer.o ssBuffer.o udp_port.o deqUdp.o\
+	SIG_handler.o carg_parser.o console_out.o crc16.o  main.o ortsTypes.o
+
+
+3: $(objects)
+	cc -o service $(objects)
+	
+#include funcs/3/funcs.mk
+	     
+
+#3:                                                                                                                              
+functions.o: ortsTypes.h ssBuffer.h buffer.h udp_port.h rcsCmd.h param_desc.h functionNode.h srvAppLayer.h functions.h          
+cm688_packet.o: cm688_packet.h                                                                                                  
+statusFrame.o: statusFrame.h                                                                                                    
+cmdFrame.o: cmdFrame.h
+
+SpecFuncsMgr.o: ortsTypes.h ssBuffer.h rcsCmd.h udp_port.h param_desc.h FunctionNode.h srvAppLayer.h specFuncsMgr.h functions.h\
+		ortsTypes.cpp ssBuffer.cpp rcsCmd.cpp udp_port.cpp param_desc.cpp FunctionNode.cpp srvApplayer.cpp specFuncsMgr.cpp functions.cpp
+		
+CommonFuncsMgr.o: ortsTypes.h ssBuffer.h rcsCmd.h udp_port.h param_desc.h functionNode.h srvAppLayer.h commonFuncsMgr.h functions.h\
+		  ortsTypes.cpp ssBuffer.cpp rcsCmd.cpp udp_port.cpp param_desc.cpp functionNode.cpp srvAppLayer.cpp commonFuncs.cpp functions.cpp
+param_desc.o:	  ortsTypes.h param_desc.h
+rcsCmd.o:	  ortsTypes.h crc16.h rcsCmd.h
+functionNode.o:	  ortsTypes.h param_desc.h rcsCmd.h functionNode.h
+srvAppLayer.o:	  ortsTypes.h rcsCmd.h global.h ssBuffer.h udp_port.h deqUdp.h param_desc.h functionNode.h srvAppLayer.h commonFuncsMgr.h
+buffer.o:	  ortsTypes.h buffer.h
+ssBuffer.o:	  ortsTypes.h ssBuffer.h
+udp_port.o:	  ortsTypes.h udp_port.h
+deqUdp.o:	  ortsTypes.h ssBuffer.h udp_port.h deqUdp.h
+SIG_handler.o:	  ortsTypes.h global.h
+carg_parser.o:	  carg_parser.h
+console_out.o:	  carg_parser.h
+crc16.o:	  ortsTypes.h
+main.o:		  ortsTypes.h ssBuffer.h udp_port.h carg_parser.h console_out.h rcsCmd.h param_desc.h functionNode.h srvAppLayer.h CommonFuncsMgr.h SpecFuncsMgr.h functions.h SIG_handler.h global.h
+ortsTypes.o:	  ortsTypes.h
