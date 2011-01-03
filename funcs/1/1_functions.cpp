@@ -8,17 +8,18 @@
 #include <list>
 #include <sched.h>
 #include "../../rcsLib/ortsTypes/ortsTypes.h"
-#include "../../rcsLib/rcsCmd/rcsCmd.h
-#include "../ICAppLayer/FunctionNode/param_desc.h"
-#include "../ICAppLayer/FunctionNode/FunctionNode.h"
-#include "job.h"
-#include "../ICAppLayer/schedule.h"
+#include "../../rcsLib/rcsCmd/rcsCmd.h"
+#include "../srvAppLayer/functionNode/param_desc.h"
+#include "../srvAppLayer/functionNode/functionNode.h"
+#include "../schedule/job.h"
+#include "../schedule/schedule.h"
 #include "../buffer/ssBuffer.h"
-#include "../ICAppLayer/ICAppLayer.h"
 #include "../../rcsLib/udp_port/udp_port.h"
+#include "../srvAppLayer/srvAppLayer.h"
 #include "../global.h"
 
-udp_port* equipment;
+//udp_port* equipment;
+pthread_t PollingThreadHandle;
 FILE *scheduleFile;
 schedule *batchSched;
 
@@ -33,14 +34,7 @@ void* pollingThread(void* user)
   WORD old_crc = 0xFFFF;
   while (!app->terminated())
     {
-      if (sendFrame->setCheckSumm() != old_crc)
-        {
-          sendFrame->dbgPrint();
-          old_crc = sendFrame->setCheckSumm();
-
-          sendFrame->decode(&array);
-          equip_sending->sendData(equipAddr, array, sizeof(cmdFrame_t));
-        }
+      
       sched_yield();
     }
   delete array;
@@ -52,45 +46,40 @@ errType equipListenProcessing(BYTE *writingBuffer, size_t sz)
   errType result = err_result_ok;
   //if (sz>sizeof(SASC_msg_type)) sz=sizeof(SASC_msg_type);
 
-  answerFrame->encode(writingBuffer, sz);
+  //answerFrame->encode(writingBuffer, sz);
   printf("\n\tС иерархии нижнего уровня получен пакет (hex):\n");
   printf("\t[");
   for (int k = 0; k < sz; k++)
     printf("%.2X ", writingBuffer[k]);
   printf("]\n\n");
   printf("\tРасшифровка:\n");
-  answerFrame->dbgPrint();
+//  answerFrame->dbgPrint();
   printf("\t===========================================\n\n");
   return result;
 }
 
 errType srvInit()
 {
-  void* pollingThread(void* user)
-  {
-    srvAppLayer* app = (srvAppLayer*) user;
-    BYTE* array;
-    WORD old_crc = 0xFFFF;
-    while (!app->terminated())
-      {
-        if (sendFrame->setCheckSumm() != old_crc)
-          {
-            sendFrame->dbgPrint();
-            old_crc = sendFrame->setCheckSumm();
-
-            sendFrame->decode(&array);
-            equip_sending->sendData(equipAddr, array, sizeof(cmdFrame_t));
-          }
-        sched_yield();
-      }
-    delete array;
-    return user;
-  }
+    errType result = err_not_init;
+    int ret = 0;
+    //sendFrame = new cmdFrame;
+    //answerFrame = new statusFrame;
+    printf("\tСлужба контроля технологического расписания работ\n");
+    printf("=============================================================\n\n");
+ //   equip_sending = new udp_port(eq_udp_sending_port);
+ //   result = equip_sending->open_port();
+//    equipAddr.s_addr = inet_addr(eq_ip_addr);
+    ret = pthread_create(&PollingThreadHandle, NULL, pollingThread, app);
+    //if (ret!=0) Error:  Need to stop application initializing process...
+    if (ret == 0) result = err_result_ok;
+    //stateByte.bValue = 0;
+    return result;
+}
 
 errType srvDeinit()
 {
-    equipment->close_port();
-    delete equipment;
+  //  equipment->close_port();
+  //delete equipment;
     delete batchSched;
     return err_result_ok;
 }
@@ -170,7 +159,7 @@ errType addScheduleJob(void* fn)
     //WORD offset=0;
     
     //WORD i=0;
-    do {
+    //do {
 /*	schedule[i].encode(func->getParamPtr(1)+offset);
 	schedule[i].dbgPrint();
 	fprintf(scheduleFile, "0x%.8X ", schedule[i].get_dwTime());
@@ -181,7 +170,7 @@ errType addScheduleJob(void* fn)
 	fprintf(scheduleFile, "\n");
 	offset+=schedule[i].getLength();
 	i++;
-*/    } while (offset<func->getAllParamsLength()-1);
+*/   // } while (offset<func->getAllParamsLength()-1);
     
     fclose(scheduleFile);
 

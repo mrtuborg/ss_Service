@@ -53,8 +53,7 @@ am_ss_Service_OBJECTS = main.$(OBJEXT) global.$(OBJEXT) \
 	SpecFuncsMgr.$(OBJEXT) functions.$(OBJEXT) ssBuffer.$(OBJEXT) \
 	buffer.$(OBJEXT) SIG_handler.$(OBJEXT) deqUdp.$(OBJEXT) \
 	crc16.$(OBJEXT) udp_port.$(OBJEXT) rcsCmd.$(OBJEXT) \
-	cm688_packet.$(OBJEXT) statusFrame.$(OBJEXT) \
-	cmdFrame.$(OBJEXT) ortsTypes.$(OBJEXT)
+	job.$(OBJEXT) schedule.$(OBJEXT) ortsTypes.$(OBJEXT)
 ss_Service_OBJECTS = $(am_ss_Service_OBJECTS)
 ss_Service_LDADD = $(LDADD)
 ss_Service_LINK = $(CXXLD) $(AM_CXXFLAGS) $(CXXFLAGS) \
@@ -192,12 +191,10 @@ ss_Service_SOURCES = main.cpp global.cpp arg_parser/carg_parser.cpp  \
 				../../rcsLib/crc/crc16.cpp ../../rcsLib/crc/crc16.h\
 				../../rcsLib/udp_port/udp_port.cpp ../../rcsLib/udp_port/udp_port.h\
 				../../rcsLib/rcsCmd/rcsCmd.cpp ../../rcsLib/rcsCmd/rcsCmd.h\
-cm688_packet/cm688_packet.cpp\
-cm688_packet/cm688_packet.h\
-cm688_packet/statusFrame.cpp\
-cm688_packet/statusFrame.h\
-cm688_packet/cmdFrame.cpp\
-cm688_packet/cmdFrame.h\
+schedule/job.cpp\
+schedule/job.h\
+schedule/schedule.cpp\
+schedule/schedule.h\
 ../../rcsLib/ortsTypes/ortsTypes.cpp\
 ../../rcsLib/ortsTypes/ortsTypes.h
 
@@ -307,20 +304,19 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/SpecFuncsMgr.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/buffer.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/carg_parser.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/cm688_packet.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/cmdFrame.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/console_out.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/crc16.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/deqUdp.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/functions.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/global.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/job.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/main.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ortsTypes.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/param_desc.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/rcsCmd.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/schedule.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/srvAppLayer.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ssBuffer.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/statusFrame.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/udp_port.Po@am__quote@
 
 .cpp.o:
@@ -519,47 +515,33 @@ rcsCmd.obj: ../../rcsLib/rcsCmd/rcsCmd.cpp
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o rcsCmd.obj `if test -f '../../rcsLib/rcsCmd/rcsCmd.cpp'; then $(CYGPATH_W) '../../rcsLib/rcsCmd/rcsCmd.cpp'; else $(CYGPATH_W) '$(srcdir)/../../rcsLib/rcsCmd/rcsCmd.cpp'; fi`
 
-cm688_packet.o: cm688_packet/cm688_packet.cpp
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT cm688_packet.o -MD -MP -MF $(DEPDIR)/cm688_packet.Tpo -c -o cm688_packet.o `test -f 'cm688_packet/cm688_packet.cpp' || echo '$(srcdir)/'`cm688_packet/cm688_packet.cpp
-@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/cm688_packet.Tpo $(DEPDIR)/cm688_packet.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='cm688_packet/cm688_packet.cpp' object='cm688_packet.o' libtool=no @AMDEPBACKSLASH@
+job.o: schedule/job.cpp
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT job.o -MD -MP -MF $(DEPDIR)/job.Tpo -c -o job.o `test -f 'schedule/job.cpp' || echo '$(srcdir)/'`schedule/job.cpp
+@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/job.Tpo $(DEPDIR)/job.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='schedule/job.cpp' object='job.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o cm688_packet.o `test -f 'cm688_packet/cm688_packet.cpp' || echo '$(srcdir)/'`cm688_packet/cm688_packet.cpp
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o job.o `test -f 'schedule/job.cpp' || echo '$(srcdir)/'`schedule/job.cpp
 
-cm688_packet.obj: cm688_packet/cm688_packet.cpp
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT cm688_packet.obj -MD -MP -MF $(DEPDIR)/cm688_packet.Tpo -c -o cm688_packet.obj `if test -f 'cm688_packet/cm688_packet.cpp'; then $(CYGPATH_W) 'cm688_packet/cm688_packet.cpp'; else $(CYGPATH_W) '$(srcdir)/cm688_packet/cm688_packet.cpp'; fi`
-@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/cm688_packet.Tpo $(DEPDIR)/cm688_packet.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='cm688_packet/cm688_packet.cpp' object='cm688_packet.obj' libtool=no @AMDEPBACKSLASH@
+job.obj: schedule/job.cpp
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT job.obj -MD -MP -MF $(DEPDIR)/job.Tpo -c -o job.obj `if test -f 'schedule/job.cpp'; then $(CYGPATH_W) 'schedule/job.cpp'; else $(CYGPATH_W) '$(srcdir)/schedule/job.cpp'; fi`
+@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/job.Tpo $(DEPDIR)/job.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='schedule/job.cpp' object='job.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o cm688_packet.obj `if test -f 'cm688_packet/cm688_packet.cpp'; then $(CYGPATH_W) 'cm688_packet/cm688_packet.cpp'; else $(CYGPATH_W) '$(srcdir)/cm688_packet/cm688_packet.cpp'; fi`
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o job.obj `if test -f 'schedule/job.cpp'; then $(CYGPATH_W) 'schedule/job.cpp'; else $(CYGPATH_W) '$(srcdir)/schedule/job.cpp'; fi`
 
-statusFrame.o: cm688_packet/statusFrame.cpp
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT statusFrame.o -MD -MP -MF $(DEPDIR)/statusFrame.Tpo -c -o statusFrame.o `test -f 'cm688_packet/statusFrame.cpp' || echo '$(srcdir)/'`cm688_packet/statusFrame.cpp
-@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/statusFrame.Tpo $(DEPDIR)/statusFrame.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='cm688_packet/statusFrame.cpp' object='statusFrame.o' libtool=no @AMDEPBACKSLASH@
+schedule.o: schedule/schedule.cpp
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT schedule.o -MD -MP -MF $(DEPDIR)/schedule.Tpo -c -o schedule.o `test -f 'schedule/schedule.cpp' || echo '$(srcdir)/'`schedule/schedule.cpp
+@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/schedule.Tpo $(DEPDIR)/schedule.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='schedule/schedule.cpp' object='schedule.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o statusFrame.o `test -f 'cm688_packet/statusFrame.cpp' || echo '$(srcdir)/'`cm688_packet/statusFrame.cpp
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o schedule.o `test -f 'schedule/schedule.cpp' || echo '$(srcdir)/'`schedule/schedule.cpp
 
-statusFrame.obj: cm688_packet/statusFrame.cpp
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT statusFrame.obj -MD -MP -MF $(DEPDIR)/statusFrame.Tpo -c -o statusFrame.obj `if test -f 'cm688_packet/statusFrame.cpp'; then $(CYGPATH_W) 'cm688_packet/statusFrame.cpp'; else $(CYGPATH_W) '$(srcdir)/cm688_packet/statusFrame.cpp'; fi`
-@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/statusFrame.Tpo $(DEPDIR)/statusFrame.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='cm688_packet/statusFrame.cpp' object='statusFrame.obj' libtool=no @AMDEPBACKSLASH@
+schedule.obj: schedule/schedule.cpp
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT schedule.obj -MD -MP -MF $(DEPDIR)/schedule.Tpo -c -o schedule.obj `if test -f 'schedule/schedule.cpp'; then $(CYGPATH_W) 'schedule/schedule.cpp'; else $(CYGPATH_W) '$(srcdir)/schedule/schedule.cpp'; fi`
+@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/schedule.Tpo $(DEPDIR)/schedule.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='schedule/schedule.cpp' object='schedule.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o statusFrame.obj `if test -f 'cm688_packet/statusFrame.cpp'; then $(CYGPATH_W) 'cm688_packet/statusFrame.cpp'; else $(CYGPATH_W) '$(srcdir)/cm688_packet/statusFrame.cpp'; fi`
-
-cmdFrame.o: cm688_packet/cmdFrame.cpp
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT cmdFrame.o -MD -MP -MF $(DEPDIR)/cmdFrame.Tpo -c -o cmdFrame.o `test -f 'cm688_packet/cmdFrame.cpp' || echo '$(srcdir)/'`cm688_packet/cmdFrame.cpp
-@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/cmdFrame.Tpo $(DEPDIR)/cmdFrame.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='cm688_packet/cmdFrame.cpp' object='cmdFrame.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o cmdFrame.o `test -f 'cm688_packet/cmdFrame.cpp' || echo '$(srcdir)/'`cm688_packet/cmdFrame.cpp
-
-cmdFrame.obj: cm688_packet/cmdFrame.cpp
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT cmdFrame.obj -MD -MP -MF $(DEPDIR)/cmdFrame.Tpo -c -o cmdFrame.obj `if test -f 'cm688_packet/cmdFrame.cpp'; then $(CYGPATH_W) 'cm688_packet/cmdFrame.cpp'; else $(CYGPATH_W) '$(srcdir)/cm688_packet/cmdFrame.cpp'; fi`
-@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/cmdFrame.Tpo $(DEPDIR)/cmdFrame.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='cm688_packet/cmdFrame.cpp' object='cmdFrame.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o cmdFrame.obj `if test -f 'cm688_packet/cmdFrame.cpp'; then $(CYGPATH_W) 'cm688_packet/cmdFrame.cpp'; else $(CYGPATH_W) '$(srcdir)/cm688_packet/cmdFrame.cpp'; fi`
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o schedule.obj `if test -f 'schedule/schedule.cpp'; then $(CYGPATH_W) 'schedule/schedule.cpp'; else $(CYGPATH_W) '$(srcdir)/schedule/schedule.cpp'; fi`
 
 ortsTypes.o: ../../rcsLib/ortsTypes/ortsTypes.cpp
 @am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT ortsTypes.o -MD -MP -MF $(DEPDIR)/ortsTypes.Tpo -c -o ortsTypes.o `test -f '../../rcsLib/ortsTypes/ortsTypes.cpp' || echo '$(srcdir)/'`../../rcsLib/ortsTypes/ortsTypes.cpp
