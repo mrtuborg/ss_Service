@@ -6,10 +6,10 @@
 #include "../buffer/ssBuffer.h"
 #include "../../rcsLib/rcsCmd/rcsCmd.h"
 #include "../../rcsLib/udp_port/udp_port.h"
-#include "../ICAppLayer/FunctionNode/param_desc.h"
-#include "../ICAppLayer/FunctionNode/FunctionNode.h"
-#include "../ICAppLayer/ICAppLayer.h"
-#include "SpecFuncs.h"
+#include "../srvAppLayer/functionNode/param_desc.h"
+#include "../srvAppLayer/functionNode/functionNode.h"
+#include "../srvAppLayer/srvAppLayer.h"
+#include "SpecFuncsMgr.h"
 #include "functions.h"
 
 specFuncsMgr::specFuncsMgr(srvAppLayer *appl)
