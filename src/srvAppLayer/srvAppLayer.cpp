@@ -27,7 +27,7 @@
 
 #include "../global.h"
 #include "../buffer/ssBuffer.h"
-#include "../../udp_port/udp_port.h"
+#include "../../rcsLib/udp_port/udp_port.h"
 #include "../deqUdp/deqUdp.h"
 #include "functionNode/param_desc.h"
 #include "functionNode/functionNode.h"
@@ -341,7 +341,7 @@ errType srvAppLayer::decodeMessage(BYTE* dataBlock, DWORD length, rcsCmd *ss_cmd
 	ss_cmd->encode(dataBlock);
 	
 	if (length!=ss_cmd->getCmdLength()) {
-	    printf("Количество принятых байт разнится с количеством заявленных в заголовке!\n");
+	    printf("Нарушен формат заголовка пакета: количество принятых байт разнится с количеством заявленных в заголовке!\n");
 	    result=err_params_decode;
 	}
 	else {
@@ -395,10 +395,13 @@ errType srvAppLayer::execMessage(rcsCmd* ss_cmd)
     } else {
 	printf("Доставлен пакет с ошибками в формате описания параметров!\n");
 	result=err_params_decode;
+
     }
-	ServiceState.lastFuncId=fn_num;
-	ServiceState.lastResult=result;
-	(Functions[fn_num])->setResult(0,(BYTE*)&result);
+      ServiceState.lastFuncId=fn_num;
+      ServiceState.lastResult=result;
+
+
+      (Functions[fn_num])->setResult(0,(BYTE*)&result);
 	
     return result;
 }
@@ -435,7 +438,9 @@ errType srvAppLayer::encodeFuncResult(rcsCmd* in_cmd, rcsCmd* out_cmd)
 	
 	    DWORD ret_len=0;
 	
+	   // printf("Q=%d\n", func_resultsQuantity);
 	    for (int i=0; i<func_resultsQuantity; i++) {
+	   //     printf("%d: \n",i);
 		(Functions[fn_num])->getResult(i, (void**)&ret, &ret_len);
 		memcpy(resData+offset, ret, ret_len);
 		offset+=ret_len;
@@ -532,18 +537,23 @@ errType srvAppLayer::ProcessMessages()
 
     //in_cmd->dbgPrint();
 ///  3) Execute requested function if decoding was successfully by \ref execMessage
-    if (result==err_result_ok) result=execMessage(in_cmd);
+    if (result==err_result_ok) 
+	{
+	    result=execMessage(in_cmd);
     
 ///  4) Encoding function result ticket if execution was not successfully
     //if (result==err_result_ok) 
-    if ((result!=err_result_ok) && (result!=err_not_found)) result=(Functions[in_cmd->get_func_id()])->setResult(0,&result);
+	    if ((result!=err_result_ok) && (result!=err_not_found))
+	    {
+		result=(Functions[in_cmd->get_func_id()])->setResult(0,&result);
+	    }
     
 /// 5) Encode remains function results be \ref encodeFuncResult
-    result=encodeFuncResult(in_cmd, out_cmd);
-    
+	    result=encodeFuncResult(in_cmd, out_cmd);
+           
 /// 6)  Write results to sending queue by \ref sendResult
-    if (result==err_result_ok) sendResult(&sfrom, out_cmd);
-    
+	    if (result==err_result_ok) sendResult(&sfrom, out_cmd);
+        }
 /// 7) Release allocated memory
                                
 	delete dataBlock;

@@ -44,8 +44,8 @@ errType specFuncsMgr::startSpecFuncs()
     //
     // 4. Add function to Application interchange layer:
     //code: appLayer->CreateNewFunction(func);
-	    func=new functionNode(1,8,2,addScheduleJob);
-
+	    func=new functionNode(1,7,2,addScheduleJob);
+	    func->setFuncName("Добавить пакетное задание");
 	    func->setParamDescriptor(0, type_BYTE);
 	    func->setParamName(0,"Признак аварийной операции");
 
@@ -64,14 +64,17 @@ errType specFuncsMgr::startSpecFuncs()
 	    func->setParamDescriptor(5, type_BYTE);
 	    func->setParamName(5,"Идентификатор функции-исполнителя");
 
-	    func->setParamDescriptor(6, type_WORD);
-	    func->setParamName(6,"Длина параметрической части");
+	    //func->setParamDescriptor(6, type_WORD);
+	    //func->setParamName(6,"Длина параметрической части");
 
-	    func->setParamDescriptor(7, type_BYTEVECTOR);
-	    func->setParamName(7,"Параметрическая часть");
+	    func->setParamDescriptor(6, type_BYTEVECTOR);
+	    func->setParamName(6,"Параметрическая часть");
 
 	    func->setResultDescriptor(0,type_ERRTYPE);
 	    func->setResultName(0, "Квитанция исполнения");
+	    
+	    func->setResultDescriptor(1,type_DWORD);         /// bug: if not initialize same as declared - programm crashes
+	    func->setResultName(1, "Расширенный результат");
 
 	    appLayer->CreateNewFunction(func);
 

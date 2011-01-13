@@ -195,31 +195,44 @@ errType functionNode::decodeParams(rcsCmd* packet)//BYTE* paramsPtr)
 	BYTE *param_tmp;
 	
 	/// 1. Define length of parametric part by function declaration
+	//printf("1. Define length of parametric part by function declaration\n");
 	func_paramsLength=packet->get_func_paramsLength();
-	
+	//printf("func_paramsLength=%d\n",func_paramsLength);
 	/// 2. Count length of parametric part of received request message
+	//printf("2. Count length of parametric part of received request message\n");
 	int rcvdPacket_length=packet->getCmdLength();
+	//printf("rcvdPacket_length=%d\n",rcvdPacket_length);
 	int descPacket_length=packet->getCmdLength()-func_paramsLength;
-	
+	//printf("descPacket_length=%d\n",descPacket_length);
 	
 	param_tmp=new BYTE[func_paramsLength];
 	
 	/// 3. Compare received params quantity with declared params quantity
-	
+	//printf("3. Compare received params quantity with declared params quantity\n");
 	WORD paramOffset=0;
 	if (func_params)
 	{
+	    //printf("func_params exists!\n");
+	   // printf("func_paramsQuantity=%d\n",func_paramsQuantity);
 	    for (int i=0; i<func_paramsQuantity; i++){
 		if (func_params[i]) {
+		   // printf("func_params[%d] exists!\n",i);
 		    if  (func_params[i]->isVector()) {
-		     WORD vectorSize=*(WORD*)((BYTE*)packet->get_func_paramsPtr()+paramOffset);
+		       // printf("func_params[%d] is Vector!\n",i);
+		        WORD vectorSize=*(WORD*)((BYTE*)packet->get_func_paramsPtr()+paramOffset);
 		     
-		     descPacket_length+=vectorSize+sizeof(WORD);
-		     paramOffset+=vectorSize+sizeof(WORD);
+		        descPacket_length+=vectorSize+sizeof(WORD);
+		      //  printf("descPacket_length=%d\n",descPacket_length);
+		        paramOffset+=vectorSize+sizeof(WORD);
+		       // printf("paramOffset=%d\n",paramOffset);
 		    }
 		    else {
+		       // printf("func_params[%d] is scalar!\n",i);
 			descPacket_length+=func_params[i]->length();
+			//printf("descPacket_length=%d\n",descPacket_length);
 			paramOffset+=func_params[i]->length();
+			//printf("paramOffset=%d\n",paramOffset);
+
 		    }
 		}
 	    }
@@ -227,24 +240,31 @@ errType functionNode::decodeParams(rcsCmd* packet)//BYTE* paramsPtr)
 	
 	/// 4. If received params quantity is equal to declared params quantity - fills parameters values.
 	///    otherwise -  return value is err_result_error.
+	//printf("4. If received params quantity is equal to declared params quantity - fills parameters values. Otherwise -  return value is err_result_error\n");
 	paramOffset=0;
-	if (rcvdPacket_length!=descPacket_length) result=err_result_error;
+	if (rcvdPacket_length!=descPacket_length) {
+	  //  printf("rcvdPacket_length!=descPacket_length\n");
+	    result=err_result_error;
+	}
 	else {
 		for (int i=0; i<func_paramsQuantity; i++){
-		    if  (func_params[i]->isVector())
-		    {
-			WORD vectorSize=*(WORD*)((BYTE*)packet->get_func_paramsPtr()+paramOffset);
-			memcpy(param_tmp, (BYTE*)packet->get_func_paramsPtr()+paramOffset, vectorSize+sizeof(WORD));
-			func_params[i]->setParam(param_tmp);
-			paramOffset+=vectorSize+sizeof(WORD);
-		    }
-		    else {
-			len=func_params[i]->length();
-			memcpy(param_tmp, (BYTE*)packet->get_func_paramsPtr()+paramOffset, len);
-			func_params[i]->setParam(param_tmp);
+		    if (func_params[i])
+		      {
+		        if  (func_params[i]->isVector())
+		          {
+		            WORD vectorSize=*(WORD*)((BYTE*)packet->get_func_paramsPtr()+paramOffset);
+		            memcpy(param_tmp, (BYTE*)packet->get_func_paramsPtr()+paramOffset, vectorSize+sizeof(WORD));
+		            func_params[i]->setParam(param_tmp);
+		            paramOffset+=vectorSize+sizeof(WORD);
+		          }
+		        else {
+		            len=func_params[i]->length();
+		            memcpy(param_tmp, (BYTE*)packet->get_func_paramsPtr()+paramOffset, len);
+		            func_params[i]->setParam(param_tmp);
 			
-			paramOffset+=func_params[i]->length();
-		    }
+		            paramOffset+=func_params[i]->length();
+		        }
+		      } else result=err_not_found;
 		}
 		result=err_result_ok;
 	}
@@ -280,9 +300,10 @@ errType functionNode::setResult(BYTE num, void* res)
 errType functionNode::getResult(BYTE num, void** out_res, DWORD* length)
 {
 	errType result=err_result_ok;
-	*out_res=func_results[num]->value();
-	*length=func_results[num]->length();
-	
+	if (func_results[num]){
+	    *out_res=func_results[num]->value();
+	    *length=func_results[num]->length();
+	} else result=err_not_found;
 	return result;
 }
 

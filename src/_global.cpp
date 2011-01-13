@@ -16,7 +16,7 @@
 #include <queue>
 #include "../../rcsLib/ortsTypes/ortsTypes.h"
 #include "buffer/ssBuffer.h"
-#include "../../udp_port/udp_port.h"
+#include "../../rcsLib/udp_port/udp_port.h"
 #include "../../rcsLib/rcsCmd/rcsCmd.h"
 #include "srvAppLayer/FunctionNode/param_desc.h"
 #include "srvAppLayer/FunctionNode/FunctionNode.h"

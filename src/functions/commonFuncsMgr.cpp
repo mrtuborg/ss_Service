@@ -18,7 +18,7 @@
 #include "../../rcsLib/ortsTypes/ortsTypes.h"
 #include "../buffer/ssBuffer.h"
 #include "../../rcsLib/rcsCmd/rcsCmd.h"
-#include "../../udp_port/udp_port.h"
+#include "../../rcsLib/udp_port/udp_port.h"
 #include "../srvAppLayer/functionNode/param_desc.h"
 #include "../srvAppLayer/functionNode/functionNode.h"
 #include "../srvAppLayer/srvAppLayer.h"

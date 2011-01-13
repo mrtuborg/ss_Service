@@ -2,10 +2,10 @@ root_include_dir    := include		# Defines variable with name of root directory w
 root_source_dir     := src		# Defines variable with name of root directiry with sources
 
 # Defines variable with names of subdirectories of root sources directory
-source_subdirs      := . arg_parser buffer deqUdp functions srvAppLayer srvAppLayer/functionNode
+source_subdirs      :=. arg_parser buffer deqUdp functions srvAppLayer srvAppLayer/functionNode
 compile_flags       := -Wall -MD -pipe	# Common compilation flags
 link_flags      := -s -pipe		# Common linker flags
-libraries       := -lX11 -ldl		# Libraries that need to be additioanally linked with objects
+libraries       := -ldl		# Libraries that need to be additioanally linked with objects
  
 # relativies paths
 relative_include_dirs   := $(addprefix ../../, $(root_include_dir))
@@ -23,27 +23,27 @@ objects         := $(objects:.cpp=.o)
 # extension c channge to o
 objects         := $(objects:.c=.o)
   
+all: $(program_name)
 
 # First rule: Project target
-$(program_name) : $(objects_dirs) $(objects)
+$(program_name) : obj_dirs $(objects)
 	g++ -o $@ $(objects) $(link_flags) $(libraries)
    
 # Second rule: Create debug or release directory
-$(objects_dirs) :
-	mkdir -p $@
+obj_dirs :
+	mkdir -p $(objects_dirs)
     
 VPATH := ../../
     
 # Targets for object files
 %.o : %.cpp
-	g++ -o $@ -c $&lt; $(compile_flags) $(build_flags) $(addprefix -I, $(relative_include_dirs))
+	g++ -o $@ -c $< $(compile_flags) $(build_flags) $(addprefix -I, $(relative_include_dirs))
 
 %.o : %.c
-	g++ -o $@ -c $&lt; $(compile_flags) $(build_flags) $(addprefix -I, $(relative_include_dirs))
+	g++ -o $@ -c $<; $(compile_flags) $(build_flags) $(addprefix -I, $(relative_include_dirs))
 
 .PHONY : clean
 
 clean :
 	rm -rf bin obj
-	include $(wildcard $(addsuffix /*.d, $(objects_dirs)))
 
