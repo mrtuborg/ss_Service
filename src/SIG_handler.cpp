@@ -18,7 +18,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <arpa/inet.h>
-#include "../../rcsLib/ortsTypes/ortsTypes.h"
+#include "rcsLib/ortsTypes/ortsTypes.h"
 #include "global.h"
 
 funcVoid SIGTERM_handler; ///< pointer to handling function for signal \b TERMINATE

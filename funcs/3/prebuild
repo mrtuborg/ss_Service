@@ -1,2 +1,0 @@
-mkdir src/cm688_packet
-cp $1/cm688_packet/* src/cm688_packet

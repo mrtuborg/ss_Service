@@ -21,19 +21,19 @@
 #include <sys/reboot.h>
 #include <deque>
 
-#include "../../rcsLib/ortsTypes/ortsTypes.h"
-#include "buffer/ssBuffer.h"
-#include "../../udp_port/udp_port.h"
+#include "rcsLib/ortsTypes/ortsTypes.h"
+#include "ssBuffer.h"
+#include "rcsLib/udp_port/udp_port.h"
 #include "arg_parser/carg_parser.h"
 #include "console_out.h"
-#include "../../rcsLib/rcsCmd/rcsCmd.h"
-#include "srvAppLayer/FunctionNode/param_desc.h"
-#include "srvAppLayer/FunctionNode/FunctionNode.h"
+#include "rcsLib/rcsCmd/rcsCmd.h"
+#include "param_desc.h"
+#include "FunctionNode.h"
 
-#include "srvAppLayer/srvAppLayer.h"
-#include "Functions/CommonFuncsMgr.h"
-#include "Functions/SpecFuncsMgr.h"
-#include "Functions/functions.h"
+#include "srvAppLayer.h"
+#include "CommonFuncsMgr.h"
+#include "SpecFuncsMgr.h"
+#include "functions.h"
 #include "SIG_handler.h"
 
 #include "global.h"
