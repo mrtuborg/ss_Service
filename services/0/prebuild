@@ -1,0 +1,6 @@
+mkdir src/prcList
+mkdir src/fltrList
+mkdir src/proc
+cp $1/prcList/* src/prcList
+cp $1/fltrList/* src/fltrList
+cp $1/proc/* src/proc

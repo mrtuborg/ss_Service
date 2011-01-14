@@ -1,0 +1,10 @@
+rm -f src/prcList/*
+rm -f src/proc/*
+rm -f src/fltrList/*
+
+rm -f src/global.*
+
+rmdir src/prcList
+rmdir src/fltrList
+rmdir src/proc
+
