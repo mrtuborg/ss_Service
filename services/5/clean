@@ -1,0 +1,3 @@
+rm -f src/PS_packet/*
+rm -f src/global.*
+rmdir src/PS_packet

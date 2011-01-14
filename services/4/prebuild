@@ -1,0 +1,2 @@
+mkdir src/SASC_packet
+cp $1/SASC_packet/* src/SASC_packet
