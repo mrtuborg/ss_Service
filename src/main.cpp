@@ -189,7 +189,7 @@ void dbg_hex_print(BYTE* buffer, size_t len)
 {
     ///  @todo use this function in new debug print system
     printf("[");
-    for (int i=0; i<len; i++) printf("%.2X ",buffer[i]);
+    for (size_t i=0; i<len; i++) printf("%.2X ",buffer[i]);
     printf("]\n");
 }
 
@@ -242,7 +242,6 @@ errType appDeinit(void)
  * @retval      err_not_init
  **********************************************************************/
 int main(int argc, char *argv[]) {
-	errType result=err_result_ok;
 	
 	memset(&equipAddr,0,sizeof(in_addr));
 	

@@ -1,7 +1,0 @@
-<map id="G" name="G">
-<area shape="rect" href="$d9/d10/classICAppLayer.html#a148cf7ce454ef44875d0c974680ec358" title="ICAppLayer::getListenerPortNum" alt="" coords="213,5,469,32"/>
-<area shape="rect" href="$db/dc2/classdeqUdp.html#afd4705cd64f0f137d1f36860761f4865" title="Read udp port data to queued buffer (ssBuffer)" alt="" coords="264,56,419,83"/>
-<area shape="rect" href="$d9/d10/classICAppLayer.html#a004b465fb3eea3dd97832be23b850a2f" title="ICAppLayer::terminate" alt="" coords="249,107,433,133"/>
-<area shape="rect" href="$d9/d10/classICAppLayer.html#a2ecd8e111cd9203173364d257ce03c48" title="ICAppLayer::terminated" alt="" coords="245,157,437,184"/>
-<area shape="rect" href="$d0/de7/classssBuffer.html#aedd5b2d9bbf7b2ad1161fced3f2b3250" title="push datablock to queue" alt="" coords="517,56,677,83"/>
-</map>

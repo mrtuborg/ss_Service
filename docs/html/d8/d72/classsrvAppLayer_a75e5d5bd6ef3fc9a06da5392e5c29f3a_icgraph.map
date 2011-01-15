@@ -1,6 +1,0 @@
-<map id="G" name="G">
-<area shape="rect" href="$d8/d9c/commonFuncsMgr_8h.html#abd797e5a8e26768954fb1eb1c3621437" title="Thread to polling listen udp for equipment data." alt="" coords="324,5,476,32"/>
-<area shape="rect" href="$d8/d72/classsrvAppLayer.html#acde5f9e1287ca5206957c64354d1aa8f" title="Method to prepare and start base communication engine." alt="" coords="527,5,743,32"/>
-<area shape="rect" href="$df/d0a/main_8cpp.html#ad68e81ce983cbcdbee68c1a830fdd873" title="Initialize srvAppLayer subsystem." alt="" coords="792,5,864,32"/>
-<area shape="rect" href="$df/d0a/main_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97" title="Programm entrypoint." alt="" coords="912,5,971,32"/>
-</map>

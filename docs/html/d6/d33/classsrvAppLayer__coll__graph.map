@@ -1,8 +1,0 @@
-<map id="G" name="G">
-<area shape="rect" href="$d8/db4/structstateVector__type.html" title="Main vector of service base states." alt="" coords="19,871,160,1007"/>
-<area shape="rect" href="$db/d35/structserviceState.html" title="stateVector_type structural field." alt="" coords="5,279,173,449"/>
-<area shape="rect" href="$d1/d20/classfunctionNode.html" title="function node interface header" alt="" coords="184,620,376,1257"/>
-<area shape="rect" href="$d9/d42/classparam__desc.html" title="parameter description" alt="" coords="207,192,353,536"/>
-<area shape="rect" href="$d0/de7/classssBuffer.html" title="list (deque) implementaion for storing ssBlock elements." alt="" coords="400,836,579,1041"/>
-<area shape="rect" href="$d2/dfa/structssBlock.html" title="ssBuffer list entry." alt="" coords="441,7,537,124"/>
-</map>

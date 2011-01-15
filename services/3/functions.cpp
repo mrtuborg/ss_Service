@@ -81,7 +81,7 @@ errType equipListenProcessing(BYTE *writingBuffer, size_t sz)
   answerFrame->encode(writingBuffer, sz);
   printf("\n\tС иерархии нижнего уровня получен пакет (hex):\n");
   printf("\t[");
-  for (int k = 0; k < sz; k++)
+  for (size_t k = 0; k < sz; k++)
     printf("%.2X ", writingBuffer[k]);
   printf("]\n\n");
   printf("\tРасшифровка:\n");

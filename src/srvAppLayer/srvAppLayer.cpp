@@ -50,13 +50,9 @@ srvAppLayer *app;
 void* udpSenderThread (void* user)
 {
 	srvAppLayer *app=(srvAppLayer*)user;
-	ssBuffer *sendBuffer=app->functionsAnswersQueue;
 
 	deqUdp *uPort;
-	size_t sz;
 	
-
-	bool raw_mode=false;
 	uPort=new deqUdp(wUdp+1);//,true);
         if ((app->terminated()) || (uPort->open_port()!=err_result_ok)) { // open for sending
                 printf("Ошибка открытия сокета. Подсистема сокетной посылки не запущена\n");
@@ -105,12 +101,10 @@ void* udpListenerThread (void* user)
 	srvAppLayer *app=(srvAppLayer*)user;
 	
 	WORD wUdp=app->getListenerPortNum();
-	ssBuffer *recvBuffer=app->clientsRequestsQueue;
 	deqUdp *uPort;
 	//struct udphdr *udp;
 	size_t sz[0];
 	
-	bool raw_mode=false;
 	uPort=new deqUdp(wUdp);//,true);
         if ((app->terminated()) || (uPort->open_port(true)!=err_result_ok)) {
                 printf("Ошибка открытия сокета. Подсистема сокетного приёма не запущена!\n");
@@ -277,7 +271,6 @@ errType srvAppLayer::StopListening()
 {
     errType result=err_result_ok;
     if (verbose_level) printf("Останов подсистемы сокетного приёма\n");
-    int ret=0;
     //1. Stop udpListening thread
     //pthread_join waits for normal terminating of thread;
     AppTerminated=true;
@@ -385,8 +378,6 @@ errType srvAppLayer::decodeMessage(BYTE* dataBlock, DWORD length, rcsCmd *ss_cmd
 errType srvAppLayer::execMessage(rcsCmd* ss_cmd)
 {
     errType result=err_not_init;
-    BYTE *tmp;
-    DWORD len;
     int fn_num=ss_cmd->get_func_id();
     
     result=(Functions[fn_num])->decodeParams(ss_cmd);
@@ -495,7 +486,6 @@ errType srvAppLayer::sendResult(sockaddr_in *sfrom, rcsCmd* ss_cmd)
 errType srvAppLayer::ProcessMessages()
 {
     errType result=err_not_init;
-    functionNode* func;
     BYTE* dataBlock;
     DWORD length;
     rcsCmd *in_cmd, *out_cmd;

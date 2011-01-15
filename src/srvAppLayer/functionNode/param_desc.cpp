@@ -195,6 +195,13 @@ errType param_desc::printParam()
 	    for (int i=0; i<*(WORD*)param; i++) printf("%c",*((char*)param+2+i));
 	    printf("\n");
 	    break;
+
+	case type_BYTEVECTOR:
+	    break;
+
+	case type_WORDVECTOR:
+	    break;
+
     }
     
     return result;

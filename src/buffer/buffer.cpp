@@ -189,6 +189,7 @@ errType buffer::copyBufferChunkTo(BYTE* addr, DWORD offset, DWORD len)
  ***************************************************************************************/
 errType buffer::dbgPrint()
 {
-    for(int i=RdRef;i<WrRef;i++) printf("%.2X ",buff[i]);
+    DWORD i;
+    for(i=RdRef;i<WrRef;i++) printf("%.2X ",buff[i]);
     return err_result_ok;
 }
