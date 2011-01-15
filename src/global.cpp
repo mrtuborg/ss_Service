@@ -14,13 +14,13 @@
 
 #include <netinet/in.h>
 #include <queue>
-#include "../../rcsLib/ortsTypes/ortsTypes.h"
-#include "buffer/ssBuffer.h"
-#include "../../udp_port/udp_port.h"
-#include "../../rcsLib/rcsCmd/rcsCmd.h"
-#include "srvAppLayer/FunctionNode/param_desc.h"
-#include "srvAppLayer/FunctionNode/FunctionNode.h"
-#include "srvAppLayer/srvAppLayer.h"
+#include "rcsLib/ortsTypes/ortsTypes.h"
+#include "ssBuffer.h"
+#include "rcsLib/udp_port/udp_port.h"
+#include "rcsLib/rcsCmd/rcsCmd.h"
+#include "param_desc.h"
+#include "FunctionNode.h"
+#include "srvAppLayer.h"
 
 
 int verbose_level=0; ///< Debug detail level printing.

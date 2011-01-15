@@ -68,7 +68,7 @@ errType srvInit()
     printf("=============================================================\n\n");
  //   equip_sending = new udp_port(eq_udp_sending_port);
  //   result = equip_sending->open_port();
-//    equipAddr.s_addr = inet_addr(eq_ip_addr);
+ //   equipAddr.s_addr = inet_addr(eq_ip_addr);
     ret = pthread_create(&PollingThreadHandle, NULL, pollingThread, app);
     //if (ret!=0) Error:  Need to stop application initializing process...
     if (ret == 0) result = err_result_ok;
@@ -128,7 +128,7 @@ errType getStateVector(void* fn)
 
 errType addScheduleJob(void* fn)
 {
-    errType result=err_not_init;
+    errType result=err_abort;
 
 
     functionNode* func=(functionNode*)fn;
@@ -137,6 +137,7 @@ errType addScheduleJob(void* fn)
     
     BYTE isEmergencySchedule=*(BYTE*)(func->getParamPtr(0)); // Packet No
     DWORD objId=*(DWORD*)(func->getParamPtr(1));
+    DWORD nextObjId=*(DWORD*)(func->getParamPtr(2));
     WORD timeStart=*(WORD*)func->getParamPtr(2);
     WORD timeEnd=*(WORD*)func->getParamPtr(3);
     BYTE service_id=*(BYTE*)func->getParamPtr(4);
@@ -146,34 +147,47 @@ errType addScheduleJob(void* fn)
 
 
 
-    char str[255];
+    char str0[255], str1[255];
     //printf("Schedule #%d\n",packetNo);
 
-    //if (isEmergencySchedule) sprintf(str, "schedule.emergency");
-    //else sprintf(str, "schedule.general");
 
-    //scheduleFile = fopen (str,"a");
+    /// use these files for cron:
+    /// data_%jobId%.sdata - rcsCmd to send by cron scheduling
+    /// addr_%jobId%.saddr - ip_addr/udp_port for sending data_%jobId%.sdata
 
-    //task schedule[100];
-    //BYTE TaskQuantity;
-    //WORD offset=0;
-    
-    //WORD i=0;
-    //do {
-/*	schedule[i].encode(func->getParamPtr(1)+offset);
+    //if (isEmergencySchedule) sprintf(str, "");
+    //else
+    sprintf(str0, "data_%d.sdata",objId);
+    sprintf(str1, "addr_%d.saddr",objId);
+
+    //dataFile = fopen (str0,"a");
+    //addrFile = fopen (str1,"a");
+
+    job schedule[100];
+    BYTE jobsQuantity;
+    WORD offset=0;
+
+    /*
+    WORD i=0;
+    do {
+	schedule[i].encode((BYTE*)func->getParamPtr(1)+offset);
 	schedule[i].dbgPrint();
-	fprintf(scheduleFile, "0x%.8X ", schedule[i].get_dwTime());
-	fprintf(scheduleFile, "0x%d ", schedule[i].get_btServId());
-	fprintf(scheduleFile, "0x%d ", schedule[i].get_btFuncId());
-	for (int k=0; k<schedule[i].get_paramsLen(); k++)
-	fprintf(scheduleFile, "%.2X", schedule[i].get_paramsPtr()+k);
+
+	//  crontab: fprintf(scheduleFile, "0x%d ", schedule[i].get_wTimeStart());
+	// addrFile:
+	    fprintf(addrFile, "service_id=%d ", schedule[i].get_btServId());
+	// dataFile:
+	    fprintf(dataFile, "func_id=%d ", schedule[i].get_btFuncId());
+	    schedule[i].
+
+	for (int k=0; k<schedule[i].get_paramsLength(); k++)
+	fprintf(scheduleFile, "%.2X", *(BYTE*)schedule[i].get_paramsPtr()+k);
 	fprintf(scheduleFile, "\n");
 	offset+=schedule[i].getLength();
 	i++;
-*/   // } while (offset<func->getAllParamsLength()-1);
-    
-    fclose(scheduleFile);
-
+    } while (offset<func->getAllParamsLength()-1);
+    */
+    //fclose(scheduleFile);
 
 
     return result;
@@ -188,7 +202,8 @@ errType CreateEmergencySchedule(void* fn)
 
     functionNode* func=(functionNode*)fn;
     
-    func->dbgPrint();
+    func->printParams();
+    
 
     return result;
 }
@@ -202,7 +217,7 @@ errType ReadGeneralSchedule(void* fn)
 
     functionNode* func=(functionNode*)fn;
     
-    func->dbgPrint();
+    func->printParams();
 
     return result;
 }
@@ -216,7 +231,7 @@ errType ReadEmergencySchedule(void* fn)
 
     functionNode* func=(functionNode*)fn;
     
-    func->dbgPrint();
+    func->printParams();
 
     return result;
 }
@@ -230,7 +245,7 @@ errType GetCursorPosition(void* fn)
 
     functionNode* func=(functionNode*)fn;
     
-    func->dbgPrint();
+    func->printParams();
 
     return result;
 }

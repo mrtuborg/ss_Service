@@ -5,19 +5,19 @@
 #include <arpa/inet.h> 
 #include <time.h> 
 #include <deque>
-#include "../../../rcsLib/ortsTypes/ortsTypes.h"
-#include "../buffer/ssBuffer.h" 
-#include "../buffer/buffer.h" 
-#include "../../../udp_port/udp_port.h" 
-#include "../../../rcsLib/rcsCmd/rcsCmd.h" 
-#include "../srvAppLayer/FunctionNode/param_desc.h" 
-#include "../srvAppLayer/FunctionNode/FunctionNode.h" 
-#include "../srvAppLayer/srvAppLayer.h" 
-#include "../global.h" 
+#include "rcsLib/ortsTypes/ortsTypes.h"
+#include "ssBuffer.h" 
+#include "buffer.h" 
+#include "rcsLib/udp_port/udp_port.h" 
+#include "rcsLib/rcsCmd/rcsCmd.h" 
+#include "param_desc.h" 
+#include "FunctionNode.h" 
+#include "srvAppLayer.h" 
+#include "global.h" 
 
-#include "../cm688_packet/cmdFrame.h"
-#include "../cm688_packet/statusFrame.h"
-#include "../cm688_packet/cm688_packet.h"
+#include "cmdFrame.h"
+#include "statusFrame.h"
+#include "cm688_packet.h"
 
 udp_port *equip_sending;
 pthread_t PollingThreadHandle;

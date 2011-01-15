@@ -14,7 +14,7 @@
 
 #include <stdio.h>
 #include <string.h>
-#include "../../../../rcsLib/ortsTypes/ortsTypes.h"
+#include "rcsLib/ortsTypes/ortsTypes.h"
 #include "param_desc.h"
 
 /**********************************************************************************************//**

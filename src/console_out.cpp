@@ -15,7 +15,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "auto_config.h"
+//#include "auto_config.h"
 
 #include "./arg_parser/carg_parser.h"
 

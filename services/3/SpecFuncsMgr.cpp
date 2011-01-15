@@ -4,13 +4,13 @@
 #include <netinet/in.h>
 #include <arpa/inet.h>
 #include <deque>
-#include "../../../rcsLib/ortsTypes/ortsTypes.h"
-#include "../buffer/ssBuffer.h"
-#include "../../../rcsLib/rcsCmd/rcsCmd.h"
-#include "../../../udp_port/udp_port.h"
-#include "../srvAppLayer/FunctionNode/param_desc.h"
-#include "../srvAppLayer/FunctionNode/FunctionNode.h"
-#include "../srvAppLayer/srvAppLayer.h"
+#include "rcsLib/ortsTypes/ortsTypes.h"
+#include "ssBuffer.h"
+#include "rcsLib/rcsCmd/rcsCmd.h"
+#include "rcsLib/udp_port/udp_port.h"
+#include "param_desc.h"
+#include "FunctionNode.h"
+#include "srvAppLayer.h"
 #include "SpecFuncsMgr.h"
 #include "functions.h"
 

@@ -1,9 +1,9 @@
 #include <netinet/in.h>
 #include <stdio.h>
 #include <string.h>
-#include "../../../rcsLib/ortsTypes/ortsTypes.h"
+#include "rcsLib/ortsTypes/ortsTypes.h"
 #include "global.h"
-#include "../../../rcsLib/crc/crc16.h"
+#include "rcsLib/crc/crc16.h"
 #include "cmdFrame.h"
 
 cmdFrame::cmdFrame()
