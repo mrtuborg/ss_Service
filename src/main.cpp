@@ -28,11 +28,11 @@
 #include "console_out.h"
 #include "rcsLib/rcsCmd/rcsCmd.h"
 #include "param_desc.h"
-#include "FunctionNode.h"
+#include "functionNode.h"
 
 #include "srvAppLayer.h"
-#include "CommonFuncsMgr.h"
-#include "SpecFuncsMgr.h"
+#include "commonFuncsMgr.h"
+#include "specFuncsMgr.h"
 #include "functions.h"
 #include "SIG_handler.h"
 
