@@ -1,9 +1,8 @@
 #include <netinet/in.h>
 #include <stdio.h>
 #include <string.h>
-#include "rcsLib/ortsTypes/ortsTypes.h"
-#include "global.h"
-#include "rcsLib/crc/crc16.h"
+#include "extra/ortsTypes/ortsTypes.h"
+#include "math/crc/crc16.h"
 #include "statusFrame.h"
 
 statusFrame::statusFrame()

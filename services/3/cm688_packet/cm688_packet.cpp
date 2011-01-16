@@ -1,7 +1,6 @@
 #include <netinet/in.h>
 
-#include "rcsLib/ortsTypes/ortsTypes.h"
-#include "global.h"
+#include "extra/ortsTypes/ortsTypes.h"
 #include "cmdFrame.h"
 #include "statusFrame.h"
 #include "cm688_packet.h"

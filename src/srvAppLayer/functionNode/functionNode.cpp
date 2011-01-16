@@ -13,7 +13,7 @@
  */
 #include <stdio.h>
 #include <string.h>
-#include "rcsLib/ortsTypes/ortsTypes.h"
+#include "extra/ortsTypes/ortsTypes.h"
 #include "param_desc.h"
 #include "rcsLib/rcsCmd/rcsCmd.h"
 #include "functionNode.h"

@@ -14,9 +14,9 @@
 
 #include <arpa/inet.h>
 #include <deque>
-#include "rcsLib/ortsTypes/ortsTypes.h"
+#include "extra/ortsTypes/ortsTypes.h"
 #include "ssBuffer.h"
-#include "rcsLib/udp_port/udp_port.h"
+#include "comm/udp_port/udp_port.h"
 #include "deqUdp.h"
 
 
