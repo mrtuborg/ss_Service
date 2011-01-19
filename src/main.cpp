@@ -50,92 +50,92 @@
  *********************************************************************/
 errType process_cmdLine(int argc, char *argv[])
 {
-  /**
+    /**
    * @todo reorganize process to external library
    */
 
-  errType result=err_result_ok;
-  /// 1. Define arguments type: with (\a ap_yes) or without (\a ap_no) parameters
-  const ap_Option options[] =
+    errType result=err_result_ok;
+    /// 1. Define arguments type: with (\a ap_yes) or without (\a ap_no) parameters
+    const ap_Option options[] =
     {
-    { 'V', "version",             ap_no },
-    { 'h', "help",                ap_no },
-    { 'v', "verbose",             ap_no },
-    { 'u', "srv_udp_port",        ap_yes},
-    { 's', "eqp_udp_send_port",   ap_yes},
-    { 'r', "eqp_udp_recv_port",   ap_yes},
-    { 'i', "eqp_ip_addr",         ap_yes},
-    {   0, 0,                     ap_no } };
+        { 'V', "version",             ap_no },
+        { 'h', "help",                ap_no },
+        { 'v', "verbose",             ap_no },
+        { 'u', "srv_udp_port",        ap_yes},
+        { 's', "eqp_udp_send_port",   ap_yes},
+        { 'r', "eqp_udp_recv_port",   ap_yes},
+        { 'i', "eqp_ip_addr",         ap_yes},
+        {   0, 0,                     ap_no } };
 
-  Arg_parser parser;
-  int argind;
-  ///2. Initialize arguments parser ::ap_init
-  if( !ap_init( &parser, argc, argv, options, 0 ) )
+    Arg_parser parser;
+    int argind;
+    ///2. Initialize arguments parser ::ap_init
+    if( !ap_init( &parser, argc, argv, options, 0 ) )
     { show_error( "Необходимо задать аргументы запуска!", 0, 0 ); return err_not_found; }
-  ///3. Check for parsing errors ::ap_error
-  if( ap_error( &parser ) )                             /* bad option */
+    ///3. Check for parsing errors ::ap_error
+    if( ap_error( &parser ) )                             /* bad option */
     { show_error( ap_error( &parser ), 0, 1 ); return err_result_error; }
 
-  ///4. Execute all arguments after it parsing
- for( argind = 0; argind < ap_arguments( &parser ); ++argind )
- {
-     /// - get code of argument ::ap_code
-    const int code = ap_code( &parser, argind );
-    if( !code ) break;                                  // no more options
-    /// - switch with argument code value
+    ///4. Execute all arguments after it parsing
+    for( argind = 0; argind < ap_arguments( &parser ); ++argind )
+    {
+        /// - get code of argument ::ap_code
+        const int code = ap_code( &parser, argind );
+        if( !code ) break;                                  // no more options
+        /// - switch with argument code value
 
-    switch( code ){
-    /// - execute
-      case 'V': show_version(); return err_extra;
-      case 'h': show_help( verbose_level ); return err_extra;
-      case 'v': verbose_level = 1; break;
-      case 'u': break;
-      case 's': break;
-      case 'r': break;
-      case 'i': break;
-      default : internal_error( "неподдерживаемая опция" ); return err_extra;
-      }
+        switch( code ){
+            /// - execute
+        case 'V': show_version(); return err_extra;
+        case 'h': show_help( verbose_level ); return err_extra;
+        case 'v': verbose_level = 1; break;
+        case 'u': break;
+        case 's': break;
+        case 'r': break;
+        case 'i': break;
+        default : internal_error( "неподдерживаемая опция" ); return err_extra;
+    }
     } // end process options
 
- ///4. Execute only arguments with parameters after it parsing
-  for( argind = 0; argind < ap_arguments( &parser ); ++argind )
-  {
-    /// - get code of argument ::ap_code
-    const int code = ap_code( &parser, argind );
-    /// - get argument parameter ::ap_argument
-    const char * arg = ap_argument( &parser, argind );
-    /// - switch with argument code value
-    switch(code){
-    /// - execute
+    ///4. Execute only arguments with parameters after it parsing
+    for( argind = 0; argind < ap_arguments( &parser ); ++argind )
+    {
+        /// - get code of argument ::ap_code
+        const int code = ap_code( &parser, argind );
+        /// - get argument parameter ::ap_argument
+        const char * arg = ap_argument( &parser, argind );
+        /// - switch with argument code value
+        switch(code){
+            /// - execute
         case 'u':
 	    wUdp=atol(arg);
-        break;
+            break;
 
         case 's':
-             eq_udp_sending_port=atol(arg);
-        break;
-        
+            eq_udp_sending_port=atol(arg);
+            break;
+
         case 'r':
-             eq_udp_listen_port=atol(arg);
-        break;
-        
+            eq_udp_listen_port=atol(arg);
+            break;
+
         case 'i':
             strcpy(eq_ip_addr, arg);
             inet_aton(eq_ip_addr,&equipAddr);
-        break;
+            break;
 
         default:
-        break;
-   }
+            break;
+        }
 
-    if( !code ) { // option
-       // non-option
-      printf( "аргумент `%s' не является опцией", arg );
-      printf( "\n" );
+        if( !code ) { // option
+            // non-option
+            printf( "аргумент `%s' не является опцией", arg );
+            printf( "\n" );
 
-      result=err_result_error;
+            result=err_result_error;
+        }
     }
-}
     if (!ap_arguments( &parser )) result=err_result_ok;
     return result;
 }
@@ -146,7 +146,7 @@ errType process_cmdLine(int argc, char *argv[])
  */
 errType fileRead (char* fname, BYTE** buffer, size_t *sz)
 {
-   /// @todo reorganize function to reading xml-files for future purposes
+    /// @todo reorganize function to reading xml-files for future purposes
     errType result=err_not_init;
     FILE *pFile;
     BYTE *buf;
@@ -160,7 +160,7 @@ errType fileRead (char* fname, BYTE** buffer, size_t *sz)
 	result=err_result_error;
 	return err_result_error;
     }
-                           
+
     fseek (pFile , 0 , SEEK_END);
     *sz = ftell (pFile);
     rewind (pFile);
@@ -168,9 +168,9 @@ errType fileRead (char* fname, BYTE** buffer, size_t *sz)
     buf=new BYTE[*sz];
     ret=fread(buf,*sz,1,pFile);
     
-//    printf("File size %lu readed %lu:\n=",ret, *sz);
-//    for (int i=0; i<*sz; i++) printf(" %.2X ", buf[i]);
-//    printf("=\n");
+    //    printf("File size %lu readed %lu:\n=",ret, *sz);
+    //    for (int i=0; i<*sz; i++) printf(" %.2X ", buf[i]);
+    //    printf("=\n");
 
     fclose(pFile);
     
@@ -242,74 +242,74 @@ errType appDeinit(void)
  * @retval      err_not_init
  **********************************************************************/
 int main(int argc, char *argv[]) {
+
+    memset(&equipAddr,0,sizeof(in_addr));
+
+    /// 1. Process command line arguments \b argc and \b argv[] in ::process_cmdLine
+    errType ret=process_cmdLine(argc, argv);
+    ///     - if arguments parsing is unsuccessfull exiting from programm
+    if (ret!=err_result_ok) return ret;
+    /// 2. Check arguments:
+    /// - check for missing one of exact argument
+    if ((eq_udp_sending_port==0) || (eq_udp_listen_port==0) || (equipAddr.s_addr==0)) {
+        printf("Пропущен один из обязательных параметров:\n");
+        printf( "  -u -  сокет для сервисного общения с верхней иерархией системы\n" );
+        printf( "  -s -  сокет для посылки сообщений на нижнюю иерархию системы\n");
+        printf( "  -r -  сокет для приёма сообщений от нижней иерархии системы\n");
+        printf( "  -i -  адрес подсистемы обслуживания нижней иерархии\n\n");
+        return err_not_init;
+    }
+
+    /// - check for equipment communication settings:
+    ///     - sending port need to be not equal to listen port values
+    ///     - sending or listen port neet to be not equal to client listen port
+    if ((eq_udp_sending_port==eq_udp_listen_port) || (eq_udp_sending_port==wUdp) || (eq_udp_listen_port==wUdp))
+    {
+        printf("Ошибка параметров введены совпадающие номера сокетов\n");
+        return err_not_init;
+    }
+
+    ///     - check for sending port number or listening port number was far from client port number on one port number
+    ///     that reserved for client sending port.
+    if ((eq_udp_sending_port==wUdp+1) || (eq_udp_listen_port==wUdp+1))
+    {
+        printf("Ошибка параметров: номер сокета оборудования взят из уже занятого пространства\n");
+        return err_not_init;
+    }
+
+
+    commonFuncsMgr *cf;
+    specFuncsMgr *sf;
+
+    /// 3. Install system signals handlers ::installSIGhandlers()
+    installSIGhandlers(appDeinit);
+
+    app=new srvAppLayer(wUdp);
+
+    /// 4. Initialize application ::appInit()
+    if (appInit()!=err_result_ok) AppTerminated=true;
+    else {
+
+        cf=new commonFuncsMgr(app);
+        sf=new specFuncsMgr(app);
 	
-	memset(&equipAddr,0,sizeof(in_addr));
+        ///4. Start functions generate from declarations
+        ///- for common functions commonFuncsMgr::startCommonFuncs()
+        cf->startCommonFuncs();
+        ///- for special functions specFuncsMgr::startSpecFuncs()
+        sf->startSpecFuncs();
 	
-	/// 1. Process command line arguments \b argc and \b argv[] in ::process_cmdLine
-	errType ret=process_cmdLine(argc, argv);
-	///     - if arguments parsing is unsuccessfull exiting from programm
-        if (ret!=err_result_ok) return ret;
-        /// 2. Check arguments:
-        /// - check for missing one of exact argument
-        if ((eq_udp_sending_port==0) || (eq_udp_listen_port==0) || (equipAddr.s_addr==0)) {
-	    printf("Пропущен один из обязательных параметров:\n");
-	    printf( "  -u -  сокет для сервисного общения с верхней иерархией системы\n" );            
-	    printf( "  -s -  сокет для посылки сообщений на нижнюю иерархию системы\n");               
-	    printf( "  -r -  сокет для приёма сообщений от нижней иерархии системы\n");                
-	    printf( "  -i -  адрес подсистемы обслуживания нижней иерархии\n\n");
-	    return err_not_init;
+        /// 5. Main programm loop srvAppLayer::ProcessMessages() while not terminated by signal srvAppLayer::terminated()
+        while(!app->terminated()) {
+            app->ProcessMessages();
         }
-        
-        /// - check for equipment communication settings:
-        ///     - sending port need to be not equal to listen port values
-        ///     - sending or listen port neet to be not equal to client listen port
-        if ((eq_udp_sending_port==eq_udp_listen_port) || (eq_udp_sending_port==wUdp) || (eq_udp_listen_port==wUdp)) 
-        {
-    	    printf("Ошибка параметров введены совпадающие номера сокетов\n");
-    	    return err_not_init;
-    	}
 
-        ///     - check for sending port number or listening port number was far from client port number on one port number
-        ///     that reserved for client sending port.
-        if ((eq_udp_sending_port==wUdp+1) || (eq_udp_listen_port==wUdp+1)) 
-        {
-    	    printf("Ошибка параметров: номер сокета оборудования взят из уже занятого пространства\n");
-    	    return err_not_init;
-        }
-        
-
-	commonFuncsMgr *cf;
-	specFuncsMgr *sf;
+        /// 6. Deinitialize application ::appDeinit()
+        appDeinit();
 	
-	/// 3. Install system signals handlers ::installSIGhandlers()
-	installSIGhandlers(appDeinit);
-	
-	app=new srvAppLayer(wUdp);
-	
-	/// 4. Initialize application ::appInit()
-	if (appInit()!=err_result_ok) AppTerminated=true;
-	else {
-	    
-	    cf=new commonFuncsMgr(app);
-	    sf=new specFuncsMgr(app);
-	
-	    ///4. Start functions generate from declarations
-	    ///- for common functions commonFuncsMgr::startCommonFuncs()
-	    cf->startCommonFuncs();
-	    ///- for special functions specFuncsMgr::startSpecFuncs()
-	    sf->startSpecFuncs();
-	
-	    /// 5. Main programm loop srvAppLayer::ProcessMessages() while not terminated by signal srvAppLayer::terminated()
-	    while(!app->terminated()) {
-		app->ProcessMessages();
-	    }
-
-	    /// 6. Deinitialize application ::appDeinit()
-	    appDeinit();
-	
-	    if (app->terminated()==2) reboot(RB_AUTOBOOT);
-	    delete app;
-	}
-	printf("Работа программного средства завершена\n\n");
-	return (EXIT_FAILURE);
+        if (app->terminated()==2) reboot(RB_AUTOBOOT);
+        delete app;
+    }
+    printf("Работа программного средства завершена\n\n");
+    return (EXIT_FAILURE);
 }

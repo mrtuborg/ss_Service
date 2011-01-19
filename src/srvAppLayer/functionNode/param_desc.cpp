@@ -121,13 +121,13 @@ bool param_desc::isVector()
  ***********************************************************************/
 errType param_desc::setParam(void* param_val)
 {
-    errType result=err_not_init;
+    errType result = err_not_init;
     	
-    if (param_val==0) result=err_params_value;
+    if (param_val == 0) result = err_params_value;
     else {
-	if (_isVector) resize(2+*(WORD*)param_val);
-	memcpy(param, param_val,_length); // Need to copy for caller safety
-	result=err_result_ok;
+        if (_isVector) resize(2 + *(WORD*)param_val);
+        memcpy(param, param_val, _length); // Need to copy for caller safety
+        result = err_result_ok;
     }
     return result;
 }
