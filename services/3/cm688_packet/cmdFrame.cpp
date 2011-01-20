@@ -56,20 +56,20 @@ void cmdFrame::setSchieldStop()
 
 void cmdFrame::setCPControl()
 {
-    frame.ctrlSwitch.cmd.remoteControl=0;
-    frame.ctrlSwitch.cmd.localControl=0;
+    frame.remoteControl=0;
+    frame.localControl=0;
 }
 
 void cmdFrame::setRemoteControl()
 {
-    frame.ctrlSwitch.cmd.remoteControl=1;
-    frame.ctrlSwitch.cmd.localControl=0;
+    frame.remoteControl=1;
+    frame.localControl=0;
 }
 
 void cmdFrame::setLocalControl()
 {
-    frame.ctrlSwitch.cmd.remoteControl=0;
-    frame.ctrlSwitch.cmd.localControl=1;
+    frame.remoteControl=0;
+    frame.localControl=1;
 }
 
 void cmdFrame::setFoldOpen(BYTE num)
@@ -127,8 +127,8 @@ void cmdFrame::dbgPrint()
 	printf("ПУСК гидронасосной станции=%d\n",frame.hydroStation.cmd.start);
 	printf("СТОП гидронасосной станции=%d\n\n",frame.hydroStation.cmd.stop);
 
-	printf("Управление от ПДУ=%d\n",frame.ctrlSwitch.cmd.remoteControl);
-	printf("Управление от ПМУ=%d\n\n",frame.ctrlSwitch.cmd.localControl);
+        printf("Управление от ПДУ=%d\n",frame.remoteControl);
+        printf("Управление от ПМУ=%d\n\n",frame.localControl);
 
 	printf("Створка верхняя, закрыть=%d\n",frame.foldCmd.id[0].fields.value_0);
 	printf("Створка верхняя, открыть=%d\n",frame.foldCmd.id[0].fields.value_1);
