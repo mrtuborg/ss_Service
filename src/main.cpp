@@ -20,6 +20,7 @@
 #include <signal.h>
 #include <sys/reboot.h>
 #include <deque>
+#include <errno.h>
 
 #include "extra/ortsTypes/ortsTypes.h"
 #include "ssBuffer.h"
@@ -217,7 +218,11 @@ errType appInit(void)
      */
     if (result==err_result_ok) srvInit();
 
-    else printf("Ошибка запуска системы сокетной коммуникации\n");
+    else {
+        printf("Ошибка запуска системы сокетной коммуникации\n");
+        printf("Код ошибки: %d", errno);
+        perror("Описание ошибки: ");
+    }
     printf("Результат инициализации сервиса: %s\n", strErrTypes[(int)result]);
     return result;
 }
