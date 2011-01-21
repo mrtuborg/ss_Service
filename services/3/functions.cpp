@@ -65,6 +65,7 @@ void* pollingThread(void* user)
             old_crc = sendFrame->setCheckSumm();
 
             sendFrame->decode(&array);
+            printf("DEBUG: sending message\n");
             equip_sending->sendData(equipAddr, array, sizeof(cmdFrame_t));
         }
         sched_yield();
@@ -252,8 +253,7 @@ errType foldOpen(void* fn)
     func->printParams();
 
     BYTE foldId = *(BYTE*) func->getParamPtr(0);
-
-    sendFrame->setFoldOpen(foldId);
+    sendFrame->setFoldOpen((FoldDscr_type) foldId);
     func->setResult(1, &foldId);
     func->printResults();
 
@@ -270,7 +270,7 @@ errType foldClose(void* fn)
 
     BYTE foldId = *(BYTE*) func->getParamPtr(0);
 
-    sendFrame->setFoldClose(foldId);
+    sendFrame->setFoldClose((FoldDscr_type) foldId);
     func->setResult(1, &foldId);
     func->printResults();
 
@@ -287,7 +287,7 @@ errType foldStop(void* fn)
 
     BYTE foldId = *(BYTE*) func->getParamPtr(0);
 
-    sendFrame->setFoldStop(foldId);
+    sendFrame->setFoldStop((FoldDscr_type) foldId);
 
     func->setResult(1, &foldId);
 
