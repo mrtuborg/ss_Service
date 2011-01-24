@@ -1,9 +1,0 @@
-<map id="G" name="G">
-<area shape="rect" href="$db/dc2/classdeqUdp.html#afd4705cd64f0f137d1f36860761f4865" title="Read udp port data to queued buffer (ssBuffer)" alt="" coords="213,5,368,32"/>
-<area shape="rect" href="$d8/d72/classsrvAppLayer.html#aed49ea99073088a26f98122a0e057c01" title="step 4. send function answer to client" alt="" coords="417,56,612,83"/>
-<area shape="rect" href="$d3/dbf/srvAppLayer_8cpp.html#a730236a494d356798212190aae12f103" title="Thread to listening requests from clients and form queue of clients requests." alt="" coords="436,5,593,32"/>
-<area shape="rect" href="$d8/d72/classsrvAppLayer.html#acde5f9e1287ca5206957c64354d1aa8f" title="Method to prepare and start base communication engine." alt="" coords="673,5,889,32"/>
-<area shape="rect" href="$df/d0a/main_8cpp.html#ad68e81ce983cbcdbee68c1a830fdd873" title="Initialize srvAppLayer subsystem." alt="" coords="949,5,1021,32"/>
-<area shape="rect" href="$df/d0a/main_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97" title="Programm entrypoint." alt="" coords="1069,31,1128,57"/>
-<area shape="rect" href="$d8/d72/classsrvAppLayer.html#a51173210a4569e0044efa91eb7089541" title="Method to make one step of srvAppLayer step." alt="" coords="661,56,901,83"/>
-</map>

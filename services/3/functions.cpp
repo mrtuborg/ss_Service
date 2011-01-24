@@ -5,10 +5,10 @@
 #include <arpa/inet.h> 
 #include <time.h> 
 #include <deque>
-#include "rcsLib/ortsTypes/ortsTypes.h"
+#include "extra/ortsTypes/ortsTypes.h"
 #include "ssBuffer.h" 
 #include "buffer.h" 
-#include "rcsLib/udp_port/udp_port.h" 
+#include "comm/udp_port/udp_port.h" 
 #include "rcsLib/rcsCmd/rcsCmd.h" 
 #include "param_desc.h" 
 #include "FunctionNode.h" 
@@ -81,7 +81,7 @@ errType equipListenProcessing(BYTE *writingBuffer, size_t sz)
   answerFrame->encode(writingBuffer, sz);
   printf("\n\tС иерархии нижнего уровня получен пакет (hex):\n");
   printf("\t[");
-  for (int k = 0; k < sz; k++)
+  for (size_t k = 0; k < sz; k++)
     printf("%.2X ", writingBuffer[k]);
   printf("]\n\n");
   printf("\tРасшифровка:\n");

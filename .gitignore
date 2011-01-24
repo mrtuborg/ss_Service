@@ -6,4 +6,4 @@
 /config.sub
 /obj/
 /bin/
-/s3_Service
+/autom4te.cache/

@@ -1,5 +1,0 @@
-rm -f src/cm688_packet/*
-rm -f src/global.*
-rmdir src/cm688_packet
-
-

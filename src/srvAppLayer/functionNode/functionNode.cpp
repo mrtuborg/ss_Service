@@ -13,7 +13,7 @@
  */
 #include <stdio.h>
 #include <string.h>
-#include "rcsLib/ortsTypes/ortsTypes.h"
+#include "extra/ortsTypes/ortsTypes.h"
 #include "param_desc.h"
 #include "rcsLib/rcsCmd/rcsCmd.h"
 #include "functionNode.h"
@@ -191,7 +191,7 @@ void* functionNode::getParamPtr(BYTE num)
 errType functionNode::decodeParams(rcsCmd* packet)//BYTE* paramsPtr)
 {
 	errType result=err_not_init;
-	WORD len=0, offset=0;
+	WORD len=0;
 	BYTE *param_tmp;
 	
 	/// 1. Define length of parametric part by function declaration
@@ -281,7 +281,6 @@ errType functionNode::decodeParams(rcsCmd* packet)//BYTE* paramsPtr)
 errType functionNode::setResult(BYTE num, void* res)
 {
 	errType result=err_result_ok;
-	OrtsType type;
 	
 	if (func_results[num]) {
 	    result=func_results[num]->setParam(res);

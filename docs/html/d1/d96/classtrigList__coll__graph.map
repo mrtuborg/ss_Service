@@ -1,4 +1,0 @@
-<map id="G" name="G">
-<area shape="rect" href="$de/d40/classvalueTrig.html" title="{valueTrig\n|&#45; trigDef\l|+ valueTrig()\l+ ~valueTrig()\l+ setTrigValuePtr()\l+ getTrigOldValuePtr()\l+ getTrigIndex()\l+ dbgPrint()\l+ triggerCheck()\l+ triggerSet()\l+ getSize()\l}" alt="" coords="45,193,229,415"/>
-<area shape="rect" href="$d8/d68/structtrigDef__type.html" title="{trigDef_type\n|+ index\l+ oldValue\l+ recepient\l|}" alt="" coords="83,7,192,124"/>
-</map>

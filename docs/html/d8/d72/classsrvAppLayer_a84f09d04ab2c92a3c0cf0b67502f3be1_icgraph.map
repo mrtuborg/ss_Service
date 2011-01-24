@@ -1,6 +1,0 @@
-<map id="G" name="G">
-<area shape="rect" href="$d3/dbf/srvAppLayer_8cpp.html#a730236a494d356798212190aae12f103" title="Thread to listening requests from clients and form queue of clients requests." alt="" coords="316,5,473,32"/>
-<area shape="rect" href="$d8/d72/classsrvAppLayer.html#acde5f9e1287ca5206957c64354d1aa8f" title="Method to prepare and start base communication engine." alt="" coords="524,5,740,32"/>
-<area shape="rect" href="$df/d0a/main_8cpp.html#ad68e81ce983cbcdbee68c1a830fdd873" title="Initialize srvAppLayer subsystem." alt="" coords="789,5,861,32"/>
-<area shape="rect" href="$df/d0a/main_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97" title="Programm entrypoint." alt="" coords="909,5,968,32"/>
-</map>

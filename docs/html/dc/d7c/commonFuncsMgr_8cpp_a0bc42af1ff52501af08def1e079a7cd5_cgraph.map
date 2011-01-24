@@ -1,5 +1,0 @@
-<map id="G" name="G">
-<area shape="rect" href="$d8/d72/classsrvAppLayer.html#aea6fcd3efbd3339eec368a258e7f4647" title="Method to read data from equip_listen socket." alt="" coords="224,5,461,32"/>
-<area shape="rect" href="$d8/d72/classsrvAppLayer.html#a75e5d5bd6ef3fc9a06da5392e5c29f3a" title="Method to asynchonous polling of equip_listen socket." alt="" coords="208,56,477,83"/>
-<area shape="rect" href="$d8/d72/classsrvAppLayer.html#a8dff3da333c073ffa5e535161cdf8395" title="Method to check application internal termination signal." alt="" coords="244,107,441,133"/>
-</map>

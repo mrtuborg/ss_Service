@@ -21,7 +21,7 @@
 
 /// programm revision number
 #ifndef REVISION
- #define REVISION 0     ///< - revision by default is 0
+ #define REVISION "0"     ///< - revision by default is 0
 #endif
 
 char PROGVERSION[255] 	  = "0.1";                     ///< version of programm

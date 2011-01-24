@@ -14,9 +14,9 @@
 
 #include <arpa/inet.h>
 #include <deque>
-#include "rcsLib/ortsTypes/ortsTypes.h"
+#include "extra/ortsTypes/ortsTypes.h"
 #include "ssBuffer.h"
-#include "rcsLib/udp_port/udp_port.h"
+#include "comm/udp_port/udp_port.h"
 #include "deqUdp.h"
 
 
@@ -79,7 +79,7 @@ errType deqUdp::readData(ssBuffer* addr, size_t* len, in_addr *ipaddr,bool peek)
   /// @todo not needed to realize all sendData check ability to use base method sendData of parent class
 	//    if (verbose_level) printf("udp_port::readData(buffer)\n");
     errType result=err_result_ok;
-    int numbytes=0, i=0;
+    int numbytes=0;
     socklen_t socklen=0;
     sockaddr_in sfrom;//=new sockaddr_in;
     bool repeat=false;

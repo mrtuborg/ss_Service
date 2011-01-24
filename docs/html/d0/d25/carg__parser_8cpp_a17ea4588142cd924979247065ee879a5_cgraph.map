@@ -1,8 +1,0 @@
-<map id="G" name="G">
-<area shape="rect" href="$d0/d25/carg__parser_8cpp.html#adfb2a548eb4dd67224a0f709f25e36fe" title="ap_resize_buffer" alt="" coords="529,72,668,99"/>
-<area shape="rect" href="$d0/d25/carg__parser_8cpp.html#a815f4a1ad034367d5c008d65d7fa11e7" title="free_data" alt="" coords="156,224,247,251"/>
-<area shape="rect" href="$d0/d25/carg__parser_8cpp.html#a4f4a9bc7a9fd3196386e794f9ba21ae7" title="parse_long_option" alt="" coords="125,123,277,149"/>
-<area shape="rect" href="$d0/d25/carg__parser_8cpp.html#aaaac61e1b4b5298fa1a86735876b9f62" title="push_back_record" alt="" coords="329,123,479,149"/>
-<area shape="rect" href="$d0/d25/carg__parser_8cpp.html#a5f6bd272e398989d699a7d188ad09ab9" title="parse_short_option" alt="" coords="123,72,280,99"/>
-<area shape="rect" href="$d0/d25/carg__parser_8cpp.html#adc0cab3e7b303d824140d37cbc12d8a8" title="add_error" alt="" coords="359,72,449,99"/>
-</map>

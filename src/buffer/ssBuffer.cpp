@@ -17,7 +17,7 @@
 #include <deque>
 #include <netinet/in.h>
 #include <arpa/inet.h>
-#include "rcsLib/ortsTypes/ortsTypes.h"
+#include "extra/ortsTypes/ortsTypes.h"
 #include "ssBuffer.h"
 
 ssBuffer::ssBuffer()
@@ -76,7 +76,6 @@ DWORD ssBuffer::getFrontBlockSize()
  **********************************************************************************/
 DWORD ssBuffer::popBlock(sockaddr_in* addr, BYTE* block)
 {
-    errType result=err_not_init;
     DWORD len=0;
     ssBlock* dataBlock=0;
     dataBlock=buffer.front();
@@ -123,8 +122,7 @@ DWORD ssBuffer::size()
 void ssBuffer::dbgPrint()
 {
     ssBlock* dataBlock;
-    int i=1, k=0;
-    DWORD len=0, q=0;
+    DWORD k=0, i=1, len=0, q=0;
     
     q=size();
     printf("Blocks quantity=%d\n", q);
