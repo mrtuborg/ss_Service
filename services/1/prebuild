@@ -1,3 +1,0 @@
-mkdir src/schedule
-cp $1/schedule/* src/schedule
-

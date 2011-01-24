@@ -22,18 +22,18 @@
 #include <iostream>
 #include <queue>
 
-#include "extra/ortsTypes/ortsTypes.h"
-#include "rcsLib/rcsCmd/rcsCmd.h"
+#include <extra/ortsTypes/ortsTypes.h>
+#include <rcsLib/rcsCmd/rcsCmd.h>
 
-#include "global.h"
-#include "ssBuffer.h"
-#include "comm/udp_port/udp_port.h"
-#include "deqUdp.h"
-#include "param_desc.h"
-#include "functionNode.h"
+#include <global.h>
+#include <ssBuffer.h>
+#include <comm/udp_port/udp_port.h>
+#include <deqUdp.h>
+#include <param_desc.h>
+#include <functionNode.h>
 
-#include "srvAppLayer.h"
-#include "commonFuncsMgr.h"
+#include <srvAppLayer.h>
+#include <commonFuncsMgr.h>
 
 /// todo msc diagramm
 bool rcvComplete_flag=false; ///< Flag purpose: synchronize state between receiving clients requests thread and reading for received data
@@ -207,14 +207,14 @@ errType srvAppLayer::DeleteFunction(BYTE id)
  * @retval      err_result_ok - Block encoded successfully
  * @todo nobody uses this method. need to be deleted.
  **************************************************************************************/
-errType srvAppLayer::encodeBlock(rcsCmd* ss_cmd, BYTE** data)
-{
-    errType result=err_result_ok;
-    
-    *data=(BYTE*) ss_cmd;
-    
-    return result;
-}
+//errType srvAppLayer::encodeBlock(rcsCmd* ss_cmd, BYTE** data)
+//{
+//    errType result=err_result_ok;
+//
+//    *data=(BYTE*) ss_cmd;
+//
+//    return result;
+//}
 
 /**********************************************************************************//**
  * @brief      Method to prepare and start base communication engine
@@ -290,20 +290,20 @@ errType srvAppLayer::StopListening()
 
 /**********************************************************************************//**
  * @brief      Method to asynchonous polling of \ref equip_listen socket
- * @todo        too strange method. May be it need be deleted.
+ * @todo        too strange method. May be it need be refactoring.
  * @retval      err_result_ok   - udp socket received data
  **************************************************************************************/
 errType srvAppLayer::equip_reading_event(){
 	    errType result=err_not_init;
 	    BYTE event=0;
-	    result=equip_listen->udp_async_process(&event); 
+	    result=equip_listen->udp_async_process(&event);
 	    if ((result==err_result_ok) && ((event&0x1)==0x1)) result=err_result_ok;
 	    return result;
 	}
 
 /**********************************************************************************//**
  * @brief       Method to read data from \ref equip_listen socket
- * @todo        too strange method. May be it need be deleted.
+ * @todo        too strange method. May be it need be refactoring.
  * @param[out]  buffer - uses to store recevied data
  * @param[out]  sz - size in bytes of received data
  * @retval      err_result_ok   - udp socket received data has been readed
@@ -446,7 +446,7 @@ errType srvAppLayer::encodeFuncResult(rcsCmd* in_cmd, rcsCmd* out_cmd)
 	out_cmd->makeSign();
 	
 	return result;
-	delete resData;
+	delete []resData;
 }
 
 /**********************************************************************************//**
@@ -471,7 +471,7 @@ errType srvAppLayer::sendResult(sockaddr_in *sfrom, rcsCmd* ss_cmd)
 	//printf("]\n");
 	
 	functionsAnswersQueue->pushBlock(sfrom, dataBlock, ss_cmd->getCmdLength());
-	delete dataBlock;
+	delete []dataBlock;
 	
 	return result;
 }
@@ -546,7 +546,7 @@ errType srvAppLayer::ProcessMessages()
         }
 /// 7) Release allocated memory
                                
-	delete dataBlock;
+	delete []dataBlock;
 	delete in_cmd;
 	delete out_cmd;
 

@@ -8,8 +8,8 @@
 #include <fcntl.h>
 #include <sys/mman.h>
               
-#include "../../../rcsLib/ortsTypes/ortsTypes.h"
-#include "../../../rcsLib/rcsCmd/rcsCmd.h"
+#include <extra/ortsTypes/ortsTypes.h>
+#include <rcsLib/rcsCmd/rcsCmd.h>
 #include "job.h"
 #include "schedule.h"
 
