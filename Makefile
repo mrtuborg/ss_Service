@@ -2,7 +2,7 @@
 # usage: make id=3
 id:=.
 use_libs		:=rcsLib comm extra math
-app_binary_dir		:=bin/$(shell uname -s)
+app_binary_dir		:=bin/$(shell uname -s)_$(shell uname -r)
 app_libray_dir		:=libs
 root_build_dir		:=obj
 debug_build_dir		:=$(root_build_dir)/Debug
@@ -40,7 +40,7 @@ lib_dirs+=$(addprefix $(paths_to_libraries)/math/, $(lib_subdirs))
 
 compile_flags		:= -Wall -MD -pipe
 link_flags		:= -pipe
-libraries		:= -ldl
+libraries		:= -ldl -pthread
 
 relative_include_dirs	:= 	$(core_include_dir)\
 				$(addprefix $(service_source_dir)/,$(service_source_subdirs))\
@@ -87,6 +87,7 @@ $(program_name): $(objects)
 
 .PHONY : clean
 .PHONY : doc
+.PHONY : remote
 clean : id:=.
 clean :
 	rm -rf bin obj docs
@@ -95,4 +96,7 @@ doc : id:=.
 doc : 
 	doxygen Doxyfile
 
+remote :
+	./remote ss_Service 10.0.2.2 tuborg 3
+	
 include $(wildcard $(addsuffix /*.d, $(objects_dirs)))
