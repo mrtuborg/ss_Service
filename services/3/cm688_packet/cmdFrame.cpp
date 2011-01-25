@@ -3,6 +3,7 @@
 #include <string.h>
 #include "extra/ortsTypes/ortsTypes.h"
 #include "math/crc/crc16.h"
+#include <shield_types.h>
 #include "cmdFrame.h"
 #include <stdlib.h> //DEBUG
 

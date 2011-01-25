@@ -1,13 +1,6 @@
 #ifndef CMDFRAME_H
 #define CMDFRAME_H
 
-typedef enum  {
-    LOWER_A = 0,
-    LOWER_B = 1,
-    UPPER   = 2
-} FoldDscr_type;
-
-
 typedef struct cmdFrame_t {
     //********************* 1,2 BYTES ********************
     WORD header;
@@ -15,16 +8,16 @@ typedef struct cmdFrame_t {
     //********************** 3 BYTE **********************
     union {
         struct  {
-            BYTE null          :1;
-            BYTE remoteControl :1;
+            BYTE null               :1;
+            BYTE remoteControl      :1;
             BYTE hydroStation_stop  :1;
             BYTE hydroStation_start :1;
-            BYTE shield_stop:  1;
-            BYTE shield_open:  1;
-            BYTE shield_close: 1;
-            BYTE hydroCyl_corr: 1;
+            BYTE shield_stop        :1;
+            BYTE shield_open        :1;
+            BYTE shield_close       :1;
+            BYTE hydroCyl_corr      :1;
         };
-        BYTE cmdValue: 8;
+        BYTE cmdValue;
     };
 
     //********************** 4 BYTE **********************
@@ -39,7 +32,7 @@ typedef struct cmdFrame_t {
             BYTE fold_up_close   :1;
             BYTE localControl    :1;
         } fold_status;
-        BYTE cmdValue :8;
+        BYTE cmdValue;
     }BYTE_4;
 
 
@@ -53,15 +46,16 @@ typedef struct cmdFrame_t {
             BYTE fold_up_stop   :1;
             BYTE funcCtrl       :1;
         };
-        BYTE cmdValue: 8;
+        BYTE cmdValue;
     }BYTE_5;
 
 
     //********************** 6 BYTE **********************
-    WORD reserve:  8;
+    BYTE reserve;
 
     //********************* 7,8 BYTES ********************
     WORD checkSumm;
+
 } __attribute__((packed)) cmdFrame_t;
 
 

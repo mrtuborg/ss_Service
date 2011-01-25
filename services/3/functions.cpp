@@ -15,8 +15,9 @@
 #include "srvAppLayer.h" 
 #include "global.h" 
 
-#include "cmdFrame.h"
+#include <shield_types.h>
 #include "statusFrame.h"
+#include "cmdFrame.h"
 #include "cm688_packet.h"
 
 udp_port *equip_sending;
@@ -357,10 +358,10 @@ errType foldGetParams(void* fn)
 
     func->setResult(1, &fold_id);
 
-    if (fold_id<3) {
-        foldState = answerFrame->getFoldState(fold_id);
-        foldPos = answerFrame->getFoldPosition(fold_id);
-        result=err_result_ok;
+    if (fold_id < 3)  {
+        foldState = answerFrame->getFoldState((FoldDscr_type) fold_id);
+        foldPos = answerFrame->getFoldPosition((FoldDscr_type) fold_id);
+        result = err_result_ok;
         func->setResult(2, &foldState);
         func->setResult(3, &foldPos);
     }
@@ -386,11 +387,11 @@ errType semiaxisSensorsGetState(void* fn)
     switch (sensor_id)
     {
     case 0: //(in-path-sensor)
-        sensorState = answerFrame->get_psa_sensors(fold_id);
+        sensorState = answerFrame->get_psa_sensors((FoldDscr_type) fold_id);
         result=err_result_ok;
         break;
     case 1: //ending sensor
-        sensorState = answerFrame->get_esa_sensors(fold_id);
+        sensorState = answerFrame->get_esa_sensors((FoldDscr_type) fold_id);
         result=err_result_ok;
         break;
     default:
@@ -522,11 +523,11 @@ errType getUZstate(void* fn)
     BYTE UZ_id=*(BYTE*)(func->getParamPtr(0));
     uzState_type UZ;
 
-    UZ.fields.UZ_locked   = answerFrame->isUZ_locked(UZ_id);
-    UZ.fields.UZ_unlocked = answerFrame->isUZ_unlocked(UZ_id);
-    UZ.fields.UZ_busy     = answerFrame->isUZ_busy(UZ_id);
-    UZ.fields.UZ_manual   = answerFrame->isUZ_manual(UZ_id);
-    UZ.fields.UZ_alert    = answerFrame->isUZ_alert(UZ_id);
+    UZ.fields.UZ_locked   = answerFrame->isUZ_locked((FoldDscr_type) UZ_id);
+    UZ.fields.UZ_unlocked = answerFrame->isUZ_unlocked((FoldDscr_type) UZ_id);
+    UZ.fields.UZ_busy     = answerFrame->isUZ_busy((FoldDscr_type) UZ_id);
+    UZ.fields.UZ_manual   = answerFrame->isUZ_manual((FoldDscr_type) UZ_id);
+    UZ.fields.UZ_alert    = answerFrame->isUZ_alert((FoldDscr_type) UZ_id);
 
     func->setResult(1, &UZ_id);
     func->setResult(2, &UZ);
@@ -545,11 +546,11 @@ errType getAllUZstate(void* fn)
     for(int i=0; i<3; i ++)
     {
         UZ[i].bValue = 0;                       //cleaning bits
-        UZ[i].fields.UZ_locked   = answerFrame->isUZ_locked(i);
-	UZ[i].fields.UZ_unlocked = answerFrame->isUZ_unlocked(i);
-	UZ[i].fields.UZ_busy     = answerFrame->isUZ_busy(i);
-	UZ[i].fields.UZ_manual   = answerFrame->isUZ_manual(i);
-	UZ[i].fields.UZ_alert    = answerFrame->isUZ_alert(i);
+        UZ[i].fields.UZ_locked   = answerFrame->isUZ_locked((FoldDscr_type) i);
+        UZ[i].fields.UZ_unlocked = answerFrame->isUZ_unlocked((FoldDscr_type) i);
+        UZ[i].fields.UZ_busy     = answerFrame->isUZ_busy((FoldDscr_type) i);
+        UZ[i].fields.UZ_manual   = answerFrame->isUZ_manual((FoldDscr_type) i);
+        UZ[i].fields.UZ_alert    = answerFrame->isUZ_alert((FoldDscr_type) i);
     }
 
     func->setResult(1, &UZ[0]);
@@ -592,14 +593,14 @@ errType allSemiaxisSensorsGetState(void* fn)
     
     semiaxisSensorsVector_t vector;
     
-    vector.fields.fold[0].psa.sa=answerFrame->get_psa_sensors(0);
-    vector.fields.fold[0].esa.sa= answerFrame->get_esa_sensors(0);
+    vector.fields.fold[0].psa.sa = answerFrame->get_psa_sensors(LOWER_A);
+    vector.fields.fold[0].esa.sa = answerFrame->get_esa_sensors(LOWER_A);
 
-    vector.fields.fold[1].psa.sa=answerFrame->get_psa_sensors(1);
-    vector.fields.fold[1].esa.sa= answerFrame->get_esa_sensors(1);
+    vector.fields.fold[1].psa.sa = answerFrame->get_psa_sensors(LOWER_B);
+    vector.fields.fold[1].esa.sa = answerFrame->get_esa_sensors(LOWER_B);
 
-    vector.fields.fold[2].psa.sa=answerFrame->get_psa_sensors(2);
-    vector.fields.fold[2].esa.sa= answerFrame->get_esa_sensors(2);
+    vector.fields.fold[2].psa.sa = answerFrame->get_psa_sensors(UPPER);
+    vector.fields.fold[2].esa.sa = answerFrame->get_esa_sensors(UPPER);
 
 
     func->setResult(1, &vector);
@@ -615,24 +616,11 @@ errType allFoldsGetParams(void* fn)
     WORD foldPos;
     
     for (int i=0; i<3; i++){
-	foldState = answerFrame->getFoldState(i);
-	foldPos = answerFrame->getFoldPosition(i);
+        foldState = answerFrame->getFoldState((FoldDscr_type) i);
+        foldPos = answerFrame->getFoldPosition((FoldDscr_type) i);
 	func->setResult(2*i+1, &foldState); // index: 1, 3 ,5
 	func->setResult(2*i+2, &foldPos);   // index: 2, 4, 6
     }
     
-    return result;
-}
-
-errType getHydroCylConsystency(void* fn)
-{
-    errType result=err_result_ok;
-    functionNode* func = (functionNode*) fn;
-    BYTE hcConsistency=answerFrame->getHydroCylStatus(0);
-    func->setResult(1, &hcConsistency);
-    hcConsistency=answerFrame->getHydroCylStatus(0);
-    func->setResult(2, &hcConsistency);
-    hcConsistency=answerFrame->getHydroCylStatus(0);
-    func->setResult(3, &hcConsistency);
     return result;
 }

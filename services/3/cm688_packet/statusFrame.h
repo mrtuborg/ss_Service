@@ -5,135 +5,125 @@ typedef struct statusFrame_t {
 
     //********************** 3 BYTE **********************
     union {
-        struct {
-            BYTE nullBit:       1;
-            BYTE remoteControl: 1;
-            BYTE localControl:  1;
-        } fields;
-        BYTE bValue: 3;
-    } controlSwitch;
 
-    union {
-        struct {
-            BYTE poweron: 1;
-            BYTE ready:   1;
-            BYTE norm:    1;
-            BYTE alert:   1;
-        } fields;
-        BYTE bValue: 4;
-    } hydroSystem_status;
-
-    BYTE  schieldStopped :1;
+        struct  {
+            BYTE nullBit          :1;
+            BYTE remoteControl    :1;
+            BYTE localControl     :1;
+            BYTE hydrosys_poweron :1;
+            BYTE hydrosys_ready   :1;
+            BYTE hydrosys_norm    :1;
+            BYTE hydrosys_alert   :1;
+            BYTE shieldStopped    :1;
+        };
+        BYTE bValue;
+    } BYTE_3;
 
     //********************** 4 BYTE **********************
     union {
         struct {
-            BYTE nullBit:         1;
-            BYTE KEGP_link:       1;
-            BYTE localPanel_link: 1;
-            BYTE AUGS_link:       1;
-            BYTE BUZ_link:        1;
-        } fields;
-        BYTE bValue:5;
-    } systemsLink_status;
-
-    union {
-        struct {
-            BYTE temp_norm:     1;
-            BYTE level_norm:    1;
-            BYTE pressure_norm: 1;
-        } fields;
-        BYTE bValue: 3;
-    } hydroSystem_values;
+            BYTE nullBit                :1;
+            BYTE link_KEGP              :1;
+            BYTE link_localPanel        :1;
+            BYTE link_AUGS              :1;
+            BYTE link_BUZ               :1;
+            BYTE hydrosys_temp_norm     :1;
+            BYTE hydrosys_level_norm    :1;
+            BYTE hydrosys_pressure_norm :1;
+        };
+        BYTE bValue;
+    } BYTE_4;
 
     //********************** 5 BYTE **********************
-    booleanBit hydroSystemFilters_norm;
-
     union{
         struct {
             BYTE nullBit: 1;
-            boolean2Bits id[3]; // bit0 - open, bit1 -close
-        } fields;
-        BYTE bValue:7;
-    } foldStatus;
+            BYTE fold_lowA_open        :1;
+            BYTE fold_lowA_close       :1;
+            BYTE fold_lowB_open        :1;
+            BYTE fold_lowB_close       :1;
+            BYTE fold_up_open          :1;
+            BYTE fold_up_close         :1;
+            BYTE hydrosys_filters_norm :1;
+        };
+        BYTE bValue;
+    } BYTE_5;
 
     //********************** 6 BYTE **********************
     union {
         struct {
-            BYTE nullBit: 1;
-            booleanBit UZ[3];
-        } fields;
-        BYTE bValue: 4;
-    }UZ_locked;
-
-    BYTE remotePanel_busy: 1;
-    BYTE linkingStatus:    1;
-    BYTE funcControl_busy: 1;
-    BYTE schieldOpened:    1;
+            BYTE nullBit          :1;
+            BYTE UZ1_locked       :1;
+            BYTE UZ2_locked       :1;
+            BYTE UZ3_locked       :1;
+            BYTE remotePanel_busy :1;
+            BYTE linkingStatus    :1;
+            BYTE funcControl_busy :1;
+            BYTE schieldOpened    :1;
+        };
+        BYTE bValue;
+    }BYTE_6;
 
     //********************** 7 BYTE **********************
     union {
         struct {
-            BYTE nullBit: 1;
-            booleanBit UZ[3];
-        } fields;
-        BYTE bValue: 4;
-    }UZ_busy;
+            BYTE nullBit      :1;
+            BYTE UZ1_busy     :1;
+            BYTE UZ2_busy     :1;
+            BYTE UZ3_busy     :1;
+            BYTE UZ1_unlocked :1;
+            BYTE UZ2_unlocked :1;
+            BYTE UZ3_unlocked :1;
+            BYTE shieldClosed :1;
+        };
+        BYTE bValue;
+    }BYTE_7;
 
-    union {
-        struct {
-            booleanBit UZ[3];
-        } fields;
-        BYTE bValue: 3;
-    }UZ_unlocked;
-
-    BYTE schieldClosed: 1;
 
     //********************** 8 BYTE **********************
     union {
         struct {
-            BYTE nullBit: 1;
-            booleanBit UZ[3];
-        } fields;
-        BYTE bValue: 4;
-    } UZ_alert;
-
-    union {
-        struct {
-            booleanBit UZ[3];
-            BYTE reserve: 1;
-        } fields;
-        BYTE bValue: 4;
-    } UZ_manual;
+            BYTE nullBit    :1;
+            BYTE UZ1_alert  :1;
+            BYTE UZ2_alert  :1;
+            BYTE UZ3_alert  :1;
+            BYTE UZ1_manual :1;
+            BYTE UZ2_manual :1;
+            BYTE UZ3_manual :1;
+            BYTE reserve    :1;
+        };
+        BYTE bValue;
+    } BYTE_8;
 
     //********************** 9 BYTE **********************
     union {
         struct {
-            BYTE nullBit:  1;
-            booleanBit invalid_fold[3];
-            BYTE reseting: 1;
-        } fields;
-        BYTE bValue: 5;
-    } hydroCyl_setting;
-
-    booleanBit foldStopped[3];
+            BYTE nullBit          :1;
+            BYTE fold_up_inv_GC   :1;
+            BYTE fold_lowB_inv_GC :1;
+            BYTE fold_lowA_inv_GC :1;
+            BYTE reseting         :1;
+            BYTE fold_lowA_stop   :1;
+            BYTE fold_lowB_stop   :1;
+            BYTE fold_up_stop     :1;
+        };
+        BYTE bValue;
+    } BYTE_9;
 
     //********************** 10 BYTE **********************
     union {
         struct {
-            BYTE nullBit: 1;
-            booleanBit fold[3];
-        } fields;
-        BYTE bValue:4;
-    } fold_val_p0;
-
-    union {
-        struct {
-            BYTE reserve: 1;
-            booleanBit fold[3];
-        } fields;
-        BYTE bValue:4;
-    } fold_val_p8;
+            BYTE nullBit          :1;
+            BYTE fold_up_deg_b0   :1;
+            BYTE fold_lowB_deg_b0 :1;
+            BYTE fold_lowA_deg_b0 :1;
+            BYTE reserve          :1;
+            BYTE fold_up_deg_b8   :1;
+            BYTE fold_lowB_deg_b8 :1;
+            BYTE fold_lowA_deg_b8 :1;
+        };
+        BYTE bValue;
+    } BYTE_10;
 
     //********************** 11 BYTE **********************
     BYTE _A_nullbit:  1;
@@ -151,21 +141,31 @@ typedef struct statusFrame_t {
     union {
         struct {
             BYTE nullBit: 1;
-            boolean2Bits fold[3];
+            BYTE fold_lowA_psa_right :1;
+            BYTE fold_lowA_psa_left  :1;
+            BYTE fold_lowB_psa_right :1;
+            BYTE fold_lowB_psa_left  :1;
+            BYTE fold_up_psa_right   :1;
+            BYTE fold_up_psa_left    :1;
             BYTE reserve: 1;
-        } fields;
+        };
         BYTE bValue;
-    } psa_sensor;
+    } BYTE_14;
 
     //********************** 15 BYTE **********************
     union {
         struct {
-            BYTE nullBit: 1;
-            boolean2Bits fold[3];
-            BYTE reserve: 1;
-        } fields;
+            BYTE nullBit :1;
+            BYTE fold_lowA_esa_right :1;
+            BYTE fold_lowA_esa_left  :1;
+            BYTE fold_lowB_esa_right :1;
+            BYTE fold_lowB_esa_left  :1;
+            BYTE fold_up_esa_right   :1;
+            BYTE fold_up_esa_left    :1;
+            BYTE reserve             :1;
+        } ;
         BYTE bValue;
-    } esa_sensor;
+    } BYTE_15;
 
     //********************** 16 BYTE **********************
     BYTE reserve;
@@ -188,22 +188,21 @@ public:
     bool isRemoteControl();
     bool isCPControl();
     BYTE getSystemLinkStatus(BYTE);
-    BYTE getFoldState(BYTE num);
+    BYTE getFoldState(FoldDscr_type fold_descriptor);
 
     bool getFuncControlStatus();
     bool getLinkingStatus();
     bool getRemotePanelStatus();
 
-    BYTE isUZ_locked(BYTE num);
-    BYTE isUZ_unlocked(BYTE num);
-    BYTE isUZ_busy(BYTE num);
-    BYTE isUZ_manual(BYTE num);
-    BYTE isUZ_alert(BYTE num);
+    BYTE isUZ_locked(FoldDscr_type fold_descriptor);
+    BYTE isUZ_unlocked(FoldDscr_type fold_descriptor);
+    BYTE isUZ_busy(FoldDscr_type fold_descriptor);
+    BYTE isUZ_manual(FoldDscr_type fold_descriptor);
+    BYTE isUZ_alert(FoldDscr_type fold_descriptor);
 
-    BYTE getHydroCylStatus(BYTE num); // setting, resetting
-    WORD getFoldPosition(BYTE num);
-    BYTE get_psa_sensors(BYTE num);
-    BYTE get_esa_sensors(BYTE num);
+    WORD getFoldPosition(FoldDscr_type fold_descriptor);
+    BYTE get_psa_sensors(FoldDscr_type fold_descriptor);
+    BYTE get_esa_sensors(FoldDscr_type fold_descriptor);
 
     bool testCheckSumm();
 

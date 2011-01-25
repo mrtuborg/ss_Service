@@ -251,18 +251,6 @@ errType specFuncsMgr::startSpecFuncs()
 	func->setResultName(3,"Вектор состояния УЗ нижней створки А");
 	appLayer->CreateNewFunction(func);
 
-        func = new functionNode(22,0,4,getHydroCylConsystency);
-	func->setFuncName("Получить вектор согласованности всех гидроцилиндров");
-	func->setResultDescriptor(0, type_ERRTYPE);
-	func->setResultName(0,"Квитанция исполнения");
-	func->setResultDescriptor(1, type_BYTE);
-	func->setResultName(1,"Согласованность гидроцилиндров верхней створки");
-	func->setResultDescriptor(2, type_BYTE);
-	func->setResultName(2,"Согласованность гидроцилиндров нижней створки Б");
-	func->setResultDescriptor(3, type_BYTE);
-	func->setResultName(3,"Согласованность гидроцилиндров нижней створки А");
-	appLayer->CreateNewFunction(func);
-
     return result;
 }
 
