@@ -3,6 +3,8 @@
 #include <string.h>
 #include "extra/ortsTypes/ortsTypes.h"
 #include "math/crc/crc16.h"
+#include <stdlib.h> //DEBUG
+#include <shield_types.h>
 #include "statusFrame.h"
 
 statusFrame::statusFrame()
@@ -20,9 +22,9 @@ BYTE statusFrame::getShieldState(BYTE num)// + opened
     BYTE result=0;
     switch (num)
     {
-	case 0: result=frame.schieldOpened; break;
-	case 1: result=frame.schieldClosed; break;
-	case 2: result=frame.schieldStopped; break;
+    case 0: result=frame.BYTE_6.schieldOpened; break;
+    case 1: result=frame.BYTE_7.shieldClosed; break;
+    case 2: result=frame.BYTE_3.shieldStopped; break;
     }
 
     return result;
@@ -35,25 +37,25 @@ BYTE statusFrame::getHydroSystemStatus()
     // .1.. - ready
     // 1... - poweron
 
-     BYTE result=frame.hydroSystem_status.bValue;
-     /*;
+    BYTE result=frame.BYTE_3.bValue;
+    /*;
      switch (num)
      {
         case 0:
-	    result=frame.hydroSystem_status.fields.alert;
+            result=frame.BYTE_3.hydrosys_alert;
 	    break;
         case 1:
-	    result=frame.hydroSystem_status.fields.norm;
+            result=frame.BYTE_3.hydrosys_norm;
 	    break;
         case 2:
-	    result=frame.hydroSystem_status.fields.ready;
+            result=frame.BYTE_3.hydrosys_ready;
 	    break;
         case 3:
-	    result=frame.hydroSystem_status.fields.poweron;
+            result=frame.BYTE_3.hydrosys_poweron;
 	    break;
-        
+
      } */
-     return result;
+    return result;
 }
 
 BYTE statusFrame::getHydroSystemValues(BYTE num) // + filters
@@ -62,30 +64,30 @@ BYTE statusFrame::getHydroSystemValues(BYTE num) // + filters
     
     switch (num)
     {
-	case 0: result=frame.hydroSystem_values.fields.pressure_norm; break;
-	case 1: result=frame.hydroSystem_values.fields.level_norm; break;
-	case 2: result=frame.hydroSystem_values.fields.temp_norm; break;
-	case 3: result=frame.hydroSystemFilters_norm.value; break;
+    case 0: result=frame.BYTE_4.hydrosys_pressure_norm; break;
+    case 1: result=frame.BYTE_4.hydrosys_level_norm;    break;
+    case 2: result=frame.BYTE_4.hydrosys_temp_norm;     break;
+    case 3: result=frame.BYTE_5.hydrosys_filters_norm;  break;
     }
     return result;
 }
 
 bool statusFrame::isLocalControl()
 {
-     bool result=frame.controlSwitch.fields.localControl;
-     return result;
+    bool result=frame.BYTE_3.localControl;
+    return result;
 }
 
 bool statusFrame::isRemoteControl()
 {
-     bool result=frame.controlSwitch.fields.remoteControl;
-     return result;
+    bool result=frame.BYTE_3.remoteControl;
+    return result;
 }
 
 bool statusFrame::isCPControl()
 {
-     bool result=~(frame.controlSwitch.fields.remoteControl|frame.controlSwitch.fields.localControl);
-     return result;
+    bool result=~(frame.BYTE_3.remoteControl|frame.BYTE_3.localControl);
+    return result;
 }
 
 BYTE statusFrame::getSystemLinkStatus(BYTE num)
@@ -99,148 +101,313 @@ BYTE statusFrame::getSystemLinkStatus(BYTE num)
     
     switch (num)
     {
-	case 0: result=frame.systemsLink_status.fields.BUZ_link; break;
-	case 1: result=frame.systemsLink_status.fields.AUGS_link; break;
-	case 2: result=frame.systemsLink_status.fields.localPanel_link; break;
-	case 3: result=frame.systemsLink_status.fields.KEGP_link; break;
+    case 0: result=frame.BYTE_4.link_BUZ;        break;
+    case 1: result=frame.BYTE_4.link_AUGS;       break;
+    case 2: result=frame.BYTE_4.link_localPanel; break;
+    case 3: result=frame.BYTE_4.link_KEGP;       break;
     };
     
     return result;
 }
 
-BYTE statusFrame::getFoldState(BYTE num)
+BYTE statusFrame::getFoldState(FoldDscr_type fold_descriptor)
 {
-    //0 Up opened
-    //1 Up closed
-    //  Up stopped
-    //2 B opened
-    //3 B closed
-    //  B stopped
-    //4 A opened
-    //5 A closed
-    //  A stopped
-    
-    BYTE result=0;
+
+    //it's right
+    // xxxx xx00 - state is unstable
+    // xxxx xx01 - closed
+    // xxxx xx10 - opened
+    // xxxx x1xx - stopped
+    // xxxx x0xx - hydrocyls are coordinated
+    // xxxx x1xx - hydrocyls aren't coordinated
+    // xxx1 0xxx - hydrocyls are in coordinating state
+    BYTE result = 0;
     // 0 - opened
     // 1 - closed
     // 2 - stopped
 
     //printf("get: num=%d,",num);
 
-    if (frame.foldStatus.fields.id[num].fields.value_0==1)
-      {
-         if (result==0) result=1;
-         else result=4;
-      }
+    switch (fold_descriptor)  {
+      case LOWER_A:  {
+          if (frame.BYTE_5.fold_lowA_close == 1)  {
+              result = 1;
+          }
 
-    if ((result!=0)&&(frame.foldStatus.fields.id[num].fields.value_1==1))
-      {
-        if (result==0) result=2;
-        else result=4;
-      }
+          if (frame.BYTE_5.fold_lowA_open == 1)  {
+              if (result == 0) result = 2;
+              else result = 0;
+          }
 
-    if ((result!=0)&&(frame.foldStopped[num].value==1))
-      {
-        if (result==0) result=3;
-        else result=4;
-      }
+          if (frame.BYTE_9.fold_lowA_stop == 1)  {
+              if (!frame.BYTE_5.fold_lowA_close && !frame.BYTE_5.fold_lowA_open)
+                  result = 4;
+              else result = 0;
+          }
 
+          BYTE GC_result = 0;
+          if (!frame.BYTE_9.fold_lowA_inv_GC)  {
+              GC_result = 1;
+          }
+          if (frame.BYTE_9.reseting)  {
+              GC_result = 2;
+          }
+
+          result |= GC_result << 3;
+          break;
+      }
+      case LOWER_B:  {
+          if (frame.BYTE_5.fold_lowB_close == 1)  {
+              result = 1;
+          }
+
+          if (frame.BYTE_5.fold_lowB_open == 1)  {
+              if (result == 0) result = 2;
+              else result = 0;
+          }
+
+          if (frame.BYTE_9.fold_lowB_stop == 1)  {
+              if (!frame.BYTE_5.fold_lowB_close && !frame.BYTE_5.fold_lowB_open)
+                  result = 4;
+              else result = 0;
+          }
+
+          BYTE GC_result = 0;
+          if (!frame.BYTE_9.fold_lowB_inv_GC)  {
+              GC_result = 1;
+          }
+          if (frame.BYTE_9.reseting)  {
+              GC_result = 2;
+          }
+
+          result |= GC_result << 3;
+
+          break;
+      }
+      case UPPER:  {
+          if (frame.BYTE_5.fold_up_close == 1)  {
+              result = 1;
+          }
+
+          if (frame.BYTE_5.fold_up_open == 1)  {
+              if (result == 0) result = 2;
+              else result = 0;
+          }
+
+          if (frame.BYTE_9.fold_up_stop == 1)  {
+              if (!frame.BYTE_5.fold_up_close && !frame.BYTE_5.fold_up_open)
+                  result = 4;
+              else result = 0;
+          }
+
+          BYTE GC_result = 0;
+          if (!frame.BYTE_9.fold_up_inv_GC)  {
+              GC_result = 1;
+          }
+          if (frame.BYTE_9.reseting)  {
+              GC_result = 2;
+          }
+
+          result |= GC_result << 3;
+
+          break;
+      }
+      default:  {
+          printf("ERROR: Unavalible identificator of fold in\
+          BYTE statusFrame::getFoldState(FoldDscr_type)/n");
+          exit (0);
+      }
+    }
 
     return result;
 }
 
 bool statusFrame::getFuncControlStatus()
 {
-     return frame.funcControl_busy;
+    return frame.BYTE_6.funcControl_busy;
 }
 
 bool statusFrame::getLinkingStatus()
 {
-    return frame.linkingStatus;
+    return frame.BYTE_6.linkingStatus;
 }
 
 bool statusFrame::getRemotePanelStatus()
 {
-    return frame.remotePanel_busy;
+    return frame.BYTE_6.remotePanel_busy;
 }
 
-BYTE statusFrame::isUZ_locked(BYTE num)
+BYTE statusFrame::isUZ_locked(FoldDscr_type fold_descriptor)
 {
-     return frame.UZ_locked.fields.UZ[num].value;
+    switch (fold_descriptor)  {
+      case LOWER_A: return frame.BYTE_6.UZ1_locked;
+      case LOWER_B: return frame.BYTE_6.UZ2_locked;
+      case UPPER:   return frame.BYTE_6.UZ3_locked;
+      default:  {
+          printf("ERROR: Unavalible identificator of fold in\
+          BYTE statusFrame::isUZ_locked(FoldDscr_type)/n");
+          exit (0);
+      }
+    }
 }
 
-BYTE statusFrame::isUZ_unlocked(BYTE num)
+BYTE statusFrame::isUZ_unlocked(FoldDscr_type fold_descriptor)
 {
-     return frame.UZ_unlocked.fields.UZ[num].value;
+    switch (fold_descriptor)  {
+      case LOWER_A: return frame.BYTE_7.UZ1_unlocked;
+      case LOWER_B: return frame.BYTE_7.UZ2_unlocked;
+      case UPPER:   return frame.BYTE_7.UZ3_unlocked;
+      default:  {
+          printf("ERROR: Unavalible identificator of fold in\
+          BYTE statusFrame::isUZ_unlocked(FoldDscr_type)/n");
+          exit (0);
+      }
+    }
 }
 
-BYTE statusFrame::isUZ_busy(BYTE num)
+BYTE statusFrame::isUZ_busy(FoldDscr_type fold_descriptor)
 {
-     return frame.UZ_busy.fields.UZ[num].value;
+    switch (fold_descriptor)  {
+      case LOWER_A: return frame.BYTE_7.UZ1_busy; break;
+      case LOWER_B: return frame.BYTE_7.UZ2_busy; break;
+      case UPPER:   return frame.BYTE_7.UZ3_busy; break;
+      default:  {
+          printf("ERROR: Unavalible identificator of fold in\
+          BYTE statusFrame::isUZ_busy(FoldDscr_type)/n");
+          exit (0);
+      }
+    }
 }
 
-BYTE statusFrame::isUZ_manual(BYTE num)
+BYTE statusFrame::isUZ_manual(FoldDscr_type fold_descriptor)
 {
-     return frame.UZ_manual.fields.UZ[num].value;
+    switch (fold_descriptor)  {
+      case LOWER_A: return frame.BYTE_8.UZ1_manual; break;
+      case LOWER_B: return frame.BYTE_8.UZ2_manual; break;
+      case UPPER:   return frame.BYTE_8.UZ3_manual; break;
+      default:  {
+          printf("ERROR: Unavalible identificator of fold in\
+          BYTE statusFrame::isUZ_manual(FoldDscr_type)/n");
+          exit (0);
+      }
+    }
 }
 
-BYTE statusFrame::isUZ_alert(BYTE num)
+BYTE statusFrame::isUZ_alert(FoldDscr_type fold_descriptor)
 {
-     return frame.UZ_alert.fields.UZ[num].value;
+    switch (fold_descriptor)  {
+      case LOWER_A: return frame.BYTE_8.UZ1_alert; break;
+      case LOWER_B: return frame.BYTE_8.UZ2_alert; break;
+      case UPPER:   return frame.BYTE_8.UZ3_alert; break;
+      default:  {
+          printf("ERROR: Unavalible identificator of fold in\
+          BYTE statusFrame::isUZ_alert(FoldDscr_type)/n");
+          exit (0);
+      }
+    }
 }
 
 
-BYTE statusFrame::getHydroCylStatus(BYTE num) // setting, resetting
-{
-    BYTE result=0;
-    if (num>2) result=(frame.hydroCyl_setting.fields.reseting & 0x01);
-    else result= (frame.hydroCyl_setting.fields.invalid_fold[num].value & 0x01);
-    
-    return result;
-}
-
-WORD statusFrame::getFoldPosition(BYTE num) // 0 - U, 1 - B, 2 - A
+WORD statusFrame::getFoldPosition(FoldDscr_type fold_descriptor)
 {
     WORD result=0;
-    
-    switch (num){
-	case 0:  // upper fold
-	    result = (frame.foldU_value<<1);
-	    printf("\nfoldU_value=%d\n", frame.foldU_value);
-	    break;
-	case 1:  // B-fold
-	    result = (frame.foldB_value<<1);
-	    printf("\nfoldB_value=%d\n", frame.foldB_value);
-	    break;
-	case 2:  // A-fold
-	    result = (frame.foldA_value<<1);
-	    printf("\nfoldA_value=%d\n", frame.foldA_value);
-	    break;
+
+    switch (fold_descriptor)  {
+      case LOWER_A:  {
+          result =  frame.foldA_value << 1;
+          result |= frame.BYTE_10.fold_lowA_deg_b0 & 0x01;
+          result |= (WORD)(frame.BYTE_10.fold_lowA_deg_b8 & 0x01) << 8;
+          break;
+      }
+      case LOWER_B:  {
+          result =  frame.foldB_value << 1;
+          result |= frame.BYTE_10.fold_lowB_deg_b0 & 0x01;
+          result |= (WORD)(frame.BYTE_10.fold_lowB_deg_b8 & 0x01) << 8;
+          break;
+      }
+      case UPPER:  {
+          result =  frame.foldU_value << 1;
+          result |= frame.BYTE_10.fold_up_deg_b0 & 0x01;
+          result |= (WORD)(frame.BYTE_10.fold_up_deg_b8 & 0x01) << 8;
+          break;
+      }
+      default:  {
+          printf("ERROR: Unavalible identificator of fold in\
+          WORD statusFrame::getFoldPosition(FoldDscr_type)/n");
+          exit (0);
+      }
     }
-    result|= (frame.fold_val_p0.fields.fold[num].value & 0x01);
-    result|=((WORD)(frame.fold_val_p8.fields.fold[num].value & 0x01) << 8);
-    printf("result=%d\n",result);
     
     return result;
 }
 
-BYTE statusFrame::get_psa_sensors(BYTE num)                // num = 0,1,2 state = 00, 01, 10 ,11 (left.right)
+BYTE statusFrame::get_psa_sensors(FoldDscr_type fold_descriptor)                // num = 0,1,2 state = 00, 01, 10 ,11 (left.right)
 {
-    return frame.psa_sensor.fields.fold[num].value & 0x03;
+    BYTE result=0;
+
+    switch (fold_descriptor)  {
+      case LOWER_A:  {
+          result =  frame.BYTE_14.fold_lowA_psa_right << 1;
+          result |= frame.BYTE_14.fold_lowA_psa_left;
+          break;
+      }
+      case LOWER_B:  {
+          result =  frame.BYTE_14.fold_lowB_psa_right << 1;
+          result |= frame.BYTE_14.fold_lowB_psa_left;
+          break;
+      }
+      case UPPER:  {
+          result =  frame.BYTE_14.fold_up_psa_right << 1;
+          result |= frame.BYTE_14.fold_up_psa_left;
+          break;
+      }
+      default:  {
+          printf("ERROR: Unavalible identificator of fold in\
+          BYTE statusFrame::get_psa_sensors(FoldDscr_type)/n");
+          exit (0);
+      }
+    }
+
+    return result;
 }
 
-BYTE statusFrame::get_esa_sensors(BYTE num)                // num = 0,1,2 state = 00, 01, 10 ,11 (left.right)
+BYTE statusFrame::get_esa_sensors(FoldDscr_type fold_descriptor)   // num = 0,1,2 state = 00, 01, 10 ,11 (left.right)
 {
-    return frame.esa_sensor.fields.fold[num].value & 0x03;
+    BYTE result=0;
+
+    switch (fold_descriptor)  {
+      case LOWER_A:  {
+          result =  frame.BYTE_15.fold_lowA_esa_right << 1;
+          result |= frame.BYTE_15.fold_lowA_esa_left;
+          break;
+      }
+      case LOWER_B:  {
+          result =  frame.BYTE_15.fold_lowA_esa_right << 1;
+          result |= frame.BYTE_15.fold_lowA_esa_left;
+          break;
+      }
+      case UPPER:  {
+          result =  frame.BYTE_15.fold_lowA_esa_right << 1;
+          result |= frame.BYTE_15.fold_lowA_esa_left;
+          break;
+      }
+      default:  {
+          printf("ERROR: Unavalible identificator of fold in\
+          BYTE statusFrame::get_esa_sensors(FoldDscr_type)/n");
+          exit (0);
+      }
+    }
+
+    return result;
 }
 
 bool statusFrame::testCheckSumm()
 {
-     bool result=false;
-     WORD chk=CRC16_eval((BYTE*)&frame, sizeof(statusFrame_t)-sizeof(WORD));
-     if (chk==frame.checkSumm) result=true;
-     
-     return result;
+    bool result=false;
+    WORD chk=CRC16_eval((BYTE*)&frame, sizeof(statusFrame_t)-sizeof(WORD));
+    if (chk==frame.checkSumm) result=true;
+
+    return result;
 }
 
 void statusFrame::decode(BYTE** array)
@@ -256,76 +423,76 @@ void statusFrame::encode(BYTE* array, size_t size)
 
 void statusFrame::dbgPrint()
 {
-	printf("СТОП укрытия=%d\n",frame.schieldStopped);
-	printf("Укрытие закрыто=%d\n",frame.schieldClosed);
-	printf("Укрытие открыто=%d\n",frame.schieldOpened);
-	printf("Контроль функционирования исполняется=%d\n",frame.funcControl_busy);
-	printf("Стыковка=%d\n",frame.linkingStatus);
-	printf("Работа контроллера ПДУ=%d\n\n",frame.remotePanel_busy);
-	
-	printf("Створка верхняя  закрыта=%d\n",frame.foldStatus.fields.id[0].fields.value_1); // bit0 - open, bit1 -close
-	printf("Створка верхняя  открыта=%d\n",frame.foldStatus.fields.id[0].fields.value_0); // bit0 - open, bit1 -close
-	printf("Створка нижняя Б закрыта=%d\n",frame.foldStatus.fields.id[1].fields.value_1); // bit0 - open, bit1 -close
-	printf("Створка нижняя Б открыта=%d\n",frame.foldStatus.fields.id[1].fields.value_0); // bit0 - open, bit1 -close
-	printf("Створка нижняя А закрыта=%d\n",frame.foldStatus.fields.id[2].fields.value_1); // bit0 - open, bit1 -close
-	printf("Створка нижняя А открыта=%d\n\n",frame.foldStatus.fields.id[2].fields.value_0); // bit0 - open, bit1 -close
+    printf("СТОП укрытия=%d\n",frame.BYTE_3.shieldStopped);
+    printf("Укрытие закрыто=%d\n",frame.BYTE_7.shieldClosed);
+    printf("Укрытие открыто=%d\n",frame.BYTE_6.schieldOpened);
+    printf("Контроль функционирования исполняется=%d\n",frame.BYTE_6.funcControl_busy);
+    printf("Стыковка=%d\n",frame.BYTE_6.linkingStatus);
+    printf("Работа контроллера ПДУ=%d\n\n",frame.BYTE_6.remotePanel_busy);
 
-	printf("Гидросистема, Авария=%d\n",frame.hydroSystem_status.fields.alert);
-	printf("Гидросистема, Норма=%d\n",frame.hydroSystem_status.fields.norm);
-	printf("Гидросистема, Готова=%d\n",frame.hydroSystem_status.fields.ready);
-	printf("Гидросистема, Включена=%d\n\n",frame.hydroSystem_status.fields.poweron);
+    printf("Створка нижняя А открыта=%d\n\n",frame.BYTE_5.fold_lowA_open);
+    printf("Створка нижняя А закрыта=%d\n",  frame.BYTE_5.fold_lowA_close);
+    printf("Створка нижняя Б открыта=%d\n",  frame.BYTE_5.fold_lowB_open);
+    printf("Створка нижняя Б закрыта=%d\n",  frame.BYTE_5.fold_lowB_close);
+    printf("Створка верхняя  открыта=%d\n",  frame.BYTE_5.fold_up_open);
+    printf("Створка верхняя  закрыта=%d\n",  frame.BYTE_5.fold_up_close);
 
-	printf("Управление от ПМУ=%d\n",frame.controlSwitch.fields.localControl);
-	printf("Управление от ПДУ=%d\n\n",frame.controlSwitch.fields.remoteControl);
+    printf("Гидросистема, Авария=%d\n",frame.BYTE_3.hydrosys_alert);
+    printf("Гидросистема, Норма=%d\n",frame.BYTE_3.hydrosys_norm);
+    printf("Гидросистема, Готова=%d\n",frame.BYTE_3.hydrosys_ready);
+    printf("Гидросистема, Включена=%d\n\n",frame.BYTE_3.hydrosys_poweron);
 
-	printf("Гидросистема, давление, норма=%d\n",frame.hydroSystem_values.fields.pressure_norm);
-	printf("Гидросистема, уровень, норма=%d\n",frame.hydroSystem_values.fields.level_norm);
-	printf("Гидросистема, температура, норма=%d\n",frame.hydroSystem_values.fields.temp_norm);
-	printf("Гидросистема, фильтры, норма=%d\n\n",frame.hydroSystemFilters_norm.value);
+    printf("Управление от ПМУ=%d\n",frame.BYTE_3.localControl);
+    printf("Управление от ПДУ=%d\n\n",frame.BYTE_3.remoteControl);
 
-	printf("Связь с БУЗ=%d\n",frame.systemsLink_status.fields.BUZ_link);
-	printf("Связь с АУГС=%d\n",frame.systemsLink_status.fields.AUGS_link);
-	printf("Связь с ПМУ=%d\n",frame.systemsLink_status.fields.localPanel_link);
-	printf("Связь с КЭГП=%d\n\n",frame.systemsLink_status.fields.KEGP_link);
+    printf("Гидросистема, давление, норма=%d\n",frame.BYTE_4.hydrosys_pressure_norm);
+    printf("Гидросистема, уровень, норма=%d\n",frame.BYTE_4.hydrosys_level_norm);
+    printf("Гидросистема, температура, норма=%d\n",frame.BYTE_4.hydrosys_temp_norm);
+    printf("Гидросистема, фильтры, норма=%d\n\n",frame.BYTE_5.hydrosys_filters_norm);
 
-	printf("УЗ №3 заштырено=%d\n",frame.UZ_locked.fields.UZ[0].value);
-	printf("УЗ №3 отштырено%d\n",frame.UZ_unlocked.fields.UZ[0].value);
-	printf("УЗ №3 исполнение=%d\n",frame.UZ_busy.fields.UZ[0].value);
-	printf("УЗ №3 ручное=%d\n",frame.UZ_manual.fields.UZ[0].value);
-	printf("УЗ №3 неисправность=%d\n\n",frame.UZ_alert.fields.UZ[0].value);
-	
-	printf("УЗ №2 заштырено=%d\n",frame.UZ_locked.fields.UZ[1].value);
-	printf("УЗ №2 отштырено=%d\n",frame.UZ_unlocked.fields.UZ[1].value);
-	printf("УЗ №2 исполнение=%d\n",frame.UZ_busy.fields.UZ[1].value);
-	printf("УЗ №2 ручное=%d\n",frame.UZ_manual.fields.UZ[1].value);
-	printf("УЗ №2 неисправность=%d\n\n",frame.UZ_alert.fields.UZ[1].value);
-	
-	printf("УЗ №1 заштырено=%d\n",frame.UZ_locked.fields.UZ[2].value);
-	printf("УЗ №1 отштырено=%d\n",frame.UZ_unlocked.fields.UZ[2].value);
-	printf("УЗ №1 исполнение=%d\n",frame.UZ_busy.fields.UZ[2].value);
-	printf("УЗ №1 ручное=%d\n",frame.UZ_manual.fields.UZ[2].value);
-	printf("УЗ №1 неисправность=%d\n\n",frame.UZ_alert.fields.UZ[2].value);
-	
-	printf("Режим согласования ГЦ=%d\n",frame.hydroCyl_setting.fields.reseting);
-	printf("Створка нижняя А, рассогласование ГЦ=%d\n",frame.hydroCyl_setting.fields.invalid_fold[0].value);
-	printf("Створка нижняя Б, рассогласование ГЦ=%d\n",frame.hydroCyl_setting.fields.invalid_fold[1].value);
-	printf("Створка верхня, рассогласование ГЦ=%d\n",frame.hydroCyl_setting.fields.invalid_fold[2].value);
-	printf("Створка А, угол =0x%.4X\n",getFoldPosition(0));
-	printf("Створка Б, угол =0x%.4X\n",getFoldPosition(1));
-	printf("Створка верхняя, угол =0x%.4X\n\n",getFoldPosition(2));
-	printf("Верхняя створка, путевой выключатель, левый=%d ",frame.psa_sensor.fields.fold[0].fields.value_1);
-	printf("правый=%d\n",frame.psa_sensor.fields.fold[0].fields.value_0);
-	printf("Нижняя Б створка, путевой выключатель, левый=%d ",frame.psa_sensor.fields.fold[1].fields.value_1);
-	printf("правый=%d\n",frame.psa_sensor.fields.fold[1].fields.value_0);
-	printf("Нижняя А створка, путевой выключатель, левый=%d ",frame.psa_sensor.fields.fold[2].fields.value_1);
-	printf("правый=%d\n",frame.psa_sensor.fields.fold[2].fields.value_0);
-	
-	printf("Верхняя створка, концевой выключатель, левый=%d ",frame.esa_sensor.fields.fold[0].fields.value_1);
-	printf("правый=%d\n",frame.esa_sensor.fields.fold[0].fields.value_0);
-	printf("Нижняя Б створка, концевой выключатель, левый=%d ",frame.esa_sensor.fields.fold[1].fields.value_1);
-	printf("правый=%d\n",frame.esa_sensor.fields.fold[1].fields.value_0);
-	printf("Нижняя А створка, концевой выключатель, левый=%d ",frame.esa_sensor.fields.fold[2].fields.value_1);
-	printf("правый=%d\n\n",frame.esa_sensor.fields.fold[2].fields.value_0);
+    printf("Связь с БУЗ=%d\n",frame.BYTE_4.link_BUZ);
+    printf("Связь с АУГС=%d\n",frame.BYTE_4.link_AUGS);
+    printf("Связь с ПМУ=%d\n",frame.BYTE_4.link_localPanel);
+    printf("Связь с КЭГП=%d\n\n",frame.BYTE_4.link_KEGP);
 
-	printf("Контрольная сумма=0x%.4X\n",frame.checkSumm);
+    printf("УЗ №3 заштырено=%d\n",frame.BYTE_6.UZ3_locked);
+    printf("УЗ №3 отштырено%d\n",frame.BYTE_7.UZ3_unlocked);
+    printf("УЗ №3 исполнение=%d\n",frame.BYTE_7.UZ3_busy);
+    printf("УЗ №3 ручное=%d\n",frame.BYTE_8.UZ3_manual);
+    printf("УЗ №3 неисправность=%d\n\n",frame.BYTE_8.UZ3_alert);
+
+    printf("УЗ №2 заштырено=%d\n",frame.BYTE_6.UZ2_locked);
+    printf("УЗ №2 отштырено=%d\n",frame.BYTE_7.UZ2_unlocked);
+    printf("УЗ №2 исполнение=%d\n",frame.BYTE_7.UZ2_busy);
+    printf("УЗ №2 ручное=%d\n",frame.BYTE_8.UZ2_manual);
+    printf("УЗ №2 неисправность=%d\n\n",frame.BYTE_8.UZ2_alert);
+
+    printf("УЗ №1 заштырено=%d\n",frame.BYTE_6.UZ1_locked);
+    printf("УЗ №1 отштырено=%d\n",frame.BYTE_7.UZ1_unlocked);
+    printf("УЗ №1 исполнение=%d\n",frame.BYTE_7.UZ1_busy);
+    printf("УЗ №1 ручное=%d\n",frame.BYTE_8.UZ1_manual);
+    printf("УЗ №1 неисправность=%d\n\n",frame.BYTE_8.UZ1_alert);
+
+    printf("Режим согласования ГЦ=%d\n",frame.BYTE_9.reseting);
+    printf("Створка нижняя А, рассогласование ГЦ=%d\n",frame.BYTE_9.fold_lowA_inv_GC);
+    printf("Створка нижняя Б, рассогласование ГЦ=%d\n",frame.BYTE_9.fold_lowB_inv_GC);
+    printf("Створка верхня, рассогласование ГЦ=%d\n",frame.BYTE_9.fold_up_inv_GC);
+    printf("Створка А, угол =0x%.4X\n",getFoldPosition(LOWER_A));
+    printf("Створка Б, угол =0x%.4X\n",getFoldPosition(LOWER_B));
+    printf("Створка верхняя, угол =0x%.4X\n\n",getFoldPosition(UPPER));
+    printf("Верхняя створка, путевой выключатель, левый=%d ",frame.BYTE_14.fold_up_psa_left);
+    printf("правый=%d\n",frame.BYTE_14.fold_up_psa_right);
+    printf("Нижняя Б створка, путевой выключатель, левый=%d ",frame.BYTE_14.fold_lowB_psa_left);
+    printf("правый=%d\n",frame.BYTE_14.fold_lowB_psa_right);
+    printf("Нижняя А створка, путевой выключатель, левый=%d ",frame.BYTE_14.fold_lowA_psa_left);
+    printf("правый=%d\n",frame.BYTE_14.fold_lowA_psa_right);
+
+    printf("Верхняя створка, концевой выключатель, левый=%d ",frame.BYTE_15.fold_up_esa_left);
+    printf("правый=%d\n",frame.BYTE_15.fold_up_esa_right);
+    printf("Нижняя Б створка, концевой выключатель, левый=%d ",frame.BYTE_15.fold_lowB_esa_left);
+    printf("правый=%d\n",frame.BYTE_15.fold_lowB_esa_right);
+    printf("Нижняя А створка, концевой выключатель, левый=%d ",frame.BYTE_15.fold_lowA_esa_left);
+    printf("правый=%d\n\n",frame.BYTE_15.fold_lowA_esa_right);
+
+    printf("Контрольная сумма=0x%.4X\n",frame.checkSumm);
 }                                           

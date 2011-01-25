@@ -283,7 +283,7 @@ errType functionNode::setResult(BYTE num, void* res)
 	errType result=err_result_ok;
 	
 	if (func_results[num]) {
-	    result=func_results[num]->setParam(res);
+            result = func_results[num]->setParam(res);
 	} else printf ("Внутренняя ошибка: обращение к несуществующему параметру %d функции №%d\n",num,func_id);
 	
 	return result;
