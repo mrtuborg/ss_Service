@@ -12,12 +12,14 @@
  *
  */
 
+#include <stdio.h>
+#include <string.h>
 #include <arpa/inet.h>
 #include <deque>
-#include "extra/ortsTypes/ortsTypes.h"
-#include "ssBuffer.h"
-#include "comm/udp_port/udp_port.h"
-#include "deqUdp.h"
+#include <extra/ortsTypes/ortsTypes.h>
+#include <ssBuffer.h>
+#include <comm/udp_port/udp_port.h>
+#include <deqUdp.h>
 
 
 //deqUdp::deqUdp(WORD portNum, const char* ip_str):udp_port(portNum, ip_str)
@@ -61,7 +63,7 @@ errType deqUdp::sendData(ssBuffer *buf)
 	    result=err_result_error;                                                                                                                                            
     }                                                                                                                                                                     
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
-    delete sendData;                                                                                                                                                    
+    delete []sendData;
     return result;                                                                                                                                                          
 }
 
@@ -114,7 +116,7 @@ errType deqUdp::readData(ssBuffer* addr, size_t* len, in_addr *ipaddr,bool peek)
 		
 		*len=numbytes;
 		
-		delete tmp_rcvData;
+		delete []tmp_rcvData;
 		
 		addr->pushBlock(&sfrom, rcvData, numbytes);
 //		if (verbose_level) addr->dbgPrint();

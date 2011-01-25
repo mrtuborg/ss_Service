@@ -22,18 +22,18 @@
 #include <iostream>
 #include <queue>
 
-#include "extra/ortsTypes/ortsTypes.h"
-#include "rcsLib/rcsCmd/rcsCmd.h"
+#include <extra/ortsTypes/ortsTypes.h>
+#include <rcsLib/rcsCmd/rcsCmd.h>
 
-#include "global.h"
-#include "ssBuffer.h"
-#include "comm/udp_port/udp_port.h"
-#include "deqUdp.h"
-#include "param_desc.h"
-#include "functionNode.h"
+#include <global.h>
+#include <ssBuffer.h>
+#include <comm/udp_port/udp_port.h>
+#include <deqUdp.h>
+#include <param_desc.h>
+#include <functionNode.h>
 
-#include "srvAppLayer.h"
-#include "commonFuncsMgr.h"
+#include <srvAppLayer.h>
+#include <commonFuncsMgr.h>
 
 /// todo msc diagramm
 bool rcvComplete_flag=false; ///< Flag purpose: synchronize state between receiving clients requests thread and reading for received data
@@ -207,14 +207,14 @@ errType srvAppLayer::DeleteFunction(BYTE id)
  * @retval      err_result_ok - Block encoded successfully
  * @todo nobody uses this method. need to be deleted.
  **************************************************************************************/
-errType srvAppLayer::encodeBlock(rcsCmd* ss_cmd, BYTE** data)
-{
-    errType result=err_result_ok;
-    
-    *data=(BYTE*) ss_cmd;
-    
-    return result;
-}
+//errType srvAppLayer::encodeBlock(rcsCmd* ss_cmd, BYTE** data)
+//{
+//    errType result=err_result_ok;
+//
+//    *data=(BYTE*) ss_cmd;
+//
+//    return result;
+//}
 
 /**********************************************************************************//**
  * @brief      Method to prepare and start base communication engine
@@ -290,20 +290,20 @@ errType srvAppLayer::StopListening()
 
 /**********************************************************************************//**
  * @brief      Method to asynchonous polling of \ref equip_listen socket
- * @todo        too strange method. May be it need be deleted.
+ * @todo        too strange method. May be it need be refactoring.
  * @retval      err_result_ok   - udp socket received data
  **************************************************************************************/
 errType srvAppLayer::equip_reading_event(){
-    errType result=err_not_init;
-    BYTE event=0;
-    result=equip_listen->udp_async_process(&event);
-    if ((result==err_result_ok) && ((event&0x1)==0x1)) result=err_result_ok;
-    return result;
-}
+	    errType result=err_not_init;
+	    BYTE event=0;
+	    result=equip_listen->udp_async_process(&event);
+	    if ((result==err_result_ok) && ((event&0x1)==0x1)) result=err_result_ok;
+	    return result;
+	}
 
 /**********************************************************************************//**
  * @brief       Method to read data from \ref equip_listen socket
- * @todo        too strange method. May be it need be deleted.
+ * @todo        too strange method. May be it need be refactoring.
  * @param[out]  buffer - uses to store recevied data
  * @param[out]  sz - size in bytes of received data
  * @retval      err_result_ok   - udp socket received data has been readed
@@ -441,12 +441,12 @@ errType srvAppLayer::encodeFuncResult(rcsCmd* in_cmd, rcsCmd* out_cmd)
         *resData=(int)err_not_found;
         offset=1;
 	
-    }
-    out_cmd->encode(fn_num, offset, resData);
-    out_cmd->makeSign();
-
-    return result;
-    delete resData;
+	}
+	out_cmd->encode(fn_num, offset, resData);
+	out_cmd->makeSign();
+	
+	return result;
+	delete []resData;
 }
 
 /**********************************************************************************//**
@@ -459,21 +459,21 @@ errType srvAppLayer::encodeFuncResult(rcsCmd* in_cmd, rcsCmd* out_cmd)
  **************************************************************************************/
 errType srvAppLayer::sendResult(sockaddr_in *sfrom, rcsCmd* ss_cmd)
 {
-    errType result=err_result_ok;
-    BYTE* dataBlock;
-    dataBlock=new BYTE[ss_cmd->getCmdLength()];
-    ss_cmd->decode(dataBlock);
-
-    sfrom->sin_port=htons(wUdp+1);
-
-    //printf("answer: [");
-    //for (int i=0; i<ss_cmd->getCmdLength(); i++) printf("%.2X ",dataBlock[i]);
-    //printf("]\n");
-
-    functionsAnswersQueue->pushBlock(sfrom, dataBlock, ss_cmd->getCmdLength());
-    delete dataBlock;
-
-    return result;
+	errType result=err_result_ok;
+	BYTE* dataBlock;
+	dataBlock=new BYTE[ss_cmd->getCmdLength()];
+	ss_cmd->decode(dataBlock);
+	
+	sfrom->sin_port=htons(wUdp+1);
+	
+	//printf("answer: [");
+	//for (int i=0; i<ss_cmd->getCmdLength(); i++) printf("%.2X ",dataBlock[i]);
+	//printf("]\n");
+	
+	functionsAnswersQueue->pushBlock(sfrom, dataBlock, ss_cmd->getCmdLength());
+	delete []dataBlock;
+	
+	return result;
 }
 
 /**********************************************************************************//**
@@ -503,13 +503,13 @@ errType srvAppLayer::ProcessMessages()
 
 
 
-    //   TODO: link bit in serviceState
-    //    if (equip_listen->scanIfaces()<ifCount)
-    //    {
-    //	ServiceState.servState.fields.overflow_link_sec=1;
-    //    } else ServiceState.servState.fields.overflow_link_sec=0;
+//   TODO: link bit in serviceState
+//    if (equip_listen->scanIfaces()<ifCount)
+//    {
+//	ServiceState.servState.fields.overflow_link_sec=1;
+//    } else ServiceState.servState.fields.overflow_link_sec=0;
 
-    ///  1) Read from \ref clientsRequestsQueue one new request
+///  1) Read from \ref clientsRequestsQueue one new request
     
     int len=clientsRequestsQueue->getFrontBlockSize();
     
@@ -522,35 +522,35 @@ errType srvAppLayer::ProcessMessages()
     length=clientsRequestsQueue->popBlock(&sfrom, dataBlock);
     
     
-    ///  2) Decode readed request by \ref decodeMessage
+///  2) Decode readed request by \ref decodeMessage
     result=decodeMessage(dataBlock, length, in_cmd);
 
     //in_cmd->dbgPrint();
-    ///  3) Execute requested function if decoding was successfully by \ref execMessage
+///  3) Execute requested function if decoding was successfully by \ref execMessage
     if (result==err_result_ok) 
-    {
-        result=execMessage(in_cmd);
-
-        ///  4) Encoding function result ticket if execution was not successfully
-        //if (result==err_result_ok)
-        if ((result!=err_result_ok) && (result!=err_not_found))
-        {
-            result=(Functions[in_cmd->get_func_id()])->setResult(0,&result);
+	{
+	    result=execMessage(in_cmd);
+    
+///  4) Encoding function result ticket if execution was not successfully
+    //if (result==err_result_ok) 
+	    if ((result!=err_result_ok) && (result!=err_not_found))
+	    {
+		result=(Functions[in_cmd->get_func_id()])->setResult(0,&result);
+	    }
+    
+/// 5) Encode remains function results be \ref encodeFuncResult
+	    result=encodeFuncResult(in_cmd, out_cmd);
+           
+/// 6)  Write results to sending queue by \ref sendResult
+	    if (result==err_result_ok) sendResult(&sfrom, out_cmd);
         }
+/// 7) Release allocated memory
+                               
+	delete []dataBlock;
+	delete in_cmd;
+	delete out_cmd;
 
-        /// 5) Encode remains function results be \ref encodeFuncResult
-        result=encodeFuncResult(in_cmd, out_cmd);
-
-        /// 6)  Write results to sending queue by \ref sendResult
-        if (result==err_result_ok) sendResult(&sfrom, out_cmd);
-    }
-    /// 7) Release allocated memory
-
-    delete dataBlock;
-    delete in_cmd;
-    delete out_cmd;
-
-    /// 8)  Sync listening and sending threads by \ref rcvComplete_flag and \ref sndAllow_flag
+/// 8)  Sync listening and sending threads by \ref rcvComplete_flag and \ref sndAllow_flag
 
 
     if (result==err_result_ok) {

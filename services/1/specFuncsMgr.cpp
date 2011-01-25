@@ -2,15 +2,15 @@
 #include <pthread.h>
 #include <netinet/in.h>
 #include <deque>
-#include "../../rcsLib/ortsTypes/ortsTypes.h"
-#include "../buffer/ssBuffer.h"
-#include "../../rcsLib/rcsCmd/rcsCmd.h"
-#include "../../rcsLib/udp_port/udp_port.h"
-#include "../srvAppLayer/functionNode/param_desc.h"
-#include "../srvAppLayer/functionNode/functionNode.h"
-#include "../srvAppLayer/srvAppLayer.h"
-#include "SpecFuncsMgr.h"
-#include "functions.h"
+#include <extra/ortsTypes/ortsTypes.h>
+#include <ssBuffer.h>
+#include <rcsLib/rcsCmd/rcsCmd.h>
+#include <comm/udp_port/udp_port.h>
+#include <param_desc.h>
+#include <functionNode.h>
+#include <srvAppLayer.h>
+#include <specFuncsMgr.h>
+#include <functions.h>
 
 specFuncsMgr::specFuncsMgr(srvAppLayer *appl)
 {

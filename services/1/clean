@@ -1,6 +1,0 @@
-rm -f src/schedule/*
-rm -f src/global.*
-rmdir src/schedule
-
-
-

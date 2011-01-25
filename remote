@@ -1,0 +1,13 @@
+#
+# %1	- directory name
+# %2	- url
+# %3	- username
+# %4	- remote password
+#
+cd ..
+tar -cf $1.tar $1 libs
+scp $1.tar $3@$2:~/
+cd $1
+ssh $3@$2 tar -xf "$1.tar && cd $1 && make id=$4"
+#mkdir tmp
+scp -r $3@$2:~/$1/bin .

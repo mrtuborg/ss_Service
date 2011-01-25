@@ -7,16 +7,16 @@
 #include <deque>
 #include <list>
 #include <sched.h>
-#include "../../rcsLib/ortsTypes/ortsTypes.h"
-#include "../../rcsLib/rcsCmd/rcsCmd.h"
-#include "../srvAppLayer/functionNode/param_desc.h"
-#include "../srvAppLayer/functionNode/functionNode.h"
-#include "../schedule/job.h"
-#include "../schedule/schedule.h"
-#include "../buffer/ssBuffer.h"
-#include "../../rcsLib/udp_port/udp_port.h"
-#include "../srvAppLayer/srvAppLayer.h"
-#include "../global.h"
+#include <extra/ortsTypes/ortsTypes.h>
+#include <rcsLib/rcsCmd/rcsCmd.h>
+#include <param_desc.h>
+#include <functionNode.h>
+#include "schedule/job.h"
+#include "schedule/schedule.h"
+#include <ssBuffer.h>
+#include <comm/udp_port/udp_port.h>
+#include <srvAppLayer.h>
+#include <global.h>
 
 //udp_port* equipment;
 pthread_t PollingThreadHandle;
@@ -30,14 +30,14 @@ schedule *batchSched;
 void* pollingThread(void* user)
 {
   srvAppLayer* app = (srvAppLayer*) user;
-  BYTE* array;
+//  BYTE* array;
   WORD old_crc = 0xFFFF;
   while (!app->terminated())
     {
       
       sched_yield();
     }
-  delete array;
+ // delete array;
   return user;
 }
 

@@ -19,20 +19,13 @@
 #include "comm/udp_port/udp_port.h"
 #include "rcsLib/rcsCmd/rcsCmd.h"
 #include "param_desc.h"
-#include "FunctionNode.h"
+#include "functionNode.h"
 #include "srvAppLayer.h"
 
 
 int verbose_level=0; ///< Debug detail level printing.
 
 
-bool listen_mode=false;          ///< needless variable.@todo Need to be deleted.
-bool awaitingPattern_mode=false; ///< needless variable.@todo Need to be deleted.
-bool pattern_found=false;        ///< needless variable.@todo Need to be deleted.
-char patternFile[255]={0};       ///< needless variable.@todo Need to be deleted.
-char reactionFile[255]={0};      ///< needless variable.@todo Need to be deleted.
-char dataFile[255]={0};          ///< needless variable.@todo Need to be deleted.
-char if_name[255]={0};           ///< needless variable.@todo Need to be deleted.
 
 
 bool AppTerminated=false; ///< Programm termination signal.

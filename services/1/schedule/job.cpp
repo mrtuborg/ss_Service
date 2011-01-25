@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <string.h>
-#include "../../../rcsLib/ortsTypes/ortsTypes.h"
-#include "../../../rcsLib/rcsCmd/rcsCmd.h"
+#include <extra/ortsTypes/ortsTypes.h>
+#include <rcsLib/rcsCmd/rcsCmd.h>
 #include "job.h"
 
 
@@ -61,12 +61,12 @@ rcsCmd *job::cmd()    { return jobEntity;       }
 
 const char*job::cronTabString()
 {
-  char* string;
+  const char* string[]={"uninitilalized"};
   // timeStart - seconds starting from current month
   // 3600 seconds per hour
   // 86400 seconds per day
   //
-  time_t now;
+ /* time_t now;
   struct tm *d;
   d=localtime(&now)
   int8_t currMonth=d->tm_mon;
@@ -74,13 +74,13 @@ const char*job::cronTabString()
   hours=minutes%60;
   dayMonth=hours%24;
   month=dayMonth%30;
-
+*/
   int8_t minutes;
   int8_t hours;
   int8_t dayMonths;
   int8_t month;
 
-  sprintf(string, "%d\t%d\t%d\t%d\t*\t%s",minutes,hours,dayMonth,month,cmdString);
+  //sprintf(string, "%d\t%d\t%d\t%d\t*\t%s",minutes,hours,dayMonth,month,cmdString);
 
   return string;
 }
