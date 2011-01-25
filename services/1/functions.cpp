@@ -30,14 +30,14 @@ schedule *batchSched;
 void* pollingThread(void* user)
 {
   srvAppLayer* app = (srvAppLayer*) user;
-  BYTE* array;
+//  BYTE* array;
   WORD old_crc = 0xFFFF;
   while (!app->terminated())
     {
       
       sched_yield();
     }
-  delete array;
+ // delete array;
   return user;
 }
 

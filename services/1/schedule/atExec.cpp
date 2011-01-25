@@ -4,7 +4,7 @@
  *  Created on: Jan 23, 2011
  *      Author: tuborg
  */
-
+#include <extra/ortsTypes/ortsTypes.h>
 #include "atExec.h"
 
 atExec::atExec() {
@@ -16,7 +16,18 @@ atExec::~atExec() {
 	// TODO Auto-generated destructor stub
 }
 
-atExec::addJob(int,int,int,int,int,int, char*);
-atExec::getJobsList();
-atExec::removeJob();
-atExec::getJobInfo();
+errType atExec::addJob(int yyyy,int mm,int dd,int hh,int min,int ss, char* cmd){
+
+}
+
+errType atExec::getJobsList(){
+
+}
+
+errType atExec::removeJob(){
+
+}
+
+errType atExec::getJobInfo(){
+
+}

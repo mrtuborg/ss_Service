@@ -61,7 +61,7 @@ rcsCmd *job::cmd()    { return jobEntity;       }
 
 const char*job::cronTabString()
 {
-  const char* string;
+  const char* string[]={"uninitilalized"};
   // timeStart - seconds starting from current month
   // 3600 seconds per hour
   // 86400 seconds per day

@@ -21,47 +21,42 @@ schedule::~schedule()
 {
 }
 
-errType schedule::addJob(job* jEntity)
-{
-    list <job*>::iterator iter, prev_iter;
+errType schedule::addJob(job* jEntity){
+
+}
+    list <job*>::iterator iter, prev_iter, tmp_iter;
     rcsCmd *iter_cmd, *param_cmd;
-    
-    for (iter=job_list.begin(); iter!=job_list.end(); ++iter)
-    {
-	if ((*iter)->get_wTimeStart()<jEntity->get_wTimeStart())
-	{
-	    prev_iter=iter;
+
+    /// TODO: Make simpler
+for (iter=job_list.begin(); iter<job_list.end(); ++iter) {
+	if ((*iter)->get_wTimeStart()<jEntity->get_wTimeStart()) {
+		prev_iter=iter;
 	} else {
-	    if ((*iter)->get_wTimeStart()==jEntity->get_wTimeStart())
-	    {
-	        iter_cmd=(*iter)->cmd();
-	        param_cmd=jEntity->cmd();
-		if (((*iter)->get_btServId()==jEntity->get_btServId()) && (iter_cmd->get_func_id()==param_cmd->get_func_id()))
-		    {
-			job_list.erase(iter);
-			prev_iter=++iter;
-		    }
-	    } 
-	    job_list.insert(prev_iter,jEntity);
-	    iter=job_list.end();
-	}
-	
-	
+		if ((*iter)->get_wTimeStart()==jEntity->get_wTimeStart()){
+			iter_cmd=(*iter)->cmd();
+			param_cmd=jEntity->cmd();
+			if (((*iter)->get_btServId()==jEntity->get_btServId()) && (iter_cmd->get_func_id()==param_cmd->get_func_id())){
+				tmp_iter=iter;
+				job_list.erase(tmp_iter);
+				prev_iter=++iter;
+			}
+			job_list.insert(prev_iter,jEntity);
+			iter=job_list.end();
+		}
     }
 }
 
 errType schedule::removeAllJobsBefore(WORD wTime)
 {
-    list <job*>::iterator iter, prev_iter;
+    list <job*>::iterator iter, prev_iter, tmp_iter;
     
     for (iter=job_list.begin(); iter!=job_list.end(); ++iter)
     {
-	if ((*iter)->get_wTimeStart()<=wTime)
-	{  
-	 job_list.erase(iter);
-	}
-	
-	
+		if ((*iter)->get_wTimeStart()<=wTime)
+		{
+		  tmp_iter=iter;
+		  job_list.erase(tmp_iter);
+		}
     }
 }
 

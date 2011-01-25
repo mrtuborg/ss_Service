@@ -18,10 +18,10 @@ class atExec {
 	char* command;
 public:
 	atExec();
-	addJob(int,int,int,int,int,int, char*);
-	getJobsList();
-	removeJob();
-	getJobInfo();
+	errType addJob(int yyyy,int mm,int dd,int hh,int min,int ss, char* cmd);
+	errType getJobsList();
+	errType removeJob();
+	errType getJobInfo();
 	virtual ~atExec();
 };
 
