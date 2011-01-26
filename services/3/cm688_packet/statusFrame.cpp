@@ -215,7 +215,7 @@ BYTE statusFrame::getFoldState(FoldDscr_type fold_descriptor)
       default:  {
           printf("ERROR: Unavalible identificator of fold in\
           BYTE statusFrame::getFoldState(FoldDscr_type)/n");
-          exit (0);
+          exit (0);     //DEBUG
       }
     }
 
@@ -246,7 +246,7 @@ BYTE statusFrame::isUZ_locked(FoldDscr_type fold_descriptor)
       default:  {
           printf("ERROR: Unavalible identificator of fold in\
           BYTE statusFrame::isUZ_locked(FoldDscr_type)/n");
-          exit (0);
+          exit (0);     //DEBUG
       }
     }
 }
@@ -260,7 +260,7 @@ BYTE statusFrame::isUZ_unlocked(FoldDscr_type fold_descriptor)
       default:  {
           printf("ERROR: Unavalible identificator of fold in\
           BYTE statusFrame::isUZ_unlocked(FoldDscr_type)/n");
-          exit (0);
+          exit (0);     //DEBUG
       }
     }
 }
@@ -430,12 +430,12 @@ void statusFrame::dbgPrint()
     printf("Стыковка=%d\n",frame.BYTE_6.linkingStatus);
     printf("Работа контроллера ПДУ=%d\n\n",frame.BYTE_6.remotePanel_busy);
 
-    printf("Створка нижняя А открыта=%d\n\n",frame.BYTE_5.fold_lowA_open);
+    printf("Створка нижняя А открыта=%d\n",frame.BYTE_5.fold_lowA_open);
     printf("Створка нижняя А закрыта=%d\n",  frame.BYTE_5.fold_lowA_close);
     printf("Створка нижняя Б открыта=%d\n",  frame.BYTE_5.fold_lowB_open);
     printf("Створка нижняя Б закрыта=%d\n",  frame.BYTE_5.fold_lowB_close);
     printf("Створка верхняя  открыта=%d\n",  frame.BYTE_5.fold_up_open);
-    printf("Створка верхняя  закрыта=%d\n",  frame.BYTE_5.fold_up_close);
+    printf("Створка верхняя  закрыта=%d\n\n",  frame.BYTE_5.fold_up_close);
 
     printf("Гидросистема, Авария=%d\n",frame.BYTE_3.hydrosys_alert);
     printf("Гидросистема, Норма=%d\n",frame.BYTE_3.hydrosys_norm);
