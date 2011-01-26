@@ -2,8 +2,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include <arpa/inet.h>
-#include "../../../ortsTypes/ortsTypes.h"
-#include "../global.h"
+#include <extra/ortsTypes/ortsTypes.h>
+#include <global.h>
 #include "fltr.h"
 
 fltr::fltr(){

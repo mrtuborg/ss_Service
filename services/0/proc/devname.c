@@ -75,7 +75,7 @@ static void load_drivers(void){
     end = strchr(p, ' ');
     if(!end) continue;
     len = end - p;
-    tmn = calloc(1, sizeof(tty_map_node));
+    tmn = (tty_map_node*)calloc(1, sizeof(tty_map_node)); /// FIXME: tuborg type cast
     tmn->next = tty_map;
     tty_map = tmn;
     /* if we have a devfs type name such as /dev/tts/%d then strip the %d but
