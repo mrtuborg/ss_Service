@@ -7,6 +7,8 @@
 #include "cmdFrame.h"
 #include <stdlib.h> //DEBUG
 
+const WORD cmdFrame::kPacketSize = sizeof(cmdFrame_t);
+
 cmdFrame::cmdFrame()
 {
     memset(&frame,0,sizeof(cmdFrame_t));
@@ -177,10 +179,9 @@ WORD cmdFrame::setCheckSumm()
 }
 
 
-void cmdFrame::decode(BYTE** array)
+void cmdFrame::decode(BYTE* array)
 {
-    *array=new BYTE[sizeof(cmdFrame_t)];
-    memcpy(*array, &frame, sizeof(cmdFrame_t));
+    memcpy(array, &frame, kPacketSize);
 }
 
 void cmdFrame::encode(BYTE* array, size_t size)

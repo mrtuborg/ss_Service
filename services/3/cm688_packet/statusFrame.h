@@ -206,7 +206,7 @@ public:
 
     bool testCheckSumm();
 
-    void decode(BYTE**);
+    void decode(BYTE*);
     void encode(BYTE*, size_t);
     void dbgPrint();
 

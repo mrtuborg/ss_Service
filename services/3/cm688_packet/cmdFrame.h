@@ -64,6 +64,8 @@ class cmdFrame {
     cmdFrame_t frame;
 
 public:
+    static const WORD kPacketSize;
+
     cmdFrame();
     ~cmdFrame();
     void setHydroCyl_correct();
@@ -82,7 +84,7 @@ public:
 
     WORD setCheckSumm();
 
-    void decode(BYTE**);
+    void decode(BYTE*);
     void encode(BYTE*, size_t);
     void dbgPrint();
 
