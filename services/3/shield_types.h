@@ -2,9 +2,9 @@
 #define SHIELD_TYPES_H
 
 typedef enum  {
-    LOWER_A = 0,
+    UPPER   = 0,
     LOWER_B = 1,
-    UPPER   = 2
+    LOWER_A = 2
 } FoldDscr_type;
 
 #endif // SHIELD_TYPES_H
