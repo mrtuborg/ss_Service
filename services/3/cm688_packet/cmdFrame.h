@@ -2,82 +2,90 @@
 #define CMDFRAME_H
 
 typedef struct cmdFrame_t {
-	WORD header;
-	
-	BYTE hydroCyl_corr: 1;
-	union {
-	    struct {
-		BYTE close:1;
-		BYTE open: 1;
-		BYTE stop: 1;
-	    } cmd;
-	    BYTE cmdValue: 3;
-	} schield;
+    //********************* 1,2 BYTES ********************
+    WORD header;
 
-	union {
-	    struct {
-		BYTE start: 1;
-		BYTE stop: 1;
-	    } cmd;
-	    BYTE cmdValue: 2;
-	} hydroStation;
+    //********************** 3 BYTE **********************
+    union {
+        struct  {
+            BYTE null               :1;
+            BYTE remoteControl      :1;
+            BYTE hydroStation_stop  :1;
+            BYTE hydroStation_start :1;
+            BYTE shield_stop        :1;
+            BYTE shield_open        :1;
+            BYTE shield_close       :1;
+            BYTE hydroCyl_corr      :1;
+        };
+        BYTE cmdValue;
+    };
 
-	union {
-	    struct {
-		BYTE remoteControl: 1;
-		BYTE null:1;
-		BYTE localControl: 1;
-	    }  cmd;
-	    BYTE cmdValue: 3;
-	} ctrlSwitch;
+    //********************** 4 BYTE **********************
+    union {
+        struct  {
+            BYTE null            :1;
+            BYTE fold_lowA_open  :1;
+            BYTE fold_lowA_close :1;
+            BYTE fold_lowB_open  :1;
+            BYTE fold_lowB_close :1;
+            BYTE fold_up_open    :1;
+            BYTE fold_up_close   :1;
+            BYTE localControl    :1;
+        } fold_status;
+        BYTE cmdValue;
+    }BYTE_4;
 
-	union {
-	    boolean2Bits id[3]; // 0 - upper, 1 - B, 2 - 0
-	    BYTE cmdValue :6;
-	} foldCmd;
 
-	
-	union {
-	    struct {
-		BYTE null: 1;
-		booleanBit id[3];
-	    } cmd;
-		BYTE cmdValue: 4;
-	} foldStop;
-	
-	BYTE funcCtrl: 1;
-	WORD reserve: 12;
-	WORD checkSumm;
-} cmdFrame_t;
+    //********************** 5 BYTE **********************
+    union {
+        struct {
+            BYTE null           :1;
+            BYTE reserve        :3;
+            BYTE fold_lowA_stop :1;
+            BYTE fold_lowB_stop :1;
+            BYTE fold_up_stop   :1;
+            BYTE funcCtrl       :1;
+        };
+        BYTE cmdValue;
+    }BYTE_5;
+
+
+    //********************** 6 BYTE **********************
+    BYTE reserve;
+
+    //********************* 7,8 BYTES ********************
+    WORD checkSumm;
+
+} __attribute__((packed)) cmdFrame_t;
 
 
 class cmdFrame {
 
-	cmdFrame_t frame;
-	
-	public:
-	    cmdFrame();
-	    ~cmdFrame();
-	    void setHydroCyl_correct();
-	    void setHydroStationStart();
-	    void setHydroStationStop();
-	    void setSchieldClose();
-	    void setSchieldOpen();
-	    void setSchieldStop();
-	    void setCPControl();
-	    void setRemoteControl();
-	    void setLocalControl();
-	    void setFoldOpen(BYTE num);
-	    void setFoldClose(BYTE num);
-	    void setFoldStop(BYTE num);
-	    void setStartFuncControl();
-	    
-	    WORD setCheckSumm();
-	    
-	    void decode(BYTE**);
-	    void encode(BYTE*, size_t);
-	    void dbgPrint();
-	    
+    cmdFrame_t frame;
+
+public:
+    cmdFrame();
+    ~cmdFrame();
+    void setHydroCyl_correct();
+    void setHydroStationStart();
+    void setHydroStationStop();
+    void setSchieldClose();
+    void setSchieldOpen();
+    void setSchieldStop();
+    void setCPControl();
+    void setRemoteControl();
+    void setLocalControl();
+    void setFoldOpen(FoldDscr_type fold_descriptor);
+    void setFoldClose(FoldDscr_type fold_descriptor);
+    void setFoldStop(FoldDscr_type fold_descriptor);
+    void setStartFuncControl();
+
+    WORD setCheckSumm();
+
+    void decode(BYTE**);
+    void encode(BYTE*, size_t);
+    void dbgPrint();
+
 } __attribute__ ((packed));
 
 #endif

@@ -49,46 +49,46 @@ srvAppLayer *app;
  *************************************************************************************/
 void* udpSenderThread (void* user)
 {
-	srvAppLayer *app=(srvAppLayer*)user;
+    srvAppLayer *app=(srvAppLayer*)user;
 
-	deqUdp *uPort;
-	
-	uPort=new deqUdp(wUdp+1);//,true);
-        if ((app->terminated()) || (uPort->open_port()!=err_result_ok)) { // open for sending
-                printf("Ошибка открытия сокета. Подсистема сокетной посылки не запущена\n");
-                app->terminate();
-                delete uPort;
-        } else {
-    	    printf("Подсистема сокетной посылки запущена\n");
-    	    //sendBuffer=new ssBuffer();
-	    //*sz=1024;
-	    sndAllow_flag=false;
-	    //in_addr remote_ip;
-	    while (!app->terminated())
-	    {
-		
-		if (sndAllow_flag==true)
-		{
-		    //if (app->functionsAnswersQueue->size()>0) 
-		    uPort->sendData(app->functionsAnswersQueue);
-		    printf("\tОбработка запроса завершена\n");
-		    printf("-------------------------------------------------");
-		    printf("\n\n\n\n\n\n\n\n\n\n");
-		    sndAllow_flag=false;
-		    rcvComplete_flag=false;
-		}
-		
-		sched_yield();
-	    }
-		
+    deqUdp *uPort;
+
+    uPort=new deqUdp(wUdp+1);//,true);
+    if ((app->terminated()) || (uPort->open_port()!=err_result_ok)) { // open for sending
+        printf("Ошибка открытия сокета. Подсистема сокетной посылки не запущена\n");
+        app->terminate();
+        delete uPort;
+    } else {
+        printf("Подсистема сокетной посылки запущена\n");
+        //sendBuffer=new ssBuffer();
+        //*sz=1024;
+        sndAllow_flag=false;
+        //in_addr remote_ip;
+        while (!app->terminated())
+        {
+
+            if (sndAllow_flag==true)
+            {
+                //if (app->functionsAnswersQueue->size()>0)
+                uPort->sendData(app->functionsAnswersQueue);
+                printf("\tОбработка запроса завершена\n");
+                printf("-------------------------------------------------");
+                printf("\n\n\n\n\n\n\n\n\n\n");
+                sndAllow_flag=false;
+                rcvComplete_flag=false;
+            }
+
+            sched_yield();
+        }
+
 	//	*sz=1024;//sizeof(struct ip)+sizeof(struct udphdr);
-	    printf("Завершение подсистемы сокетной посылки\n");
-	    uPort->close_port();
-	}
-	
-	    
-    	    delete uPort;
-    	    return user;
+        printf("Завершение подсистемы сокетной посылки\n");
+        uPort->close_port();
+    }
+
+
+    delete uPort;
+    return user;
 }
 
 /****************************************************************************************//**
@@ -98,38 +98,38 @@ void* udpSenderThread (void* user)
  **************************************************************************************/
 void* udpListenerThread (void* user)
 {
-	srvAppLayer *app=(srvAppLayer*)user;
-	
-	WORD wUdp=app->getListenerPortNum();
-	deqUdp *uPort;
-	//struct udphdr *udp;
-	size_t sz[0];
-	
-	uPort=new deqUdp(wUdp);//,true);
-        if ((app->terminated()) || (uPort->open_port(true)!=err_result_ok)) {
-                printf("Ошибка открытия сокета. Подсистема сокетного приёма не запущена!\n");
-                app->terminate();
-        } else {
-	    printf("Подсистема сокетного приёма запущена\n");
-	    *sz=1024;
-	    rcvComplete_flag=false;
-	    while (!app->terminated()){
-		if (rcvComplete_flag==false) {
+    srvAppLayer *app=(srvAppLayer*)user;
+
+    WORD wUdp=app->getListenerPortNum();
+    deqUdp *uPort;
+    //struct udphdr *udp;
+    size_t sz[0];
+
+    uPort=new deqUdp(wUdp);//,true);
+    if ((app->terminated()) || (uPort->open_port(true)!=err_result_ok)) {
+        printf("Ошибка открытия сокета. Подсистема сокетного приёма не запущена!\n");
+        app->terminate();
+    } else {
+        printf("Подсистема сокетного приёма запущена\n");
+        *sz=1024;
+        rcvComplete_flag=false;
+        while (!app->terminated()){
+            if (rcvComplete_flag==false) {
 		//Get DataPtr from RecvBuffer
 		*sz=1024;//sizeof(struct ip)+sizeof(struct udphdr);
 		uPort->readData(app->clientsRequestsQueue,sz);
 		// Put ip, udp to RecvBuffer
 		
-		 rcvComplete_flag=true;
-		}
-		
+                rcvComplete_flag=true;
+            }
 
-		sched_yield();
-	    }
+
+            sched_yield();
+        }
 	
-	    printf("Завершение подсистемы сокетного приёма\n");
-    	    uPort->close_port();
-    	}
+        printf("Завершение подсистемы сокетного приёма\n");
+        uPort->close_port();
+    }
     delete uPort;
     return user;
 }
@@ -309,7 +309,7 @@ errType srvAppLayer::equip_reading_event(){
  * @retval      err_result_ok   - udp socket received data has been readed
  **************************************************************************************/
 errType srvAppLayer::equip_read_data(BYTE* buffer, size_t *sz){
-	return equip_listen->readData(buffer, sz);
+    return equip_listen->readData(buffer, sz);
 }
 
 /**********************************************************************************//**
@@ -326,42 +326,42 @@ errType srvAppLayer::equip_read_data(BYTE* buffer, size_t *sz){
  * @retval      err_crc_error - decoded message signature is incorrect.
  **************************************************************************************/
 errType srvAppLayer::decodeMessage(BYTE* dataBlock, DWORD length, rcsCmd *ss_cmd) {
-	errType result=err_not_init;
-	bool decoded;
-	int fn_num;
-	
-	
-	ss_cmd->encode(dataBlock);
-	
-	if (length!=ss_cmd->getCmdLength()) {
-	    printf("Нарушен формат заголовка пакета: количество принятых байт разнится с количеством заявленных в заголовке!\n");
-	    result=err_params_decode;
-	}
-	else {
-	    decoded = ss_cmd->checkSign();
-	    printf("Принято сообщение:");
-	    ss_cmd->dbgPrint();
-	
-	
-	    if (decoded)
-	    {
-		fn_num=ss_cmd->get_func_id();
-		if ((!Functions[fn_num]) || ((Functions[fn_num])->id()!=ss_cmd->get_func_id()))
-		{
-		// Function doesn't exist!!!
-		    printf ("ОШИБКА: Запрос на обслуживание нереализованной функции\n");
-		    result=err_not_found;
-		}
-		else {
-		    result=err_result_ok;
-		}
-	    } else {
-		printf("ОШИБКА: Несоответствие контрольной суммы принятого пакета\n");
-		result=err_crc_error;
-	    }
-	}
+    errType result=err_not_init;
+    bool decoded;
+    int fn_num;
 
-	return result;
+
+    ss_cmd->encode(dataBlock);
+
+    if (length!=ss_cmd->getCmdLength()) {
+        printf("Нарушен формат заголовка пакета: количество принятых байт разнится с количеством заявленных в заголовке!\n");
+        result=err_params_decode;
+    }
+    else {
+        decoded = ss_cmd->checkSign();
+        printf("Принято сообщение:");
+        ss_cmd->dbgPrint();
+	
+	
+        if (decoded)
+        {
+            fn_num=ss_cmd->get_func_id();
+            if ((!Functions[fn_num]) || ((Functions[fn_num])->id()!=ss_cmd->get_func_id()))
+            {
+		// Function doesn't exist!!!
+                printf ("ОШИБКА: Запрос на обслуживание нереализованной функции\n");
+                result=err_not_found;
+            }
+            else {
+                result=err_result_ok;
+            }
+        } else {
+            printf("ОШИБКА: Несоответствие контрольной суммы принятого пакета\n");
+            result=err_crc_error;
+        }
+    }
+
+    return result;
 }
 
 /**********************************************************************************//**
@@ -388,12 +388,12 @@ errType srvAppLayer::execMessage(rcsCmd* ss_cmd)
 	result=err_params_decode;
 
     }
-      ServiceState.lastFuncId=fn_num;
-      ServiceState.lastResult=result;
+    ServiceState.lastFuncId=fn_num;
+    ServiceState.lastResult=result;
 
 
-      (Functions[fn_num])->setResult(0,(BYTE*)&result);
-	
+    (Functions[fn_num])->setResult(0,(BYTE*)&result);
+
     return result;
 }
 
@@ -408,38 +408,38 @@ errType srvAppLayer::execMessage(rcsCmd* ss_cmd)
  **************************************************************************************/
 errType srvAppLayer::encodeFuncResult(rcsCmd* in_cmd, rcsCmd* out_cmd)
 {
-	BYTE *ret;
-	BYTE *resData;
-	int offset=0; //BYTE func_id + DWORD paramsLength = 5
+    BYTE *ret;
+    BYTE *resData;
+    int offset=0; //BYTE func_id + DWORD paramsLength = 5
 
-	int size;
-	errType result=err_result_ok;
+    int size;
+    errType result=err_result_ok;
 
-	OrtsType  *err_val;
-	DWORD err_len;
-	int fn_num=in_cmd->get_func_id();
-	if (Functions[fn_num]) {
-	    (Functions[fn_num])->getResult(0, (void**)&err_val, &err_len);
+    OrtsType  *err_val;
+    DWORD err_len;
+    int fn_num=in_cmd->get_func_id();
+    if (Functions[fn_num]) {
+        (Functions[fn_num])->getResult(0, (void**)&err_val, &err_len);
 	
 	
-	    int func_resultsQuantity=(Functions[fn_num])->getResultsQuantity();
-	    size=(Functions[fn_num])->getAllResultsLength();
+        int func_resultsQuantity=(Functions[fn_num])->getResultsQuantity();
+        size=(Functions[fn_num])->getAllResultsLength();
 	
-	    resData=new BYTE[size];
+        resData=new BYTE[size];
 	
-	    DWORD ret_len=0;
+        DWORD ret_len=0;
 	
-	   // printf("Q=%d\n", func_resultsQuantity);
-	    for (int i=0; i<func_resultsQuantity; i++) {
-	   //     printf("%d: \n",i);
-		(Functions[fn_num])->getResult(i, (void**)&ret, &ret_len);
-		memcpy(resData+offset, ret, ret_len);
-		offset+=ret_len;
-	    }
-	} else {
-	    resData=new BYTE[1];
-	    *resData=(int)err_not_found;
-	    offset=1;
+        // printf("Q=%d\n", func_resultsQuantity);
+        for (int i=0; i<func_resultsQuantity; i++) {
+            //     printf("%d: \n",i);
+            (Functions[fn_num])->getResult(i, (void**)&ret, &ret_len);
+            memcpy(resData+offset, ret, ret_len);
+            offset+=ret_len;
+        }
+    } else {
+        resData=new BYTE[1];
+        *resData=(int)err_not_found;
+        offset=1;
 	
 	}
 	out_cmd->encode(fn_num, offset, resData);
