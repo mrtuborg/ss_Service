@@ -246,7 +246,7 @@ errType appDeinit(void)
  * @retval      EXIT_FAILURE
  * @retval      err_not_init
  **********************************************************************/
-int main(int argc, char *argv[]) {
+int main(int argc, char *argv[], char *environ[]) {
 
     memset(&equipAddr,0,sizeof(in_addr));
 

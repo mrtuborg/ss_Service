@@ -50,6 +50,11 @@
 #  define SIGPWR 29
 #endif
 
+/* For darwin 10.6*/
+#ifndef SIGPOLL
+	#define SIGPOLL SIGIO
+#endif
+
 typedef struct mapstruct {
   const char *name;
   int num;

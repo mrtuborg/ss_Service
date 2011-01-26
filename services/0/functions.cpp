@@ -52,7 +52,7 @@ errType equipListenProcessing(BYTE *writingBuffer, size_t sz)
     //SASCmsg.encode(writingBuffer, sz);                                                             
     printf("\n\tС иерархии нижнего уровня получен пакет (hex):\n");                                
     printf("\t[");                                                                                 
-    for(int k=0; k<sz; k++) printf("%.2X ", writingBuffer[k]);                                     
+    for(size_t k=0; k<sz; k++) printf("%.2X ", writingBuffer[k]);
     //equip_recvBuffer->unlockBufferChunkForExternWriting(sz);                                     
     printf("]\n\n");                                                                               
     /*printf("\tРасшифровка:\n");                                                                    
@@ -63,6 +63,7 @@ errType equipListenProcessing(BYTE *writingBuffer, size_t sz)
         SASCmsg.dbgPrint();                                                                        
     } */                                                                                             
     printf("\t===========================================\n\n");                                   
+    return err_result_ok;
 }
 
 void* PollingThread(void* user)                                                           
@@ -86,6 +87,7 @@ void* PollingThread(void* user)
 	
         sched_yield();                                                                
     }                                                                                 
+    return user;
 }
 
 
@@ -93,7 +95,6 @@ errType srvInit()
 {
     errType result=err_not_init;
     WORD ret;
-    char str[12];
     
     prcsMgr=new prcList;
     fltrMgr=new fltrList;
@@ -169,7 +170,7 @@ errType GetProcessesList(void* fn)
     functionNode* func=(functionNode*)fn;
     
     WORD *sendingArray;
-    BYTE res;
+
     WORD length;
     prcsMgr->scanUserProcesses();
     
@@ -283,8 +284,8 @@ errType SearchProcess(void* fn)
     
     func->printParams();
     
-    char *cmdline;
     
+
     WORD pattern_size=*(WORD*)(func->getParamPtr(0));
     char *pattern=(char*)(func->getParamPtr(0))+2;
     
@@ -348,7 +349,7 @@ errType RestartProcess(void* fn)
     
     func->dbgPrint();
     
-    WORD pid=*(WORD*)(func->getParamPtr(0));
+    //WORD pid=*(WORD*)(func->getParamPtr(0));
     // 0. Find pid in processeslist
     // 1. saving running string with arguments
     // 2. Kill pid

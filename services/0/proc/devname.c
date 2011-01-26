@@ -69,7 +69,7 @@ static void load_drivers(void){
   p = buf;
   while(( p = strstr(p, " /dev/") )){  // " /dev/" is the second column
     tty_map_node *tmn;
-    int len;
+    size_t len;
     char *end;
     p += 6;
     end = strchr(p, ' ');
@@ -84,7 +84,7 @@ static void load_drivers(void){
       len -= 2;
       tmn->devfs_type = 1;
     }
-    if(len >= sizeof tmn->name)
+    if(len >= sizeof(tmn->name))
       len = sizeof tmn->name - 1; // mangle it to avoid overflow
     memcpy(tmn->name, p, len);
     p = end; /* set p to point past the %d as well if there is one */
@@ -134,7 +134,7 @@ static int driver_name(char *restrict const buf, unsigned maj, unsigned min){
 }
 
 // major 204 is a mess -- "Low-density serial ports"
-static const char low_density_names[][6] = {
+static const char low_density_names[][7] = { /// BUG: was 6! but IOC113 len is 7!
 "LU0",  "LU1",  "LU2",  "LU3",
 "FB0",
 "SA0",  "SA1",  "SA2",
@@ -146,7 +146,7 @@ static const char low_density_names[][6] = {
 "SG0",
 "SMX0",  "SMX1",  "SMX2",
 "MM0",  "MM1",
-"CPM0", "CPM1", "CPM2", "CPM3", /* "CPM4", "CPM5", */  // bad allocation?
+"CPM0", "CPM1", "CPM2", "CPM3", // "CPM4", "CPM5",   // bad allocation?
 "IOC0",  "IOC1",  "IOC2",  "IOC3",  "IOC4",  "IOC5",  "IOC6",  "IOC7",
 "IOC8",  "IOC9",  "IOC10", "IOC11", "IOC12", "IOC13", "IOC14", "IOC15",
 "IOC16", "IOC17", "IOC18", "IOC19", "IOC20", "IOC21", "IOC22", "IOC23",
@@ -171,7 +171,7 @@ static const char low_density_names[][6] = {
 "PZ0","PZ1","PZ2","PZ3",
 "TX0","TX1","TX2","TX3","TX4","TX5","TX6","TX7",
 "SC0","SC1","SC2","SC3",
-"MAX0","MAX1","MAX2","MAX3",
+"MAX0","MAX1","MAX2","MAX3"
 };
 
 #if 0

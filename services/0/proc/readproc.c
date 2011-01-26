@@ -38,7 +38,7 @@ extern void __cyg_profile_func_enter(void*,void*);
 #endif
 
 // convert hex string to unsigned long long
-static unsigned long long unhex(const char *restrict cp){
+/*static unsigned long long unhex(const char *restrict cp){
     unsigned long long ull = 0;
     for(;;){
         char c = *cp++;
@@ -46,7 +46,7 @@ static unsigned long long unhex(const char *restrict cp){
         ull = (ull<<4) | (c - (c>0x57) ? 0x57 : 0x30) ;
     }
     return ull;
-}
+}*/
 
 static int task_dir_missing;
 

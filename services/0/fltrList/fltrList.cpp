@@ -200,7 +200,7 @@ errType fltrList::encode (BYTE* src_array, DWORD src_array_len)
 {
     errType result=err_not_init;
     fltr* flt;
-    int offset=0;
+    DWORD offset=0;
     procFilters.clear();
     
     do {

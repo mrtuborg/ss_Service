@@ -28,7 +28,7 @@ static char buf[128];
 static double av[3];
 
 char *sprint_uptime(void) {
-  struct utmp *utmpstruct;
+  struct utmpx *utmpstruct;
   int upminutes, uphours, updays;
   int pos;
   struct tm *realtime;
@@ -65,7 +65,7 @@ char *sprint_uptime(void) {
 
   numuser = 0;
   setutent();
-  while ((utmpstruct = getutent())) {
+  while ((utmpstruct = (struct utmpx*) getutent())) {
     if ((utmpstruct->ut_type == USER_PROCESS) &&
        (utmpstruct->ut_name[0] != '\0'))
       numuser++;
