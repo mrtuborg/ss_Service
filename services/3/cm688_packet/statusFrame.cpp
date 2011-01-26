@@ -410,10 +410,9 @@ bool statusFrame::testCheckSumm()
     return result;
 }
 
-void statusFrame::decode(BYTE** array)
+void statusFrame::decode(BYTE* array)
 {
-    *array=new BYTE[sizeof(statusFrame_t)];
-    memcpy(*array, &frame, sizeof(statusFrame_t));
+    memcpy(array, &frame, sizeof(statusFrame_t));
 }
 
 void statusFrame::encode(BYTE* array, size_t size)

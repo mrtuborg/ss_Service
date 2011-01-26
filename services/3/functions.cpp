@@ -65,12 +65,13 @@ void* pollingThread(void* user)
             sendFrame->dbgPrint();
             old_crc = sendFrame->setCheckSumm();
 
-            sendFrame->decode(&array);
+            array = new BYTE[cmdFrame::kPacketSize];
+            sendFrame->decode(array);
             equip_sending->sendData(equipAddr, array, sizeof(cmdFrame_t));
+            delete array;
         }
         sched_yield();
     }
-    delete array;
     return user;
 }
 
