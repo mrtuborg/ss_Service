@@ -1,6 +1,8 @@
 
 # usage: make id=3
 id:=.
+host:=1
+
 use_libs		:=rcsLib comm extra math
 app_binary_dir		:=bin/$(shell uname -s)_$(shell uname -r)
 app_libray_dir		:=libs
@@ -8,7 +10,8 @@ root_build_dir		:=obj
 debug_build_dir		:=$(root_build_dir)/Debug
 release_build_dir	:=$(root_build_dir)/Release
 
-program_name		:= s$(id)_Service
+program_name		:= ss_Service
+service_name		:= $(program_name)_$(id)
 
 core_include_dir	:= include
 core_source_dir		:= src
@@ -38,9 +41,10 @@ lib_dirs+=$(addprefix $(paths_to_libraries)/math/, $(lib_subdirs))
 
 
 
-compile_flags		:= -Wall -MD -pipe
+compile_flags		:= -Wall -Wno-char-subscripts -MD -pipe
 link_flags		:= -pipe
 libraries		:= -ldl -pthread
+
 
 relative_include_dirs	:= 	$(core_include_dir)\
 				$(addprefix $(service_source_dir)/,$(service_source_subdirs))\
@@ -56,11 +60,11 @@ objects				:= $(objects:.c=.o)
 
 all: build_dir:=$(release_build_dir)
 all: build_flags:=-O2 -fomit-frame-pointer
-all: prebuild $(program_name)
+all: prebuild $(service_name)
 
 debug: build_dir:=$(debug_build_dir)
 debug: build_flags:=-O0 -g3 -D_DEBUG
-debug: prebuild $(program_name)
+debug: prebuild $(service_name)
 
 prebuild:
 	@echo "obj_dirs: " $(libs_source_subdirs)
@@ -71,23 +75,24 @@ prebuild:
 	@mkdir -p $(root_build_dir)
 	@mkdir -p $(addprefix $(build_dir)/,$(objects_dirs))
 
-$(program_name): $(objects)
-	@echo "2. "$(program_name)" linking"
-	g++ -o $(app_binary_dir)/$@ $(addprefix $(build_dir)/,$(objects)) $(link_flags) $(libraries)
+$(service_name): $(objects)
+	@echo "2. "$(service_name)" linking"
+	@$(CXX) -o $(app_binary_dir)/$@ $(addprefix $(build_dir)/,$(objects)) $(link_flags) $(libraries)
 	@echo "done"
 
 %.o : %.cpp
 	@echo "- Compiling " $<
-	@g++ -o $(build_dir)/$@ -c $< $(compile_flags) $(build_flags) $(addprefix -I, $(relative_include_dirs))
+	@$(CXX) -o $(build_dir)/$@ -c $< $(compile_flags) $(build_flags) $(addprefix -I, $(relative_include_dirs))  -std=gnu++98
 
 %.o : %.c
 	@echo "- Compiling " $<
-	@g++ -o $(build_dir)/$@ -c $< $(compile_flags) $(build_flags) $(addprefix -I, $(relative_include_dirs))
+	@$(CC) -o $(build_dir)/$@ -c $< $(compile_flags) $(build_flags) $(addprefix -I, $(relative_include_dirs))
 
 
 .PHONY : clean
 .PHONY : doc
 .PHONY : remote
+
 clean : id:=.
 clean :
 	rm -rf bin obj docs
@@ -96,7 +101,15 @@ doc : id:=.
 doc : 
 	doxygen Doxyfile
 
-remote :
-	./remote ss_Service 10.0.2.2 tuborg 3
-	
+include utils/remotes.inc
+
+remote: host_ip	:= $(word $(host), $(REMOTE_IP))
+remote: host_user:= $(word $(host), $(REMOTE_USER))
+remote: host_pass:= $(word $(host), $(REMOTE_PASSWORD))
+remote: 
+	@echo $(program_name) $(host_user):$(host_pass)@$(host_ip)
+	utils/./remote $(program_name) $(host_ip) $(host_user) $(host_pass) $(id)
+#cur_user:= $(foreach n, $(n_list), $(word $(n), $(REMOTE_USER)))
+
+
 include $(wildcard $(addsuffix /*.d, $(objects_dirs)))

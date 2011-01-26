@@ -1,0 +1,21 @@
+#
+# %1	- directory name
+# %2	- url
+# %3	- username
+# %4	- password
+# %5	- service id
+#
+
+cd ..
+pwd
+
+tar -cf $1.tar $1 libs --exclude $1/bin --exclude $1/.git --exclude $1/obj
+pwd
+$1/utils/./expect_scp.sh $4 $1.tar $3@$2:'~/'
+pwd
+cd $1
+pwd
+utils/./expect_ssh.sh $3 $4 $2 '~' tar -xf $1.tar
+utils/./expect_ssh.sh $3 $4 $2 '~/'$1 make id=$5
+
+utils/./expect_scp.sh $4 $3@$2:'~'/$1/bin . -r
