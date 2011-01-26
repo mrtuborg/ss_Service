@@ -66,7 +66,6 @@ void* pollingThread(void* user)
             old_crc = sendFrame->setCheckSumm();
 
             sendFrame->decode(&array);
-            printf("DEBUG: sending message\n");
             equip_sending->sendData(equipAddr, array, sizeof(cmdFrame_t));
         }
         sched_yield();

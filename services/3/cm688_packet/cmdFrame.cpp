@@ -99,7 +99,7 @@ void cmdFrame::setFoldOpen(FoldDscr_type fold_descriptor)
       default:  {
           printf("ERROR: Unavalible identificator of fold in\
           void cmdFrame::setFoldOpen(FoldDscr_type)");
-          exit (0);
+          exit (0);     //DEBUG
       }
     }
 
@@ -130,7 +130,7 @@ void cmdFrame::setFoldClose(FoldDscr_type fold_descriptor)
       default:  {
           printf("ERROR: Unavalible identificator of fold in\
           cmdFrame::setFoldClose(FoldDscr_type)");
-          exit (0);
+          exit (0);     //DEBUG
       }
     }
 }
@@ -160,7 +160,7 @@ void cmdFrame::setFoldStop(FoldDscr_type fold_descriptor)
       default:  {
           printf("ERROR: Unavalible identificator of fold in\
           cmdFrame::setFoldStop(FoldDscr_type)");
-          exit (0);
+          exit (0);     //DEBUG
       }
     }
 }
@@ -180,8 +180,6 @@ WORD cmdFrame::setCheckSumm()
 void cmdFrame::decode(BYTE** array)
 {
     *array=new BYTE[sizeof(cmdFrame_t)];
-    printf("DEBUG: sizeof(cmdFrame_t) = %lu\n", sizeof(cmdFrame_t));
-    exit(0);    //DEBUG
     memcpy(*array, &frame, sizeof(cmdFrame_t));
 }
 
