@@ -60,9 +60,6 @@ typedef struct cmdFrame_t {
 
 
 class cmdFrame {
-
-    cmdFrame_t frame;
-
 public:
     static const WORD kPacketSize;
 
@@ -87,6 +84,9 @@ public:
     void decode(BYTE*);
     void encode(BYTE*, size_t);
     void dbgPrint();
+
+private:
+    cmdFrame_t frame;
 
 } __attribute__ ((packed));
 

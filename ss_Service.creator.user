@@ -33,7 +33,15 @@
      <value key="ProjectExplorer.ProjectConfiguration.DisplayName" type="QString">Сборка</value>
      <value key="ProjectExplorer.ProjectConfiguration.Id" type="QString">GenericProjectManager.GenericMakeStep</value>
     </valuemap>
-    <value key="ProjectExplorer.BuildConfiguration.BuildStepsCount" type="int">1</value>
+    <valuemap key="ProjectExplorer.BuildConfiguration.BuildStep.1" type="QVariantMap">
+     <valuelist key="ProjectExplorer.ProcessStep.Arguments" type="QVariantList"/>
+     <value key="ProjectExplorer.ProcessStep.Command" type="QString"></value>
+     <value key="ProjectExplorer.ProcessStep.Enabled" type="bool">false</value>
+     <value key="ProjectExplorer.ProcessStep.WorkingDirectory" type="QString">$BUILDDIR</value>
+     <value key="ProjectExplorer.ProjectConfiguration.DisplayName" type="QString">Remote</value>
+     <value key="ProjectExplorer.ProjectConfiguration.Id" type="QString">ProjectExplorer.ProcessStep</value>
+    </valuemap>
+    <value key="ProjectExplorer.BuildConfiguration.BuildStepsCount" type="int">2</value>
     <value key="ProjectExplorer.BuildConfiguration.CleanStepsCount" type="int">0</value>
     <value key="ProjectExplorer.BuildConfiguration.ClearSystemEnvironment" type="bool">false</value>
     <valuelist key="ProjectExplorer.BuildConfiguration.UserEnvironmentChanges" type="QVariantList"/>

@@ -67,7 +67,7 @@ void* pollingThread(void* user)
 
             array = new BYTE[cmdFrame::kPacketSize];
             sendFrame->decode(array);
-            equip_sending->sendData(equipAddr, array, sizeof(cmdFrame_t));
+            equip_sending->sendData(equipAddr, array, cmdFrame::kPacketSize);
             delete array;
         }
         sched_yield();
