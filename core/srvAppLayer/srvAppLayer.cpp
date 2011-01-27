@@ -29,6 +29,7 @@
 #include <ssBuffer.h>
 #include <comm/udp_port/udp_port.h>
 #include <deqUdp.h>
+#include <rcsLib/udpAction/udpAction.h>
 #include <param_desc.h>
 #include <functionNode.h>
 
@@ -96,7 +97,7 @@ void* udpSenderThread (void* user)
  *
  * @details    Thread also includes work with port opening, initializing and closing.
  **************************************************************************************/
-void* udpListenerThread (void* user)
+void* _ss_udpListenerThread (void* user)
 {
     srvAppLayer *app=(srvAppLayer*)user;
 
@@ -119,14 +120,14 @@ void* udpListenerThread (void* user)
 		*sz=1024;//sizeof(struct ip)+sizeof(struct udphdr);
 		uPort->readData(app->clientsRequestsQueue,sz);
 		// Put ip, udp to RecvBuffer
-		
+
                 rcvComplete_flag=true;
             }
 
 
             sched_yield();
         }
-	
+
         printf("Завершение подсистемы сокетного приёма\n");
         uPort->close_port();
     }
@@ -236,7 +237,7 @@ errType srvAppLayer::StartListening()
 
     /// @brief 3. Start \ref udpListenerThread
     /// @details Thread listen for udp messages from clients and stores messages in \ref clientsRequestsQueue.
-    if (!AppTerminated) ret=pthread_create(&listenerThread, NULL, udpListenerThread, (void*) this);
+    if (!AppTerminated) ret=pthread_create(&listenerThread, NULL, _ss_udpListenerThread, (void*) this);
 
     /// @brief 4. Prepare \ref equip_listen.
     /// @details This is an udp port instance that using to listen data from equipment

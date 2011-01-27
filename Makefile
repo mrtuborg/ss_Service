@@ -3,7 +3,7 @@
 id:=.
 host:=1
 
-use_libs		:=rcsLib comm extra math
+use_libs		:=rcsLib comm extra math udpAction
 app_binary_dir		:=bin/$(shell uname -s)_$(shell uname -r)
 app_libray_dir		:=libs
 root_build_dir		:=obj
@@ -14,7 +14,7 @@ program_name		:= ss_Service
 service_name		:= $(program_name)_$(id)
 
 core_include_dir	:= include
-core_source_dir		:= src
+core_source_dir		:= core
 core_source_subdirs	:= . arg_parser buffer deqUdp functions srvAppLayer srvAppLayer/functionNode
 
 
