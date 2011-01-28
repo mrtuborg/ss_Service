@@ -176,7 +176,6 @@ typedef struct statusFrame_t {
 
 
 class statusFrame{
-    statusFrame_t frame;
 public:
     statusFrame();
     ~statusFrame();
@@ -210,6 +209,8 @@ public:
     void encode(BYTE*, size_t);
     void dbgPrint();
 
+private:
+    statusFrame_t frame;
 } __attribute__ ((packed));
 
 #endif

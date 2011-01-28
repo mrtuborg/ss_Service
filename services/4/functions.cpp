@@ -6,13 +6,16 @@
 #include <arpa/inet.h>                                                                                            
 #include <deque>                                                                                                  
 
-#include "../../rcsLib/rcsLib.h"
-#include "../buffer/buffer.h"
-#include "../buffer/ssBuffer.h"
-#include "../ICAppLayer/FunctionNode/param_desc.h"                                                                
-#include "../ICAppLayer/FunctionNode/FunctionNode.h"                                                              
-#include "../ICAppLayer/ICAppLayer.h"                                                                             
-#include "../global.h"
+#include <deque>                                                                
+#include <extra/ortsTypes/ortsTypes.h>                                          
+#include <ssBuffer.h>                                                           
+#include <buffer.h>                                                             
+#include <comm/udp_port/udp_port.h>                                             
+#include <rcsLib/rcsCmd/rcsCmd.h>                                               
+#include <param_desc.h>                                                         
+#include <functionNode.h>                                                       
+#include <srvAppLayer.h>                                                        
+#include <global.h> 
 
 #include "SASC_packet/comm_SASC.h"
 
@@ -28,7 +31,7 @@ buffer* resultStorage=0;
 extern errType getNextDBRecord();
 
     
-errType EquipListenProcessing(BYTE *writingBuffer, size_t sz)
+errType equipListenProcessing(BYTE *writingBuffer, size_t sz)
 {
     if (sz>sizeof(SASC_msg_type)) sz=sizeof(SASC_msg_type);
     
@@ -95,7 +98,7 @@ errType srvDeinit()
     return err_result_ok;
 }
 
-errType EmergencyShutdown(void* fn)
+errType emergencyShutdown(void* fn)
 {
     errType result=err_not_init;
     
@@ -106,7 +109,7 @@ errType EmergencyShutdown(void* fn)
     return result;
 }
 
-errType ControlModeChange(void* fn)
+errType controlModeChange(void* fn)
 {
     errType result=err_not_init;
 
@@ -118,7 +121,7 @@ errType ControlModeChange(void* fn)
     return result;
 }
 
-errType GetStateVector(void* fn)
+errType getStateVector(void* fn)
 {
     errType result=err_result_ok;
     functionNode* func=(functionNode*)fn;
@@ -285,7 +288,7 @@ errType GetMeasuringResult(void* fn)
     functionNode* func=(functionNode*)fn;
     
     func->printParams();
-    #error Надо предположить - собраны ли все данные
+//    #error Надо предположить - собраны ли все данные
     buffer=new BYTE[length+2];
     *(WORD*)buffer=length/4;
     length=resultStorage->read(buffer+2);
