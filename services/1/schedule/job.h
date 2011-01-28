@@ -9,7 +9,9 @@ typedef struct job_type{
 class job{
       job_type* jobReference;
         rcsCmd* jobEntity;
-    public:
+       cronTab* cronJob;
+
+	public:
 	 job();
 	~job();
     
@@ -25,7 +27,7 @@ class job{
 	BYTE get_btFuncId();
 	const void* get_paramsPtr(DWORD offset=0);
 	DWORD get_paramsLength();
-	const char* cronTabString();
+	errType writeCronTab();
 
 	rcsCmd* cmd();
 	

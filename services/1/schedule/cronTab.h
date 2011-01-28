@@ -27,10 +27,10 @@ class cronTab {
 	char day_of_week[1];
 	char *command;
 
+	FILE* cronFile;
+
 public:
 	errType setCommand(int minute, int hour, int dayM, int month, int dayW, char* command);
-	errType getString(char* strOut);
-
 	errType addToCronFile();
 	errType eraseEarlier();
 	errType loadFromCronFileAt(int minute, int hour, int dayM, int month, int dayW);

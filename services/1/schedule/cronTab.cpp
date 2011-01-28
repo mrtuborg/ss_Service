@@ -19,11 +19,11 @@
 //  *   *   *   *  *  command to be executed
 
 cronTab::cronTab() {
-
+	cronFile=fopen("cronTest.txt","r");
 }
 
 cronTab::~cronTab() {
-	// TODO Auto-generated destructor stub
+	fclose(cronFile);
 }
 
 errType cronTab::setCommand(int btMinute, int btHour, int btDayM, int btMonth, int btDayW, char* newCommand){
@@ -38,14 +38,8 @@ errType cronTab::setCommand(int btMinute, int btHour, int btDayM, int btMonth, i
 	return err_result_ok;
 }
 
-errType cronTab::getString(char* strOut)
-{
-		sprintf(strOut, "%s\t%s\t%s\t%s\t%s\t%s", minute, hour, day_of_month,month,day_of_week,command);
-		return err_result_ok;
-}
-
 errType cronTab::addToCronFile()
 {
-
-
+	fprintf(cronFile, "%s\t%s\t%s\t%s\t%s\t%s", minute, hour, day_of_month,month,day_of_week,command);
+	return err_result_ok;
 }
