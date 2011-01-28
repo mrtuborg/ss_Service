@@ -1,17 +1,20 @@
 #include <stdio.h>
 #include <string.h>
+#include <time.h>
 #include <extra/ortsTypes/ortsTypes.h>
 #include <rcsLib/rcsCmd/rcsCmd.h>
+#include "cronTab.h"
 #include "job.h"
 
 
 job::job()
 {
-
+	cronJob=new cronTab();
 }
 
 job::~job()
 {
+	delete cronJob;
 
 }
 
@@ -59,9 +62,9 @@ const void* job::get_paramsPtr(DWORD offset) { return jobEntity->get_func_params
 DWORD job::get_paramsLength(){return jobEntity->get_func_paramsLength();}
 rcsCmd *job::cmd()    { return jobEntity;       }
 
-const char*job::cronTabString()
-{
-  const char* string[]={"uninitilalized"};
+//const char*job::cronTabString()
+//{
+  //const char* string[]={"uninitilalized"};
   // timeStart - seconds starting from current month
   // 3600 seconds per hour
   // 86400 seconds per day
@@ -75,15 +78,15 @@ const char*job::cronTabString()
   dayMonth=hours%24;
   month=dayMonth%30;
 */
-  int8_t minutes;
-  int8_t hours;
-  int8_t dayMonths;
-  int8_t month;
+  //int8_t minutes;
+  //int8_t hours;
+  //int8_t dayMonths;
+  //int8_t month;
 
   //sprintf(string, "%d\t%d\t%d\t%d\t*\t%s",minutes,hours,dayMonth,month,cmdString);
 
-  return string;
-}
+  //return 0;//string;
+//}
 /*
 BYTE* get_strTime()
 {
@@ -91,3 +94,22 @@ BYTE* get_strTime()
     double hh = day
 }
 */
+
+errType job::writeCronTab()
+{
+	double seconds = jobReference->timeStart;
+
+	time_t t1;
+	struct tm t2;
+
+
+//	double minutes = seconds / 60;
+//	double hours = minutes / 60;
+//	double days = hours / 24;
+//	double weeks = days / 7;
+//	double months = weeks / 52;
+//	double years = months / 12;
+
+//	cronJob->setCommand(btMinute, btHour, btDayM, btMonth, btDayW, cmd);
+	cronJob->addToCronFile();
+}
