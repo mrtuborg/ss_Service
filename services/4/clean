@@ -1,4 +1,0 @@
-rm -f src/SASC_packet/*
-rm -f src/global.*
-rmdir src/SASC_packet
-

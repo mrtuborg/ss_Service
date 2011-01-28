@@ -3,7 +3,7 @@
 #include <stdio.h>
 
 #include <string.h>
-#include "../../ortsTypes/ortsTypes.h"
+#include <extra/ortsTypes/ortsTypes.h>
 #include "comm_SASC.h"
 
 

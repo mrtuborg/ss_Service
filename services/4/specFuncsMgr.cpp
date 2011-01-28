@@ -1,13 +1,18 @@
-#include <deque>                                                                                                  
-#include <pthread.h>                                                                                              
-#include <netinet/in.h>                                                                                           
-#include "../../rcsLib/rcsLib.h"
-#include "../buffer/ssBuffer.h"
-#include "../ICAppLayer/FunctionNode/param_desc.h"                                                                
-#include "../ICAppLayer/FunctionNode/FunctionNode.h"                                                              
-#include "../ICAppLayer/ICAppLayer.h"                                                                             
-#include "SpecFuncs.h"                                                                                            
-#include "functions.h" 
+#include <pthread.h>                                                            
+#include <stdio.h>                                                              
+#include <string.h>                                                             
+#include <netinet/in.h>                                                         
+#include <arpa/inet.h>                                                          
+#include <deque>                                                                
+#include <extra/ortsTypes/ortsTypes.h>                                          
+#include <ssBuffer.h>                                                           
+#include <rcsLib/rcsCmd/rcsCmd.h>                                               
+#include <comm/udp_port/udp_port.h>                                             
+#include <param_desc.h>                                                         
+#include <functionNode.h>                                                       
+#include <srvAppLayer.h>                                                        
+#include <specFuncsMgr.h>                                                       
+#include <functions.h>
 
 specFuncsMgr::specFuncsMgr(srvAppLayer *appl)
 {
