@@ -138,10 +138,12 @@ errType emergencyShutdown(void* fn)
 
 errType controlModeChange(void* fn)
 {
-    errType result = err_not_init;
+    errType result = err_result_ok;
     functionNode* func = (functionNode*) fn;
     func->printParams();
-    //func->dbgPrint();
+    BYTE mode=*(BYTE*)func->getParamPtr(0);
+    if (mode<2) app->setServiceMode(mode);
+    else result=err_params_value;
     func->printResults();
     return result;
 }
