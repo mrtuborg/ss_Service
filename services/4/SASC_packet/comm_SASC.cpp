@@ -207,12 +207,12 @@ errType comm_SASC::checkAnswer(SASC_answer_mod *typeinf)
 
 errType comm_SASC::decode(BYTE** array)
 {
-	memcpy(*array,msg,sizeof(SASC_msg_type));
+        memcpy(*array,msg,sizeof(SASC_msg_type));
 }
 
 errType comm_SASC::encode(BYTE* array, DWORD size)
 {
-	clear_msg();
+        clear_msg();
 	memcpy(msg,array, size);
 }
 

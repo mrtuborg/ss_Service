@@ -19,10 +19,19 @@
   <valuemap type="QVariantMap">
    <value key="ProjectExplorer.ProjectConfiguration.DisplayName" type="QString">Настольный компьютер</value>
    <value key="ProjectExplorer.ProjectConfiguration.Id" type="QString">GenericProjectManager.GenericTarget</value>
-   <value key="ProjectExplorer.Target.ActiveBuildConfiguration" type="int">0</value>
+   <value key="ProjectExplorer.Target.ActiveBuildConfiguration" type="int">1</value>
    <value key="ProjectExplorer.Target.ActiveRunConfiguration" type="int">0</value>
    <valuemap key="ProjectExplorer.Target.BuildConfiguration.0" type="QVariantMap">
     <value key="GenericProjectManager.GenericBuildConfiguration.BuildDirectory" type="QString">/Users/sam/workspace/Stager/ss_Service</value>
+    <value key="ProjectExplorer.BuildConfiguration.BuildStepsCount" type="int">0</value>
+    <value key="ProjectExplorer.BuildConfiguration.CleanStepsCount" type="int">0</value>
+    <value key="ProjectExplorer.BuildConfiguration.ClearSystemEnvironment" type="bool">false</value>
+    <valuelist key="ProjectExplorer.BuildConfiguration.UserEnvironmentChanges" type="QVariantList"/>
+    <value key="ProjectExplorer.ProjectConfiguration.DisplayName" type="QString">all</value>
+    <value key="ProjectExplorer.ProjectConfiguration.Id" type="QString">GenericProjectManager.GenericBuildConfiguration</value>
+   </valuemap>
+   <valuemap key="ProjectExplorer.Target.BuildConfiguration.1" type="QVariantMap">
+    <value key="GenericProjectManager.GenericBuildConfiguration.BuildDirectory" type="QString"></value>
     <valuemap key="ProjectExplorer.BuildConfiguration.BuildStep.0" type="QVariantMap">
      <valuelist key="GenericProjectManager.GenericMakeStep.BuildTargets" type="QVariantList"/>
      <valuelist key="GenericProjectManager.GenericMakeStep.MakeArguments" type="QVariantList">
@@ -33,22 +42,33 @@
      <value key="ProjectExplorer.ProjectConfiguration.DisplayName" type="QString">Сборка</value>
      <value key="ProjectExplorer.ProjectConfiguration.Id" type="QString">GenericProjectManager.GenericMakeStep</value>
     </valuemap>
-    <valuemap key="ProjectExplorer.BuildConfiguration.BuildStep.1" type="QVariantMap">
-     <valuelist key="ProjectExplorer.ProcessStep.Arguments" type="QVariantList"/>
-     <value key="ProjectExplorer.ProcessStep.Command" type="QString"></value>
-     <value key="ProjectExplorer.ProcessStep.Enabled" type="bool">false</value>
-     <value key="ProjectExplorer.ProcessStep.WorkingDirectory" type="QString">$BUILDDIR</value>
-     <value key="ProjectExplorer.ProjectConfiguration.DisplayName" type="QString">Remote</value>
-     <value key="ProjectExplorer.ProjectConfiguration.Id" type="QString">ProjectExplorer.ProcessStep</value>
-    </valuemap>
-    <value key="ProjectExplorer.BuildConfiguration.BuildStepsCount" type="int">2</value>
+    <value key="ProjectExplorer.BuildConfiguration.BuildStepsCount" type="int">1</value>
     <value key="ProjectExplorer.BuildConfiguration.CleanStepsCount" type="int">0</value>
     <value key="ProjectExplorer.BuildConfiguration.ClearSystemEnvironment" type="bool">false</value>
     <valuelist key="ProjectExplorer.BuildConfiguration.UserEnvironmentChanges" type="QVariantList"/>
-    <value key="ProjectExplorer.ProjectConfiguration.DisplayName" type="QString">3-я служба</value>
+    <value key="ProjectExplorer.ProjectConfiguration.DisplayName" type="QString">3-я служба debug</value>
     <value key="ProjectExplorer.ProjectConfiguration.Id" type="QString">GenericProjectManager.GenericBuildConfiguration</value>
    </valuemap>
-   <value key="ProjectExplorer.Target.BuildConfigurationCount" type="int">1</value>
+   <valuemap key="ProjectExplorer.Target.BuildConfiguration.2" type="QVariantMap">
+    <value key="GenericProjectManager.GenericBuildConfiguration.BuildDirectory" type="QString"></value>
+    <valuemap key="ProjectExplorer.BuildConfiguration.BuildStep.0" type="QVariantMap">
+     <valuelist key="GenericProjectManager.GenericMakeStep.BuildTargets" type="QVariantList"/>
+     <valuelist key="GenericProjectManager.GenericMakeStep.MakeArguments" type="QVariantList">
+      <value type="QString">id=4</value>
+      <value type="QString">debug</value>
+     </valuelist>
+     <value key="GenericProjectManager.GenericMakeStep.MakeCommand" type="QString"></value>
+     <value key="ProjectExplorer.ProjectConfiguration.DisplayName" type="QString">Сборка</value>
+     <value key="ProjectExplorer.ProjectConfiguration.Id" type="QString">GenericProjectManager.GenericMakeStep</value>
+    </valuemap>
+    <value key="ProjectExplorer.BuildConfiguration.BuildStepsCount" type="int">1</value>
+    <value key="ProjectExplorer.BuildConfiguration.CleanStepsCount" type="int">0</value>
+    <value key="ProjectExplorer.BuildConfiguration.ClearSystemEnvironment" type="bool">false</value>
+    <valuelist key="ProjectExplorer.BuildConfiguration.UserEnvironmentChanges" type="QVariantList"/>
+    <value key="ProjectExplorer.ProjectConfiguration.DisplayName" type="QString">4-я служба debug</value>
+    <value key="ProjectExplorer.ProjectConfiguration.Id" type="QString">GenericProjectManager.GenericBuildConfiguration</value>
+   </valuemap>
+   <value key="ProjectExplorer.Target.BuildConfigurationCount" type="int">3</value>
    <valuemap key="ProjectExplorer.Target.RunConfiguration.0" type="QVariantMap">
     <valuelist key="ProjectExplorer.CustomExecutableRunConfiguration.Arguments" type="QVariantList"/>
     <value key="ProjectExplorer.CustomExecutableRunConfiguration.BaseEnvironmentBase" type="int">2</value>

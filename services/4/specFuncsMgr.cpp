@@ -60,7 +60,6 @@ errType specFuncsMgr::startSpecFuncs()
 	    
 	    func=new functionNode(3,7,1,StartMeasuring);
 	    func->setFuncName("Запрос на начало измерений");
-	    
 	    func->setParamDescriptor(0,type_DWORD);
 	    func->setParamName(0, "binning");
 	    func->setParamDescriptor(1,type_DWORD);
@@ -75,7 +74,6 @@ errType specFuncsMgr::startSpecFuncs()
 	    func->setParamName(5, "Wm_c");
 	    func->setParamDescriptor(6,type_FLOAT);
 	    func->setParamName(6, "Wa");
-	    
 	    func->setResultDescriptor(0,type_ERRTYPE);
 	    func->setResultName(0, "Квитанция исполнения");
 	    appLayer->CreateNewFunction(func);
@@ -83,7 +81,6 @@ errType specFuncsMgr::startSpecFuncs()
 	    
 	    func=new functionNode(4,6,1,ZeroMeasuring);
 	    func->setFuncName("Запрос на измерение нуля");
-	
 	    func->setParamDescriptor(0,type_DWORD);
 	    func->setParamName(0, "binning");
 	    func->setParamDescriptor(1,type_FLOAT);
@@ -96,28 +93,20 @@ errType specFuncsMgr::startSpecFuncs()
 	    func->setParamName(4, "Wm_c");
 	    func->setParamDescriptor(5,type_FLOAT);
 	    func->setParamName(5, "Wa");
-	    
-	
 	    func->setResultDescriptor(0,type_ERRTYPE);
 	    func->setResultName(0, "Квитанция исполнения");
-
 	    appLayer->CreateNewFunction(func);
 	    
 	    func=new functionNode(5,0,1,linkTest);
 	    func->setFuncName("Тест связи между сервером и АРМ СКСЮ");
-	
 	    func->setResultDescriptor(0,type_ERRTYPE);
 	    func->setResultName(0, "Квитанция исполнения");
-
 	    appLayer->CreateNewFunction(func);
-	    
-	    
 	    
 	    func=new functionNode(6,0,1,GetMeasuringResult);
 	    func->setFuncName("Запрос получения результатов измерения");
 	    func->setResultDescriptor(0,type_ERRTYPE);
 	    func->setResultName(0, "Квитанция исполнения");
-	    
 	    appLayer->CreateNewFunction(func);
 	    
 	    func=new functionNode(7,0,1,ZeroDB);
@@ -128,7 +117,6 @@ errType specFuncsMgr::startSpecFuncs()
 	    
 	    func=new functionNode(8,5,1,TaringStart);
 	    func->setFuncName("Запрос на начало процесса тарировки");
-	    
 	    func->setParamDescriptor(0,type_FLOAT);
 	    func->setParamName(0, "FiH");
 	    func->setParamDescriptor(1,type_FLOAT);
@@ -139,14 +127,12 @@ errType specFuncsMgr::startSpecFuncs()
 	    func->setParamName(3, "Wm_c");
 	    func->setParamDescriptor(4,type_FLOAT);
 	    func->setParamName(4, "Wa");
-	    
 	    func->setResultDescriptor(0,type_ERRTYPE);
 	    func->setResultName(0, "Квитанция исполнения");
 	    appLayer->CreateNewFunction(func);
 	    
 	    func=new functionNode(9,12,1,GetTaringPoint);
 	    func->setFuncName("Запрос на получение тарировочной точки");
-	    
 	    func->setParamDescriptor(0,type_DWORD);
 	    func->setParamName(0, "binning");                             
 	    func->setParamDescriptor(1,type_DWORD);
@@ -171,15 +157,12 @@ errType specFuncsMgr::startSpecFuncs()
 	    func->setParamName(10, "Fix");
 	    func->setParamDescriptor(11,type_FLOAT);
 	    func->setParamName(11, "Fiy");
-	    
-	    
 	    func->setResultDescriptor(0,type_ERRTYPE);
 	    func->setResultName(0, "Квитанция исполнения");
 	    appLayer->CreateNewFunction(func);
 	    
 	    func=new functionNode(10,5,1,TaringStop);
 	    func->setFuncName("Запрос остановки процесса тарировки");
-	    
 	    func->setParamDescriptor(0,type_FLOAT);
 	    func->setParamName(0, "FiH");
 	    func->setParamDescriptor(1,type_FLOAT);
@@ -190,11 +173,9 @@ errType specFuncsMgr::startSpecFuncs()
 	    func->setParamName(3, "Wm_c");
 	    func->setParamDescriptor(4,type_FLOAT);
 	    func->setParamName(4, "Wa");
-	    
 	    func->setResultDescriptor(0,type_ERRTYPE);
 	    func->setResultName(0, "Квитанция исполнения");
 	    appLayer->CreateNewFunction(func);
-	    
 	    
     return result;
 }

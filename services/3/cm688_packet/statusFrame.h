@@ -126,16 +126,16 @@ typedef struct statusFrame_t {
     } BYTE_10;
 
     //********************** 11 BYTE **********************
-    BYTE _A_nullbit:  1;
-    BYTE foldA_value: 7;
+    BYTE _A_nullbit  :1;
+    BYTE foldA_value :7;
 
     //********************** 12 BYTE **********************
-    BYTE _B_nullbit:  1;
-    BYTE foldB_value: 7;
+    BYTE _B_nullbit  :1;
+    BYTE foldB_value :7;
 
     //********************** 13 BYTE **********************
-    BYTE _U_nullbit:  1;
-    BYTE foldU_value: 7;
+    BYTE _U_nullbit  :1;
+    BYTE foldU_value :7;
 
     //********************** 14 BYTE **********************
     union {
@@ -147,7 +147,7 @@ typedef struct statusFrame_t {
             BYTE fold_lowB_psa_left  :1;
             BYTE fold_up_psa_right   :1;
             BYTE fold_up_psa_left    :1;
-            BYTE reserve: 1;
+            BYTE reserve             :1;
         };
         BYTE bValue;
     } BYTE_14;
@@ -155,7 +155,7 @@ typedef struct statusFrame_t {
     //********************** 15 BYTE **********************
     union {
         struct {
-            BYTE nullBit :1;
+            BYTE nullBit             :1;
             BYTE fold_lowA_esa_right :1;
             BYTE fold_lowA_esa_left  :1;
             BYTE fold_lowB_esa_right :1;
@@ -177,6 +177,8 @@ typedef struct statusFrame_t {
 
 class statusFrame{
 public:
+    static const WORD kPacketSize;
+
     statusFrame();
     ~statusFrame();
 
