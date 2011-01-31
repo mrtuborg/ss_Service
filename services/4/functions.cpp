@@ -38,7 +38,7 @@ errType equipListenProcessing(BYTE *writingBuffer, size_t sz)
     rcvSASCmsg.encode(writingBuffer, sz);
     printf("\n\tС иерархии нижнего уровня получен пакет (hex):\n");
     printf("\t[");
-    for(int k=0; k<sz; k++) printf("%.2X ", writingBuffer[k]);
+    for(size_t k=0; k < sz; k++) printf("%.2X ", writingBuffer[k]);
     //equip_recvBuffer->unlockBufferChunkForExternWriting(sz);
     printf("]\n\n");
     printf("\tРасшифровка:\n");
@@ -126,7 +126,7 @@ errType getStateVector(void* fn)
     errType result=err_result_ok;
     functionNode* func=(functionNode*)fn;
     func->printParams();
-    func->setResult(1,&app->getStateVector());
+    func->setResult(1,&(app->getStateVector()));
     func->printResults();
     return result;
 
