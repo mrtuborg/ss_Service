@@ -20,9 +20,9 @@
  */
 typedef struct serviceState {
     BYTE linked:1;
-    BYTE reserved:3;
+    BYTE reserved0:3;
     BYTE inprocess:1;
-    BYTE mode_emergency:1;
+    BYTE reserved1:1;
     BYTE mode_manual:1;
     BYTE mode_auto:1;
 } __attribute__((packed)) serviceState;
@@ -96,6 +96,9 @@ class srvAppLayer
 	BYTE terminated(); // 1 - only exit; 2 - exit with reboot
 	void terminate(BYTE mode=1);
 	stateVector_type getStateVector();
+
+	BYTE serviceMode(); // 0 - automatic, 1- manual
+	errType setServiceMode(BYTE mode); //0 - automatic, 1- manual
 };
 
 extern srvAppLayer* app;        ///< One global instance per application

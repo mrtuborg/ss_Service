@@ -160,6 +160,8 @@ srvAppLayer::srvAppLayer(WORD portNum)
     
     func_quantity=0;
     ifCount=0;
+
+    setServiceMode(0); // automatic mode startup
 }
 
 srvAppLayer::~srvAppLayer()
@@ -523,16 +525,27 @@ errType srvAppLayer::ProcessMessages()
     length=clientsRequestsQueue->popBlock(&sfrom, dataBlock);
     
     
-///  2) Decode readed request by \ref decodeMessage
+/// 2) Decode readed request by \ref decodeMessage
     result=decodeMessage(dataBlock, length, in_cmd);
 
     //in_cmd->dbgPrint();
-///  3) Execute requested function if decoding was successfully by \ref execMessage
-    if (result==err_result_ok) 
+/// 3) Execute requested function if decoding was successfully by \ref execMessage
+
+
+
+    if (result==err_result_ok)
 	{
-	    result=execMessage(in_cmd);
+    		if (serviceMode()==0) // && ip.src != 127.0.0.1 Not in manual mode
+    	    {
+    	    		result=err_not_allowed;
+
+    	    } else {
+    	    		result=execMessage(in_cmd);
+
+    	    }
+
     
-///  4) Encoding function result ticket if execution was not successfully
+/// 4) Encoding function result ticket if execution was not successfully
     //if (result==err_result_ok) 
 	    if ((result!=err_result_ok) && (result!=err_not_found))
 	    {
@@ -581,4 +594,18 @@ void srvAppLayer::terminate(BYTE mode)
 stateVector_type srvAppLayer::getStateVector()
 {
     return ServiceState;
+}
+// 0 - automatic, 1- manual
+BYTE srvAppLayer::serviceMode()
+{
+	if (ServiceState.state.mode_auto == 1) return 0;
+	if (ServiceState.state.mode_manual == 1) return 1;
+
+}
+
+errType srvAppLayer::setServiceMode(BYTE mode)
+{
+	if (mode==0) ServiceState.state.mode_auto = 1;
+	else ServiceState.state.mode_manual = 1;
+
 }

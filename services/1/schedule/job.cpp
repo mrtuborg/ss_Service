@@ -7,8 +7,9 @@
 #include "job.h"
 
 
-job::job()
+job::job(DWORD id)
 {
+	jobReference->objId=id;
 	cronJob=new cronTab();
 }
 
@@ -49,6 +50,35 @@ void job::dbgPrint()
     printf("calling service = %d\n", jobReference->service_id);
     printf("command:\n");
     jobEntity->dbgPrint();
+}
+
+errType job::set_dwNextJobID(DWORD id)
+{
+		jobReference->nextObjId=id;
+		return err_result_ok;
+}
+
+errType job::set_wStartTime(WORD time)
+{
+		jobReference->timeStart=time;
+		return err_result_ok;
+}
+
+errType job::set_wFinishTime(WORD time)
+{
+		jobReference->timeEnd=time;
+		return err_result_ok;
+}
+
+errType job::set_btServiceId(BYTE id)
+{
+		jobReference->service_id=id;
+		return err_result_ok;
+}
+
+errType	job::setJobCmd(BYTE func_id, DWORD param_len, void* args)
+{
+		jobEntity->encode(func_id, param_len, args);
 }
 
 
@@ -97,10 +127,11 @@ BYTE* get_strTime()
 
 errType job::writeCronTab()
 {
-	double seconds = jobReference->timeStart;
+	long seconds = jobReference->timeStart;
 
-	time_t t1;
-	struct tm t2;
+	time_t timeStart=seconds;
+
+	//struct t t2;
 
 
 //	double minutes = seconds / 60;
@@ -110,6 +141,6 @@ errType job::writeCronTab()
 //	double months = weeks / 52;
 //	double years = months / 12;
 
-//	cronJob->setCommand(btMinute, btHour, btDayM, btMonth, btDayW, cmd);
+	//cronJob->setCommand(btMinute, btHour, btDayM, btMonth, btDayW, cmd);
 	cronJob->addToCronFile();
 }

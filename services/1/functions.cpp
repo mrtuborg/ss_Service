@@ -22,7 +22,7 @@
 //udp_port* equipment;
 pthread_t PollingThreadHandle;
 FILE *scheduleFile;
-schedule *batchSched;
+schedule *batchShed;
 
 //#define EQ_UDP_PORT 5004
 //#define EQ_IP_ADDR "127.0.0.1"
@@ -81,7 +81,7 @@ errType srvDeinit()
 {
   //  equipment->close_port();
   //delete equipment;
-    delete batchSched;
+    delete batchShed;
     return err_result_ok;
 }
 
@@ -136,36 +136,29 @@ errType addScheduleJob(void* fn)
     
     func->printParams();
     
-    /*BYTE isEmergencySchedule=*(BYTE*)(func->getParamPtr(0)); // Packet No
+    BYTE isEmergencySchedule=*(BYTE*)(func->getParamPtr(0)); // Packet No
     DWORD objId=*(DWORD*)(func->getParamPtr(1));
     DWORD nextObjId=*(DWORD*)(func->getParamPtr(2));
     WORD timeStart=*(WORD*)func->getParamPtr(2);
     WORD timeEnd=*(WORD*)func->getParamPtr(3);
     BYTE service_id=*(BYTE*)func->getParamPtr(4);
     BYTE func_id=*(BYTE*)func->getParamPtr(5);
-    WORD paramsLength=*(WORD*)func->getParamPtr(6);
-    BYTE* params=(BYTE*)func->getParamPtr(7);*/
+    DWORD paramsLength=*(DWORD*)func->getParamPtr(6);
+    BYTE* params=(BYTE*)func->getParamPtr(7);
 
+    job* newJob=new job(objId);
+    newJob->set_dwNextJobID(nextObjId);
+    newJob->set_btServiceId(service_id);
+    newJob->set_wStartTime(timeStart);
+    newJob->set_wFinishTime(timeEnd);
+    newJob->setJobCmd(func_id, paramsLength, params);
 
-    //char str0[255], str1[255];
-    //printf("Schedule #%d\n",packetNo);
-
+    batchShed->addJob(newJob);
+    batchShed->update();
 
     /// use these files for cron:
     /// data_%jobId%.sdata - rcsCmd to send by cron scheduling
     /// addr_%jobId%.saddr - ip_addr/udp_port for sending data_%jobId%.sdata
-
-    //if (isEmergencySchedule) sprintf(str, "");
-    //else
-    //sprintf(str0, "data_%d.sdata",objId);
-    //sprintf(str1, "addr_%d.saddr",objId);
-
-    //dataFile = fopen (str0,"a");
-    //addrFile = fopen (str1,"a");
-
-   // job schedule[100];
-   // BYTE jobsQuantity;
-   // WORD offset=0;
 
     /*
     WORD i=0;
