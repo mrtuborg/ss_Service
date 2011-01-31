@@ -139,8 +139,11 @@ errType schedule::mappingClose()
 
 errType schedule::update()
 {
-    list <job*> tmp_jobs_list;
-
+	list <job*>::iterator iter;
+	for (iter=job_list.begin(); iter!=job_list.end(); ++iter)
+	{
+		(*iter)->writeCronTab();
+	}
     return err_result_ok;
 }
 
@@ -154,7 +157,7 @@ errType schedule::encode(BYTE* array)
     
     for (iter=job_list.begin(); iter!=job_list.end(); ++iter)
     {
-	tmp_job=new job;
+	//-tmp_job=new job;
 	tmp_job->encode(array+offset);
 	addJob(tmp_job);
 	offset+=(*iter)->getLength();

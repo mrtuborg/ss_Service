@@ -12,11 +12,19 @@ class job{
        cronTab* cronJob;
 
 	public:
-	 job();
+	 job(DWORD id);
 	~job();
     
 	void encode(BYTE*);
 	void decode(BYTE*);
+
+	errType set_dwNextJobID(DWORD id);
+	errType set_wStartTime(WORD time);
+	errType set_wFinishTime(WORD time);
+	errType set_btServiceId(BYTE id);
+	errType	setJobCmd(BYTE func_id, DWORD param_len, void* args);
+
+
 	WORD getLength();
 	
 	DWORD get_dwObjId();
