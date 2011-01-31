@@ -11,6 +11,7 @@
 #include <rcsLib/rcsCmd/rcsCmd.h>
 #include <param_desc.h>
 #include <functionNode.h>
+#include "schedule/cronTab.h"
 #include "schedule/job.h"
 #include "schedule/schedule.h"
 #include <ssBuffer.h>
@@ -31,7 +32,7 @@ void* pollingThread(void* user)
 {
   srvAppLayer* app = (srvAppLayer*) user;
 //  BYTE* array;
-  WORD old_crc = 0xFFFF;
+//  WORD old_crc = 0xFFFF;
   while (!app->terminated())
     {
       
@@ -49,7 +50,7 @@ errType equipListenProcessing(BYTE *writingBuffer, size_t sz)
   //answerFrame->encode(writingBuffer, sz);
   printf("\n\tС иерархии нижнего уровня получен пакет (hex):\n");
   printf("\t[");
-  for (int k = 0; k < sz; k++)
+  for (size_t k = 0; k < sz; k++)
     printf("%.2X ", writingBuffer[k]);
   printf("]\n\n");
   printf("\tРасшифровка:\n");
@@ -135,7 +136,7 @@ errType addScheduleJob(void* fn)
     
     func->printParams();
     
-    BYTE isEmergencySchedule=*(BYTE*)(func->getParamPtr(0)); // Packet No
+    /*BYTE isEmergencySchedule=*(BYTE*)(func->getParamPtr(0)); // Packet No
     DWORD objId=*(DWORD*)(func->getParamPtr(1));
     DWORD nextObjId=*(DWORD*)(func->getParamPtr(2));
     WORD timeStart=*(WORD*)func->getParamPtr(2);
@@ -143,11 +144,10 @@ errType addScheduleJob(void* fn)
     BYTE service_id=*(BYTE*)func->getParamPtr(4);
     BYTE func_id=*(BYTE*)func->getParamPtr(5);
     WORD paramsLength=*(WORD*)func->getParamPtr(6);
-    BYTE* params=(BYTE*)func->getParamPtr(7);
+    BYTE* params=(BYTE*)func->getParamPtr(7);*/
 
 
-
-    char str0[255], str1[255];
+    //char str0[255], str1[255];
     //printf("Schedule #%d\n",packetNo);
 
 
@@ -157,15 +157,15 @@ errType addScheduleJob(void* fn)
 
     //if (isEmergencySchedule) sprintf(str, "");
     //else
-    sprintf(str0, "data_%d.sdata",objId);
-    sprintf(str1, "addr_%d.saddr",objId);
+    //sprintf(str0, "data_%d.sdata",objId);
+    //sprintf(str1, "addr_%d.saddr",objId);
 
     //dataFile = fopen (str0,"a");
     //addrFile = fopen (str1,"a");
 
-    job schedule[100];
-    BYTE jobsQuantity;
-    WORD offset=0;
+   // job schedule[100];
+   // BYTE jobsQuantity;
+   // WORD offset=0;
 
     /*
     WORD i=0;

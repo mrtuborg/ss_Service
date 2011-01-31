@@ -17,17 +17,17 @@ atExec::~atExec() {
 }
 
 errType atExec::addJob(int yyyy,int mm,int dd,int hh,int min,int ss, char* cmd){
-
+		return err_result_ok;
 }
 
 errType atExec::getJobsList(){
-
+		return err_result_ok;
 }
 
 errType atExec::removeJob(){
-
+		return err_result_ok;
 }
 
 errType atExec::getJobInfo(){
-
+		return err_result_ok;
 }
