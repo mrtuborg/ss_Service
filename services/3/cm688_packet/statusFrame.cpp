@@ -425,78 +425,78 @@ void statusFrame::encode(BYTE* array, size_t size)
 
 void statusFrame::dbgPrint()
 {
-    printf("Управление от ПДУ=%d\n",               frame.BYTE_3.remoteControl);
-    printf("Управление от ПМУ=%d\n",               frame.BYTE_3.localControl);
-    printf("Гидросистема, Включена=%d\n",          frame.BYTE_3.hydrosys_poweron);
-    printf("Гидросистема, Готова=%d\n",            frame.BYTE_3.hydrosys_ready);
-    printf("Гидросистема, Норма=%d\n",             frame.BYTE_3.hydrosys_norm);
-    printf("Гидросистема, Авария=%d\n",            frame.BYTE_3.hydrosys_alert);
-    printf("СТОП укрытия=%d\n\n",                  frame.BYTE_3.shieldStopped);
+    printf("Управление от ПДУ......%d\n", frame.BYTE_3.remoteControl);
+    printf("Управление от ПМУ......%d\n", frame.BYTE_3.localControl);
+    printf("Гидросистема, Включена.%d\n", frame.BYTE_3.hydrosys_poweron);
+    printf("Гидросистема, Готова...%d\n", frame.BYTE_3.hydrosys_ready);
+    printf("Гидросистема, Норма....%d\n", frame.BYTE_3.hydrosys_norm);
+    printf("Гидросистема, Авария...%d\n", frame.BYTE_3.hydrosys_alert);
+    printf("СТОП укрытия...........%d\n\n",frame.BYTE_3.shieldStopped);
 
-    printf("Связь с КЭГП=%d\n",                    frame.BYTE_4.link_KEGP);
-    printf("Связь с ПМУ=%d\n",                     frame.BYTE_4.link_localPanel);
-    printf("Связь с АУГС=%d\n",                    frame.BYTE_4.link_AUGS);
-    printf("Связь с БУЗ=%d\n",                     frame.BYTE_4.link_BUZ);
-    printf("Гидросистема, температура, норма=%d\n",frame.BYTE_4.hydrosys_temp_norm);
-    printf("Гидросистема, уровень, норма=%d\n",    frame.BYTE_4.hydrosys_level_norm);
-    printf("Гидросистема, давление, норма=%d\n\n", frame.BYTE_4.hydrosys_pressure_norm);
+    printf("Связь с КЭГП.....................%d\n", frame.BYTE_4.link_KEGP);
+    printf("Связь с ПМУ......................%d\n", frame.BYTE_4.link_localPanel);
+    printf("Связь с АУГС.....................%d\n", frame.BYTE_4.link_AUGS);
+    printf("Связь с БУЗ......................%d\n", frame.BYTE_4.link_BUZ);
+    printf("Гидросистема, температура, норма.%d\n", frame.BYTE_4.hydrosys_temp_norm);
+    printf("Гидросистема, уровень, норма.....%d\n", frame.BYTE_4.hydrosys_level_norm);
+    printf("Гидросистема, давление, норма....%d\n\n",frame.BYTE_4.hydrosys_pressure_norm);
 
-    printf("Створка нижняя А открыта=%d\n",      frame.BYTE_5.fold_lowA_open);
-    printf("Створка нижняя А закрыта=%d\n",      frame.BYTE_5.fold_lowA_close);
-    printf("Створка нижняя Б открыта=%d\n",      frame.BYTE_5.fold_lowB_open);
-    printf("Створка нижняя Б закрыта=%d\n",      frame.BYTE_5.fold_lowB_close);
-    printf("Створка верхняя  открыта=%d\n",      frame.BYTE_5.fold_up_open);
-    printf("Створка верхняя  закрыта=%d\n",      frame.BYTE_5.fold_up_close);
-    printf("Гидросистема, фильтры, норма=%d\n\n",frame.BYTE_5.hydrosys_filters_norm);
+    printf("Створка нижняя А открыта.....%d\n", frame.BYTE_5.fold_lowA_open);
+    printf("Створка нижняя А закрыта.....%d\n", frame.BYTE_5.fold_lowA_close);
+    printf("Створка нижняя Б открыта.....%d\n", frame.BYTE_5.fold_lowB_open);
+    printf("Створка нижняя Б закрыта.....%d\n", frame.BYTE_5.fold_lowB_close);
+    printf("Створка верхняя  открыта.....%d\n", frame.BYTE_5.fold_up_open);
+    printf("Створка верхняя  закрыта.....%d\n", frame.BYTE_5.fold_up_close);
+    printf("Гидросистема, фильтры, норма.%d\n\n",frame.BYTE_5.hydrosys_filters_norm);
 
-    printf("УЗ №1 заштырено=%d\n",       frame.BYTE_6.UZ1_locked);
-    printf("УЗ №2 заштырено=%d\n",       frame.BYTE_6.UZ2_locked);
-    printf("УЗ №3 заштырено=%d\n",       frame.BYTE_6.UZ3_locked);
-    printf("Работа контроллера ПДУ=%d\n",frame.BYTE_6.remotePanel_busy);
-    printf("Стыковка=%d\n",              frame.BYTE_6.linkingStatus);
-    printf("Контроль функционирования исполняется=%d\n",frame.BYTE_6.funcControl_busy);
-    printf("Укрытие открыто=%d\n\n",     frame.BYTE_6.schieldOpened);
+    printf("УЗ №1 заштырено.......................%d\n", frame.BYTE_6.UZ1_locked);
+    printf("УЗ №2 заштырено.......................%d\n", frame.BYTE_6.UZ2_locked);
+    printf("УЗ №3 заштырено.......................%d\n", frame.BYTE_6.UZ3_locked);
+    printf("Работа контроллера ПДУ................%d\n", frame.BYTE_6.remotePanel_busy);
+    printf("Стыковка..............................%d\n", frame.BYTE_6.linkingStatus);
+    printf("Контроль функционирования исполняется.%d\n", frame.BYTE_6.funcControl_busy);
+    printf("Укрытие открыто.......................%d\n\n", frame.BYTE_6.schieldOpened);
 
-    printf("УЗ №1 исполнение=%d\n",  frame.BYTE_7.UZ1_busy);
-    printf("УЗ №2 исполнение=%d\n",  frame.BYTE_7.UZ2_busy);
-    printf("УЗ №3 исполнение=%d\n",  frame.BYTE_7.UZ3_busy);
-    printf("УЗ №1 отштырено=%d\n",   frame.BYTE_7.UZ1_unlocked);
-    printf("УЗ №2 отштырено=%d\n",   frame.BYTE_7.UZ2_unlocked);
-    printf("УЗ №3 отштырено%d\n",    frame.BYTE_7.UZ3_unlocked);
-    printf("Укрытие закрыто=%d\n\n", frame.BYTE_7.shieldClosed);
+    printf("УЗ №1 исполнение.%d\n", frame.BYTE_7.UZ1_busy);
+    printf("УЗ №2 исполнение.%d\n", frame.BYTE_7.UZ2_busy);
+    printf("УЗ №3 исполнение.%d\n", frame.BYTE_7.UZ3_busy);
+    printf("УЗ №1 отштырено..%d\n", frame.BYTE_7.UZ1_unlocked);
+    printf("УЗ №2 отштырено..%d\n", frame.BYTE_7.UZ2_unlocked);
+    printf("УЗ №3 отштырено..%d\n", frame.BYTE_7.UZ3_unlocked);
+    printf("Укрытие закрыто..%d\n\n", frame.BYTE_7.shieldClosed);
 
-    printf("УЗ №1 неисправность=%d\n",   frame.BYTE_8.UZ1_alert);
-    printf("УЗ №2 неисправность=%d\n",   frame.BYTE_8.UZ2_alert);
-    printf("УЗ №3 неисправность=%d\n",   frame.BYTE_8.UZ3_alert);
-    printf("УЗ №1 ручное=%d\n",          frame.BYTE_8.UZ1_manual);
-    printf("УЗ №2 ручное=%d\n",          frame.BYTE_8.UZ2_manual);
-    printf("УЗ №3 ручное=%d\n\n",        frame.BYTE_8.UZ3_manual);
+    printf("УЗ №1 неисправность.%d\n", frame.BYTE_8.UZ1_alert);
+    printf("УЗ №2 неисправность.%d\n", frame.BYTE_8.UZ2_alert);
+    printf("УЗ №3 неисправность.%d\n", frame.BYTE_8.UZ3_alert);
+    printf("УЗ №1 ручное........%d\n", frame.BYTE_8.UZ1_manual);
+    printf("УЗ №2 ручное........%d\n", frame.BYTE_8.UZ2_manual);
+    printf("УЗ №3 ручное........%d\n\n", frame.BYTE_8.UZ3_manual);
 
-    printf("Створка верхня, рассогласование ГЦ=%d\n",   frame.BYTE_9.fold_up_inv_GC);
-    printf("Створка нижняя Б, рассогласование ГЦ=%d\n", frame.BYTE_9.fold_lowB_inv_GC);
-    printf("Створка нижняя А, рассогласование ГЦ=%d\n", frame.BYTE_9.fold_lowA_inv_GC);
-    printf("Режим согласования ГЦ=%d\n",                frame.BYTE_9.reseting);
-    printf("Створка нижняя А, Стоп=%d\n",               frame.BYTE_9.fold_lowA_stop);
-    printf("Створка нижняя Б, Стоп=%d\n",               frame.BYTE_9.fold_lowB_stop);
-    printf("Створка верхняя,  Стоп=%d\n\n",             frame.BYTE_9.fold_up_stop);
+    printf("Створка верхня, рассогласование ГЦ...%d\n", frame.BYTE_9.fold_up_inv_GC);
+    printf("Створка нижняя Б, рассогласование ГЦ.%d\n", frame.BYTE_9.fold_lowB_inv_GC);
+    printf("Створка нижняя А, рассогласование ГЦ.%d\n", frame.BYTE_9.fold_lowA_inv_GC);
+    printf("Режим согласования ГЦ................%d\n", frame.BYTE_9.reseting);
+    printf("Створка нижняя А, Стоп...............%d\n", frame.BYTE_9.fold_lowA_stop);
+    printf("Створка нижняя Б, Стоп...............%d\n", frame.BYTE_9.fold_lowB_stop);
+    printf("Створка верхняя,  Стоп...............%d\n\n", frame.BYTE_9.fold_up_stop);
 
-    printf("Створка А, угол =0x%.4X\n",         getFoldPosition(LOWER_A));
-    printf("Створка Б, угол =0x%.4X\n",         getFoldPosition(LOWER_B));
-    printf("Створка верхняя, угол =0x%.4X\n\n", getFoldPosition(UPPER));
+    printf("Створка А, угол = 0x%.4X\n",         getFoldPosition(LOWER_A));
+    printf("Створка Б, угол = 0x%.4X\n",         getFoldPosition(LOWER_B));
+    printf("Створка верхняя, угол = 0x%.4X\n\n", getFoldPosition(UPPER));
 
-    printf("Нижняя А створка, путевой выключатель, правый=%d ", frame.BYTE_14.fold_lowA_psa_right);
-    printf("левый=%d\n",                                       frame.BYTE_14.fold_lowA_psa_left);
-    printf("Нижняя Б створка, путевой выключатель, правый=%d ", frame.BYTE_14.fold_lowB_psa_right);
-    printf("левый=%d\n",                                       frame.BYTE_14.fold_lowB_psa_left);
-    printf("Верхняя створка, путевой выключатель, левый=%d ",   frame. BYTE_14.fold_up_psa_right);
-    printf("правый=%d\n\n",                                    frame.BYTE_14.fold_up_psa_left);
+    printf("Нижняя А створка, путевой выключатель, правый =%d ", frame.BYTE_14.fold_lowA_psa_right);
+    printf("левый=%d\n",frame.BYTE_14.fold_lowA_psa_left);
+    printf("Нижняя Б створка, путевой выключатель, правый =%d ", frame.BYTE_14.fold_lowB_psa_right);
+    printf("левый=%d\n",                                         frame.BYTE_14.fold_lowB_psa_left);
+    printf("Верхняя створка, путевой выключатель,  левый  =%d ", frame. BYTE_14.fold_up_psa_right);
+    printf("правый=%d\n\n",                                      frame.BYTE_14.fold_up_psa_left);
 
 
-    printf("Нижняя А створка, концевой выключатель, правый=%d ", frame.BYTE_15.fold_lowA_esa_right);
+    printf("Нижняя А створка, концевой выключатель, правый =%d ",frame.BYTE_15.fold_lowA_esa_right);
     printf("левый=%d\n",                                         frame.BYTE_15.fold_lowA_esa_left);
-    printf("Нижняя Б створка, концевой выключатель, правый=%d ", frame.BYTE_15.fold_lowB_esa_right);
+    printf("Нижняя Б створка, концевой выключатель, правый =%d ",frame.BYTE_15.fold_lowB_esa_right);
     printf("левый=%d\n",                                         frame.BYTE_15.fold_lowB_esa_left);
-    printf("Верхняя створка, концевой выключатель, правый=%d ",  frame.BYTE_15.fold_up_esa_right);
+    printf("Верхняя створка, концевой выключатель,  правый =%d ",frame.BYTE_15.fold_up_esa_right);
     printf("левый=%d \n\n",                                      frame.BYTE_15.fold_up_esa_left);
 
 

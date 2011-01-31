@@ -10,6 +10,7 @@
               
 #include <extra/ortsTypes/ortsTypes.h>
 #include <rcsLib/rcsCmd/rcsCmd.h>
+#include "cronTab.h"
 #include "job.h"
 #include "schedule.h"
 
@@ -22,13 +23,11 @@ schedule::~schedule()
 }
 
 errType schedule::addJob(job* jEntity){
-
-}
     list <job*>::iterator iter, prev_iter, tmp_iter;
     rcsCmd *iter_cmd, *param_cmd;
 
     /// TODO: Make simpler
-for (iter=job_list.begin(); iter<job_list.end(); ++iter) {
+    for (iter=job_list.begin(); iter==job_list.end(); ++iter) {
 	if ((*iter)->get_wTimeStart()<jEntity->get_wTimeStart()) {
 		prev_iter=iter;
 	} else {
@@ -44,6 +43,8 @@ for (iter=job_list.begin(); iter<job_list.end(); ++iter) {
 			iter=job_list.end();
 		}
     }
+    }
+    return err_result_ok;
 }
 
 errType schedule::removeAllJobsBefore(WORD wTime)
@@ -58,17 +59,19 @@ errType schedule::removeAllJobsBefore(WORD wTime)
 		  job_list.erase(tmp_iter);
 		}
     }
+    return err_result_ok;
 }
 
 errType schedule::execJob()
 {
-    
+		return err_not_init;
 }
 
 errType schedule::checkAlarm()
 {
     removeAllJobsBefore(0);
     execJob();
+    return err_result_ok;
 }
 
 
@@ -94,7 +97,7 @@ errType schedule::mappingOpen(BYTE* mapping)
 	return err_result_error;
     }
 
-    printf("The file has %d bytes\n", info.st_size);
+    printf("The file has %d bytes\n", (DWORD) info.st_size);
     if (info.st_size == 0) {
 	fprintf(stderr, "We cannot map a file with size 0\n");
 	return err_result_error;
@@ -137,8 +140,8 @@ errType schedule::mappingClose()
 errType schedule::update()
 {
     list <job*> tmp_jobs_list;
-    BYTE* mappingArea;
-    mappingOpen(mappingArea);
+
+    return err_result_ok;
 }
 
 errType schedule::encode(BYTE* array)
