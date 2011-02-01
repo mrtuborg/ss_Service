@@ -460,11 +460,15 @@ errType getControlMode(void* fn)
     errType result = err_result_ok;
     functionNode* func = (functionNode*) fn;
     func->printParams();
-    BYTE mode=3;
-    if (answerFrame->isLocalControl()) mode=2;
-    if (answerFrame->isRemoteControl()) mode=1;
-    if (answerFrame->isCPControl()) mode=0;
+    BYTE mode (2);
+    if (answerFrame->isLocalControl()) mode = 2;
+    if (answerFrame->isRemoteControl())  {
+        mode = 1;
+        if (mode == 2) mode = 3;
+    }
+    if (answerFrame->isCPControl()) mode = 0;
 
+    printf("DEBUG: mode = %d\n", mode);
     func->setResult(1, &mode);
     func->printResults();
     return result;

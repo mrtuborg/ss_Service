@@ -34,29 +34,18 @@ BYTE statusFrame::getShieldState(BYTE num)// + opened
 
 BYTE statusFrame::getHydroSystemStatus()
 {
-    // ...1 - alert
-    // ..1. - norm
-    // .1.. - ready
-    // 1... - poweron
+    // ...1 - poweron
+    // ..1. - ready
+    // .1.. - norm
+    // 1... - alert
 
-    BYTE result=frame.BYTE_3.bValue;
-    /*;
-     switch (num)
-     {
-        case 0:
-            result=frame.BYTE_3.hydrosys_alert;
-	    break;
-        case 1:
-            result=frame.BYTE_3.hydrosys_norm;
-	    break;
-        case 2:
-            result=frame.BYTE_3.hydrosys_ready;
-	    break;
-        case 3:
-            result=frame.BYTE_3.hydrosys_poweron;
-	    break;
+    BYTE result = 0;
 
-     } */
+    result  = frame.BYTE_3.hydrosys_poweron;
+    result |= frame.BYTE_3.hydrosys_ready << 1;
+    result |= frame.BYTE_3.hydrosys_norm  << 2;
+    result |= frame.BYTE_3.hydrosys_alert << 3;
+
     return result;
 }
 
@@ -88,7 +77,7 @@ bool statusFrame::isRemoteControl()
 
 bool statusFrame::isCPControl()
 {
-    bool result=~(frame.BYTE_3.remoteControl|frame.BYTE_3.localControl);
+    bool result = !(frame.BYTE_3.remoteControl|frame.BYTE_3.localControl);
     return result;
 }
 

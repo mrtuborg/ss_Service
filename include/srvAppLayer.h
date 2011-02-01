@@ -70,7 +70,7 @@ class srvAppLayer
     errType sendResult(sockaddr_in* sin, rcsCmd* ss_cmd);                 ///< step 4. send function answer to client
     
     stateVector_type ServiceState; ///< Service state vector
-    
+
     public:
     
     ssBuffer* clientsRequestsQueue;  ///< Queue that stores received requests from client
