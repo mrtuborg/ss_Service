@@ -77,7 +77,7 @@ bool statusFrame::isRemoteControl()
 
 bool statusFrame::isCPControl()
 {
-    bool result=~(frame.BYTE_3.remoteControl|frame.BYTE_3.localControl);
+    bool result = !(frame.BYTE_3.remoteControl|frame.BYTE_3.localControl);
     return result;
 }
 
