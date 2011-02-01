@@ -128,9 +128,15 @@ BYTE* get_strTime()
 errType job::writeCronTab()
 {
 	long seconds = jobReference->timeStart;
-
+	//jobEntity
+	char* cmd=0;
 	time_t timeStart=seconds;
+	struct tm  *ts;
 
+	ts = localtime(&timeStart);
+
+
+	printf("%a %Y-%m-%d %H:%M:%S %Z\n", ts);
 	//struct t t2;
 
 
@@ -141,6 +147,13 @@ errType job::writeCronTab()
 //	double months = weeks / 52;
 //	double years = months / 12;
 
-	//cronJob->setCommand(btMinute, btHour, btDayM, btMonth, btDayW, cmd);
+	ts->tm_hour;
+	ts->tm_min;
+	ts->tm_mday;
+	ts->tm_mon;
+	ts->tm_wday;
+	ts->tm_year;
+
+	cronJob->setCommand(ts->tm_min, ts->tm_hour, ts->tm_mday, ts->tm_mon, ts->tm_wday, cmd);
 	cronJob->addToCronFile();
 }

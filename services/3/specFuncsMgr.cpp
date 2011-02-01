@@ -55,6 +55,7 @@ errType specFuncsMgr::startSpecFuncs()
 	func->setResultName(0,"Квитанция исполнения");
 	func->setResultDescriptor(1, type_WORD);
 	func->setResultName(1,"Состояние гидросистемы");
+	//func->setPermissions();
 	appLayer->CreateNewFunction(func);
 	
         func = new functionNode(2,0,1,shieldPowerOFF);
