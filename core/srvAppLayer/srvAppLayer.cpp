@@ -531,11 +531,11 @@ errType srvAppLayer::ProcessMessages()
     //in_cmd->dbgPrint();
 /// 3) Execute requested function if decoding was successfully by \ref execMessage
 
+    const bool Forbidden ((Functions[in_cmd->get_func_id()])->isMutator());
 
-    const BYTE TypeFunc (in_cmd->get_func_id());
     if (result==err_result_ok)
 	{
-                if ((serviceMode()==0) && (TypeFunc != 33))// && ip.src != 127.0.0.1 Not in manual mode
+                if ((serviceMode()==0) && Forbidden)// && ip.src != 127.0.0.1 Not in manual mode
     	    {
     	    		result=err_not_allowed;
 

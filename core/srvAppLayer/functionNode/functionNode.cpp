@@ -26,7 +26,8 @@
  * @param[in]   resQnt - quantity of function results.
  * @param[in]   ptr - function execution code pointer.
  **************************************************************************************/
-functionNode::functionNode(BYTE id, WORD parQnt, WORD resQnt, funcPtr ptr) //+function pointer
+functionNode::functionNode(BYTE id, WORD parQnt, WORD resQnt, funcPtr ptr): //+function pointer
+        mutator_ (false)
 {
     func_id=id;
     func_paramsQuantity=parQnt;

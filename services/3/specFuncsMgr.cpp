@@ -55,25 +55,29 @@ errType specFuncsMgr::startSpecFuncs()
 	func->setResultName(0,"Квитанция исполнения");
 	func->setResultDescriptor(1, type_WORD);
 	func->setResultName(1,"Состояние гидросистемы");
-	appLayer->CreateNewFunction(func);
+        func->setMutatorStatus(true);
+        appLayer->CreateNewFunction(func);
 	
         func = new functionNode(2,0,1,shieldPowerOFF);
 	func->setFuncName("Выключить питание укрытия");
 	func->setResultDescriptor(0, type_ERRTYPE);
 	func->setResultName(0,"Квитанция исполнения");
-	appLayer->CreateNewFunction(func);
+        func->setMutatorStatus(true);
+        appLayer->CreateNewFunction(func);
 	
         func = new functionNode(3,0,1,hydroSystemPowerON);
 	func->setFuncName("Включить питание гидросистемы");
 	func->setResultDescriptor(0, type_ERRTYPE);
 	func->setResultName(0,"Квитанция исполнения");
-	appLayer->CreateNewFunction(func);
+        func->setMutatorStatus(true);
+        appLayer->CreateNewFunction(func);
 	
         func = new functionNode(4,0,1,hydroSystemPowerOFF);
 	func->setFuncName("Выключить питание гидросистемы");
 	func->setResultDescriptor(0, type_ERRTYPE);
 	func->setResultName(0,"Квитанция исполнения");
-	appLayer->CreateNewFunction(func);
+        func->setMutatorStatus(true);
+        appLayer->CreateNewFunction(func);
 	
         func = new functionNode(5,0,6,hydroSystemGetParams);
 	func->setFuncName("Получить параметры гидросистемы");
@@ -89,7 +93,7 @@ errType specFuncsMgr::startSpecFuncs()
 	func->setResultName(4,"Загрязнение фильтров");
 	func->setResultDescriptor(5, type_BYTE);
 	func->setResultName(5,"Состояние гидросистемы");
-	appLayer->CreateNewFunction(func);
+        appLayer->CreateNewFunction(func);
 	
         func = new functionNode(6,1,2,foldOpen);
 	func->setFuncName("Открыть створку");
@@ -99,7 +103,8 @@ errType specFuncsMgr::startSpecFuncs()
 	func->setResultName(0,"Квитанция исполнения");
 	func->setResultDescriptor(1, type_BYTE);
 	func->setResultName(1,"Номер створки");
-	appLayer->CreateNewFunction(func);
+        func->setMutatorStatus(true);
+        appLayer->CreateNewFunction(func);
 
         func = new functionNode(7,1,2,foldClose);
 	func->setFuncName("Закрыть створку");
@@ -109,8 +114,9 @@ errType specFuncsMgr::startSpecFuncs()
 	func->setResultName(0,"Квитанция исполнения");
 	func->setResultDescriptor(1, type_BYTE);
 	func->setResultName(1,"Номер створки");
-
+        func->setMutatorStatus(true);
 	appLayer->CreateNewFunction(func);
+
         func = new functionNode(8,1,2,foldStop);
 	func->setFuncName("Остановить створку");
 	func->setParamDescriptor(0, type_BYTE);
@@ -119,25 +125,29 @@ errType specFuncsMgr::startSpecFuncs()
 	func->setResultName(0,"Квитанция исполнения");
 	func->setResultDescriptor(1, type_BYTE);
 	func->setResultName(1,"Номер створки");
-	appLayer->CreateNewFunction(func);
+        func->setMutatorStatus(true);
+        appLayer->CreateNewFunction(func);
 	
         func = new functionNode(9,0,1,shieldOpen);
 	func->setFuncName("Открыть укрытие полностью");
 	func->setResultDescriptor(0, type_ERRTYPE);
 	func->setResultName(0,"Квитанция исполнения");
-	appLayer->CreateNewFunction(func);
+        func->setMutatorStatus(true);
+        appLayer->CreateNewFunction(func);
 	
         func = new functionNode(10,0,1,shieldClose);
 	func->setFuncName("Закрыть укрытие полностью");
 	func->setResultDescriptor(0, type_ERRTYPE);
 	func->setResultName(0,"Квитанция исполнения");
-	appLayer->CreateNewFunction(func);
+        func->setMutatorStatus(true);
+        appLayer->CreateNewFunction(func);
 	
         func = new functionNode(11,0,1,shieldStop);
 	func->setFuncName("Аварийный останов движения укрытия");
 	func->setResultDescriptor(0, type_ERRTYPE);
 	func->setResultName(0,"Квитанция исполнения");
-	appLayer->CreateNewFunction(func);
+        func->setMutatorStatus(true);
+        appLayer->CreateNewFunction(func);
 	
         func = new functionNode(12,1,4,foldGetParams);
 	func->setFuncName("Получить параметры створки");
@@ -191,7 +201,8 @@ errType specFuncsMgr::startSpecFuncs()
 	func->setParamName(0,"Режим (0-ЦПУ, 1-ПДУ, 2-ПМУ)");
 	func->setResultDescriptor(0, type_ERRTYPE);
 	func->setResultName(0,"Квитанция исполнения");
-	appLayer->CreateNewFunction(func);
+        func->setMutatorStatus(true);
+        appLayer->CreateNewFunction(func);
 
         func = new functionNode(16,0,2,getControlMode);
         func->setFuncName("Запросить значение выбранного пульта управления");
@@ -205,13 +216,15 @@ errType specFuncsMgr::startSpecFuncs()
 	func->setFuncName("Запуск процесса контроля функционирования САУ");
 	func->setResultDescriptor(0, type_ERRTYPE);
 	func->setResultName(0,"Квитанция исполнения");
-	appLayer->CreateNewFunction(func);
+        func->setMutatorStatus(true);
+        appLayer->CreateNewFunction(func);
 	
         func = new functionNode(18,0,1,correctHydroCyl);
 	func->setFuncName("Произвести коррекцию гидроцилиндров");
 	func->setResultDescriptor(0, type_ERRTYPE);
 	func->setResultName(0,"Квитанция исполнения");
-	appLayer->CreateNewFunction(func);
+        func->setMutatorStatus(true);
+        appLayer->CreateNewFunction(func);
 	
         func = new functionNode(19,0,7,allFoldsGetParams);
 	func->setFuncName("Получить параметры всех створок");
