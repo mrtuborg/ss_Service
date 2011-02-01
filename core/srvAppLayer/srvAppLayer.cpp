@@ -532,10 +532,10 @@ errType srvAppLayer::ProcessMessages()
 /// 3) Execute requested function if decoding was successfully by \ref execMessage
 
 
-
+    const BYTE TypeFunc (in_cmd->get_func_id());
     if (result==err_result_ok)
 	{
-    		if (serviceMode()==0) // && ip.src != 127.0.0.1 Not in manual mode
+                if ((serviceMode()==0) && (TypeFunc != 33))// && ip.src != 127.0.0.1 Not in manual mode
     	    {
     	    		result=err_not_allowed;
 
