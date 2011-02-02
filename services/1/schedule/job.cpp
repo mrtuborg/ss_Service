@@ -9,8 +9,10 @@
 
 job::job(DWORD id)
 {
+	jobReference = new job_type();
 	jobReference->objId=id;
 	cronJob=new cronTab();
+	jobEntity=new rcsCmd();
 }
 
 job::~job()

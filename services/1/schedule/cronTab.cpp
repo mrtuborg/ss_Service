@@ -19,7 +19,7 @@
 //  *   *   *   *  *  command to be executed
 
 cronTab::cronTab() {
-	cronFile=fopen("cronTest.txt","r");
+	cronFile=fopen("cronTest.txt","rw");
 }
 
 cronTab::~cronTab() {

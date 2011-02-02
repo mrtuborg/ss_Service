@@ -26,24 +26,33 @@ errType schedule::addJob(job* jEntity){
     list <job*>::iterator iter, prev_iter, tmp_iter;
     rcsCmd *iter_cmd, *param_cmd;
 
+    printf("pt1\n");
     /// TODO: Make simpler
-    for (iter=job_list.begin(); iter==job_list.end(); ++iter) {
-	if ((*iter)->get_wTimeStart()<jEntity->get_wTimeStart()) {
-		prev_iter=iter;
-	} else {
-		if ((*iter)->get_wTimeStart()==jEntity->get_wTimeStart()){
-			iter_cmd=(*iter)->cmd();
-			param_cmd=jEntity->cmd();
-			if (((*iter)->get_btServId()==jEntity->get_btServId()) && (iter_cmd->get_func_id()==param_cmd->get_func_id())){
-				tmp_iter=iter;
-				job_list.erase(tmp_iter);
-				prev_iter=++iter;
-			}
-			job_list.insert(prev_iter,jEntity);
-			iter=job_list.end();
-		}
+    iter=job_list.begin();
+    //if (!(*iter)) return err_abort;
+    int quantity=job_list.size();
+    if (!quantity) job_list.push_back(jEntity);
+    else {
+    		for (iter=job_list.begin(); iter==job_list.end(); ++iter) {
+    			if ((*iter)->get_wTimeStart()<jEntity->get_wTimeStart()) {
+    				prev_iter=iter;
+    			} else {
+    				if ((*iter)->get_wTimeStart()==jEntity->get_wTimeStart()){
+    					iter_cmd=(*iter)->cmd();
+    					param_cmd=jEntity->cmd();
+    					if (((*iter)->get_btServId()==jEntity->get_btServId()) && (iter_cmd->get_func_id()==param_cmd->get_func_id())){
+    						tmp_iter=iter;
+    						job_list.erase(tmp_iter);
+    						prev_iter=++iter;
+    					}
+    					job_list.insert(prev_iter,jEntity);
+    					iter=job_list.end();
+    				}
+    			}
+    		}
     }
-    }
+    quantity=job_list.size();
+    printf("job_list size=%d\n",quantity);
     return err_result_ok;
 }
 

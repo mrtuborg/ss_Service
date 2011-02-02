@@ -22,7 +22,7 @@
 //udp_port* equipment;
 pthread_t PollingThreadHandle;
 FILE *scheduleFile;
-schedule *batchShed;
+schedule generalShedule;
 
 //#define EQ_UDP_PORT 5004
 //#define EQ_IP_ADDR "127.0.0.1"
@@ -81,7 +81,7 @@ errType srvDeinit()
 {
   //  equipment->close_port();
   //delete equipment;
-    delete batchShed;
+  //  delete batchShed;
     return err_result_ok;
 }
 
@@ -146,15 +146,15 @@ errType addScheduleJob(void* fn)
     DWORD paramsLength=*(DWORD*)func->getParamPtr(6);
     BYTE* params=(BYTE*)func->getParamPtr(7);
 
-    job* newJob=new job(objId);
+    job* newJob=new job(1);
     newJob->set_dwNextJobID(nextObjId);
     newJob->set_btServiceId(service_id);
     newJob->set_wStartTime(timeStart);
     newJob->set_wFinishTime(timeEnd);
     newJob->setJobCmd(func_id, paramsLength, params);
 
-    batchShed->addJob(newJob);
-    batchShed->update();
+    generalShedule.addJob(newJob);
+    generalShedule.update();
 
     /// use these files for cron:
     /// data_%jobId%.sdata - rcsCmd to send by cron scheduling

@@ -220,8 +220,9 @@ errType appInit(void)
 
     else {
         printf("Ошибка запуска системы сокетной коммуникации\n");
-        printf("Код ошибки: %d", errno);
-        perror("Описание ошибки: ");
+        printf("Код ошибки: %d\n", errno);
+        perror("\rОписание ошибки: ");
+        printf("\r");
     }
     printf("Результат инициализации сервиса: %s\n", strErrTypes[(int)result]);
     return result;
