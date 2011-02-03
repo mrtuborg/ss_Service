@@ -92,7 +92,7 @@ class SrvAppLayer
 
 	errType processMessages();
 	errType processInMessages(sockaddr_in*, rcsCmd*);
-	errType processOutMessages(sockaddr_in*, rcsCmd*);
+	errType processOutMessages(sockaddr_in*, rcsCmd*, errType);
 	
 	WORD getListenerPortNum();
 	BYTE terminated(); // 1 - only exit; 2 - exit with reboot

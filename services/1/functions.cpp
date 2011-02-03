@@ -102,7 +102,7 @@ errType emergencyShutdown(void* fn)
 
 errType controlModeChange(void* fn)
 {
-    errType result=err_not_init;
+    errType result=err_result_ok;
     functionNode* func=(functionNode*)fn;
     
     func->printParams();

@@ -504,7 +504,12 @@ errType SrvAppLayer::processMessages(){
 
 		if (clientsRequestsQueue->size()) {
 			inCmd=new rcsCmd();
-			if (processInMessages(&sfrom, inCmd)==err_result_ok) result=processOutMessages(&sfrom, inCmd);
+
+			result=processInMessages(&sfrom, inCmd);
+			//if (result!==err_result_ok) {
+					result=processOutMessages(&sfrom, inCmd, result);
+
+			//}
 			delete inCmd;
 
 		}
@@ -518,30 +523,36 @@ errType SrvAppLayer::processMessages(){
 
 
 	    if (result==err_result_ok) {
+
 	        sndAllow_flag=true;
 
 	    }
 	    return result;
 }
 
-errType SrvAppLayer::processOutMessages(sockaddr_in *sfrom, rcsCmd *inCmd)
+errType SrvAppLayer::processOutMessages(sockaddr_in *sfrom, rcsCmd *inCmd, errType outResult)
 {
-			errType result=err_not_init;
+			errType result=outResult;
 			rcsCmd *out_cmd;
 			out_cmd=new rcsCmd();
 
 	/// 4) Encoding function result ticket if execution was not successfully
-		    if ((result!=err_result_ok) && (result!=err_not_found))
+		    //if ((result!=err_result_ok) && (result!=err_not_found))
 		    {
+
 		    		result=(Functions[inCmd->get_func_id()])->setResult(0,&result);
 		    }
 
 	/// 5) Encode remains function results be \ref encodeFuncResult
+
 		    result=encodeFuncResult(inCmd, out_cmd);
 
 	/// 6)  Write results to sending queue by \ref sendResult
+
 		    if (result==err_result_ok) sendResult(sfrom, out_cmd);
 		    delete out_cmd;
+
+		    return result;
 }
 errType SrvAppLayer::processInMessages(sockaddr_in *sfrom, rcsCmd *inCmd)
 {
