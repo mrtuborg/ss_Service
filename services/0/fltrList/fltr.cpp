@@ -12,14 +12,14 @@ fltr::fltr(){
 }
 
 fltr::~fltr(){
-	delete cmdline;
+	delete []cmdline;
 }
 
 errType fltr::set_filter_cmdline(char* incmdline, size_t size){
 		errType result=err_not_init;
 		if (incmdline==0)  result=err_result_error;
 		else {
-		    delete cmdline;
+		    delete []cmdline;
 		    cmdline=new char[size+1];
 		    memcpy(cmdline, incmdline,size);
 		    cmdline[size]=0;

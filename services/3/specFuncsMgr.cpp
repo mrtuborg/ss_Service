@@ -10,11 +10,11 @@
 #include <comm/udp_port/udp_port.h>
 #include <param_desc.h>
 #include <functionNode.h>
-#include <srvAppLayer.h>
+#include <SrvAppLayer.h>
 #include <specFuncsMgr.h>
 #include <functions.h>
 
-specFuncsMgr::specFuncsMgr(srvAppLayer *appl)
+specFuncsMgr::specFuncsMgr(SrvAppLayer *appl)
 {
     appLayer=appl;
 }

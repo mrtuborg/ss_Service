@@ -138,7 +138,7 @@ errType InstallStarsSet(void *fn)
 
     }
     
-    delete buffer;
+    delete []buffer;
 
     return result;
 }

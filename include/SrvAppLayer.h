@@ -43,7 +43,7 @@ typedef struct stateVector_type {
  * @brief Application core layer implementaion.
  * @details This layer delegate network calls to service functions and return back functions results.
  */
-class srvAppLayer 
+class SrvAppLayer
 {
     BYTE AppTerminated;  ///< Application termination process indicator
                          ///    - 0 - Application run normally
@@ -76,8 +76,8 @@ class srvAppLayer
     ssBuffer* clientsRequestsQueue;  ///< Queue that stores received requests from client
     ssBuffer* functionsAnswersQueue; ///< Queue that stores service functions answers to clients
     
-	 srvAppLayer(WORD portNum);
-	~srvAppLayer();
+	 SrvAppLayer(WORD portNum);
+	~SrvAppLayer();
 	
 	errType CreateNewFunction(functionNode* func);
 	errType DeleteFunction(BYTE id);
@@ -90,7 +90,9 @@ class srvAppLayer
 	errType equip_reading_event();
 	errType equip_read_data(BYTE*, size_t *);
 
-	errType ProcessMessages();
+	errType processMessages();
+	errType processInMessages(sockaddr_in*, rcsCmd*);
+	errType processOutMessages(sockaddr_in*, rcsCmd*);
 	
 	WORD getListenerPortNum();
 	BYTE terminated(); // 1 - only exit; 2 - exit with reboot
@@ -101,4 +103,4 @@ class srvAppLayer
 	errType setServiceMode(BYTE mode); //0 - automatic, 1- manual
 };
 
-extern srvAppLayer* app;        ///< One global instance per application
+extern SrvAppLayer* app;        ///< One global instance per application

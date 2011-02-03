@@ -146,7 +146,7 @@ errType SASC_PowerON(void* fn)
     sndSASCmsg.apply_mod(_power_on);
     sndSASCmsg.decode(&frame);
     equip_sending->sendData(equipAddr, frame, sizeof(SASC_msg_type));
-    delete frame;
+    delete []frame;
 
     func->printResults();
     return result;
@@ -165,7 +165,7 @@ errType SASC_PowerOFF(void* fn)
     sndSASCmsg.apply_mod(_power_off);
     sndSASCmsg.decode(&frame);
     equip_sending->sendData(equipAddr, frame, sizeof(SASC_msg_type));
-    delete frame;
+    delete []frame;
 
     func->printResults();
     return result;
@@ -179,7 +179,7 @@ errType StartMeasuring(void* fn)
     
     func->printParams();
     
-    BYTE *params[6];
+    BYTE *params[7];
     //binning
     params[0]=(BYTE*)func->getParamPtr(0);
     //Niter
@@ -200,7 +200,7 @@ errType StartMeasuring(void* fn)
     sndSASCmsg.apply_mod(_measure, params);
     sndSASCmsg.decode(&frame);
     equip_sending->sendData(equipAddr, frame, sizeof(SASC_msg_type));
-    delete frame;
+    delete []frame;
 
     func->printResults();
     
@@ -235,7 +235,7 @@ errType ZeroMeasuring(void* fn)
     sndSASCmsg.apply_mod(_zero_measure, params);
     sndSASCmsg.decode(&frame);
     equip_sending->sendData(equipAddr, frame, sizeof(SASC_msg_type));
-    delete frame;
+    delete []frame;
 
     func->printResults();
     return result;
@@ -274,7 +274,7 @@ errType PrepareMeasuringResult(void* fn)
     
     
     
-    delete frame;
+    delete []frame;
     func->printResults();
     return result;
 }
@@ -312,7 +312,7 @@ errType ZeroDB(void* fn)
     sndSASCmsg.apply_mod(_erase_db);
     sndSASCmsg.decode(&frame);
     equip_sending->sendData(equipAddr, frame, sizeof(SASC_msg_type));
-    delete frame;
+    delete []frame;
 
     func->printResults();
     return result;
@@ -344,7 +344,7 @@ errType TaringStart(void* fn)
     sndSASCmsg.apply_mod(_tare_start, params);
     sndSASCmsg.decode(&frame);
     equip_sending->sendData(equipAddr, frame, sizeof(SASC_msg_type));
-    delete frame;
+    delete []frame;
 
     func->printResults();
     return result;
@@ -394,7 +394,7 @@ errType GetTaringPoint(void* fn)
     sndSASCmsg.apply_mod(_get_tare_value, params);
     sndSASCmsg.decode(&frame);
     equip_sending->sendData(equipAddr, frame, sizeof(SASC_msg_type));
-    delete frame;
+    delete []frame;
 
     func->printResults();
     return result;
@@ -427,7 +427,7 @@ errType TaringStop(void* fn)
     sndSASCmsg.apply_mod(_tare_stop,params);
     sndSASCmsg.decode(&frame);
     equip_sending->sendData(equipAddr, frame, sizeof(SASC_msg_type));
-    delete frame;
+    delete []frame;
 
     func->printResults();
     
@@ -448,7 +448,7 @@ errType linkTest(void* fn)
     sndSASCmsg.apply_mod(_link_test);
     sndSASCmsg.decode(&frame);
     equip_sending->sendData(equipAddr, frame, sizeof(SASC_msg_type));
-    delete frame;
+    delete []frame;
 
     func->printResults();
     

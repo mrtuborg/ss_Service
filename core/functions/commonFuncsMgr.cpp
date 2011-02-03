@@ -34,7 +34,7 @@
  **************************************************************************************/
 void* equipListenPolling(void* user)                                             
 {                                                                               
-    srvAppLayer *app=(srvAppLayer*)user;                                          
+    SrvAppLayer *app=(SrvAppLayer*)user;
     DWORD sz=1024;                                                              
     BYTE *writingBuffer;                                                        
     writingBuffer=new BYTE[256];                                               
@@ -57,7 +57,7 @@ void* equipListenPolling(void* user)
     return user;
 }
 
-commonFuncsMgr::commonFuncsMgr(srvAppLayer *appl)
+commonFuncsMgr::commonFuncsMgr(SrvAppLayer *appl)
 {
     appLayer=appl;
 }

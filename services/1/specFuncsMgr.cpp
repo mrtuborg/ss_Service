@@ -8,11 +8,11 @@
 #include <comm/udp_port/udp_port.h>
 #include <param_desc.h>
 #include <functionNode.h>
-#include <srvAppLayer.h>
+#include <SrvAppLayer.h>
 #include <specFuncsMgr.h>
 #include <functions.h>
 
-specFuncsMgr::specFuncsMgr(srvAppLayer *appl)
+specFuncsMgr::specFuncsMgr(SrvAppLayer *appl)
 {
     appLayer=appl;
 }
@@ -45,6 +45,7 @@ errType specFuncsMgr::startSpecFuncs()
     // 4. Add function to Application interchange layer:
     //code: appLayer->CreateNewFunction(func);
 	    func=new functionNode(1,7,2,addScheduleJob);
+	    func->setMutatorStatus(true);
 	    func->setFuncName("Добавить пакетное задание");
 	    func->setParamDescriptor(0, type_BYTE);
 	    func->setParamName(0,"Признак аварийной операции");

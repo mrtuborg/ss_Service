@@ -33,7 +33,7 @@
 #include <param_desc.h>
 #include <functionNode.h>
 
-#include <srvAppLayer.h>
+#include <SrvAppLayer.h>
 #include <commonFuncsMgr.h>
 
 /// todo msc diagramm
@@ -41,7 +41,7 @@ bool rcvComplete_flag=false; ///< Flag purpose: synchronize state between receiv
 /// todo msc diagramm
 bool sndAllow_flag=false;    ///< Flag purpose: synchronize state between sending clients answers thread and preparing sending data
 
-srvAppLayer *app;
+SrvAppLayer *app;
 
 /**********************************************************************************//**
  * @brief       Thread to sending data to clients from functions answer queue.
@@ -50,7 +50,7 @@ srvAppLayer *app;
  *************************************************************************************/
 void* udpSenderThread (void* user)
 {
-    srvAppLayer *app=(srvAppLayer*)user;
+    SrvAppLayer *app=(SrvAppLayer*)user;
 
     deqUdp *uPort;
 
@@ -99,7 +99,7 @@ void* udpSenderThread (void* user)
  **************************************************************************************/
 void* _ss_udpListenerThread (void* user)
 {
-    srvAppLayer *app=(srvAppLayer*)user;
+    SrvAppLayer *app=(SrvAppLayer*)user;
 
     WORD wUdp=app->getListenerPortNum();
     deqUdp *uPort;
@@ -142,7 +142,7 @@ void* _ss_udpListenerThread (void* user)
  * @retval     1 - Application terminating and preparing to exit to the OS
  * @retval     2 - Application terminating and preparing to reboot the OS
  **************************************************************************************/
-BYTE srvAppLayer::terminated()
+BYTE SrvAppLayer::terminated()
 {
     return AppTerminated;
 }
@@ -153,7 +153,7 @@ BYTE srvAppLayer::terminated()
  * @param[in]   portNum - udp port number that will use for clients requests listening
  ******************************************************************************************************************/
 
-srvAppLayer::srvAppLayer(WORD portNum)
+SrvAppLayer::SrvAppLayer(WORD portNum)
 {
     AppTerminated=false;
     cpListenerPortNum=portNum;
@@ -164,7 +164,7 @@ srvAppLayer::srvAppLayer(WORD portNum)
     setServiceMode(0); // automatic mode startup
 }
 
-srvAppLayer::~srvAppLayer()
+SrvAppLayer::~SrvAppLayer()
 {
     for (int i=0;i<func_quantity;i++) if (Functions) delete Functions[i];
     func_quantity=0;
@@ -178,7 +178,7 @@ srvAppLayer::~srvAppLayer()
  * @param[in]   func - functionNode instance
  * @retval      err_result_ok - function added successfully
  **************************************************************************************/
-errType srvAppLayer::CreateNewFunction(functionNode *func)
+errType SrvAppLayer::CreateNewFunction(functionNode *func)
 {
     errType result=err_result_ok;
     Functions[func->id()]=func;
@@ -193,7 +193,7 @@ errType srvAppLayer::CreateNewFunction(functionNode *func)
  * @param[in]   id - functionNode identifier
  * @retval      err_result_ok - function deleted successfully
  **************************************************************************************/
-errType srvAppLayer::DeleteFunction(BYTE id)
+errType SrvAppLayer::DeleteFunction(BYTE id)
 {
     errType result=err_result_ok;
     delete Functions[id];
@@ -225,7 +225,7 @@ errType srvAppLayer::DeleteFunction(BYTE id)
  * @retval      err_result_ok   - communication engine starts successfully
  * @retval      err_sock_error  - udp sockets prerparing error
  **************************************************************************************/
-errType srvAppLayer::StartListening()
+errType SrvAppLayer::StartListening()
 {
     errType result=err_not_init;
     int ret=0;
@@ -270,7 +270,7 @@ errType srvAppLayer::StartListening()
  * @details    method initiate appTerminate signal, deletes queues.
  * @retval      err_result_ok   - engine stopped successfully
  **************************************************************************************/
-errType srvAppLayer::StopListening()
+errType SrvAppLayer::StopListening()
 {
     errType result=err_result_ok;
     if (verbose_level) printf("Останов подсистемы сокетного приёма\n");
@@ -296,7 +296,7 @@ errType srvAppLayer::StopListening()
  * @todo        too strange method. May be it need be refactoring.
  * @retval      err_result_ok   - udp socket received data
  **************************************************************************************/
-errType srvAppLayer::equip_reading_event(){
+errType SrvAppLayer::equip_reading_event(){
 	    errType result=err_not_init;
 	    BYTE event=0;
 	    result=equip_listen->udp_async_process(&event);
@@ -311,7 +311,7 @@ errType srvAppLayer::equip_reading_event(){
  * @param[out]  sz - size in bytes of received data
  * @retval      err_result_ok   - udp socket received data has been readed
  **************************************************************************************/
-errType srvAppLayer::equip_read_data(BYTE* buffer, size_t *sz){
+errType SrvAppLayer::equip_read_data(BYTE* buffer, size_t *sz){
     return equip_listen->readData(buffer, sz);
 }
 
@@ -328,7 +328,7 @@ errType srvAppLayer::equip_read_data(BYTE* buffer, size_t *sz){
  * @retval      err_not_found - decoded message is calling for non existing function
  * @retval      err_crc_error - decoded message signature is incorrect.
  **************************************************************************************/
-errType srvAppLayer::decodeMessage(BYTE* dataBlock, DWORD length, rcsCmd *ss_cmd) {
+errType SrvAppLayer::decodeMessage(BYTE* dataBlock, DWORD length, rcsCmd *ss_cmd) {
     errType result=err_not_init;
     bool decoded;
     int fn_num;
@@ -378,7 +378,7 @@ errType srvAppLayer::decodeMessage(BYTE* dataBlock, DWORD length, rcsCmd *ss_cmd
  * @retval      err_result_ok   - message executed successfully.
  * @retval      err_params_decode - params in message differs with description.
  **************************************************************************************/
-errType srvAppLayer::execMessage(rcsCmd* ss_cmd)
+errType SrvAppLayer::execMessage(rcsCmd* ss_cmd)
 {
     errType result=err_not_init;
     int fn_num=ss_cmd->get_func_id();
@@ -409,7 +409,7 @@ errType srvAppLayer::execMessage(rcsCmd* ss_cmd)
  * @retval      err_result_ok   - message executed successfully.
  * @retval      err_not_found   - function to execute was not found.
  **************************************************************************************/
-errType srvAppLayer::encodeFuncResult(rcsCmd* in_cmd, rcsCmd* out_cmd)
+errType SrvAppLayer::encodeFuncResult(rcsCmd* in_cmd, rcsCmd* out_cmd)
 {
     BYTE *ret;
     BYTE *resData;
@@ -460,7 +460,7 @@ errType srvAppLayer::encodeFuncResult(rcsCmd* in_cmd, rcsCmd* out_cmd)
  * @param[in]   ss_cmd - message needed to send.
  * @retval      err_result_ok   - message added to sending queue successfully.
  **************************************************************************************/
-errType srvAppLayer::sendResult(sockaddr_in *sfrom, rcsCmd* ss_cmd)
+errType SrvAppLayer::sendResult(sockaddr_in *sfrom, rcsCmd* ss_cmd)
 {
 	errType result=err_result_ok;
 	BYTE* dataBlock;
@@ -479,6 +479,8 @@ errType srvAppLayer::sendResult(sockaddr_in *sfrom, rcsCmd* ss_cmd)
 	return result;
 }
 
+
+
 /**********************************************************************************//**
  * @brief       Method to make one step of srvAppLayer step.
  * @details     Method checks at start \ref AppTerminated signal, size of \ref clientsRequestsQueue
@@ -486,24 +488,67 @@ errType srvAppLayer::sendResult(sockaddr_in *sfrom, rcsCmd* ss_cmd)
  * @retval      err_result_ok   - one step of engine execution was successfully.
  * @retval      err_not_init    - method break execution.
  **************************************************************************************/
-errType srvAppLayer::ProcessMessages()
+errType SrvAppLayer::processMessages(){
+		errType result=err_not_init;
+
+		if (!rcvComplete_flag) return result;
+
+		if (AppTerminated==true) {
+			result=err_result_error;
+			printf("Запуск отменён!\n");
+			return result;
+		}
+
+		rcsCmd *inCmd;
+		sockaddr_in sfrom;
+
+		if (clientsRequestsQueue->size()) {
+			inCmd=new rcsCmd();
+			if (processInMessages(&sfrom, inCmd)==err_result_ok) result=processOutMessages(&sfrom, inCmd);
+			delete inCmd;
+
+		}
+
+
+	/// 7) Release allocated memory
+
+
+
+	/// 8)  Sync listening and sending threads by \ref rcvComplete_flag and \ref sndAllow_flag
+
+
+	    if (result==err_result_ok) {
+	        sndAllow_flag=true;
+
+	    }
+	    return result;
+}
+
+errType SrvAppLayer::processOutMessages(sockaddr_in *sfrom, rcsCmd *inCmd)
+{
+			errType result=err_not_init;
+			rcsCmd *out_cmd;
+			out_cmd=new rcsCmd();
+
+	/// 4) Encoding function result ticket if execution was not successfully
+		    if ((result!=err_result_ok) && (result!=err_not_found))
+		    {
+		    		result=(Functions[inCmd->get_func_id()])->setResult(0,&result);
+		    }
+
+	/// 5) Encode remains function results be \ref encodeFuncResult
+		    result=encodeFuncResult(inCmd, out_cmd);
+
+	/// 6)  Write results to sending queue by \ref sendResult
+		    if (result==err_result_ok) sendResult(sfrom, out_cmd);
+		    delete out_cmd;
+}
+errType SrvAppLayer::processInMessages(sockaddr_in *sfrom, rcsCmd *inCmd)
 {
     errType result=err_not_init;
-    BYTE* dataBlock;
+	BYTE* dataBlock;
     DWORD length;
-    rcsCmd *in_cmd, *out_cmd;
-    sockaddr_in sfrom;
     
-    if (AppTerminated==true) {
-	result=err_result_error;
-	printf("Запуск отменён!\n");
-	return result;
-    }
-
-    if (clientsRequestsQueue->size()==0) return err_not_init;
-    if (rcvComplete_flag==false) return err_not_init;
-    
-
 
 
 //   TODO: link bit in serviceState
@@ -515,63 +560,43 @@ errType srvAppLayer::ProcessMessages()
 ///  1) Read from \ref clientsRequestsQueue one new request
     
     int len=clientsRequestsQueue->getFrontBlockSize();
-    
-    in_cmd=new rcsCmd();
-    out_cmd=new rcsCmd();
-
     dataBlock=new BYTE[len];
     
     //clientsRequestsQueue->dbgPrint();
-    length=clientsRequestsQueue->popBlock(&sfrom, dataBlock);
+    length=clientsRequestsQueue->popBlock(sfrom, dataBlock);
     
     
 /// 2) Decode readed request by \ref decodeMessage
-    result=decodeMessage(dataBlock, length, in_cmd);
+    result=decodeMessage(dataBlock, length, inCmd);
 
     //in_cmd->dbgPrint();
 /// 3) Execute requested function if decoding was successfully by \ref execMessage
 
-    const bool Forbidden ((Functions[in_cmd->get_func_id()])->isMutator());
+    BYTE func_id=inCmd->get_func_id();
+    bool isRemoteCaller=false;
 
-    if (result==err_result_ok)
-	{
-                if ((serviceMode()==0) && Forbidden)// && ip.src != 127.0.0.1 Not in manual mode
-    	    {
-    	    		result=err_not_allowed;
+    if (sfrom->sin_addr.s_addr!=inet_addr("127.0.0.1")) isRemoteCaller=true;
 
-    	    } else {
-    	    		result=execMessage(in_cmd);
+    	if ((Functions[func_id])->isMutator()) {
+    		switch (serviceMode()){
+    			case 0:// 0 - in automatic mode (locals calls mode)
+				if (!isRemoteCaller) result=err_result_ok;
+				else result=err_not_allowed;
+				break;
 
-    	    }
+			case 1:// 1- in manual mode	(remote calls mode)
+				if (isRemoteCaller) result=err_result_ok;
+				else result=err_not_allowed;
+				break;
+		}
+    	}
 
-    
-/// 4) Encoding function result ticket if execution was not successfully
-    //if (result==err_result_ok) 
-	    if ((result!=err_result_ok) && (result!=err_not_found))
-	    {
-		result=(Functions[in_cmd->get_func_id()])->setResult(0,&result);
-	    }
-    
-/// 5) Encode remains function results be \ref encodeFuncResult
-	    result=encodeFuncResult(in_cmd, out_cmd);
-           
-/// 6)  Write results to sending queue by \ref sendResult
-	    if (result==err_result_ok) sendResult(&sfrom, out_cmd);
-        }
-/// 7) Release allocated memory
-                               
-	delete []dataBlock;
-	delete in_cmd;
-	delete out_cmd;
-
-/// 8)  Sync listening and sending threads by \ref rcvComplete_flag and \ref sndAllow_flag
-
-
-    if (result==err_result_ok) {
-        sndAllow_flag=true;
+    if (result==err_result_ok){
+    		result=execMessage(inCmd);
 
     }
-
+    
+    delete []dataBlock;
     
     return result;
 
@@ -579,32 +604,35 @@ errType srvAppLayer::ProcessMessages()
 
 
 /// getter for udp port number that listens all clients requests
-WORD srvAppLayer::getListenerPortNum()
+WORD SrvAppLayer::getListenerPortNum()
 {
     return cpListenerPortNum;
 }
 
 /// getter for AppTerminated signal
-void srvAppLayer::terminate(BYTE mode)
+void SrvAppLayer::terminate(BYTE mode)
 {
     AppTerminated=mode;
 }
 
 ///getter for ServiceState vector
-stateVector_type srvAppLayer::getStateVector()
+stateVector_type SrvAppLayer::getStateVector()
 {
     return ServiceState;
 }
 // 0 - automatic, 1- manual
-BYTE srvAppLayer::serviceMode()
+BYTE SrvAppLayer::serviceMode()
 {
 	if (ServiceState.state.mode_auto == 1) return 0;
 	if (ServiceState.state.mode_manual == 1) return 1;
 
 }
 
-errType srvAppLayer::setServiceMode(BYTE mode)
+errType SrvAppLayer::setServiceMode(BYTE mode)
 {
+	ServiceState.state.mode_manual=0;
+	ServiceState.state.mode_auto=0;
+
 	if (mode==0) ServiceState.state.mode_auto = 1;
 	else ServiceState.state.mode_manual = 1;
 

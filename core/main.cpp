@@ -290,7 +290,7 @@ int main(int argc, char *argv[], char *environ[]) {
     /// 3. Install system signals handlers ::installSIGhandlers()
     installSIGhandlers(appDeinit);
 
-    app=new srvAppLayer(wUdp);
+    app=new SrvAppLayer(wUdp);
 
     /// 4. Initialize application ::appInit()
     if (appInit()!=err_result_ok) AppTerminated=true;
@@ -307,7 +307,7 @@ int main(int argc, char *argv[], char *environ[]) {
 	
         /// 5. Main programm loop srvAppLayer::ProcessMessages() while not terminated by signal srvAppLayer::terminated()
         while(!app->terminated()) {
-            app->ProcessMessages();
+        		 app->processMessages();
         }
 
         /// 6. Deinitialize application ::appDeinit()

@@ -31,7 +31,7 @@ pthread_t PollingThreadHandle;
 typedef struct monitor_t {
     prcList *processes;
     fltrList *filters;
-    srvAppLayer *application;
+    SrvAppLayer *application;
 } monitor_t;
 
 
@@ -72,7 +72,7 @@ void* PollingThread(void* user)
     
     fltrList* fltrMgr=mon->filters;                                                
     prcList* procMgr=mon->processes;                                                
-    srvAppLayer* app=mon->application;
+    SrvAppLayer* app=mon->application;
     
     procMgr->scanUserProcesses();
     
@@ -190,7 +190,7 @@ errType GetProcessesList(void* fn)
     func->setResult(1,sendingArray);
     if (length>0) result=err_result_ok;
     
-    delete sendingArray;
+    delete []sendingArray;
     return result;
 }
 
@@ -258,9 +258,9 @@ errType GetProcessInfo(void* fn)
 	func->setResult(9,environment);
 	printf("\n");
 	 
-	delete state;
-	delete cmdline;
-	delete environment;
+	delete []state;
+	delete []cmdline;
+	delete []environment;
 
 	result=err_result_ok;
     } else {

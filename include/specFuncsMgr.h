@@ -19,10 +19,10 @@
  */
 class specFuncsMgr
 {
-    srvAppLayer* appLayer;
+    SrvAppLayer* appLayer;
     
     public:
-     specFuncsMgr(srvAppLayer *appl); ///< Links special functions set with srvAppLayer
+     specFuncsMgr(SrvAppLayer *appl); ///< Links special functions set with srvAppLayer
     ~specFuncsMgr();
 
      errType startSpecFuncs();    ///< Declare special functions set

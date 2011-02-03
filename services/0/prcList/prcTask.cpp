@@ -15,9 +15,9 @@ prcTask::prcTask(){
 }
 
 prcTask::~prcTask(){
-	delete cmdline;
-	delete state;
-	delete environment;
+	delete []cmdline;
+	delete []state;
+	delete []environment;
 }
 
 errType prcTask::set_prc_cmdline(char* incmdline){
@@ -25,7 +25,7 @@ errType prcTask::set_prc_cmdline(char* incmdline){
 		if (incmdline==0)  result=err_result_error;
 		else {
 		    int len=strlen(incmdline);
-		    delete cmdline;
+		    delete []cmdline;
 		    cmdline=new char[len+1];
 		    strcpy(cmdline, incmdline);
 		    result=err_result_ok;
@@ -119,7 +119,7 @@ errType prcTask::set_prc_environment(char* argv){
 		if (argv==0) result=err_result_error;
 		else {
 		    int len=strlen(argv);
-		    delete environment;
+		    delete []environment;
 		    environment=new char[len+1];
 		    strcpy(environment,argv);
 		    result=err_result_ok;

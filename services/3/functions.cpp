@@ -55,7 +55,7 @@ serviceStateByte stateByte;
 
 void* pollingThread(void* user)
 {
-    srvAppLayer* app = (srvAppLayer*) user;
+    SrvAppLayer* app = (SrvAppLayer*) user;
     BYTE* array;
     WORD old_crc = 0xFFFF;
     while (!app->terminated())
@@ -68,7 +68,7 @@ void* pollingThread(void* user)
             array = new BYTE[cmdFrame::kPacketSize];
             sendFrame->decode(array);
             equip_sending->sendData(equipAddr, array, cmdFrame::kPacketSize);
-            delete array;
+            delete []array;
         }
         sched_yield();
     }

@@ -30,7 +30,7 @@ schedule generalShedule;
 
 void* pollingThread(void* user)
 {
-  srvAppLayer* app = (srvAppLayer*) user;
+  SrvAppLayer* app = (SrvAppLayer*) user;
 //  BYTE* array;
 //  WORD old_crc = 0xFFFF;
   while (!app->terminated())
@@ -103,13 +103,13 @@ errType emergencyShutdown(void* fn)
 errType controlModeChange(void* fn)
 {
     errType result=err_not_init;
-    printf("*************************************\n");
-    printf("*** ControlModeChange was called! ***\n");
-    printf("*************************************\n");
-
     functionNode* func=(functionNode*)fn;
     
-    func->dbgPrint();
+    func->printParams();
+    BYTE mode=*(BYTE*)func->getParamPtr(0);
+    if (mode<2) app->setServiceMode(mode);
+    else result=err_params_value;
+    func->printResults();
     
     return result;
 }

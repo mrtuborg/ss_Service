@@ -22,10 +22,10 @@ extern void* equipListenPolling(void*);
 
 class commonFuncsMgr
 {
-    srvAppLayer* appLayer;
+    SrvAppLayer* appLayer;
     
     public:
-	commonFuncsMgr(srvAppLayer *appl);
+	commonFuncsMgr(SrvAppLayer *appl);
 	~commonFuncsMgr();
 	
 	errType startCommonFuncs();

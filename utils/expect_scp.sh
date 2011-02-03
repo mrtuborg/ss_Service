@@ -23,7 +23,7 @@ set arg1	[lrange $argv 3 3]
 
 set timeout -1
 # now connect to remote UNIX box (ipaddr) with given script to execute
-spawn scp $arg1 $file_local $file_remote
+spawn scp -r $file_local root@192.168.9.99/dev/st0
 match_max 100000
 # Look for passwod prompt
 expect "*?assword:*"
