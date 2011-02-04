@@ -21,12 +21,11 @@ set password	[lrange $argv 1 1]
 set ipaddr	[lrange $argv 2 2]
 set dir_root	[lrange $argv 3 3]
 set scriptname	[lrange $argv 4 4]
-set arg1	[lrange $argv 5 5]
-set arg2	[lrange $argv 6 6]
+set arg		[lrange $argv 5 10]
 
 set timeout -1
 # now connect to remote UNIX box (ipaddr) with given script to execute
-    spawn ssh $username@$ipaddr cd $dir_root && $scriptname $arg1 $arg2
+spawn ssh $username@$ipaddr cd $dir_root && $scriptname $arg
 match_max 100000
 # Look for passwod prompt
 expect "*?assword:*"

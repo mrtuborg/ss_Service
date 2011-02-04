@@ -21,7 +21,7 @@
 #include <comm/udp_port/udp_port.h>
 #include <param_desc.h>
 #include <functionNode.h>
-#include <srvAppLayer.h>
+#include <SrvAppLayer.h>
 #include <commonFuncsMgr.h>
 #include <functions.h>
 
