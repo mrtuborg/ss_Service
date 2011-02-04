@@ -108,7 +108,8 @@ remote: host_user:= $(word $(host), $(REMOTE_USER))
 remote: host_pass:= $(word $(host), $(REMOTE_PASSWORD))
 remote: 
 	@echo $(program_name) $(host_user):$(host_pass)@$(host_ip)
-	utils/./remote $(program_name) $(host_ip) $(host_user) $(host_pass) $(id)
+	utils/./remote_make $(program_name) $(host_ip) $(host_user) $(host_pass) $(id)
+
 #cur_user:= $(foreach n, $(n_list), $(word $(n), $(REMOTE_USER)))
 
 
