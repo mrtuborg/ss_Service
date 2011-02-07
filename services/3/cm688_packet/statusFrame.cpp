@@ -25,7 +25,7 @@ BYTE statusFrame::getShieldState(BYTE num)// + opened
     switch (num)
     {
     case 0: result=frame.BYTE_6.schieldOpened; break;
-    case 1: result=frame.BYTE_7.shieldClosed; break;
+    case 1: result=frame.BYTE_7.shieldClosed;  break;
     case 2: result=frame.BYTE_3.shieldStopped; break;
     }
 

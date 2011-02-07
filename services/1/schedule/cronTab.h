@@ -20,11 +20,11 @@
 
 
 class cronTab {
-	char minute[2];
-	char hour[2];
-	char day_of_month[2];
-	char month[2];
-	char day_of_week[1];
+	char minute[3];
+	char hour[3];
+	char day_of_month[3];
+	char month[3];
+	char day_of_week[3];
 	char *command;
 
 	FILE* cronFile;
