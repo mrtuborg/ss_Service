@@ -81,7 +81,7 @@ bool statusFrame::isCPControl()
     return result;
 }
 
-BYTE statusFrame::getSystemLinkStatus(BYTE num)
+BYTE statusFrame::getSystemLinkStatus(LinkPoint_type link_point)
 {
     // BUZ =0
     // AUGS=1
@@ -90,12 +90,12 @@ BYTE statusFrame::getSystemLinkStatus(BYTE num)
     
     BYTE result=0;
     
-    switch (num)
+    switch (link_point)
     {
-    case 0: result=frame.BYTE_4.link_BUZ;        break;
-    case 1: result=frame.BYTE_4.link_AUGS;       break;
-    case 2: result=frame.BYTE_4.link_localPanel; break;
-    case 3: result=frame.BYTE_4.link_KEGP;       break;
+    case BUZ:  result=frame.BYTE_4.link_BUZ;        break;
+    case AUGS: result=frame.BYTE_4.link_AUGS;       break;
+    case PMU:  result=frame.BYTE_4.link_localPanel; break;
+    case KEGP: result=frame.BYTE_4.link_KEGP;       break;
     };
     
     return result;

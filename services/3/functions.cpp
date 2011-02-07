@@ -20,27 +20,23 @@
 #include <statusFrame.h>
 #include <cm688_packet.h>
 
-udp_port *equip_sending;
+udp_port  *equip_sending;
 pthread_t PollingThreadHandle;
 
-cmdFrame *sendFrame;
+cmdFrame    *sendFrame;
 statusFrame *answerFrame;
 
-typedef union serviceStateByte
+typedef union SpecificServiceState
 {
     struct
     {
-        //BYTE
-        //BYTE
-        //BYTE
-        //BYTE
+        BYTE open     :1;
+        BYTE close    :1;
+        BYTE stopped  :1;
         BYTE reserved :6;
-        BYTE close :1;
-        BYTE open :1;
-        //BYTE foldsMoving:1;
     } fields;
     BYTE bValue;
-}__attribute__ ((packed)) serviceStateByte;
+}__attribute__ ((packed)) SpecificServiceState;
 
 // 00|0 not initialized
 // 00|1 error
@@ -51,7 +47,7 @@ typedef union serviceStateByte
 // 01|1 Opening
 // 10|0 Closed
 // 10|1 Closing
-serviceStateByte stateByte;
+SpecificServiceState spec_service_state;
 
 void* pollingThread(void* user)
 {
@@ -111,7 +107,7 @@ errType srvInit()
     if (ret == 0)
         result = err_result_ok;
 
-    stateByte.bValue = 0;
+    spec_service_state.bValue = 0;
 
     return result;
 }
@@ -155,11 +151,18 @@ errType getStateVector(void* fn)
     stateVector_type stateVector;
     stateVector = app->getStateVector();
 
-    //stateByte.fields.open=answerFrame->getShieldState(0) | answerFrame->getShieldState(2);
-    //stateByte.fields.close=answerFrame->getShieldState(1) | answerFrame->getShieldState(2);
+    spec_service_state.fields.open  = answerFrame->getShieldState(0);
+    spec_service_state.fields.close = answerFrame->getShieldState(1);
+    spec_service_state.fields.close = answerFrame->getShieldState(2);
 
-    //stateByte.fields.foldsMoving;
+    stateVector.reserved = spec_service_state.bValue;
 
+    BYTE emergency (0);
+    if (!answerFrame->getSystemLinkStatus(KEGP)) emergency = 1;     //001
+    if (!answerFrame->getSystemLinkStatus(AUGS)) emergency = 2;     //010
+    if (!answerFrame->getSystemLinkStatus(KEGP)) emergency = 3;     //011
+    if (!answerFrame->getSystemLinkStatus(BUZ))  emergency = 4;     //100
+    stateVector.state.reserved = emergency;
 
     func->printParams();
     func->setResult(1, &stateVector);
