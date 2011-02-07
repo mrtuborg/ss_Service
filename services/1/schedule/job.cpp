@@ -129,7 +129,7 @@ BYTE* get_strTime()
 
 errType job::writeCronTab()
 {
-	long seconds = jobReference->timeStart;
+	DWORD seconds = jobReference->timeStart;
 	//jobEntity
 	char* cmd=0;
 	time_t timeStart=seconds;
@@ -137,8 +137,8 @@ errType job::writeCronTab()
 
 	ts = localtime(&timeStart);
 
-
-	printf("%a %Y-%m-%d %H:%M:%S %Z\n", ts);
+	printf("seconds=%lu\n", seconds);
+	printf("time: 19%d-%d-%d %d:%d:%d\n", ts->tm_year,ts->tm_mon,ts->tm_mday, ts->tm_hour, ts->tm_min, ts->tm_sec);
 	//struct t t2;
 
 
@@ -156,6 +156,6 @@ errType job::writeCronTab()
 	ts->tm_wday;
 	ts->tm_year;
 
-	cronJob->setCommand(ts->tm_min, ts->tm_hour, ts->tm_mday, ts->tm_mon, ts->tm_wday, cmd);
-	cronJob->addToCronFile();
+	//cronJob->setCommand(ts->tm_min, ts->tm_hour, ts->tm_mday, ts->tm_mon, ts->tm_wday, cmd);
+	//cronJob->addToCronFile();
 }

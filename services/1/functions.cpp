@@ -139,12 +139,12 @@ errType addScheduleJob(void* fn)
     BYTE isEmergencySchedule=*(BYTE*)(func->getParamPtr(0)); // Packet No
     DWORD objId=*(DWORD*)(func->getParamPtr(1));
     DWORD nextObjId=*(DWORD*)(func->getParamPtr(2));
-    WORD timeStart=*(WORD*)func->getParamPtr(2);
-    WORD timeEnd=*(WORD*)func->getParamPtr(3);
-    BYTE service_id=*(BYTE*)func->getParamPtr(4);
-    BYTE func_id=*(BYTE*)func->getParamPtr(5);
-    DWORD paramsLength=*(DWORD*)func->getParamPtr(6);
-    BYTE* params=(BYTE*)func->getParamPtr(7);
+    WORD timeStart=*(WORD*)func->getParamPtr(3);
+    WORD timeEnd=*(WORD*)func->getParamPtr(4);
+    BYTE service_id=*(BYTE*)func->getParamPtr(5);
+    BYTE func_id=*(BYTE*)func->getParamPtr(6);
+    DWORD paramsLength=*(DWORD*)func->getParamPtr(7);
+    BYTE* params=(BYTE*)func->getParamPtr(8);
 
     job* newJob=new job(1);
     newJob->set_dwNextJobID(nextObjId);

@@ -8,14 +8,17 @@
 
 cd ..
 pwd
-
+echo "1) Make tar of curring project"
 tar -cf $1.tar $1 libs --exclude $1/bin --exclude $1/.git --exclude $1/obj
 pwd
-$1/utils/./expect_scp.sh $4 $1.tar $3@$2:'~/'
+echo "2) Copy tar to remote host"
+$1/utils/./expect_scp.sh $4 $1.tar $3@$2:'~/.' -r
 pwd
 cd $1
 pwd
+echo "3) Unpack tar on remote host"
 utils/./expect_ssh.sh $3 $4 $2 '~' tar -xf $1.tar
+echo "4) Make project on remote host"
 utils/./expect_ssh.sh $3 $4 $2 '~/'$1 make id=$5
-
+echo "5) Copy make result to local host"
 utils/./expect_scp.sh $4 $3@$2:'~'/$1/bin . -r

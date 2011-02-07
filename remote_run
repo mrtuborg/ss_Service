@@ -1,0 +1,9 @@
+#!/bin/bash
+# %1	- url
+# %2	- username
+# %3	- password
+# %4	- filename to run
+# %5	- arguments to programm that need to be executed
+
+utils/./expect_scp.sh $3 $4 $2@$1:'~/'
+utils/./expect_ssh.sh $2 $3 $1 '~/' $4 $5 $6 $7 $8

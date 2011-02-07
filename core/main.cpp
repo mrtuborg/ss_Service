@@ -22,22 +22,22 @@
 #include <deque>
 #include <errno.h>
 
-#include "extra/ortsTypes/ortsTypes.h"
-#include "ssBuffer.h"
-#include "comm/udp_port/udp_port.h"
+#include <extra/ortsTypes/ortsTypes.h>
+#include <ssBuffer.h>
+#include <comm/udp_port/udp_port.h>
 #include "arg_parser/carg_parser.h"
 #include "console_out.h"
-#include "rcsLib/rcsCmd/rcsCmd.h"
-#include "param_desc.h"
-#include "functionNode.h"
+#include <rcsLib/rcsCmd/rcsCmd.h>
+#include <param_desc.h>
+#include <functionNode.h>
 
-#include "srvAppLayer.h"
-#include "commonFuncsMgr.h"
-#include "specFuncsMgr.h"
-#include "functions.h"
-#include "SIG_handler.h"
+#include <SrvAppLayer.h>
+#include <commonFuncsMgr.h>
+#include <specFuncsMgr.h>
+#include <functions.h>
+#include <SIG_handler.h>
 
-#include "global.h"
+#include <global.h>
 
 /******************************************************************//**
  * @brief       Parsing commandline arguments.

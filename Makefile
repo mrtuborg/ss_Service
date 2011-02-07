@@ -15,7 +15,7 @@ service_name		:= $(program_name)_$(id)
 
 core_include_dir	:= include
 core_source_dir		:= core
-core_source_subdirs	:= . arg_parser buffer deqUdp functions srvAppLayer srvAppLayer/functionNode
+core_source_subdirs	:= . arg_parser buffer deqUdp functions SrvAppLayer SrvAppLayer/functionNode
 
 
 paths_to_libraries	:= ../libs
@@ -106,9 +106,10 @@ include utils/remotes.inc
 remote: host_ip	:= $(word $(host), $(REMOTE_IP))
 remote: host_user:= $(word $(host), $(REMOTE_USER))
 remote: host_pass:= $(word $(host), $(REMOTE_PASSWORD))
-remote: 
+remote: clean
 	@echo $(program_name) $(host_user):$(host_pass)@$(host_ip)
-	utils/./remote $(program_name) $(host_ip) $(host_user) $(host_pass) $(id)
+	utils/./remote_make $(program_name) $(host_ip) $(host_user) $(host_pass) $(id)
+
 #cur_user:= $(foreach n, $(n_list), $(word $(n), $(REMOTE_USER)))
 
 
