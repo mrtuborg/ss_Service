@@ -468,7 +468,6 @@ errType getControlMode(void* fn)
     }
     if (answerFrame->isCPControl()) mode = 0;
 
-    printf("DEBUG: mode = %d\n", mode);
     func->setResult(1, &mode);
     func->printResults();
     return result;

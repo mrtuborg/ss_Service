@@ -588,25 +588,25 @@ errType SrvAppLayer::processInMessages(sockaddr_in *sfrom, rcsCmd *inCmd)
 
     if (sfrom->sin_addr.s_addr!=inet_addr("127.0.0.1")) isRemoteCaller=true;
 
-    	if ((Functions[func_id])->isMutator()) {
-    		switch (serviceMode()){
-    			case 0:// 0 - in automatic mode (locals calls mode)
-				if (!isRemoteCaller) result=err_result_ok;
-				else result=err_not_allowed;
-				break;
+    if ((Functions[func_id])->isMutator()) {
+        switch (serviceMode()){
+        case 0:// 0 - in automatic mode (locals calls mode)
+            if (!isRemoteCaller) result=err_result_ok;
+            else result=err_not_allowed;
+            break;
 
-			case 1:// 1- in manual mode	(remote calls mode)
-				if (isRemoteCaller) result=err_result_ok;
-				else result=err_not_allowed;
-				break;
-		}
-    	}
+        case 1:// 1- in manual mode	(remote calls mode)
+            if (isRemoteCaller) result=err_result_ok;
+            else result=err_not_allowed;
+            break;
+        }
+    }
 
     if (result==err_result_ok){
     		result=execMessage(inCmd);
 
     }
-    
+
     delete []dataBlock;
     
     return result;

@@ -11,7 +11,7 @@ const WORD cmdFrame::kPacketSize = sizeof(cmdFrame_t);
 
 cmdFrame::cmdFrame()
 {
-    memset(&frame,0,sizeof(cmdFrame_t));
+    memset(&frame, 0, sizeof(cmdFrame_t));
     frame.header=0xAA55;
     
 }
@@ -22,23 +22,27 @@ cmdFrame::~cmdFrame()
 
 void cmdFrame::setHydroCyl_correct()
 {
+    memset(&frame, 0, sizeof(cmdFrame_t));
     frame.hydroCyl_corr=1;
 }
 
 void cmdFrame::setHydroStationStart()
 {
+    memset(&frame, 0, sizeof(cmdFrame_t));
     frame.hydroStation_start=1;
     frame.hydroStation_stop=0;
 }
 
 void cmdFrame::setHydroStationStop()
 {
+    memset(&frame, 0, sizeof(cmdFrame_t));
     frame.hydroStation_start=0;
     frame.hydroStation_stop=1;
 }
 
 void cmdFrame::setSchieldClose()
 {
+    memset(&frame, 0, sizeof(cmdFrame_t));
     frame.shield_close=1;
     frame.shield_open=0;
     frame.shield_stop=0;
@@ -46,6 +50,7 @@ void cmdFrame::setSchieldClose()
 
 void cmdFrame::setSchieldOpen()
 {
+    memset(&frame, 0, sizeof(cmdFrame_t));
     frame.shield_close=0;
     frame.shield_open=1;
     frame.shield_stop=0;
@@ -53,6 +58,7 @@ void cmdFrame::setSchieldOpen()
 
 void cmdFrame::setSchieldStop()
 {
+    memset(&frame, 0, sizeof(cmdFrame_t));
     frame.shield_close=0;
     frame.shield_open=0;
     frame.shield_stop=1;
@@ -60,24 +66,28 @@ void cmdFrame::setSchieldStop()
 
 void cmdFrame::setCPControl()
 {
+    memset(&frame, 0, sizeof(cmdFrame_t));
     frame.remoteControl=0;
     frame.BYTE_4.fold_status.localControl=0;
 }
 
 void cmdFrame::setRemoteControl()
 {
+    memset(&frame, 0, sizeof(cmdFrame_t));
     frame.remoteControl=1;
     frame.BYTE_4.fold_status.localControl=0;
 }
 
 void cmdFrame::setLocalControl()
 {
+    memset(&frame, 0, sizeof(cmdFrame_t));
     frame.remoteControl=0;
     frame.BYTE_4.fold_status.localControl=1;
 }
 
 void cmdFrame::setFoldOpen(FoldDscr_type fold_descriptor)
 {
+    memset(&frame, 0, sizeof(cmdFrame_t));
     switch (fold_descriptor)  {
       case LOWER_A:  {
           frame.BYTE_4.fold_status.fold_lowA_open     = 1;
@@ -109,6 +119,7 @@ void cmdFrame::setFoldOpen(FoldDscr_type fold_descriptor)
 
 void cmdFrame::setFoldClose(FoldDscr_type fold_descriptor)
 {
+    memset(&frame, 0, sizeof(cmdFrame_t));
     switch (fold_descriptor)  {
       case LOWER_A:  {
           frame.BYTE_4.fold_status.fold_lowA_open     = 0;
@@ -139,6 +150,7 @@ void cmdFrame::setFoldClose(FoldDscr_type fold_descriptor)
 
 void cmdFrame::setFoldStop(FoldDscr_type fold_descriptor)
 {
+    memset(&frame, 0, sizeof(cmdFrame_t));
     switch (fold_descriptor)  {
       case LOWER_A:  {
           frame.BYTE_4.fold_status.fold_lowA_open     = 0;
@@ -169,6 +181,7 @@ void cmdFrame::setFoldStop(FoldDscr_type fold_descriptor)
 
 void cmdFrame::setStartFuncControl()
 {
+    memset(&frame, 0, sizeof(cmdFrame_t));
     frame.BYTE_5.funcCtrl=1;
 }
 
