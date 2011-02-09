@@ -19,12 +19,11 @@
  * @brief \ref stateVector_type structural field.
  */
 typedef struct serviceState {
-    BYTE linked:1;
-    BYTE reserved0:3;
-    BYTE inprocess:1;
-    BYTE reserved1:1;
+    BYTE linked     :1;
+    BYTE inprocess  :1;
     BYTE mode_manual:1;
-    BYTE mode_auto:1;
+    BYTE mode_auto  :1;
+    BYTE reserved   :4;
 } __attribute__((packed)) serviceState;
 
 /**
@@ -32,10 +31,10 @@ typedef struct serviceState {
  * @brief  Main vector of service base states.
  */
 typedef struct stateVector_type {
-    BYTE reserved;
+    BYTE         reserved;
     serviceState state;
-    errType lastResult;
-    BYTE lastFuncId;
+    errType      lastResult;
+    BYTE         lastFuncId;
 }  __attribute__ ((packed)) stateVector_type;
 
 /**

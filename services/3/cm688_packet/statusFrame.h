@@ -188,7 +188,7 @@ public:
     bool isLocalControl();
     bool isRemoteControl();
     bool isCPControl();
-    BYTE getSystemLinkStatus(BYTE);
+    BYTE getSystemLinkStatus(LinkPoint_type link_point);
     BYTE getFoldState(FoldDscr_type fold_descriptor);
 
     bool getFuncControlStatus();
