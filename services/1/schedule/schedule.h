@@ -14,7 +14,7 @@ class schedule
     ~schedule();
     
     errType addJob(job* );
-    errType removeAllJobsBefore(WORD );
+    errType removeAllJobsBefore(DWORD );
     errType execJob();
     errType checkAlarm();
     errType update();

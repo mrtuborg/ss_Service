@@ -139,19 +139,17 @@ errType addScheduleJob(void* fn)
     BYTE isEmergencySchedule=*(BYTE*)(func->getParamPtr(0)); // Packet No
     DWORD objId=*(DWORD*)(func->getParamPtr(1));
     DWORD nextObjId=*(DWORD*)(func->getParamPtr(2));
-    WORD timeStart=*(WORD*)func->getParamPtr(3);
-    WORD timeEnd=*(WORD*)func->getParamPtr(4);
+    DWORD timeStart=*(DWORD*)func->getParamPtr(3);
+    DWORD timeEnd=*(DWORD*)func->getParamPtr(4);
     BYTE service_id=*(BYTE*)func->getParamPtr(5);
     BYTE func_id=*(BYTE*)func->getParamPtr(6);
-    DWORD paramsLength=*(DWORD*)func->getParamPtr(7);
-    BYTE* params=(BYTE*)func->getParamPtr(8);
-
+    BYTE* cmd=(BYTE*)func->getParamPtr(7);
     job* newJob=new job(1);
     newJob->set_dwNextJobID(nextObjId);
     newJob->set_btServiceId(service_id);
-    newJob->set_wStartTime(timeStart);
-    newJob->set_wFinishTime(timeEnd);
-    newJob->setJobCmd(func_id, paramsLength, params);
+    newJob->set_dwStartTime(timeStart);
+    newJob->set_dwFinishTime(timeEnd);
+    newJob->setJobCmd(func_id, *((WORD*)cmd), cmd+2);
 
     generalShedule.addJob(newJob);
     generalShedule.update();

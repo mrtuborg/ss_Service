@@ -44,11 +44,11 @@ errType specFuncsMgr::startSpecFuncs()
     //
     // 4. Add function to Application interchange layer:
     //code: appLayer->CreateNewFunction(func);
-	    func=new functionNode(1,7,2,addScheduleJob);
+	    func=new functionNode(1,8,2,addScheduleJob);
 	    func->setMutatorStatus(true);
 	    func->setFuncName("Добавить пакетное задание");
 	    func->setParamDescriptor(0, type_BYTE);
-	    func->setParamName(0,"Признак аварийной операции");
+	    func->setParamName(0,"Идентификатор расписания");
 
 	    func->setParamDescriptor(1, type_DWORD);
 	    func->setParamName(1,"Идентификатор операции");
@@ -56,10 +56,10 @@ errType specFuncsMgr::startSpecFuncs()
 	    func->setParamDescriptor(2, type_DWORD);
 	    	func->setParamName(2,"Идентификатор следующей операции");
 
-	    func->setParamDescriptor(3, type_WORD);
+	    func->setParamDescriptor(3, type_DWORD);
 	    func->setParamName(3,"Время начала операции");
 
-	    func->setParamDescriptor(4, type_WORD);
+	    func->setParamDescriptor(4, type_DWORD);
 	    func->setParamName(4,"Время окончания операции");
 
 	    func->setParamDescriptor(5, type_BYTE);
@@ -68,10 +68,7 @@ errType specFuncsMgr::startSpecFuncs()
 	    func->setParamDescriptor(6, type_BYTE);
 	    func->setParamName(6,"Идентификатор функции-исполнителя");
 
-	    //func->setParamDescriptor(6, type_WORD);
-	    //func->setParamName(6,"Длина параметрической части");
-
-	    func->setParamDescriptor(7, type_BYTE);
+	    func->setParamDescriptor(7, type_BYTEVECTOR);
 	    func->setParamName(7,"Параметрическая часть");
 
 	    func->setResultDescriptor(0,type_ERRTYPE);
