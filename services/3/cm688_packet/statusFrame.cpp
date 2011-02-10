@@ -121,23 +121,23 @@ BYTE statusFrame::getFoldState(FoldDscr_type fold_descriptor)
 
     switch (fold_descriptor)  {
       case LOWER_A:  {
-          if (frame.BYTE_5.fold_lowA_close == 1)  {
+          if (frame.BYTE_5.fold_lowA_close)  {
               result = 1;
           }
 
-          if (frame.BYTE_5.fold_lowA_open == 1)  {
+          if (frame.BYTE_5.fold_lowA_open)  {
               if (result == 0) result = 2;
               else result = 0;
           }
 
-          if (frame.BYTE_9.fold_lowA_stop == 1)  {
+          if (frame.BYTE_9.fold_lowA_stop)  {
               if (!frame.BYTE_5.fold_lowA_close && !frame.BYTE_5.fold_lowA_open)
                   result = 4;
               else result = 0;
           }
 
-          BYTE GC_result = 0;
-          if (!frame.BYTE_9.fold_lowA_inv_GC)  {
+          BYTE GC_result (0);
+          if (frame.BYTE_9.fold_lowA_inv_GC)  {
               GC_result = 1;
           }
           if (frame.BYTE_9.reseting)  {
@@ -148,23 +148,23 @@ BYTE statusFrame::getFoldState(FoldDscr_type fold_descriptor)
           break;
       }
       case LOWER_B:  {
-          if (frame.BYTE_5.fold_lowB_close == 1)  {
+          if (frame.BYTE_5.fold_lowB_close)  {
               result = 1;
           }
 
-          if (frame.BYTE_5.fold_lowB_open == 1)  {
+          if (frame.BYTE_5.fold_lowB_open)  {
               if (result == 0) result = 2;
               else result = 0;
           }
 
-          if (frame.BYTE_9.fold_lowB_stop == 1)  {
+          if (frame.BYTE_9.fold_lowB_stop)  {
               if (!frame.BYTE_5.fold_lowB_close && !frame.BYTE_5.fold_lowB_open)
                   result = 4;
               else result = 0;
           }
 
           BYTE GC_result = 0;
-          if (!frame.BYTE_9.fold_lowB_inv_GC)  {
+          if (frame.BYTE_9.fold_lowB_inv_GC)  {
               GC_result = 1;
           }
           if (frame.BYTE_9.reseting)  {
@@ -176,23 +176,23 @@ BYTE statusFrame::getFoldState(FoldDscr_type fold_descriptor)
           break;
       }
       case UPPER:  {
-          if (frame.BYTE_5.fold_up_close == 1)  {
+          if (frame.BYTE_5.fold_up_close)  {
               result = 1;
           }
 
-          if (frame.BYTE_5.fold_up_open == 1)  {
+          if (frame.BYTE_5.fold_up_open)  {
               if (result == 0) result = 2;
               else result = 0;
           }
 
-          if (frame.BYTE_9.fold_up_stop == 1)  {
+          if (frame.BYTE_9.fold_up_stop)  {
               if (!frame.BYTE_5.fold_up_close && !frame.BYTE_5.fold_up_open)
                   result = 4;
               else result = 0;
           }
 
           BYTE GC_result = 0;
-          if (!frame.BYTE_9.fold_up_inv_GC)  {
+          if (frame.BYTE_9.fold_up_inv_GC)  {
               GC_result = 1;
           }
           if (frame.BYTE_9.reseting)  {
