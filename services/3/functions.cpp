@@ -33,7 +33,7 @@ typedef union SpecificServiceState
         BYTE open     :1;
         BYTE close    :1;
         BYTE stopped  :1;
-        BYTE reserved :6;
+        BYTE reserved :5;
     } fields;
     BYTE bValue;
 }__attribute__ ((packed)) SpecificServiceState;
@@ -158,10 +158,11 @@ errType getStateVector(void* fn)
     stateVector.reserved = spec_service_state.bValue;
 
     BYTE emergency (0);
-    if (!answerFrame->getSystemLinkStatus(KEGP)) emergency = 1;     //001
-    if (!answerFrame->getSystemLinkStatus(AUGS)) emergency = 2;     //010
-    if (!answerFrame->getSystemLinkStatus(KEGP)) emergency = 3;     //011
-    if (!answerFrame->getSystemLinkStatus(BUZ))  emergency = 4;     //100
+
+    emergency =  !answerFrame->getSystemLinkStatus(KEGP);       //0001
+    emergency |= !answerFrame->getSystemLinkStatus(PMU)  << 1;  //0010
+    emergency |= !answerFrame->getSystemLinkStatus(AUGS) << 2;  //0100
+    emergency |= !answerFrame->getSystemLinkStatus(BUZ)  << 3;  //1000
     stateVector.state.reserved = emergency;
 
     func->printParams();
@@ -232,11 +233,11 @@ errType hydroSystemGetParams(void* fn)
 
     func->printParams();
 
-    BYTE pressure=answerFrame->getHydroSystemValues(0);
-    BYTE oilLevel=answerFrame->getHydroSystemValues(1);
-    BYTE temp=answerFrame->getHydroSystemValues(2);
-    BYTE filters=answerFrame->getHydroSystemValues(3);
-    BYTE status=answerFrame->getHydroSystemStatus();
+    BYTE pressure = answerFrame->getHydroSystemValues(0);
+    BYTE oilLevel = answerFrame->getHydroSystemValues(1);
+    BYTE temp     = answerFrame->getHydroSystemValues(2);
+    BYTE filters  = answerFrame->getHydroSystemValues(3);
+    BYTE status   = answerFrame->getHydroSystemStatus();
 
     // 1 - pressure, 2 - oil_level, 3 - temp, 4 - filters
     func->setResult(1, &pressure);
