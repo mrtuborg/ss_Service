@@ -80,7 +80,9 @@ errType job::set_btServiceId(BYTE id)
 
 errType	job::setJobCmd(BYTE func_id, DWORD param_len, void* args)
 {
+		errType result=err_result_ok;
 		jobEntity->encode(func_id, param_len, args);
+		return result;
 }
 
 
@@ -129,33 +131,43 @@ BYTE* get_strTime()
 
 errType job::writeCronTab()
 {
+	errType result=err_result_ok;
 	DWORD seconds = jobReference->timeStart;
 	//jobEntity
-	char* cmd=0;
+
 	time_t timeStart=seconds;
 	struct tm  *ts;
 
 	ts = localtime(&timeStart);
 
-	printf("seconds=%lu\n", seconds);
+	printf("seconds=%d\n", seconds);
 	printf("time: 19%d-%d-%d %d:%d:%d\n", ts->tm_year,ts->tm_mon,ts->tm_mday, ts->tm_hour, ts->tm_min, ts->tm_sec);
-	//struct t t2;
 
+	WORD cmdLen=jobEntity->getCmdLength();
+	char *cmd;
+	cmd=new char[cmdLen];
+	printf("Command: ");
+	for (int i=0; i<cmdLen; i++) printf("%.2X ", cmd[i]);
+	printf("\n");
 
-//	double minutes = seconds / 60;
-//	double hours = minutes / 60;
-//	double days = hours / 24;
-//	double weeks = days / 7;
-//	double months = weeks / 52;
-//	double years = months / 12;
+	jobEntity->get_func_id();
+	jobEntity->dbgPrint();
+	BYTE* param;
 
-	ts->tm_hour;
-	ts->tm_min;
-	ts->tm_mday;
-	ts->tm_mon;
-	ts->tm_wday;
-	ts->tm_year;
-
-	//cronJob->setCommand(ts->tm_min, ts->tm_hour, ts->tm_mday, ts->tm_mon, ts->tm_wday, cmd);
-	//cronJob->addToCronFile();
+	param=(BYTE*)jobEntity->get_func_paramsPtr();
+	WORD paramsLen=jobEntity->get_func_paramsLength();
+	printf("param=%p\n", param);
+	if (param!=0) {
+		for (int i=0; i<paramsLen; i++) {
+				sprintf(cmd+i*2,"%.2X",param[i]);
+				printf("%d: %.2X\n",i*2, param[i]);
+		}
+		cmd[paramsLen]=0;
+	}
+	printf("cmd=%s\n",cmd);
+	cronJob->setCommand(ts->tm_min, ts->tm_hour, ts->tm_mday, ts->tm_mon, ts->tm_wday, cmd);
+	cronJob->addToCronFile();
+	delete cmd;
+	return result;
 }
+
