@@ -217,18 +217,18 @@ errType functionNode::decodeParams(rcsCmd* packet)//BYTE* paramsPtr)
 	   // printf("func_paramsQuantity=%d\n",func_paramsQuantity);
 	    for (int i=0; i<func_paramsQuantity; i++){
 		if (func_params[i]) {
-		   // printf("func_params[%d] exists!\n",i);
+		    //printf("func_params[%d] exists!\n",i);
 		    if  (func_params[i]->isVector()) {
-		       // printf("func_params[%d] is Vector!\n",i);
+		        //printf("func_params[%d] is Vector!\n",i);
 		        WORD vectorSize=*(WORD*)((BYTE*)packet->get_func_paramsPtr()+paramOffset);
 		     
 		        descPacket_length+=vectorSize+sizeof(WORD);
-		      //  printf("descPacket_length=%d\n",descPacket_length);
+		        //printf("descPacket_length=%d\n",descPacket_length);
 		        paramOffset+=vectorSize+sizeof(WORD);
-		       // printf("paramOffset=%d\n",paramOffset);
+		        //printf("paramOffset=%d\n",paramOffset);
 		    }
 		    else {
-		       // printf("func_params[%d] is scalar!\n",i);
+		        //printf("func_params[%d] is scalar!\n",i);
 			descPacket_length+=func_params[i]->length();
 			//printf("descPacket_length=%d\n",descPacket_length);
 			paramOffset+=func_params[i]->length();
@@ -244,7 +244,7 @@ errType functionNode::decodeParams(rcsCmd* packet)//BYTE* paramsPtr)
 	//printf("4. If received params quantity is equal to declared params quantity - fills parameters values. Otherwise -  return value is err_result_error\n");
 	paramOffset=0;
 	if (rcvdPacket_length!=descPacket_length) {
-	  //  printf("rcvdPacket_length!=descPacket_length\n");
+	    //printf("rcvdPacket_length!=descPacket_length\n");
 	    result=err_result_error;
 	}
 	else {

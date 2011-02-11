@@ -19,33 +19,38 @@
 //  *   *   *   *  *  command to be executed
 
 cronTab::cronTab() {
-	cronFile=fopen("cronTest.txt","rw");
-	printf("cronTest.txt opened");
+
+	//printf("cronTest.txt opened");
 }
 
 cronTab::~cronTab() {
-	fclose(cronFile);
-	delete []command;
+
+
 }
 
-errType cronTab::setCommand(int btMinute, int btHour, int btDayM, int btMonth, int btDayW, char* newCommand){
+errType cronTab::setCommand(int btMinute, int btHour, int btDayM, int btMonth, int btDayW, DWORD objID, DWORD nextObjID, DWORD finishTime, char* newCommand){
 	sprintf(minute,"%d",btMinute);
 	sprintf(hour, "%d", btHour);
 	sprintf(day_of_month, "%d", btDayM);
-	sprintf(month, "%d", btMonth);
+	sprintf(month, "%d", btMonth+1);
 	sprintf(day_of_week, "%d", btDayW);
 
-	command=new char[256];
-	command[255]=0;
-	memcpy(command, newCommand,255);
+	sprintf(command, "\"ssProxy %s\" #objID=%d,nextObjID=%d,finishTime=%d", newCommand, objID, nextObjID, finishTime);
 
 	return err_result_ok;
 }
 
 errType cronTab::addToCronFile()
 {
-	//fprintf(cronFile, "%s\t%s\t%s\t%s\t%s\t%s", minute, hour, day_of_month,month,day_of_week,command);
-	printf("want to save: %s, %s, %s, %s, %s, cmd: %s\n", minute, hour, day_of_month,month,day_of_week, command);
-	//fprintf(cronFile, "%s\t%s\t%s\t%s\t%s", minute, hour, day_of_month,month,day_of_week);
-	return err_result_ok;
+	errType result=err_not_init;
+	cronFile=fopen("cronTest.txt","a");
+	if (cronFile) {
+		printf("want to save: %s %s %s %s * %s\n", minute, hour, day_of_month, month, command);
+		fprintf(cronFile, "%s\t%s\t%s\t%s\t*\t%s\n", minute, hour, day_of_month,month, command);
+		fclose(cronFile);
+		result=err_result_ok;
+	}
+	printf("want to exec: %s/%s (%s) %s:%s command: %s\n", day_of_month, month, day_of_week, hour, minute, command);
+
+	return result;
 }
