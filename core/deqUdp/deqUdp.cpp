@@ -89,7 +89,7 @@ errType deqUdp::readData(ssBuffer* addr, size_t* len, in_addr *ipaddr,bool peek)
     
     
     BYTE tmp_rcvData[*len];
-    BYTE* rcvData;
+    //BYTE* rcvData;
         
     socklen=sizeof(sockaddr_in);
     memset(&sfrom,0,sizeof(sockaddr_in));

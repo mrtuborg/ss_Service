@@ -98,8 +98,8 @@ class SrvAppLayer
 	void terminate(BYTE mode=1);
 	stateVector_type getStateVector();
 
-	BYTE serviceMode(); // 0 - automatic, 1- manual
-	errType setServiceMode(BYTE mode); //0 - automatic, 1- manual
+	BYTE serviceMode(); // 0 - local, 1- remote
+	errType setServiceMode(BYTE mode); //0 - local, 1- remote
 };
 
 extern SrvAppLayer* app;        ///< One global instance per application

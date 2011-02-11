@@ -23,6 +23,7 @@
 pthread_t PollingThreadHandle;
 FILE *scheduleFile;
 schedule generalShedule;
+schedule emergencyShedule;
 
 //#define EQ_UDP_PORT 5004
 //#define EQ_IP_ADDR "127.0.0.1"
@@ -148,7 +149,7 @@ errType addScheduleJob(void* fn)
     BYTE func_id=*(BYTE*)func->getParamPtr(8);
     BYTE* cmd=(BYTE*)func->getParamPtr(9);
 
-    job* newJob=new job(1, IPaddr, UdpPort);
+    job* newJob=new job(objId, IPaddr, UdpPort);
 
     newJob->set_dwNextJobID(nextObjId);
     newJob->set_btServiceId(service_id);
@@ -156,8 +157,14 @@ errType addScheduleJob(void* fn)
     newJob->set_dwFinishTime(timeEnd);
     newJob->setJobCmd(func_id, *((WORD*)cmd), cmd+2);
 
-    generalShedule.addJob(newJob);
-    generalShedule.update();
+    if (isEmergencySchedule==1)
+    {
+    		emergencyShedule.addJob(newJob);
+    	    	emergencyShedule.update();
+    	}else {
+    		generalShedule.addJob(newJob);
+    		generalShedule.update();
+    }
 
     /// use these files for cron:
     /// data_%jobId%.sdata - rcsCmd to send by cron scheduling

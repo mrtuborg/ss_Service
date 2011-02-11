@@ -6,6 +6,7 @@
  */
 #include <stdio.h>
 #include <string.h>
+#include <time.h>
 
 #include <extra/ortsTypes/ortsTypes.h>
 #include "cronTab.h"
@@ -28,14 +29,16 @@ cronTab::~cronTab() {
 
 }
 
-errType cronTab::setCommand(int btMinute, int btHour, int btDayM, int btMonth, int btDayW, DWORD objID, DWORD nextObjID, DWORD finishTime, char* newCommand){
-	sprintf(minute,"%d",btMinute);
-	sprintf(hour, "%d", btHour);
-	sprintf(day_of_month, "%d", btDayM);
-	sprintf(month, "%d", btMonth+1);
-	sprintf(day_of_week, "%d", btDayW);
+errType cronTab::setCommand(struct tm *ts, DWORD objID, DWORD nextObjID, DWORD finishTime, char* newCommand){
 
-	sprintf(command, "\"ssProxy %s\" #objID=%d,nextObjID=%d,finishTime=%d", newCommand, objID, nextObjID, finishTime);
+	sprintf(minute,"%d",ts->tm_min);
+	sprintf(hour, "%d", ts->tm_hour);
+	sprintf(day_of_month, "%d", ts->tm_mday);
+	sprintf(month, "%d", ts->tm_mon+1);
+	sprintf(day_of_week, "%d", ts->tm_wday);
+
+
+	sprintf(command, "ssProxy %s #objID=%d,nextObjID=%d,finishTime=%d", newCommand, objID, nextObjID, finishTime);
 
 	return err_result_ok;
 }

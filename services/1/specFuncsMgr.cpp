@@ -44,7 +44,7 @@ errType specFuncsMgr::startSpecFuncs()
     //
     // 4. Add function to Application interchange layer:
     //code: appLayer->CreateNewFunction(func);
-	    func=new functionNode(1,8,2,addScheduleJob);
+	    func=new functionNode(1,10,2,addScheduleJob);
 	    func->setMutatorStatus(true);
 	    func->setFuncName("Добавить пакетное задание");
 	    func->setParamDescriptor(0, type_BYTE);

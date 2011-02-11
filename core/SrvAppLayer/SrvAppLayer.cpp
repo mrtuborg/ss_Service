@@ -637,6 +637,7 @@ BYTE SrvAppLayer::serviceMode()
 	if (ServiceState.state.mode_auto == 1) return 0;
 	if (ServiceState.state.mode_manual == 1) return 1;
 
+	return err_result_ok;
 }
 
 errType SrvAppLayer::setServiceMode(BYTE mode)
@@ -647,4 +648,5 @@ errType SrvAppLayer::setServiceMode(BYTE mode)
 	if (mode==0) ServiceState.state.mode_auto = 1;
 	else ServiceState.state.mode_manual = 1;
 
+	return err_result_ok;
 }

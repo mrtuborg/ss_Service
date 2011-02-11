@@ -7,6 +7,8 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <sys/mman.h>
+#include <netinet/in.h>
+#include <arpa/inet.h>
               
 #include <extra/ortsTypes/ortsTypes.h>
 #include <rcsLib/rcsCmd/rcsCmd.h>
@@ -161,15 +163,15 @@ errType schedule::encode(BYTE* array)
     errType result=err_not_init;
     list <job*>::iterator iter;
 
-    int offset=0;
-    job* tmp_job;
+//    int offset=0;
+//    job* tmp_job;
     
     for (iter=job_list.begin(); iter!=job_list.end(); ++iter)
     {
-	//-tmp_job=new job;
-	tmp_job->encode(array+offset);
-	addJob(tmp_job);
-	offset+=(*iter)->getLength();
+//	tmp_job=new job();
+//	tmp_job->encode(array+offset);
+//	addJob(tmp_job);
+//	offset+=(*iter)->getLength();
     }
     
     
@@ -202,9 +204,20 @@ errType schedule::writeCronTab(job* newJob)
 	ts = localtime(&timeStart);
 	/// 2. Filling cron task
 	WORD cmdLen=newJob->cmd()->getCmdLength();
-	char* cmd; // string for writing to cron
-	cmd=new char[cmdLen];
+	char *ipaddr;//[255];
+	char uport[255];
 
+	struct in_addr in;
+	in.s_addr=newJob->get_dwServiceIPaddr();
+	ipaddr=inet_ntoa(in);
+
+	sprintf(uport, "%d", newJob->get_wServiceUdpPort());
+
+	char *cmd, *tmp_cmd; // string for writing to cron
+	cmd=new char[cmdLen*3+strlen(ipaddr)+strlen(uport)+3];
+	sprintf(cmd,"-u %s:%s ", ipaddr, uport);
+	tmp_cmd=cmd;
+	cmd=cmd+strlen(ipaddr)+strlen(uport);
 	BYTE* array; // temporary array for decoding cmd
 	array=new BYTE[cmdLen];
 	newJob->cmd()->decode(array);
@@ -212,9 +225,10 @@ errType schedule::writeCronTab(job* newJob)
 		sprintf(cmd+i*3,"%.2X ",array[i]);
 	}
 	cmd[cmdLen*3]=0;
-
-	cronJob->setCommand(ts->tm_min, ts->tm_hour, ts->tm_mday, ts->tm_mon, ts->tm_wday, newJob->get_dwObjId(), newJob->get_dwNextObjId(), newJob->get_dwTimeEnd(), cmd);
+	cmd=tmp_cmd;
+	cronJob->setCommand(ts, newJob->get_dwObjId(), newJob->get_dwNextObjId(), newJob->get_dwTimeEnd(), cmd);
 	cronJob->addToCronFile();
+
 
 	delete []cmd;
 	delete []array;

@@ -30,7 +30,7 @@ class cronTab {
 	FILE* cronFile;
 
 public:
-	errType setCommand(int minute, int hour, int dayM, int month, int dayW, DWORD objID, DWORD nextObjID, DWORD finishTime, char* command);
+	errType setCommand(struct tm *ts, DWORD objID, DWORD nextObjID, DWORD finishTime, char* command);
 	errType addToCronFile();
 	errType eraseEarlier();
 	errType loadFromCronFileAt(int minute, int hour, int dayM, int month, int dayW);
