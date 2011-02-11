@@ -11,15 +11,17 @@
 #include <extra/ortsTypes/ortsTypes.h>
 #include <rcsLib/rcsCmd/rcsCmd.h>
 #include "cronTab.h"
-#include "job.h"
+#include <schedule/job/job.h>
 #include "schedule.h"
 
 schedule::schedule()
 {
+	cronJob=new cronTab();
 }
 
 schedule::~schedule()
 {
+	delete cronJob;
 }
 
 errType schedule::addJob(job* jEntity){
@@ -149,7 +151,7 @@ errType schedule::update()
 	list <job*>::iterator iter;
 	for (iter=job_list.begin(); iter!=job_list.end(); ++iter)
 	{
-		(*iter)->writeCronTab();
+		writeCronTab(*iter);
 	}
     return err_result_ok;
 }
@@ -189,5 +191,33 @@ errType schedule::decode(BYTE* array)
     
     
     return result;
+}
+
+errType schedule::writeCronTab(job* newJob)
+{
+	errType result=err_result_ok;
+	struct tm  *ts;
+	time_t timeStart = newJob->get_dwTimeStart();
+	/// 1. Define start time for cron task
+	ts = localtime(&timeStart);
+	/// 2. Filling cron task
+	WORD cmdLen=newJob->cmd()->getCmdLength();
+	char* cmd; // string for writing to cron
+	cmd=new char[cmdLen];
+
+	BYTE* array; // temporary array for decoding cmd
+	array=new BYTE[cmdLen];
+	newJob->cmd()->decode(array);
+	for (int i=0; i<cmdLen; i++) {
+		sprintf(cmd+i*3,"%.2X ",array[i]);
+	}
+	cmd[cmdLen*3]=0;
+
+	cronJob->setCommand(ts->tm_min, ts->tm_hour, ts->tm_mday, ts->tm_mon, ts->tm_wday, newJob->get_dwObjId(), newJob->get_dwNextObjId(), newJob->get_dwTimeEnd(), cmd);
+	cronJob->addToCronFile();
+
+	delete []cmd;
+	delete []array;
+	return result;
 }
 

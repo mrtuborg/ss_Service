@@ -4,6 +4,7 @@ using namespace std;
 class schedule 
 {
     BYTE id;
+    cronTab* cronJob;
     list<job*> job_list;
     
     int fd;  // mapping file descriptor;
@@ -22,6 +23,6 @@ class schedule
     errType mappingClose();
     errType decode(BYTE*);
     errType encode(BYTE*);
-    
+	errType writeCronTab(job*);
 };
 
