@@ -190,13 +190,14 @@ errType param_desc::printParam()
 	    
 	case type_CHARVECTOR:
 	    printf("\t%s: ", param_name);
-	    //printf("length1=%d\n", _length);
-	    //printf("length2=%d\n", *(WORD*)param);
 	    for (int i=0; i<*(WORD*)param; i++) printf("%c",*((char*)param+2+i));
 	    printf("\n");
 	    break;
 
 	case type_BYTEVECTOR:
+		printf("\t%s: ", param_name);
+		for (int i=0; i<*(WORD*)param; i++) printf(" %.2X",*((BYTE*)param+2+i));
+		printf("\n");
 	    break;
 
 	case type_WORDVECTOR:

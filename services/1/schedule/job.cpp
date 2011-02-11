@@ -60,13 +60,13 @@ errType job::set_dwNextJobID(DWORD id)
 		return err_result_ok;
 }
 
-errType job::set_wStartTime(WORD time)
+errType job::set_dwStartTime(DWORD time)
 {
 		jobReference->timeStart=time;
 		return err_result_ok;
 }
 
-errType job::set_wFinishTime(WORD time)
+errType job::set_dwFinishTime(DWORD time)
 {
 		jobReference->timeEnd=time;
 		return err_result_ok;
@@ -78,22 +78,33 @@ errType job::set_btServiceId(BYTE id)
 		return err_result_ok;
 }
 
-errType	job::setJobCmd(BYTE func_id, DWORD param_len, void* args)
+errType	job::setJobCmd(BYTE func_id, WORD param_len, void* args)
 {
 		errType result=err_result_ok;
 		jobEntity->encode(func_id, param_len, args);
+		jobEntity->makeSign();
+		return result;
+}
+
+errType	job::setJobCmd(BYTE* cmd)
+{
+		errType result=err_result_ok;
+
+		jobEntity->encode(cmd);
+		jobEntity->makeSign();
+
 		return result;
 }
 
 
 DWORD job::get_dwObjId()   { return jobReference->objId;    }
 DWORD job::get_dwNextObjId()   { return jobReference->nextObjId;}
-WORD job::get_wTimeStart() { return jobReference->timeStart; }
-WORD job::get_wTimeEnd()   { return jobReference->timeEnd;   }
+WORD job::get_dwTimeStart() { return jobReference->timeStart; }
+WORD job::get_dwTimeEnd()   { return jobReference->timeEnd;   }
 BYTE job::get_btServId()   { return jobReference->service_id;}
 BYTE job::get_btFuncId()   { return jobEntity->get_func_id();}
 const void* job::get_paramsPtr(DWORD offset) { return jobEntity->get_func_paramsPtr(offset);}
-DWORD job::get_paramsLength(){return jobEntity->get_func_paramsLength();}
+WORD job::get_paramsLength(){return jobEntity->get_func_paramsLength();}
 rcsCmd *job::cmd()    { return jobEntity;       }
 
 //const char*job::cronTabString()
@@ -132,42 +143,28 @@ BYTE* get_strTime()
 errType job::writeCronTab()
 {
 	errType result=err_result_ok;
-	DWORD seconds = jobReference->timeStart;
-	//jobEntity
-
-	time_t timeStart=seconds;
 	struct tm  *ts;
-
+	time_t timeStart = jobReference->timeStart;
+	/// 1. Define start time for cron task
 	ts = localtime(&timeStart);
-
-	printf("seconds=%d\n", seconds);
-	printf("time: 19%d-%d-%d %d:%d:%d\n", ts->tm_year,ts->tm_mon,ts->tm_mday, ts->tm_hour, ts->tm_min, ts->tm_sec);
-
+	/// 2. Filling cron task
 	WORD cmdLen=jobEntity->getCmdLength();
-	char *cmd;
+	char* cmd; // string for writing to cron
 	cmd=new char[cmdLen];
-	printf("Command: ");
-	for (int i=0; i<cmdLen; i++) printf("%.2X ", cmd[i]);
-	printf("\n");
 
-	jobEntity->get_func_id();
-	jobEntity->dbgPrint();
-	BYTE* param;
-
-	param=(BYTE*)jobEntity->get_func_paramsPtr();
-	WORD paramsLen=jobEntity->get_func_paramsLength();
-	printf("param=%p\n", param);
-	if (param!=0) {
-		for (int i=0; i<paramsLen; i++) {
-				sprintf(cmd+i*2,"%.2X",param[i]);
-				printf("%d: %.2X\n",i*2, param[i]);
-		}
-		cmd[paramsLen]=0;
+	BYTE* array; // temporary array for decoding cmd
+	array=new BYTE[cmdLen];
+	jobEntity->decode(array);
+	for (int i=0; i<cmdLen; i++) {
+		sprintf(cmd+i*3,"%.2X ",array[i]);
 	}
-	printf("cmd=%s\n",cmd);
-	cronJob->setCommand(ts->tm_min, ts->tm_hour, ts->tm_mday, ts->tm_mon, ts->tm_wday, cmd);
+	cmd[cmdLen*3]=0;
+
+	cronJob->setCommand(ts->tm_min, ts->tm_hour, ts->tm_mday, ts->tm_mon, ts->tm_wday, jobReference->objId, jobReference->nextObjId, jobReference->timeEnd, cmd);
 	cronJob->addToCronFile();
-	delete cmd;
+
+	delete []cmd;
+	delete []array;
 	return result;
 }
 

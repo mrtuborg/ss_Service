@@ -25,12 +25,12 @@ class cronTab {
 	char day_of_month[3];
 	char month[3];
 	char day_of_week[3];
-	char *command;
+	char command[255];
 
 	FILE* cronFile;
 
 public:
-	errType setCommand(int minute, int hour, int dayM, int month, int dayW, char* command);
+	errType setCommand(int minute, int hour, int dayM, int month, int dayW, DWORD objID, DWORD nextObjID, DWORD finishTime, char* command);
 	errType addToCronFile();
 	errType eraseEarlier();
 	errType loadFromCronFileAt(int minute, int hour, int dayM, int month, int dayW);

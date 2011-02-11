@@ -26,7 +26,6 @@ errType schedule::addJob(job* jEntity){
     list <job*>::iterator iter, prev_iter, tmp_iter;
     rcsCmd *iter_cmd, *param_cmd;
 
-    printf("pt1\n");
     /// TODO: Make simpler
     iter=job_list.begin();
     //if (!(*iter)) return err_abort;
@@ -34,10 +33,10 @@ errType schedule::addJob(job* jEntity){
     if (!quantity) job_list.push_back(jEntity);
     else {
     		for (iter=job_list.begin(); iter==job_list.end(); ++iter) {
-    			if ((*iter)->get_wTimeStart()<jEntity->get_wTimeStart()) {
+    			if ((*iter)->get_dwTimeStart()<jEntity->get_dwTimeStart()) {
     				prev_iter=iter;
     			} else {
-    				if ((*iter)->get_wTimeStart()==jEntity->get_wTimeStart()){
+    				if ((*iter)->get_dwTimeStart()==jEntity->get_dwTimeStart()){
     					iter_cmd=(*iter)->cmd();
     					param_cmd=jEntity->cmd();
     					if (((*iter)->get_btServId()==jEntity->get_btServId()) && (iter_cmd->get_func_id()==param_cmd->get_func_id())){
@@ -51,18 +50,17 @@ errType schedule::addJob(job* jEntity){
     			}
     		}
     }
-    quantity=job_list.size();
-    printf("job_list size=%d\n",quantity);
+
     return err_result_ok;
 }
 
-errType schedule::removeAllJobsBefore(WORD wTime)
+errType schedule::removeAllJobsBefore(DWORD dwTime)
 {
     list <job*>::iterator iter, prev_iter, tmp_iter;
     
     for (iter=job_list.begin(); iter!=job_list.end(); ++iter)
     {
-		if ((*iter)->get_wTimeStart()<=wTime)
+		if ((*iter)->get_dwTimeStart()<=dwTime)
 		{
 		  tmp_iter=iter;
 		  job_list.erase(tmp_iter);
