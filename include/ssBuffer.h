@@ -19,7 +19,7 @@ using namespace std;
  */
 typedef struct ssBlock
 {
-	sockaddr_in addr_in; ///< recepient of datablock address,
+    sockaddr_in addr_in; ///< recipient of datablock address,
 	DWORD dataLen;       ///< size in bytes of data,
 	BYTE* data;          ///< data array pointer.
 

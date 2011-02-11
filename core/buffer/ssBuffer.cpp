@@ -40,14 +40,14 @@ ssBuffer::~ssBuffer()
  **********************************************************************************/
 errType ssBuffer::pushBlock(sockaddr_in* addr, BYTE* block, DWORD len)
 {
-    errType result=err_result_ok;
-    ssBlock* dataBlock=new ssBlock;
+    errType result = err_result_ok;
+    ssBlock* dataBlock = new ssBlock;
     //printf("Wanna send to IP: %s\n",inet_ntoa(addr->sin_addr));
     //printf("to udp port: %d\n",ntohs(addr->sin_port));
-    memcpy(&dataBlock->addr_in,addr,sizeof(sockaddr_in));
-    dataBlock->data=new BYTE[len];
-    memcpy(dataBlock->data,block,len);
-    dataBlock->dataLen=len;
+    memcpy(&dataBlock->addr_in, addr, sizeof(sockaddr_in));
+    dataBlock->data = new BYTE[len];
+    memcpy(dataBlock->data, block, len);
+    dataBlock->dataLen = len;
     buffer.push_back(dataBlock);
     //dbgPrint();
     return result;

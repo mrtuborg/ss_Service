@@ -88,7 +88,7 @@ errType deqUdp::readData(ssBuffer* addr, size_t* len, in_addr *ipaddr,bool peek)
     WORD sock=get_sock();
     
     
-    BYTE* tmp_rcvData=new BYTE[*len];
+    BYTE tmp_rcvData[*len];
     BYTE* rcvData;
         
     socklen=sizeof(sockaddr_in);
@@ -98,29 +98,24 @@ errType deqUdp::readData(ssBuffer* addr, size_t* len, in_addr *ipaddr,bool peek)
     
 //    if (verbose_level) printf("listening %lu bytes on %d port\n",*len,ntohs(ip_addr.sin_port));
     do {
-		if (peek) numbytes = recvfrom(sock, tmp_rcvData, *len , MSG_PEEK,(struct sockaddr *)&sfrom, &socklen);
-		else numbytes = recvfrom(sock, tmp_rcvData, *len , 0 ,(struct sockaddr *)&sfrom, &socklen);
-		
-		
-		//printf("packet from %s:%d\n",inet_ntoa(sfrom.sin_addr),ntohs(sfrom.sin_port));
-		if (((sfrom.sin_addr.s_addr)&0xFF000000)==0) repeat=true;
+        if (peek) numbytes = recvfrom(sock, tmp_rcvData, *len , MSG_PEEK,(struct sockaddr *)&sfrom, &socklen);
+        else numbytes = recvfrom(sock, tmp_rcvData, *len , 0 ,(struct sockaddr *)&sfrom, &socklen);
+
+
+        //printf("packet from %s:%d\n",inet_ntoa(sfrom.sin_addr),ntohs(sfrom.sin_port));
+        if (((sfrom.sin_addr.s_addr)&0xFF000000)==0) repeat=true;
     } while (repeat); 
     
     if ( numbytes == -1) {
         perror("recvfrom");
         result=err_result_error;
-		
+
     } else if (numbytes>0) {
-		rcvData=new BYTE[numbytes];
-		memcpy(rcvData, tmp_rcvData, numbytes);
-		
-		*len=numbytes;
-		
-		delete []tmp_rcvData;
-		
-		addr->pushBlock(&sfrom, rcvData, numbytes);
+
+        *len=numbytes;
+        addr->pushBlock(&sfrom, tmp_rcvData, numbytes);
 //		if (verbose_level) addr->dbgPrint();
-//		
+//
     }
     return result;
 }
