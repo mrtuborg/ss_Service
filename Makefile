@@ -3,7 +3,7 @@
 id:=.
 host:=1
 
-use_libs		:=rcsLib comm extra math udpAction
+use_libs		:=rcsLib comm extra math udpAction accessories
 app_binary_dir		:=bin/$(shell uname -s)_$(shell uname -r)
 app_libray_dir		:=libs
 root_build_dir		:=obj
@@ -42,6 +42,8 @@ lib_dirs+=$(addprefix $(paths_to_libraries)/math/, $(lib_subdirs))
 include $(addprefix $(paths_to_libraries)/,schedule/Makefile.inc)
 lib_dirs+=$(addprefix $(paths_to_libraries)/schedule/, $(lib_subdirs))
 
+include $(addprefix $(paths_to_libraries)/,accessories/Makefile.inc)               
+lib_dirs+=$(addprefix $(paths_to_libraries)/accessories/, $(lib_subdirs))
 
 compile_flags		:= -Wall -Wno-char-subscripts -MD -pipe
 link_flags		:= -pipe

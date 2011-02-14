@@ -1,6 +1,8 @@
 #ifndef SHIELD_TYPES_H
 #define SHIELD_TYPES_H
 
+const time_t kIntervalOfSendinToEquip (1);
+
 typedef enum  {
     UPPER   = 0,
     LOWER_B = 1,
