@@ -3,7 +3,7 @@
 #include <string.h>
 
 
-#include "../myTypes.h"
+#include <extra/ortsTypes/ortsTypes.h>
 #include "PS_CmdFrame.h"
 
 PS_CmdFrame::PS_CmdFrame()

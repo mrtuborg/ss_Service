@@ -1,17 +1,17 @@
 #include <deque>
 #include <pthread.h>
 #include <netinet/in.h>
-#include "../myTypes.h"
-#include "../buffer/ssBuffer.h"
-#include "../udp/udp_port.h"
-#include "../ICAppLayer/cmd.h"
-#include "../ICAppLayer/FunctionNode/param_desc.h"
-#include "../ICAppLayer/FunctionNode/FunctionNode.h"
-#include "../ICAppLayer/ICAppLayer.h"
-#include "SpecFuncs.h"
+#include <extra/ortsTypes/ortsTypes.h>
+#include <storage/ssBuffer/ssBuffer.h>
+#include <comm/udp_port/udp_port.h>
+#include <rcsLib/rcsCmd/rcsCmd.h>
+#include <param_desc.h>
+#include <functionNode.h>
+#include <SrvAppLayer.h>
+#include <specFuncsMgr.h>
 #include "functions.h"
 
-specFuncsMgr::specFuncsMgr(srvAppLayer *appl)
+specFuncsMgr::specFuncsMgr(SrvAppLayer *appl)
 {
     appLayer=appl;
 }

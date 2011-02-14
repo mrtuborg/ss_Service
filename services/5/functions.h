@@ -3,11 +3,11 @@
 extern errType srvInit();
 extern errType srvDeinit();
 
-extern errType EmergencyShutdown(void*);
-extern errType ControlModeChange(void*);
-extern errType GetStateVector(void*);
+extern errType emergencyShutdown(void*);
+extern errType controlModeChange(void*);
+extern errType getStateVector(void*);
 
-extern errType EquipListenProcessing(BYTE *, size_t);
+extern errType equipListenProcessing(BYTE *, size_t);
 
 extern errType GetFunctionMode(void*);
 extern errType GetCurrentCoordinates(void*);

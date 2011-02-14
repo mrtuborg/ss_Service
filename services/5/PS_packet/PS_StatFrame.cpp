@@ -1,7 +1,7 @@
 #include <stdint.h>
 #include <stdio.h>
 #include <string.h>
-#include "../myTypes.h"
+#include <extra/ortsTypes/ortsTypes.h>
 #include "PS_StatFrame.h"
 
 char strPSmode[7][255]={                                                           
