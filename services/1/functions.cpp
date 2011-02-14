@@ -12,7 +12,7 @@
 #include <param_desc.h>
 #include <functionNode.h>
 #include "schedule/cronTab.h"
-#include "schedule/job.h"
+#include <schedule/job/job.h>
 #include "schedule/schedule.h"
 #include <ssBuffer.h>
 #include <comm/udp_port/udp_port.h>
@@ -23,6 +23,7 @@
 pthread_t PollingThreadHandle;
 FILE *scheduleFile;
 schedule generalShedule;
+schedule emergencyShedule;
 
 //#define EQ_UDP_PORT 5004
 //#define EQ_IP_ADDR "127.0.0.1"
@@ -141,18 +142,29 @@ errType addScheduleJob(void* fn)
     DWORD nextObjId=*(DWORD*)(func->getParamPtr(2));
     DWORD timeStart=*(DWORD*)func->getParamPtr(3);
     DWORD timeEnd=*(DWORD*)func->getParamPtr(4);
-    BYTE service_id=*(BYTE*)func->getParamPtr(5);
-    BYTE func_id=*(BYTE*)func->getParamPtr(6);
-    BYTE* cmd=(BYTE*)func->getParamPtr(7);
-    job* newJob=new job(1);
+    DWORD IPaddr=*(DWORD*)func->getParamPtr(5);
+    WORD UdpPort=*(WORD*)func->getParamPtr(6);
+
+    BYTE service_id=*(BYTE*)func->getParamPtr(7);
+    BYTE func_id=*(BYTE*)func->getParamPtr(8);
+    BYTE* cmd=(BYTE*)func->getParamPtr(9);
+
+    job* newJob=new job(objId, IPaddr, UdpPort);
+
     newJob->set_dwNextJobID(nextObjId);
     newJob->set_btServiceId(service_id);
     newJob->set_dwStartTime(timeStart);
     newJob->set_dwFinishTime(timeEnd);
     newJob->setJobCmd(func_id, *((WORD*)cmd), cmd+2);
 
-    generalShedule.addJob(newJob);
-    generalShedule.update();
+    if (isEmergencySchedule==1)
+    {
+    		emergencyShedule.addJob(newJob);
+    	    	emergencyShedule.update();
+    	}else {
+    		generalShedule.addJob(newJob);
+    		generalShedule.update();
+    }
 
     /// use these files for cron:
     /// data_%jobId%.sdata - rcsCmd to send by cron scheduling

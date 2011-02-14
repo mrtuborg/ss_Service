@@ -52,9 +52,7 @@ errType specFuncsMgr::startSpecFuncs()
     //
     // 6. Add function to Application interchange layer:
     //code: appLayer->CreateNewFunction(func);
-
-
-	    func=new functionNode(1,8,2,addScheduleJob);
+	    func=new functionNode(1,10,2,addScheduleJob);
 	    func->setMutatorStatus(true);
 	    func->setFuncName("Добавить пакетное задание");
 	    func->setParamDescriptor(0, type_BYTE);
@@ -72,14 +70,20 @@ errType specFuncsMgr::startSpecFuncs()
 	    func->setParamDescriptor(4, type_DWORD);
 	    func->setParamName(4,"Время окончания операции");
 
-	    func->setParamDescriptor(5, type_BYTE);
-	    func->setParamName(5,"Идентификатор службы-исполнителя");
+	    func->setParamDescriptor(5, type_DWORD);
+	    	func->setParamName(5,"IPv4-адресс службы");
 
-	    func->setParamDescriptor(6, type_BYTE);
-	    func->setParamName(6,"Идентификатор функции-исполнителя");
+	    	func->setParamDescriptor(6, type_WORD);
+	    	func->setParamName(6,"UDP порт службы");
 
-	    func->setParamDescriptor(7, type_BYTEVECTOR);
-	    func->setParamName(7,"Параметрическая часть");
+	    func->setParamDescriptor(7, type_BYTE);
+	    func->setParamName(7,"Идентификатор службы-исполнителя");
+
+	    func->setParamDescriptor(8, type_BYTE);
+	    func->setParamName(8,"Идентификатор функции-исполнителя");
+
+	    func->setParamDescriptor(9, type_BYTEVECTOR);
+	    func->setParamName(9,"Параметрическая часть");
 
 	    func->setResultDescriptor(0,type_ERRTYPE);
 	    func->setResultName(0, "Квитанция исполнения");

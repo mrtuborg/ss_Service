@@ -7,19 +7,23 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <sys/mman.h>
+#include <netinet/in.h>
+#include <arpa/inet.h>
               
 #include <extra/ortsTypes/ortsTypes.h>
 #include <rcsLib/rcsCmd/rcsCmd.h>
 #include "cronTab.h"
-#include "job.h"
+#include <schedule/job/job.h>
 #include "schedule.h"
 
 schedule::schedule()
 {
+	cronJob=new cronTab();
 }
 
 schedule::~schedule()
 {
+	delete cronJob;
 }
 
 errType schedule::addJob(job* jEntity){
@@ -149,7 +153,7 @@ errType schedule::update()
 	list <job*>::iterator iter;
 	for (iter=job_list.begin(); iter!=job_list.end(); ++iter)
 	{
-		(*iter)->writeCronTab();
+		writeCronTab(*iter);
 	}
     return err_result_ok;
 }
@@ -159,15 +163,15 @@ errType schedule::encode(BYTE* array)
     errType result=err_not_init;
     list <job*>::iterator iter;
 
-    int offset=0;
-    job* tmp_job;
+//    int offset=0;
+//    job* tmp_job;
     
     for (iter=job_list.begin(); iter!=job_list.end(); ++iter)
     {
-	//-tmp_job=new job;
-	tmp_job->encode(array+offset);
-	addJob(tmp_job);
-	offset+=(*iter)->getLength();
+//	tmp_job=new job();
+//	tmp_job->encode(array+offset);
+//	addJob(tmp_job);
+//	offset+=(*iter)->getLength();
     }
     
     
@@ -189,5 +193,45 @@ errType schedule::decode(BYTE* array)
     
     
     return result;
+}
+
+errType schedule::writeCronTab(job* newJob)
+{
+	errType result=err_result_ok;
+	struct tm  *ts;
+	time_t timeStart = newJob->get_dwTimeStart();
+	/// 1. Define start time for cron task
+	ts = localtime(&timeStart);
+	/// 2. Filling cron task
+	WORD cmdLen=newJob->cmd()->getCmdLength();
+	char *ipaddr;//[255];
+	char uport[255];
+
+	struct in_addr in;
+	in.s_addr=newJob->get_dwServiceIPaddr();
+	ipaddr=inet_ntoa(in);
+
+	sprintf(uport, "%d", newJob->get_wServiceUdpPort());
+
+	char *cmd, *tmp_cmd; // string for writing to cron
+	cmd=new char[cmdLen*3+strlen(ipaddr)+strlen(uport)+3];
+	sprintf(cmd,"-u %s:%s ", ipaddr, uport);
+	tmp_cmd=cmd;
+	cmd=cmd+strlen(ipaddr)+strlen(uport);
+	BYTE* array; // temporary array for decoding cmd
+	array=new BYTE[cmdLen];
+	newJob->cmd()->decode(array);
+	for (int i=0; i<cmdLen; i++) {
+		sprintf(cmd+i*3,"%.2X ",array[i]);
+	}
+	cmd[cmdLen*3]=0;
+	cmd=tmp_cmd;
+	cronJob->setCommand(ts, newJob->get_dwObjId(), newJob->get_dwNextObjId(), newJob->get_dwTimeEnd(), cmd);
+	cronJob->addToCronFile();
+
+
+	delete []cmd;
+	delete []array;
+	return result;
 }
 
