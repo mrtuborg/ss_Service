@@ -17,7 +17,7 @@
 #include <string.h>
 //#include "auto_config.h"
 
-#include "./arg_parser/carg_parser.h"
+#include <system/arg_parser/carg_parser.h>
 
 /// programm revision number
 #ifndef REVISION
