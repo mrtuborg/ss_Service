@@ -34,22 +34,35 @@
  **************************************************************************************/
 void* equipListenPolling(void* user)                                             
 {                                                                               
-    SrvAppLayer *app=(SrvAppLayer*)user;
-    DWORD sz=1024;                                                              
-    BYTE *writingBuffer;                                                        
-    writingBuffer=new BYTE[256];                                               
-    errType result=err_not_init;                                                
-    
-    while (!app->terminated())                                                  
+    SrvAppLayer *app = (SrvAppLayer*)user;
+    DWORD   sz (1024);
+    BYTE    *writingBuffer;
+    errType result (err_not_init);
+    writingBuffer = new BYTE[256];
+    DWORD timeout;
+
+    while (!app->terminated())
     {                                                                           
         /// @todo Listening equipment answer - status vector:
+        if (app->is_awaiting_equip_answer())
+             timeout = app->get_timeout_equipment_answer();
+        else timeout = 0;
 
-    	    result=app->equip_reading_event();
-    	    
+        result = app->equip_reading_event(timeout);
 
-        if (result==err_result_ok) {
+        if (result == err_timeout && app->is_awaiting_equip_answer())  {
+            printf("Разрыв связи с оборудованием!\n\n");
+            app->set_state_vector_linked(false);
+        }
+
+        if (result == err_result_ok) {
 	    app->equip_read_data(writingBuffer, (size_t*)&sz);
 	    equipListenProcessing(writingBuffer, sz);
+            app->set_awaiting_equip_answer(false);
+            if (!app->get_state_vector_linked())  {
+                app->set_state_vector_linked(true);
+                printf("Связь с оборудованием восстановлена!\n\n");
+            }
 	}
 	sched_yield();
     }                                                                           

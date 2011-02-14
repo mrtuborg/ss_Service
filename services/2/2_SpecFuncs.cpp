@@ -30,28 +30,42 @@ errType specFuncsMgr::startSpecFuncs()
     //    Function #0..31 have <k> parameters  and <n> result arguments
     //    Set pointer to function implementaion
     //code: func=new functionNode(<func_id>,<k>,<n>,<function_name>);
-	    func=new functionNode(2,2,1,InstallStarsSet);
+    //
     // 2. Definitions for parameters:
     //code: func->setParamDescriptor(<k[i]>,<k[i]_length>);
-	    func->setParamDescriptor(0, 2);
-	    func->setParamDescriptor(1, 60);
+    //
     // 3. Defenitions for result arguments:
     //    Result argument have WORD type - 2 bytes
     //code: func->setResultDescriptor(0, 2);
-	    func->setResultDescriptor(0, 1);
-    // 4. Add function to Application interchange layer:
+    //
+    // 4. Set mutator status if it necessery (mutators are not allowed in automatic mode)
+    // non initiated: non mutator status - function allowed in automatic mode
+    // code: func->setMutatorStatus(true)
+    //
+    // 5. Setting timeout of waiting of the answer from the equipment
+    // non initiated: no verification of link status
+    //code: appLayer->set_timeout_equipment_answer(2)
+    //
+    // 6. Add function to Application interchange layer:
     //code: appLayer->CreateNewFunction(func);
-	    appLayer->CreateNewFunction(func);
-	    
-	    func=new functionNode(3,1,1,SetMeasuringTerm);
-	    func->setParamDescriptor(0, 8);
-	    func->setResultDescriptor(0, 1);
-	    appLayer->CreateNewFunction(func);
-	    
-	    func=new functionNode(4,0,2,GetMeasuringResult);
-	    func->setResultDescriptor(0, 1);
-	    func->setResultDescriptor(1, 60);
-	    appLayer->CreateNewFunction(func);
+
+
+    appLayer->CreateNewFunction(func);
+
+    func=new functionNode(2,2,1,InstallStarsSet);
+    func->setParamDescriptor(0, 2);
+    func->setParamDescriptor(1, 60);
+    func->setResultDescriptor(0, 1);
+
+    func=new functionNode(3,1,1,SetMeasuringTerm);
+    func->setParamDescriptor(0, 8);
+    func->setResultDescriptor(0, 1);
+    appLayer->CreateNewFunction(func);
+
+    func=new functionNode(4,0,2,GetMeasuringResult);
+    func->setResultDescriptor(0, 1);
+    func->setResultDescriptor(1, 60);
+    appLayer->CreateNewFunction(func);
 	    
     return result;
 }
