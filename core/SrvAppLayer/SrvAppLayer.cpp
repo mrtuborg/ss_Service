@@ -202,22 +202,6 @@ errType SrvAppLayer::DeleteFunction(BYTE id)
     return result;
 }
 
-/**********************************************************************************//**
- * @brief      Method to encode data from rcsCmd message.
- *
- * @param[in]   ss_cmd - rcsCmd message
- * @param[out]  data   - pointer to pointer that will include result of method
- * @retval      err_result_ok - Block encoded successfully
- * @todo nobody uses this method. need to be deleted.
- **************************************************************************************/
-//errType srvAppLayer::encodeBlock(rcsCmd* ss_cmd, BYTE** data)
-//{
-//    errType result=err_result_ok;
-//
-//    *data=(BYTE*) ss_cmd;
-//
-//    return result;
-//}
 
 /**********************************************************************************//**
  * @brief      Method to prepare and start base communication engine
@@ -296,10 +280,10 @@ errType SrvAppLayer::StopListening()
  * @todo        too strange method. May be it need be refactoring.
  * @retval      err_result_ok   - udp socket received data
  **************************************************************************************/
-errType SrvAppLayer::equip_reading_event(){
+errType SrvAppLayer::equip_reading_event(DWORD timeOut_sec, DWORD timeOut_ms){
 	    errType result=err_not_init;
 	    BYTE event=0;
-	    result=equip_listen->udp_async_process(&event);
+	    result=equip_listen->udp_async_process(&event, timeOut_sec, timeOut_ms);
 	    if ((result==err_result_ok) && ((event&0x1)==0x1)) result=err_result_ok;
 	    return result;
 	}
@@ -559,14 +543,7 @@ errType SrvAppLayer::processInMessages(sockaddr_in *sfrom, rcsCmd *inCmd)
     errType result=err_not_init;
 	BYTE* dataBlock;
     DWORD length;
-    
 
-
-//   TODO: link bit in serviceState
-//    if (equip_listen->scanIfaces()<ifCount)
-//    {
-//	ServiceState.servState.fields.overflow_link_sec=1;
-//    } else ServiceState.servState.fields.overflow_link_sec=0;
 
 ///  1) Read from \ref clientsRequestsQueue one new request
     
