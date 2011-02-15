@@ -114,12 +114,12 @@ errType specFuncsMgr::startSpecFuncs()
 	    func=new functionNode(4,3,1,SetCorrection);
 	    func->setFuncName("Задать поправки АРМ");
 	    
-	    func->setParamDescriptor(0,type_DWORD);
+	    func->setParamDescriptor(0,type_DOUBLE);
 	    func->setParamName(0,"Поправка по азимуту");
-	    func->setParamDescriptor(1,type_DWORD);
+	    func->setParamDescriptor(1,type_DOUBLE);
 	    func->setParamName(1,"Поправка по углу места");
 	    func->setParamDescriptor(2,type_DWORD);
-	    func->setParamName(2,"Поправка времени");
+	    func->setParamName(2,"Поправка времени, msec");
 	    
 	    func->setResultDescriptor(0,type_ERRTYPE);
 	    func->setResultName(0,"Квитанция исполнения");
@@ -127,8 +127,10 @@ errType specFuncsMgr::startSpecFuncs()
 	    
 	    
 	    appLayer->CreateNewFunction(func);
-	    func=new functionNode(5,0,1,SetProgrammMode);
+	    func=new functionNode(5,1,1,SetProgrammMode);
 	    func->setFuncName("Переключиться в режим программного наведения");
+	    func->setParamDescriptor(0,type_CHARVECTOR);
+	    func->setParamName(0,"Файл целеуказаний");
 	    func->setResultDescriptor(0,type_ERRTYPE);
 	    func->setResultName(0,"Квитанция исполнения");
 	    appLayer->CreateNewFunction(func);
@@ -166,6 +168,12 @@ errType specFuncsMgr::startSpecFuncs()
 	    func->setResultName(0,"Квитанция исполнения");
 	    appLayer->CreateNewFunction(func);
 	    
+	    func=new functionNode(10,0,1,SuspendMode);
+	    func->setFuncName("Режим ОТКЛЮЧЕНО");
+	    func->setResultDescriptor(0,type_ERRTYPE);
+	    func->setResultName(0,"Квитанция исполнения");
+	    appLayer->CreateNewFunction(func);
+
     return result;
 }
 

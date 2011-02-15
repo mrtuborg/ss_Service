@@ -18,4 +18,5 @@ extern errType SetKNMode(void*);
 extern errType SetZVVMode(void*);
 extern errType StartSearchingMode(void*);
 extern errType StopSearchingMode(void*);
+extern errType SuspendMode(void*);
 

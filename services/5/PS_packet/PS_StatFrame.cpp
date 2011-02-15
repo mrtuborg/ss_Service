@@ -9,8 +9,8 @@ char strPSmode[7][255]={
     {"Ручной"},                                                                    
     {"Программный"},                                                               
     {"КН"},                                                                        
-    {"AC"},                                                                        
-    {"Поиск"},                                                                     
+    {"АС"},
+    {"Поиск"},
     {"ЗВВ"}};                                                                      
                                                                                                                
 char strPSfield[2][255]={                                                          
@@ -37,13 +37,15 @@ PS_StatFrame::~PS_StatFrame()
 
 errType PS_StatFrame::decode(BYTE** array)                                            
 {                                                                                  
-    memcpy(*array,frame,sizeof(PS_StatFrameType));                                  
+    memcpy(*array,frame,sizeof(PS_StatFrameType));
+    return err_result_ok;
 }                                                                                  
                                                                                    
 errType PS_StatFrame::encode(BYTE* array, DWORD size)                                 
 {                                                                                  
     memcpy(frame,"\x0", sizeof(PS_StatFrameType));
-    memcpy(frame,array, size);                                                   
+    memcpy(frame,array, size);
+    return err_result_ok;
 } 
 
 DWORD PS_StatFrame::currTime()
@@ -155,8 +157,8 @@ void PS_StatFrame::dbgPrint()
 {
     printf("Режим: %s\n",strPSmode[frame->currMode]);                                                      
     printf("Дата: %d/%d/%d",frame->day,frame->month,frame->year);                                                 
-    printf("ДМВ: %lu\n",frame->currTime);                                                         
-    printf("Звёздное время: %lu\n",frame->astralTime);                                                         
+    printf("ДМВ: %d\n",frame->currTime);
+    printf("Звёздное время: %d\n",frame->astralTime);
     printf("Азимут в режиме ДОС: %f\n",frame->DOS_Azimuth);                                                        
     printf("Угол места в режиме ДОС: %f\n",frame->DOS_Elevation);                                                      
     printf("Азимут программного режима: %f\n",frame->PRG_Azimuth);                                                        
@@ -171,7 +173,7 @@ void PS_StatFrame::dbgPrint()
     printf("Установившееся факт. значение скорости изменения по углу места: %f\n",frame->CurrentElevationVelocity);                                           
     printf("Используемая привязка по азимуту: %f\n",frame->AzimuthBinding);                                                     
     printf("Используемая привязка по углу места: %f\n",frame->ElevationBinding);                                                   
-    printf("Используемая поправка по времени: %lu,сек\n",frame->currTimeCorrection);                                                 
+    printf("Используемая поправка по времени: %llu,сек\n",frame->currTimeCorrection);
     printf("Вектор состояния оборудования: 0x%.2X\n", frame->equipmentState);                                                     
     printf("Используемое поле: %s\n",strPSfield[frame->field]);                                                     
     printf("Дискрета: %s\n", strPSdiscrete[frame->discrete]);
