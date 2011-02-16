@@ -20,3 +20,4 @@ extern errType TaringStart(void*);
 extern errType GetTaringPoint(void*);
 extern errType TaringStop(void*);
 extern errType linkTest(void*);
+extern errType SendSASCMsg(SASC_cmd_mod mode, BYTE** params = 0);

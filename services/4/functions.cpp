@@ -26,23 +26,23 @@ comm_SASC rcvSASCmsg;
 
 SASC_answer_mod typeinf;
 
-buffer* resultStorage=0;
+buffer* resultStorage = 0;
 
 extern errType getNextDBRecord();
 
     
 errType equipListenProcessing(BYTE *writingBuffer, size_t sz)
 {
-    if (sz>sizeof(SASC_msg_type)) sz=sizeof(SASC_msg_type);
+    if (sz > comm_SASC::kSASCMsgSize) sz = comm_SASC::kSASCMsgSize;
     
     rcvSASCmsg.encode(writingBuffer, sz);
     printf("\n\tС иерархии нижнего уровня получен пакет (hex):\n");
     printf("\t[");
-    for(size_t k=0; k < sz; k++) printf("%.2X ", writingBuffer[k]);
+    for(size_t k = 0; k < sz; k++)  printf("%.2X ", writingBuffer[k]);
     //equip_recvBuffer->unlockBufferChunkForExternWriting(sz);
     printf("]\n\n");
     printf("\tРасшифровка:\n");
-    if (rcvSASCmsg.checkAnswer(&typeinf)==err_result_ok) {
+    if (rcvSASCmsg.checkAnswer(&typeinf) == err_result_ok)  {
 	printf("\tПринята ответная квитанция: %s\n", SASC_answer_str[typeinf]);
 	switch(typeinf)
 	{
@@ -81,12 +81,12 @@ errType equipListenProcessing(BYTE *writingBuffer, size_t sz)
 
 errType srvInit()
 {
-    errType result=err_not_init;
+    errType result = err_not_init;
     printf("\tСлужба системы обеспечения  СКСЮ\n");
     printf("=============================================================\n\n");
-    equip_sending=new udp_port(eq_udp_sending_port);
-    result=equip_sending->open_port();
-    equipAddr.s_addr=inet_addr(eq_ip_addr);
+    equip_sending = new udp_port(eq_udp_sending_port);
+    result = equip_sending->open_port();
+    equipAddr.s_addr = inet_addr(eq_ip_addr);
     
     return result;
 }
@@ -100,9 +100,9 @@ errType srvDeinit()
 
 errType emergencyShutdown(void* fn)
 {
-    errType result=err_not_init;
+    errType result = err_not_init;
     
-    functionNode* func=(functionNode*)fn;
+    functionNode* func = (functionNode*)fn;
     
     //func->dbgPrint();
     func->printResults();
@@ -111,9 +111,9 @@ errType emergencyShutdown(void* fn)
 
 errType controlModeChange(void* fn)
 {
-    errType result=err_not_init;
+    errType result = err_not_init;
 
-    functionNode* func=(functionNode*)fn;
+    functionNode* func = (functionNode*)fn;
     
     func->printParams();
     //func->dbgPrint();
@@ -123,30 +123,32 @@ errType controlModeChange(void* fn)
 
 errType getStateVector(void* fn)
 {
-    errType result=err_result_ok;
-    functionNode* func=(functionNode*)fn;
+    errType result = err_result_ok;
+    functionNode* func = (functionNode*)fn;
     func->printParams();
-    func->setResult(1,&(app->getStateVector()));
+    func->setResult(1, &(app->getStateVector()));
     func->printResults();
     return result;
 
 }
 
+inline errType SendSASCMsg(SASC_cmd_mod mode, BYTE** params)
+{
+    BYTE frame[comm_SASC::kSASCMsgSize];
+    sndSASCmsg.apply_mod(mode, params);
+    sndSASCmsg.decode(&frame);
+    equip_sending->sendData(equipAddr, frame, comm_SASC::kSASCMsgSize);
+}
 
 errType SASC_PowerON(void* fn)
 {
-    errType result=err_result_ok;
+    errType result = err_result_ok;
     
-    functionNode* func=(functionNode*)fn;
+    functionNode* func = (functionNode*)fn;
     
     func->printParams();
     
-    BYTE *frame;
-    frame=new BYTE[sizeof(SASC_msg_type)];
-    sndSASCmsg.apply_mod(_power_on);
-    sndSASCmsg.decode(&frame);
-    equip_sending->sendData(equipAddr, frame, sizeof(SASC_msg_type));
-    delete []frame;
+    SendSASCMsg(_power_on);
 
     func->printResults();
     return result;
@@ -154,18 +156,13 @@ errType SASC_PowerON(void* fn)
 
 errType SASC_PowerOFF(void* fn)
 {
-    errType result=err_result_ok;
+    errType result = err_result_ok;
     
-    functionNode* func=(functionNode*)fn;
+    functionNode* func = (functionNode*)fn;
     
     func->printParams();
     
-    BYTE *frame;
-    frame=new BYTE[sizeof(SASC_msg_type)];
-    sndSASCmsg.apply_mod(_power_off);
-    sndSASCmsg.decode(&frame);
-    equip_sending->sendData(equipAddr, frame, sizeof(SASC_msg_type));
-    delete []frame;
+    SendSASCMsg(_power_off);
 
     func->printResults();
     return result;
@@ -173,34 +170,29 @@ errType SASC_PowerOFF(void* fn)
 
 errType StartMeasuring(void* fn)
 {
-    errType result=err_result_ok;
+    errType result = err_result_ok;
 
-    functionNode* func=(functionNode*)fn;
+    functionNode* func = (functionNode*)fn;
     
     func->printParams();
     
     BYTE *params[7];
     //binning
-    params[0]=(BYTE*)func->getParamPtr(0);
+    params[0] = (BYTE*)func->getParamPtr(0);
     //Niter
-    params[1]=(BYTE*)func->getParamPtr(1);
+    params[1] = (BYTE*)func->getParamPtr(1);
     //FiH
-    params[2]=(BYTE*)func->getParamPtr(2);
+    params[2] = (BYTE*)func->getParamPtr(2);
     //FiA
-    params[3]=(BYTE*)func->getParamPtr(3);
+    params[3] = (BYTE*)func->getParamPtr(3);
     //TC
-    params[4]=(BYTE*)func->getParamPtr(4);
+    params[4] = (BYTE*)func->getParamPtr(4);
     //Wm_c
-    params[5]=(BYTE*)func->getParamPtr(5);
+    params[5] = (BYTE*)func->getParamPtr(5);
     //Wa
-    params[6]=(BYTE*)func->getParamPtr(6);
+    params[6] = (BYTE*)func->getParamPtr(6);
     
-    BYTE *frame;
-    frame=new BYTE[sizeof(SASC_msg_type)];
-    sndSASCmsg.apply_mod(_measure, params);
-    sndSASCmsg.decode(&frame);
-    equip_sending->sendData(equipAddr, frame, sizeof(SASC_msg_type));
-    delete []frame;
+    SendSASCMsg(_measure, params);
 
     func->printResults();
     
@@ -209,91 +201,73 @@ errType StartMeasuring(void* fn)
 
 errType ZeroMeasuring(void* fn)
 {
-    errType result=err_result_ok;
+    errType result = err_result_ok;
     
-    functionNode* func=(functionNode*)fn;
+    functionNode* func = (functionNode*)fn;
     
     func->printParams();
     
     BYTE *params[6];
     //binning
-    params[0]=(BYTE*)func->getParamPtr(0);
+    params[0] = (BYTE*)func->getParamPtr(0);
     //FiH
-    params[1]=(BYTE*)func->getParamPtr(1);
+    params[1] = (BYTE*)func->getParamPtr(1);
     //FiA
-    params[2]=(BYTE*)func->getParamPtr(2);
+    params[2] = (BYTE*)func->getParamPtr(2);
     //TC
-    params[3]=(BYTE*)func->getParamPtr(3);
+    params[3] = (BYTE*)func->getParamPtr(3);
     //Wm_c
-    params[4]=(BYTE*)func->getParamPtr(4);
+    params[4] = (BYTE*)func->getParamPtr(4);
     //Wa
-    params[5]=(BYTE*)func->getParamPtr(5);
+    params[5] = (BYTE*)func->getParamPtr(5);
     
     
-    BYTE *frame;
-    frame=new BYTE[sizeof(SASC_msg_type)];
-    sndSASCmsg.apply_mod(_zero_measure, params);
-    sndSASCmsg.decode(&frame);
-    equip_sending->sendData(equipAddr, frame, sizeof(SASC_msg_type));
-    delete []frame;
+    SendSASCMsg(_zero_measure, params);
 
     func->printResults();
     return result;
 }
 
-
 errType getNextDBRecord()
 {
-    errType result=err_result_ok;
-    BYTE *frame;
-    frame=new BYTE[sizeof(SASC_msg_type)];
-    sndSASCmsg.apply_mod(_get_next_record);
-    sndSASCmsg.decode(&frame);
-    equip_sending->sendData(equipAddr, frame, sizeof(SASC_msg_type));
+    errType result = err_result_ok;
+    SendSASCMsg(_get_next_record);
+
     return result;
 }
 
 errType PrepareMeasuringResult(void* fn)
 {
-    errType result=err_result_ok;
+    errType result = err_result_ok;
     
-    functionNode* func=(functionNode*)fn;
+    functionNode* func = (functionNode*)fn;
     
     func->printParams();
     
-    BYTE *frame;
-    
     delete resultStorage;
-    resultStorage=new buffer(5*sizeof(SASC_msg_type));
+    resultStorage = new buffer(5*comm_SASC::kSASCMsgSize);
     
-    frame=new BYTE[sizeof(SASC_msg_type)];
-    sndSASCmsg.apply_mod(_get_db);
-    sndSASCmsg.decode(&frame);
-    equip_sending->sendData(equipAddr, frame, sizeof(SASC_msg_type));
-    
-    
-    
-    
-    delete []frame;
+    SendSASCMsg(_get_db);
+
     func->printResults();
     return result;
 }
 
 errType GetMeasuringResult(void* fn)
 {
-    errType result=err_result_ok;
-    BYTE* buffer=0;
-    DWORD length=resultStorage->length();
+    errType result = err_result_ok;
+    BYTE* buffer = 0;
+    DWORD length = resultStorage->length();
     
-    functionNode* func=(functionNode*)fn;
+    functionNode* func = (functionNode*)fn;
     
     func->printParams();
 //    #error Надо предположить - собраны ли все данные
-    buffer=new BYTE[length+2];
-    *(WORD*)buffer=length/4;
-    length=resultStorage->read(buffer+2);
+    buffer = new BYTE[length + 2];
+    *(WORD*)buffer = length / 4;
+    length = resultStorage->read(buffer + 2);
     
-    func->setResult(1,buffer);
+    func->setResult(1, buffer);
     
     func->printResults();
     return result;
@@ -301,18 +275,13 @@ errType GetMeasuringResult(void* fn)
 
 errType ZeroDB(void* fn)
 {
-    errType result=err_result_ok;
+    errType result = err_result_ok;
     
-    functionNode* func=(functionNode*)fn;
+    functionNode* func = (functionNode*)fn;
     
     func->printParams();
     
-    BYTE *frame;
-    frame=new BYTE[sizeof(SASC_msg_type)];
-    sndSASCmsg.apply_mod(_erase_db);
-    sndSASCmsg.decode(&frame);
-    equip_sending->sendData(equipAddr, frame, sizeof(SASC_msg_type));
-    delete []frame;
+    SendSASCMsg(_erase_db);
 
     func->printResults();
     return result;
@@ -320,31 +289,26 @@ errType ZeroDB(void* fn)
 
 errType TaringStart(void* fn)
 {
-    errType result=err_result_ok;
+    errType result = err_result_ok;
     
-    functionNode* func=(functionNode*)fn;
+    functionNode* func = (functionNode*)fn;
     
     func->printParams();
 
     BYTE *params[5];
 
     //FiH
-    params[0]=(BYTE*)func->getParamPtr(0);
+    params[0] = (BYTE*)func->getParamPtr(0);
     //FiA
-    params[1]=(BYTE*)func->getParamPtr(1);
+    params[1] = (BYTE*)func->getParamPtr(1);
     //TC
-    params[2]=(BYTE*)func->getParamPtr(2);
+    params[2] = (BYTE*)func->getParamPtr(2);
     //Wm_c
-    params[3]=(BYTE*)func->getParamPtr(3);
+    params[3] = (BYTE*)func->getParamPtr(3);
     //Wa
-    params[4]=(BYTE*)func->getParamPtr(4);
+    params[4] = (BYTE*)func->getParamPtr(4);
     
-    BYTE *frame;
-    frame=new BYTE[sizeof(SASC_msg_type)];
-    sndSASCmsg.apply_mod(_tare_start, params);
-    sndSASCmsg.decode(&frame);
-    equip_sending->sendData(equipAddr, frame, sizeof(SASC_msg_type));
-    delete []frame;
+    SendSASCMsg(_tare_start, params);
 
     func->printResults();
     return result;
@@ -352,49 +316,44 @@ errType TaringStart(void* fn)
 
 errType GetTaringPoint(void* fn)
 {
-    errType result=err_result_ok;
+    errType result = err_result_ok;
     
-    functionNode* func=(functionNode*)fn;
+    functionNode* func = (functionNode*)fn;
     
     func->printParams();
     
     BYTE *params[12];
     //binning
-    params[0]=(BYTE*)func->getParamPtr(0);
+    params[0] = (BYTE*)func->getParamPtr(0);
     //Niter
-    params[1]=(BYTE*)func->getParamPtr(1);
+    params[1] = (BYTE*)func->getParamPtr(1);
     //FiH
-    params[2]=(BYTE*)func->getParamPtr(2);
+    params[2] = (BYTE*)func->getParamPtr(2);
     //FiA
-    params[3]=(BYTE*)func->getParamPtr(3);
+    params[3] = (BYTE*)func->getParamPtr(3);
     //TC
-    params[4]=(BYTE*)func->getParamPtr(4);
+    params[4] = (BYTE*)func->getParamPtr(4);
     //Wm_c
-    params[5]=(BYTE*)func->getParamPtr(5);
+    params[5] = (BYTE*)func->getParamPtr(5);
     //Wa
-    params[6]=(BYTE*)func->getParamPtr(6);
+    params[6] = (BYTE*)func->getParamPtr(6);
 
     //X
-    params[7]=(BYTE*)func->getParamPtr(7);
+    params[7] = (BYTE*)func->getParamPtr(7);
 
     //Y
-    params[8]=(BYTE*)func->getParamPtr(8);
+    params[8] = (BYTE*)func->getParamPtr(8);
 
     //Z
-    params[9]=(BYTE*)func->getParamPtr(9);
+    params[9] = (BYTE*)func->getParamPtr(9);
 
     //Fix
-    params[10]=(BYTE*)func->getParamPtr(10);
+    params[10] = (BYTE*)func->getParamPtr(10);
 
     //Fiy
-    params[11]=(BYTE*)func->getParamPtr(11);
+    params[11] = (BYTE*)func->getParamPtr(11);
 
-    BYTE *frame;
-    frame=new BYTE[sizeof(SASC_msg_type)];
-    sndSASCmsg.apply_mod(_get_tare_value, params);
-    sndSASCmsg.decode(&frame);
-    equip_sending->sendData(equipAddr, frame, sizeof(SASC_msg_type));
-    delete []frame;
+    SendSASCMsg(_get_tare_value, params);
 
     func->printResults();
     return result;
@@ -402,32 +361,27 @@ errType GetTaringPoint(void* fn)
 
 errType TaringStop(void* fn)
 {
-    errType result=err_result_ok;
+    errType result = err_result_ok;
     
-    functionNode* func=(functionNode*)fn;
+    functionNode* func = (functionNode*)fn;
     
     func->printParams();
     
     BYTE *params[5];
     
     //FiH
-    params[0]=(BYTE*)func->getParamPtr(0);
+    params[0] = (BYTE*)func->getParamPtr(0);
     //FiA
-    params[1]=(BYTE*)func->getParamPtr(1);
+    params[1] = (BYTE*)func->getParamPtr(1);
     //TC
-    params[2]=(BYTE*)func->getParamPtr(2);
+    params[2] = (BYTE*)func->getParamPtr(2);
     //Wm_c
-    params[3]=(BYTE*)func->getParamPtr(3);
+    params[3] = (BYTE*)func->getParamPtr(3);
     //Wa
-    params[4]=(BYTE*)func->getParamPtr(4);
+    params[4] = (BYTE*)func->getParamPtr(4);
     
     
-    BYTE *frame;
-    frame=new BYTE[sizeof(SASC_msg_type)];
-    sndSASCmsg.apply_mod(_tare_stop,params);
-    sndSASCmsg.decode(&frame);
-    equip_sending->sendData(equipAddr, frame, sizeof(SASC_msg_type));
-    delete []frame;
+    SendSASCMsg(_tare_stop, params);
 
     func->printResults();
     
@@ -437,18 +391,13 @@ errType TaringStop(void* fn)
 
 errType linkTest(void* fn)
 {
-    errType result=err_result_ok;
+    errType result = err_result_ok;
     
-    functionNode* func=(functionNode*)fn;
+    functionNode* func = (functionNode*)fn;
     
     func->printParams();
     
-    BYTE *frame;
-    frame=new BYTE[sizeof(SASC_msg_type)];
-    sndSASCmsg.apply_mod(_link_test);
-    sndSASCmsg.decode(&frame);
-    equip_sending->sendData(equipAddr, frame, sizeof(SASC_msg_type));
-    delete []frame;
+    SendSASCMsg(_link_test);
 
     func->printResults();
     

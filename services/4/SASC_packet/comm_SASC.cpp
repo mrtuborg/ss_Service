@@ -6,6 +6,7 @@
 #include <extra/ortsTypes/ortsTypes.h>
 #include "comm_SASC.h"
 
+const WORD comm_SASC::kSASCMsgSize = sizeof(SASC_msg_type);
 
 char SASC_answer_str[13][255]=                                                  
 {                                                                               
@@ -38,7 +39,7 @@ comm_SASC::~comm_SASC()
 errType comm_SASC::clear_msg()
 {
     errType result=err_result_ok;
-    memset (msg,0, sizeof(SASC_msg_type));
+    memset (msg,0, comm_SASC::kSASCMsgSize);
     return result;
 }
 
@@ -207,7 +208,7 @@ errType comm_SASC::checkAnswer(SASC_answer_mod *typeinf)
 
 errType comm_SASC::decode(BYTE** array)
 {
-        memcpy(*array,msg,sizeof(SASC_msg_type));
+        memcpy(*array,msg,comm_SASC::kSASCMsgSize);
 }
 
 errType comm_SASC::encode(BYTE* array, DWORD size)
