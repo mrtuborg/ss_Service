@@ -35,6 +35,8 @@ errType equipListenProcessing(BYTE *writingBuffer, size_t sz)
     printf("]\n\n");
     printf("\tРасшифровка:\n");
     statFrame.dbgPrint();
+
+
     printf("\t===========================================\n\n");
     return err_result_ok;
 }
