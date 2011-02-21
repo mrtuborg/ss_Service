@@ -15,7 +15,7 @@
 #include <param_desc.h>
 #include <functionNode.h>
 #include <ssBuffer.h>
-#include <comm/udp_port/udp_port.h>
+#include <peripheral/udp_port/udp_port.h>
 #include <srvAppLayer.h>
 #include <prcList/prcTask.h>
 #include <prcList/prcList.h>

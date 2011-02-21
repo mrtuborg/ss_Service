@@ -15,7 +15,7 @@
 #include <schedule/job/job.h>
 #include "schedule/schedule.h"
 #include <ssBuffer.h>
-#include <comm/udp_port/udp_port.h>
+#include <peripheral/udp_port/udp_port.h>
 #include <srvAppLayer.h>
 #include <global.h>
 

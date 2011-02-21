@@ -3,7 +3,7 @@
 id:=.
 host:=1
 
-use_libs		:=rcsLib comm extra math udpAction accessories
+use_libs		:=rcsLib peripheral extra math udpAction
 app_binary_dir		:=bin/$(shell uname -s)_$(shell uname -r)
 app_libray_dir		:=libs
 root_build_dir		:=obj
@@ -29,10 +29,6 @@ include $(addprefix $(service_source_dir)/,Makefile.inc)
 include $(addprefix $(paths_to_libraries)/,rcsLib/Makefile.inc)
 lib_dirs:=$(addprefix $(paths_to_libraries)/rcsLib/, $(lib_subdirs))
 
-include $(addprefix $(paths_to_libraries)/,comm/Makefile.inc)
-lib_dirs+=$(addprefix $(paths_to_libraries)/comm/, $(lib_subdirs))
-
-
 include $(addprefix $(paths_to_libraries)/,extra/Makefile.inc)
 lib_dirs+=$(addprefix $(paths_to_libraries)/extra/, $(lib_subdirs))
 
@@ -42,8 +38,8 @@ lib_dirs+=$(addprefix $(paths_to_libraries)/math/, $(lib_subdirs))
 include $(addprefix $(paths_to_libraries)/,schedule/Makefile.inc)
 lib_dirs+=$(addprefix $(paths_to_libraries)/schedule/, $(lib_subdirs))
 
-include $(addprefix $(paths_to_libraries)/,accessories/Makefile.inc)               
-lib_dirs+=$(addprefix $(paths_to_libraries)/accessories/, $(lib_subdirs))
+include $(addprefix $(paths_to_libraries)/,peripheral/Makefile.inc)               
+lib_dirs+=$(addprefix $(paths_to_libraries)/peripheral/, $(lib_subdirs))
 
 compile_flags		:= -Wall -Wno-char-subscripts -MD -pipe
 link_flags		:= -pipe

@@ -63,8 +63,7 @@ class SrvAppLayer
     WORD cpListenerPortNum; ///< settings: Udp port number to listen requests from network clients
     udp_port *equip_listen; ///< udp_port instance that associates with listening data from equipment
 
-    DWORD timeout_equipment_answer_;
-    bool  awaiting_equip_answer_;
+    DWORD equipment_timeOut_Value;
 
     errType decodeMessage(BYTE* dataBlock, DWORD length, rcsCmd *ss_cmd); ///< step 1. decode recieved message from client
     errType execMessage(rcsCmd* ss_cmd);                                  ///< step 2. send data to requested service function
@@ -89,17 +88,17 @@ class SrvAppLayer
 	errType StartListening();
 	errType StopListening();
 	
-        errType equip_reading_event(DWORD timeout_sec);
+	errType equip_reading_event(DWORD timeout_sec);
 	errType equip_read_data(BYTE*, size_t *);
 
-        void  set_timeout_equipment_answer(DWORD value_sec)  {  timeout_equipment_answer_ = value_sec;  }
-        DWORD get_timeout_equipment_answer();
 
-        void set_awaiting_equip_answer(bool to_wait)  {  awaiting_equip_answer_ = to_wait;  }
-        bool is_awaiting_equip_answer()  {  return awaiting_equip_answer_;  }
+	DWORD get_equipment_timeOut_Value();
 
-        void set_state_vector_linked(bool linked)  {  ServiceState.state.linked = linked;  }
-        bool get_state_vector_linked()  {  return ServiceState.state.linked;  }
+	void set_awaiting_equip_answer(DWORD time_sec_to_wait)  {  equipment_timeOut_Value = time_sec_to_wait;  }
+	bool is_awaiting_equip_answer()  {  return (equipment_timeOut_Value!=0);  }
+
+	void set_state_vector_linked(bool linked)  {  ServiceState.state.linked = linked;  }
+	bool get_state_vector_linked()  {  return ServiceState.state.linked;  }
 
 	errType processMessages();
 	errType processInMessages(sockaddr_in*, rcsCmd*);

@@ -7,7 +7,7 @@
 #include <extra/ortsTypes/ortsTypes.h>
 #include <ssBuffer.h>
 #include <rcsLib/rcsCmd/rcsCmd.h>
-#include <comm/udp_port/udp_port.h>
+#include <peripheral/udp_port/udp_port.h>
 #include <param_desc.h>
 #include <functionNode.h>
 #include <SrvAppLayer.h>
@@ -55,7 +55,7 @@ errType specFuncsMgr::startSpecFuncs()
     // 6. Add function to Application interchange layer:
     //code: appLayer->CreateNewFunction(func);
 
-    appLayer->set_timeout_equipment_answer(2);
+    appLayer->set_awaiting_equip_answer(2);
 
 
     func = new functionNode(1,1,2,shieldPowerON);

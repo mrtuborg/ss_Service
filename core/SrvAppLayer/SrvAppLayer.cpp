@@ -27,7 +27,7 @@
 
 #include <global.h>
 #include <ssBuffer.h>
-#include <comm/udp_port/udp_port.h>
+#include <peripheral/udp_port/udp_port.h>
 #include <deqUdp.h>
 #include <rcsLib/udpAction/udpAction.h>
 #include <param_desc.h>
@@ -154,7 +154,7 @@ BYTE SrvAppLayer::terminated()
  ******************************************************************************************************************/
 
 SrvAppLayer::SrvAppLayer(WORD portNum):
-        timeout_equipment_answer_ (0)
+		equipment_timeOut_Value (0)
 {
     AppTerminated=false;
     cpListenerPortNum=portNum;
@@ -656,9 +656,6 @@ errType SrvAppLayer::setServiceMode(BYTE mode)
 
 // if answer from equipment is expected - to return timeout value for detecting emergency
 // else - just to wait unexpected messages
-DWORD SrvAppLayer::get_timeout_equipment_answer()  {
-    if (awaiting_equip_answer_)
-        return timeout_equipment_answer_;
-    else
-        return 0;
+DWORD SrvAppLayer::get_equipment_timeOut_Value()  {
+        return equipment_timeOut_Value;
 }

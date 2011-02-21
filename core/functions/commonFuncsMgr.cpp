@@ -18,7 +18,7 @@
 #include <extra/ortsTypes/ortsTypes.h>
 #include <ssBuffer.h>
 #include <rcsLib/rcsCmd/rcsCmd.h>
-#include <comm/udp_port/udp_port.h>
+#include <peripheral/udp_port/udp_port.h>
 #include <param_desc.h>
 #include <functionNode.h>
 #include <SrvAppLayer.h>
@@ -44,9 +44,8 @@ void* equipListenPolling(void* user)
     while (!app->terminated())
     {                                                                           
         /// @todo Listening equipment answer - status vector:
-        if (app->is_awaiting_equip_answer())
-             timeout = app->get_timeout_equipment_answer();
-        else timeout = 0;
+        timeout = app->get_equipment_timeOut_Value();
+
 
         result = app->equip_reading_event(timeout);
 
