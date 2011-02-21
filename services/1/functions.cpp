@@ -16,7 +16,7 @@
 #include "schedule/schedule.h"
 #include <ssBuffer.h>
 #include <peripheral/udp_port/udp_port.h>
-#include <srvAppLayer.h>
+#include <SrvAppLayer.h>
 #include <global.h>
 
 //udp_port* equipment;
