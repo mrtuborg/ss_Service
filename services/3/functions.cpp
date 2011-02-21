@@ -19,6 +19,7 @@
 #include <cmdFrame.h>
 #include <statusFrame.h>
 #include <cm688_packet.h>
+#include <accessories/timers/passive_timer.h>
 
 udp_port  *equip_sending;
 pthread_t PollingThreadHandle;
@@ -52,19 +53,25 @@ SpecificServiceState spec_service_state;
 void* pollingThread(void* user)
 {
     SrvAppLayer* app = (SrvAppLayer*) user;
-    BYTE* array;
     WORD old_crc = 0xFFFF;
+    PassiveTimer timer;
+    timer.setInterval(kIntervalOfSendinToEquip);
+
     while (!app->terminated())
     {
-        if (sendFrame->setCheckSumm() != old_crc)
+        if (!timer.isActive() || (sendFrame->setCheckSumm() != old_crc))
         {
             sendFrame->dbgPrint();
             old_crc = sendFrame->setCheckSumm();
 
-            array = new BYTE[cmdFrame::kPacketSize];
+            BYTE array[cmdFrame::kPacketSize];
             sendFrame->decode(array);
             equip_sending->sendData(equipAddr, array, cmdFrame::kPacketSize);
-            delete []array;
+
+            app->set_awaiting_equip_answer(true);
+
+            if (timer.isActive()) timer.stop();
+            timer.start();
         }
         sched_yield();
     }

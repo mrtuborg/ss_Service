@@ -44,8 +44,19 @@ errType specFuncsMgr::startSpecFuncs()
     //    Result argument have WORD type - 2 bytes
     //code: func->setResultDescriptor(0, 2);
     //
-    // 4. Add function to Application interchange layer:
+    // 4. Set mutator status if it necessery (mutators are not allowed in automatic mode)
+    // non initiated: non mutator status - function allowed in automatic mode
+    // code: func->setMutatorStatus(true)
+    //
+    // 5. Setting timeout of waiting of the answer from the equipment
+    // non initiated: no verification of link status
+    //code: appLayer->set_timeout_equipment_answer(2)
+    //
+    // 6. Add function to Application interchange layer:
     //code: appLayer->CreateNewFunction(func);
+
+    appLayer->set_timeout_equipment_answer(2);
+
 
     func = new functionNode(1,1,2,shieldPowerON);
     func->setFuncName("Включить питание укрытия");

@@ -88,6 +88,8 @@ public:
 private:
     cmdFrame_t frame;
 
+    inline void clear_packet();
+
 } __attribute__ ((packed));
 
 #endif

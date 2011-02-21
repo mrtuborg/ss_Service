@@ -153,7 +153,8 @@ BYTE SrvAppLayer::terminated()
  * @param[in]   portNum - udp port number that will use for clients requests listening
  ******************************************************************************************************************/
 
-SrvAppLayer::SrvAppLayer(WORD portNum)
+SrvAppLayer::SrvAppLayer(WORD portNum):
+        timeout_equipment_answer_ (0)
 {
     AppTerminated=false;
     cpListenerPortNum=portNum;
@@ -256,6 +257,7 @@ errType SrvAppLayer::StartListening()
 
     /// @brief 6. Start \ref equipListenPolling
     /// @details Thread listen for udp messages from equipment
+
     if ((!AppTerminated) && (ret==0)) ret=pthread_create(&equipListenThread, NULL, equipListenPolling, (void*) this);
 
     if ((result==err_result_ok) && (!AppTerminated)) result=err_result_ok;
@@ -296,12 +298,13 @@ errType SrvAppLayer::StopListening()
  * @todo        too strange method. May be it need be refactoring.
  * @retval      err_result_ok   - udp socket received data
  **************************************************************************************/
-errType SrvAppLayer::equip_reading_event(){
+errType SrvAppLayer::equip_reading_event(DWORD timeout_sec){
 	    errType result=err_not_init;
-	    BYTE event=0;
-	    result=equip_listen->udp_async_process(&event);
-	    if ((result==err_result_ok) && ((event&0x1)==0x1)) result=err_result_ok;
-	    return result;
+            BYTE event = 0;
+            result = equip_listen->udp_async_process(&event, timeout_sec);
+            if ((result==err_result_ok) && ((event&0x1)==0x1))  result=err_result_ok;
+
+            return result;
 	}
 
 /**********************************************************************************//**
@@ -649,4 +652,13 @@ errType SrvAppLayer::setServiceMode(BYTE mode)
 	else ServiceState.state.mode_manual = 1;
 
 	return err_result_ok;
+}
+
+// if answer from equipment is expected - to return timeout value for detecting emergency
+// else - just to wait unexpected messages
+DWORD SrvAppLayer::get_timeout_equipment_answer()  {
+    if (awaiting_equip_answer_)
+        return timeout_equipment_answer_;
+    else
+        return 0;
 }
