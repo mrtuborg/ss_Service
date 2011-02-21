@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>serviceId</key>
+	<real>0</real>
+	<key>serviceTittle</key>
+	<string>Самодиагностика</string>
+	<key>functions</key>
+	<dict>
+		<key>function_2</key>
+		<dict>
+			<key>tittle</key>
+			<string>Запрос информации о процессе</string>
+			<key>handler</key>
+			<string>GetProcessList</string>
+			<key>params</key>
+			<dict>
+				<key>param_0</key>
+				<dict>
+					<key>tittle</key>
+					<string>Идентификатор процесса</string>
+					<key>type</key>
+					<string>type_WORD</string>
+					<key>initial</key>
+					<integer>0</integer>
+				</dict>
+			</dict>
+			<key>results</key>
+			<dict>
+				<key>result_8</key>
+				<dict>
+					<key>tittle</key>
+					<string>Переменные среды окружения</string>
+					<key>type</key>
+					<string>CHARVECTOR</string>
+				</dict>
+				<key>result_6</key>
+				<dict>
+					<key>tittle</key>
+					<string>Объём задействованной памяти для резидентной части процесса</string>
+					<key>type</key>
+					<string>DWORD</string>
+				</dict>
+				<key>result_5</key>
+				<dict>
+					<key>type</key>
+					<string>DWORD</string>
+					<key>tittle</key>
+					<string>Всего задействовано памяти под процесс</string>
+				</dict>
+				<key>result_7</key>
+				<dict>
+					<key>type</key>
+					<string>CHARVECTOR</string>
+					<key>tittle</key>
+					<string>Строка запуска</string>
+				</dict>
+				<key>result_4</key>
+				<dict>
+					<key>type</key>
+					<string>QWORD</string>
+					<key>tittle</key>
+					<string>Время работы процесса</string>
+				</dict>
+				<key>result_3</key>
+				<dict>
+					<key>type</key>
+					<string>CHARVECTOR</string>
+					<key>tittle</key>
+					<string>Строка маркеров состояния</string>
+				</dict>
+				<key>result_2</key>
+				<dict>
+					<key>type</key>
+					<string>BYTE</string>
+					<key>tittle</key>
+					<string>Доля используемого времени центрального процессора</string>
+				</dict>
+				<key>result_1</key>
+				<dict>
+					<key>type</key>
+					<string>WORD</string>
+					<key>tittle</key>
+					<string>Идентификатор пользователя-владельца</string>
+				</dict>
+				<key>result_0</key>
+				<dict>
+					<key>tittle</key>
+					<string>Идентификатор родительского процесса</string>
+					<key>type</key>
+					<string>WORD</string>
+				</dict>
+			</dict>
+		</dict>
+	</dict>
+</dict>
+</plist>

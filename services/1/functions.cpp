@@ -160,7 +160,7 @@ errType addScheduleJob(void* fn)
     if (isEmergencySchedule==1)
     {
     		emergencyShedule.addJob(newJob);
-    	    	emergencyShedule.update();
+    	    emergencyShedule.update();
     	}else {
     		generalShedule.addJob(newJob);
     		generalShedule.update();
