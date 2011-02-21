@@ -78,6 +78,10 @@ errType equipListenProcessing(BYTE *writingBuffer, size_t sz)
     printf("\t===========================================\n\n");
 }                                                                                                         
 
+inline errType SendSASCMsg(SASC_cmd_mod mode, BYTE **params)
+{
+fdddf
+}
 
 errType srvInit()
 {
