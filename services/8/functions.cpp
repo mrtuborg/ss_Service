@@ -5,15 +5,15 @@
 #include <netinet/in.h>
 #include <arpa/inet.h>
 #include <deque>
-#include "../myTypes.h"
-#include "../buffer/ssBuffer.h"
-#include "../buffer/buffer.h"
-#include "../udp/udp_port.h"
-#include "../ICAppLayer/cmd.h"
-#include "../ICAppLayer/FunctionNode/param_desc.h"
-#include "../ICAppLayer/FunctionNode/FunctionNode.h"
-#include "../ICAppLayer/ICAppLayer.h"
-#include "../global.h"
+#include <extra/ortsTypes/ortsTypes.h>
+#include <ssBuffer.h>
+#include <buffer.h>
+#include <comm/udp_port/udp_port.h>
+#include <rcsLib/rcsCmd/rcsCmd.h>
+#include <param_desc.h>
+#include <functionNode.h>
+#include <SrvAppLayer.h>
+#include <global.h>
 
 udp_port *equip_listen=0, *equip_sending=0;
 buffer* equip_recvBuffer=0;
@@ -26,11 +26,11 @@ typedef struct psFuncStateVector_type {
   WORD value;
 } psFuncStateVector_type;
 
-errType EquipListenProcessing(BYTE *writingBuffer, size_t sz)
+errType equipListenProcessing(BYTE *writingBuffer, size_t sz)
 {
     printf("\n\tС иерархии нижнего уровня получен пакет (hex):\n");
     printf("\t[");
-    for(int k=0; k<sz; k++) printf("%.2X ", writingBuffer[k]);
+    for(size_t k=0; k<sz; k++) printf("%.2X ", writingBuffer[k]);
     printf("]\n\n");
     printf("\t===========================================\n\n");
 }
@@ -42,8 +42,8 @@ errType srvInit()
     printf("\tСлужба взаимодействия с АРМ \"Система измерения угловых координат\"\n");
     printf("=======================================================================\n\n");
     
-    equip_listen=new udp_port(eq_udp_listen_port);
-    equip_listen->open_port();
+   // equip_listen=new udp_port(eq_udp_listen_port);
+   // equip_listen->open_port();
     equip_sending=new udp_port(eq_udp_sending_port);
     equip_sending->open_port();
     equipAddr.s_addr=inet_addr(eq_ip_addr);
@@ -62,7 +62,7 @@ errType srvDeinit()
     return err_result_ok;
 }
 
-errType EmergencyShutdown(void* fn)
+errType emergencyShutdown(void* fn)
 {
     errType result=err_result_ok;
     functionNode* func=(functionNode*)fn;
@@ -72,7 +72,7 @@ errType EmergencyShutdown(void* fn)
     return result;
 }
 
-errType ControlModeChange(void* fn)
+errType controlModeChange(void* fn)
 {
     errType result=err_result_ok;
     
@@ -83,13 +83,13 @@ errType ControlModeChange(void* fn)
     return result;
 }
 
-errType GetStateVector(void* fn)
+errType getStateVector(void* fn)
 {
     errType result=err_result_ok;
 
     functionNode* func=(functionNode*)fn;
     
-    type_StateVector stateVector;
+    stateVector_type stateVector;
     stateVector=app->getStateVector();
     
     func->printParams();

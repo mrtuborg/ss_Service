@@ -88,7 +88,7 @@ class SrvAppLayer
 	errType StartListening();
 	errType StopListening();
 	
-	errType equip_reading_event(DWORD timeout_sec);
+	errType equip_reading_event(DWORD timeOut_sec=0, DWORD timeOut_ms=0);
 	errType equip_read_data(BYTE*, size_t *);
 
 

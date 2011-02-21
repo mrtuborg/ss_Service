@@ -3,7 +3,7 @@
 #include <string.h>
 
 
-#include "../myTypes.h"
+#include <extra/ortsTypes/ortsTypes.h>
 #include "PS_CmdFrame.h"
 
 PS_CmdFrame::PS_CmdFrame()
@@ -17,18 +17,21 @@ PS_CmdFrame::~PS_CmdFrame()
 }
 
 errType PS_CmdFrame::decode(BYTE** array)                                                                           
-{                                                                                                                 
-    memcpy(*array,msg,sizeof(ps_cmdframe_type));                                                                 
+{
+	*array[0]=msg->cmd_id;
+    if (msg->len>1) memcpy(*array+1,msg->params, msg->len);
+    return err_result_ok;
 }                                                                                                                 
                                                                                                                   
-errType PS_CmdFrame::encode(BYTE* array, DWORD size)                                                                
+/*errType PS_CmdFrame::encode(BYTE* array, DWORD size)
 {                                                                                                                 
-    memset(msg,0,sizeof(ps_cmdframe_type));                                                                                              
-    memcpy(msg,array, size);                                                                                  
-} 
+    memset(msg,0,sizeof(ps_cmdframe_type));
+    memcpy(msg, array, size);
+    return err_result_ok;
+} */
 
 
-errType PS_CmdFrame::prepParams_prg_mode(char* filename, BYTE *prepparams)
+errType PS_CmdFrame::prepParams_prg_mode(char* filename, int len, BYTE *prepparams)
 {
 	errType result=err_result_ok;
 	
@@ -38,7 +41,8 @@ errType PS_CmdFrame::prepParams_prg_mode(char* filename, BYTE *prepparams)
 	
 	if (result==err_result_ok)
 	{
-	    memcpy(prepparams, filename, 12);
+		memset(prepparams, 0, 17);
+	    memcpy(prepparams, filename, len);
 	}
 	
 	return result;
@@ -73,14 +77,15 @@ errType PS_CmdFrame::prepParams_new_AZ_corr(int16_t grad, BYTE min, BYTE sec, BY
 	
 	if (result==err_result_ok)
 	{
-	    sprintf((char*)prepparams+0, "%d", grad);
-	    sprintf((char*)prepparams+3, "%d", min);
-	    sprintf((char*)prepparams+5, "%d", sec);
+	    sprintf((char*)prepparams+0, "%+.3d", grad);
+	    sprintf((char*)prepparams+4, "%.2d", min);
+	    sprintf((char*)prepparams+6, "%.2d", sec);
+
 	}
 	return result;
 }
 
-errType PS_CmdFrame::prepParams_new_EL_corr(BYTE grad, BYTE min, BYTE sec, BYTE *prepparams)
+errType PS_CmdFrame::prepParams_new_EL_corr(int16_t grad, BYTE min, BYTE sec, BYTE *prepparams)
 {
 	errType result=err_result_ok;
 	
@@ -91,38 +96,47 @@ errType PS_CmdFrame::prepParams_new_EL_corr(BYTE grad, BYTE min, BYTE sec, BYTE 
 	
 	if (result==err_result_ok)
 	{
-	    sprintf((char*)prepparams+0, "%d", grad);
-	    sprintf((char*)prepparams+2, "%d", min);
-	    sprintf((char*)prepparams+4, "%d", sec);
+	    sprintf((char*)prepparams+0, "%+.2d", grad);
+	    sprintf((char*)prepparams+3, "%.2d", min);
+	    sprintf((char*)prepparams+5, "%.2d", sec);
+
 	}
 	
 	return result;
 }
 
-errType PS_CmdFrame::prepParams_new_TM_corr(int16_t sec, uint16_t msec, BYTE *prepparams)
+errType PS_CmdFrame::prepParams_new_TM_corr(int tm_sign, int16_t sec, uint16_t msec, BYTE *prepparams)
 {
 	errType result=err_result_ok;
 	
 	
 	if (!prepparams) result=err_params_decode;
 	
-	if (abs(sec)>60)   result=err_params_value;
-	if (msec>999) result=err_params_value;
+	//if (abs(sec)>60)   result=err_params_value;
+	//if (msec>999) result=err_params_value;
 
 	if (result==err_result_ok)
 	{
-	    sprintf((char*)prepparams+0, "%d", sec);
-	    sprintf((char*)prepparams+3, "%d", msec);
+		if (tm_sign>=0) sprintf((char*)prepparams+0, "+");
+		else sprintf((char*)prepparams, "-");
+	    sprintf((char*)prepparams+1, "%.2d", sec);
+	    sprintf((char*)prepparams+3, "%.3d", msec);
+
 	}
 	
 	return result;
+}
+
+int PS_CmdFrame::lenValue()
+{
+	return msg->len;
 }
 
 errType PS_CmdFrame::prepMsg(ps_cmd_id_type cmd, BYTE* params)
 {
     errType result=err_result_ok;
     
-    if (!params) result=err_params_decode;
+    //if (!params) result=err_params_decode;
     msg->cmd_id=cmd;
     switch (cmd)
     {
@@ -155,7 +169,7 @@ errType PS_CmdFrame::prepMsg(ps_cmd_id_type cmd, BYTE* params)
 	    msg->params=params;
 	    break;
 	case _corr_EL:
-	    msg->len=7;
+	    msg->len=8;
 	    msg->params=params;
 	    break;
 	case _corr_TM:
@@ -163,6 +177,7 @@ errType PS_CmdFrame::prepMsg(ps_cmd_id_type cmd, BYTE* params)
 	    msg->params=params;
 	    break;
 	default:
+		msg->len=0;
 	    result=err_params_decode;
 	    break;
     }

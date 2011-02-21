@@ -1,17 +1,17 @@
 #include <deque>
 #include <pthread.h>
 #include <netinet/in.h>
-#include "../myTypes.h"
-#include "../buffer/ssBuffer.h"
-#include "../udp/udp_port.h"
-#include "../ICAppLayer/cmd.h"
-#include "../ICAppLayer/FunctionNode/param_desc.h"
-#include "../ICAppLayer/FunctionNode/FunctionNode.h"
-#include "../ICAppLayer/ICAppLayer.h"
-#include "SpecFuncs.h"
+#include <extra/ortsTypes/ortsTypes.h>
+#include <ssBuffer.h>
+#include <comm/udp_port/udp_port.h>
+#include <rcsLib/rcsCmd/rcsCmd.h>
+#include <param_desc.h>
+#include <functionNode.h>
+#include <SrvAppLayer.h>
+#include "specFuncsMgr.h"
 #include "functions.h"
 
-specFuncsMgr::specFuncsMgr(srvAppLayer *appl)
+specFuncsMgr::specFuncsMgr(SrvAppLayer *appl)
 {
     appLayer=appl;
 }
@@ -51,9 +51,10 @@ errType specFuncsMgr::startSpecFuncs()
     //
     // 6. Add function to Application interchange layer:
     //code: appLayer->CreateNewFunction(func);
+
     
 	    func=new functionNode(1,0,1,StartMeasuringProcess);
-	    func->setFuncName("Запрос включения системы адаптивной оптики");
+	    func->setFuncName("Запрос включения режима измерения угловых координат");
 	    
 	    func->setResultDescriptor(0,type_ERRTYPE);
 	    func->setResultName(0,"Квитанция исполнения");
@@ -61,7 +62,7 @@ errType specFuncsMgr::startSpecFuncs()
 	    appLayer->CreateNewFunction(func);
 	    
 	    func=new functionNode(2,0,1,FinishMeasuringProcess);
-	    func->setFuncName("Запрос отключения системы адаптивной оптики");
+	    func->setFuncName("Запрос отключения режима измерения угловых координат");
 	    
 	    func->setResultDescriptor(0,type_ERRTYPE);
 	    func->setResultName(0,"Квитанция исполнения");

@@ -1,2 +1,0 @@
-mkdir src/PS_packet
-cp $1/PS_packet/* src/PS_packet
