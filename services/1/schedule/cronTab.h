@@ -17,7 +17,7 @@
 //  |   |   |   |  |
 //  *   *   *   *  *  command to be executed
 
-
+using namespace std;
 
 class cronTab {
 	char minute[3];
@@ -27,11 +27,14 @@ class cronTab {
 	char day_of_week[3];
 	char command[255];
 
-	FILE* cronFile;
+	fstream cronFile;
+
+	int writePosition, readPosition;
 
 public:
 	errType setCommand(struct tm *ts, DWORD objID, DWORD nextObjID, DWORD finishTime, char* command);
 	errType addToCronFile();
+	int getFromCronFile();
 	errType eraseEarlier();
 	errType loadFromCronFileAt(int minute, int hour, int dayM, int month, int dayW);
 	errType clearCronFile();

@@ -1,7 +1,8 @@
-#include <string.h>
+#include <string>
 #include <stdlib.h>
 #include <stdio.h>
 #include <unistd.h>
+#include <fstream>
 #include <list>
 #include <sys/types.h>
 #include <sys/stat.h>
@@ -229,6 +230,11 @@ errType schedule::writeCronTab(job* newJob)
 	cronJob->setCommand(ts, newJob->get_dwObjId(), newJob->get_dwNextObjId(), newJob->get_dwTimeEnd(), cmd);
 	cronJob->addToCronFile();
 
+	int pos=0;
+
+	do {
+		pos=cronJob->getFromCronFile();
+	} while (pos>0);
 
 	delete []cmd;
 	delete []array;
