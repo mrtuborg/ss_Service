@@ -1,5 +1,6 @@
 // SASC Service
 //---------------
+class SASC_cmd_mod;
 
 extern errType equipListenProcessing(BYTE *writingBuffer, size_t sz);
 
@@ -20,4 +21,4 @@ extern errType TaringStart(void*);
 extern errType GetTaringPoint(void*);
 extern errType TaringStop(void*);
 extern errType linkTest(void*);
-extern errType SendSASCMsg(SASC_cmd_mod mode, BYTE** params = 0);
+extern inline errType SendSASCMsg(SASC_cmd_mod mode, BYTE **params = 0);
