@@ -30,3 +30,7 @@ extern WORD wUdp;
 
 //#define CLIENT_IP "127.0.0.1"
 //extern srvAppLayer *app;
+
+using namespace std;
+
+

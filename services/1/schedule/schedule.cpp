@@ -1,18 +1,23 @@
-#include <string>
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <unistd.h>
-#include <fstream>
-#include <list>
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <sys/mman.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>
+
+#include <fstream>
+#include <iostream>
+#include <list>
+#include <string>
+
               
 #include <extra/ortsTypes/ortsTypes.h>
 #include <rcsLib/rcsCmd/rcsCmd.h>
+#include "cronTask.h"
 #include "cronTab.h"
 #include <schedule/job/job.h>
 #include "schedule.h"
@@ -215,25 +220,41 @@ errType schedule::writeCronTab(job* newJob)
 	sprintf(uport, "%d", newJob->get_wServiceUdpPort());
 
 	char *cmd, *tmp_cmd; // string for writing to cron
-	cmd=new char[cmdLen*3+strlen(ipaddr)+strlen(uport)+3];
-	sprintf(cmd,"-u %s:%s ", ipaddr, uport);
+	cmd=new char[cmdLen*4+strlen(ipaddr)+strlen(uport)+strlen("-d\"\"")];
+	sprintf(cmd,"-u %s:%s -d\"", ipaddr, uport);
 	tmp_cmd=cmd;
-	cmd=cmd+strlen(ipaddr)+strlen(uport);
+	cmd=cmd+strlen(cmd);
 	BYTE* array; // temporary array for decoding cmd
 	array=new BYTE[cmdLen];
 	newJob->cmd()->decode(array);
 	for (int i=0; i<cmdLen; i++) {
-		sprintf(cmd+i*3,"%.2X ",array[i]);
+		sprintf(cmd+i*3,"%.2X \"",array[i]);
 	}
-	cmd[cmdLen*3]=0;
+	cmd[cmdLen*4]=0;
 	cmd=tmp_cmd;
-	cronJob->setCommand(ts, newJob->get_dwObjId(), newJob->get_dwNextObjId(), newJob->get_dwTimeEnd(), cmd);
+	string textString(cmd);
+
+	cronTask *task;
+	task=new cronTask(ts->tm_hour,
+					  ts->tm_min,
+					  ts->tm_mday,
+					  ts->tm_mon,
+					  ts->tm_wday,
+					  (unsigned long) newJob->get_dwObjId(),
+					  (unsigned long) newJob->get_dwNextObjId(),
+					  (unsigned) newJob->get_dwTimeEnd(),
+					  textString);
+	cout << *task;
+	cronJob->NewTask(task);
 	cronJob->addToCronFile();
+
+	//-cronJob->setCommand(ts, newJob->get_dwObjId(), newJob->get_dwNextObjId(), newJob->get_dwTimeEnd(), cmd);
+	//-cronJob->addToCronFile();
 
 	int pos=0;
 
 	do {
-		pos=cronJob->getFromCronFile();
+		//-pos=cronJob->getFromCronFile();
 	} while (pos>0);
 
 	delete []cmd;

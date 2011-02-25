@@ -13,9 +13,13 @@
  */
 
 #include <netinet/in.h>
+
+#include <vector>
+#include <string>
 #include <queue>
+
 #include <extra/ortsTypes/ortsTypes.h>
-#include <ssBuffer.h>
+#include <storage/ssBuffer/ssBuffer.h>
 #include <peripheral/udp_port/udp_port.h>
 #include <rcsLib/rcsCmd/rcsCmd.h>
 #include <param_desc.h>
@@ -38,3 +42,4 @@ WORD eq_udp_listen_port=0; ///< Server udp port number for listen an equipment.
 WORD eq_udp_sending_port=0;///< Server udp port number for sending into equipment.
 
 in_addr equipAddr;         ///< Storage for in_addr of equipment
+
