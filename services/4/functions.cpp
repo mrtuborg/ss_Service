@@ -78,10 +78,6 @@ errType equipListenProcessing(BYTE *writingBuffer, size_t sz)
     printf("\t===========================================\n\n");
 }                                                                                                         
 
-inline errType SendSASCMsg(SASC_cmd_mod mode, BYTE **params)
-{
-fdddf
-}
 
 errType srvInit()
 {
@@ -136,12 +132,18 @@ errType getStateVector(void* fn)
 
 }
 
-inline errType SendSASCMsg(SASC_cmd_mod mode, BYTE** params)
+inline errType SendSASCMsg(SASC_cmd_mod mode, BYTE** params = 0)
 {
-    BYTE frame[comm_SASC::kSASCMsgSize];
+    errType result (err_result_ok);
+    BYTE *frame;
+
+    frame = new BYTE[comm_SASC::kSASCMsgSize];
     sndSASCmsg.apply_mod(mode, params);
     sndSASCmsg.decode(&frame);
-    equip_sending->sendData(equipAddr, frame, comm_SASC::kSASCMsgSize);
+    result = equip_sending->sendData(equipAddr, frame, comm_SASC::kSASCMsgSize);
+    delete []frame;
+
+    return result;
 }
 
 errType SASC_PowerON(void* fn)

@@ -52,12 +52,11 @@ errType specFuncsMgr::startSpecFuncs()
     //
     // 5. Setting timeout of waiting of the answer from the equipment
     // non initiated: no verification of link status
-    //code: appLayer->set_timeout_equipment_answer(2)
+    //code: appLayer->set_awaiting_equip_answer(2)
     //
     // 6. Add function to Application interchange layer:
     //code: appLayer->CreateNewFunction(func);
 
-    appLayer->set_timeout_equipment_answer(2);
 
     func=new functionNode(1,0,1,SASC_PowerON);
     func->setFuncName("Запрос на включение СКСЮ");
