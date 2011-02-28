@@ -45,12 +45,12 @@ errType fltrList::removeProcFilter(WORD id)
     
     for(iter=procFilters.begin(); iter!=procFilters.end(); ++iter)
     {
-	if ((*iter)->get_filter_id()==id) 
-	{
-	    filters_size-=(*iter)->getSize();	
-	    procFilters.erase(iter);
-	    break;
-	}
+		if ((*iter)->get_filter_id()==id)
+		{
+			filters_size-=(*iter)->getSize();
+			procFilters.erase(iter);
+			break;
+		}
     }
     
     return result;

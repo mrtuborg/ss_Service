@@ -40,25 +40,39 @@ errType schedule::addJob(job* jEntity){
     iter=job_list.begin();
     //if (!(*iter)) return err_abort;
     int quantity=job_list.size();
-    if (!quantity) job_list.push_back(jEntity);
+    int i=0;
+    printf("quantity = %d\n", quantity);
+    if (!quantity) job_list.push_back(jEntity); // Add 1st job entity to empty list
     else {
-    		for (iter=job_list.begin(); iter==job_list.end(); ++iter) {
-    			if ((*iter)->get_dwTimeStart()<jEntity->get_dwTimeStart()) {
+    		for (iter = job_list.begin(); iter == job_list.end(); ++iter) {
+    			printf("iter = %d\n", i);
+    			i++;
+    			if ((*iter)->get_dwTimeStart() <= jEntity->get_dwTimeStart()) {
+    				printf("passing through for earlier times\n");
     				prev_iter=iter;
-    			} else {
-    				if ((*iter)->get_dwTimeStart()==jEntity->get_dwTimeStart()){
-    					iter_cmd=(*iter)->cmd();
-    					param_cmd=jEntity->cmd();
-    					if (((*iter)->get_btServId()==jEntity->get_btServId()) && (iter_cmd->get_func_id()==param_cmd->get_func_id())){
-    						tmp_iter=iter;
-    						job_list.erase(tmp_iter);
-    						prev_iter=++iter;
-    					}
-    					job_list.insert(prev_iter,jEntity);
-    					iter=job_list.end();
-    				}
-    			}
+
+    			} else break;
     		}
+    		printf("need to add here... \n");
+    		job_list.insert(iter, jEntity);
+
+//    				if ((*iter)->get_dwTimeStart()>=jEntity->get_dwTimeStart()){
+//    					printf("found time same as or older than in new job\n");
+//    					iter_cmd = (*iter)->cmd();
+//    					param_cmd = jEntity->cmd();
+//
+//    					if (((*iter)->get_btServId() == jEntity->get_btServId()) && (iter_cmd->get_func_id() == param_cmd->get_func_id())){
+//    						tmp_iter = iter;
+//    						job_list.erase(tmp_iter);
+//    						prev_iter = ++iter;
+//    					}
+//
+//    					job_list.insert(prev_iter,jEntity);
+//    					iter=job_list.end();
+//    				}
+//    			}
+//
+//    		}
     }
 
     return err_result_ok;
@@ -157,9 +171,13 @@ errType schedule::mappingClose()
 errType schedule::update()
 {
 	list <job*>::iterator iter;
+	int i=0;
 	for (iter=job_list.begin(); iter!=job_list.end(); ++iter)
 	{
+
+		printf("i=%d\n",i);
 		writeCronTab(*iter);
+		i++;
 	}
     return err_result_ok;
 }
@@ -220,6 +238,8 @@ errType schedule::writeCronTab(job* newJob)
 	sprintf(uport, "%d", newJob->get_wServiceUdpPort());
 
 	char *cmd, *tmp_cmd; // string for writing to cron
+
+	// -------------------- refactoring ----------------------------------
 	cmd=new char[cmdLen*4+strlen(ipaddr)+strlen(uport)+strlen("-d\"\"")];
 	sprintf(cmd,"-u %s:%s -d\"", ipaddr, uport);
 	tmp_cmd=cmd;
@@ -232,6 +252,9 @@ errType schedule::writeCronTab(job* newJob)
 	}
 	cmd[cmdLen*4]=0;
 	cmd=tmp_cmd;
+	// --------------------------------------------------------------------
+
+
 	string textString(cmd);
 
 	cronTask *task;
@@ -244,14 +267,22 @@ errType schedule::writeCronTab(job* newJob)
 					  (unsigned long) newJob->get_dwNextObjId(),
 					  (unsigned) newJob->get_dwTimeEnd(),
 					  textString);
-	cout << *task;
-	cronJob->NewTask(task);
-	cronJob->addToCronFile();
 
+	//cout << *task;
+	int pos=0;
+	cout << "1) create cronJob\n";
+	cronJob->NewTask(task);
+	cout << "2) add cronJob to cronFile\n";
+	cronJob->addToCronFile();
+	cout << "3) get cronJob from cronFile\n";
+	do {
+		pos = cronJob->getFromCronFile();
+		cout << "pos = " << pos << endl;
+	} while (pos>0);
 	//-cronJob->setCommand(ts, newJob->get_dwObjId(), newJob->get_dwNextObjId(), newJob->get_dwTimeEnd(), cmd);
 	//-cronJob->addToCronFile();
 
-	int pos=0;
+
 
 	do {
 		//-pos=cronJob->getFromCronFile();
