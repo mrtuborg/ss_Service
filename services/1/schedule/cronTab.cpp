@@ -5,10 +5,16 @@
  *      Author: tuborg
  */
 #include <stdio.h>
-#include <string.h>
 #include <time.h>
 
+#include <iostream>
+#include <string>
+#include <vector>
+#include <list>
+#include <fstream>
+
 #include <extra/ortsTypes/ortsTypes.h>
+#include "cronTask.h"
 #include "cronTab.h"
 
 //  .---------------- minute (0 - 59)
@@ -19,9 +25,25 @@
 //  |   |   |   |  |
 //  *   *   *   *  *  command to be executed
 
+
+
+
+
 cronTab::cronTab() {
 
-	//printf("cronTest.txt opened");
+	cronFile.open("cronTest.txt", ios::in | ios::out);
+
+	cronFile.seekp(0, ios::end);
+	writePosition=cronFile.tellp();
+
+	cronFile.seekg(0, ios::beg);
+	readPosition=cronFile.tellg();
+	cronFile.close();
+
+	cout << "writePos=" << writePosition << endl;
+	cout << "readPos=" << readPosition << endl;
+	//printf("cronFile writePosition=%lld\n", (int) writePosition);
+	//printf("cronFile readPosition=%lld\n",  (int) readPosition);
 }
 
 cronTab::~cronTab() {
@@ -29,31 +51,108 @@ cronTab::~cronTab() {
 
 }
 
-errType cronTab::setCommand(struct tm *ts, DWORD objID, DWORD nextObjID, DWORD finishTime, char* newCommand){
+//errType cronTab::setCommand(struct tm *ts, DWORD objID, DWORD nextObjID, WORD length, char* newCommand)
+//{
+//	minute = ts->tm_min;
+//	hour   = ts->tm_hour;
+//	mday   = ts->tm_mday;
+//	month  = ts->tm_mon+1;
+//	wday   = ts->tm_wday;
+//	length_sec = length;
+//
+//	sprintf(command, "ssProxy %s #objID=%d,nextObjID=%d,length_sec=%d", newCommand, objID, nextObjID, length_sec);
+//
+//	return err_result_ok;
+//}
 
-	sprintf(minute,"%d",ts->tm_min);
-	sprintf(hour, "%d", ts->tm_hour);
-	sprintf(day_of_month, "%d", ts->tm_mday);
-	sprintf(month, "%d", ts->tm_mon+1);
-	sprintf(day_of_week, "%d", ts->tm_wday);
-
-
-	sprintf(command, "ssProxy %s #objID=%d,nextObjID=%d,finishTime=%d", newCommand, objID, nextObjID, finishTime);
-
+errType cronTab::NewTask(cronTask* task)
+{
+	taskList.push_back(task);
 	return err_result_ok;
 }
 
+//errType cronTab::getCommand(struct tm *ts, DWORD objID, DWORD nextObjID, DWORD finishTime, char* newCommand){
+//
+//	//fscanf();
+//	sprintf(minute,"%d",ts->tm_min);
+//	sprintf(hour, "%d", ts->tm_hour);
+//	sprintf(day_of_month, "%d", ts->tm_mday);
+//	sprintf(month, "%d", ts->tm_mon+1);
+//	sprintf(day_of_week, "%d", ts->tm_wday);
+//
+//
+//	sprintf(command, "ssProxy %s #objID=%d,nextObjID=%d,finishTime=%d", newCommand, objID, nextObjID, finishTime);
+//
+//	return err_result_ok;
+//}
+
 errType cronTab::addToCronFile()
 {
-	errType result=err_not_init;
-	cronFile=fopen("cronTest.txt","a");
-	if (cronFile) {
-		printf("want to save: %s %s %s %s * %s\n", minute, hour, day_of_month, month, command);
-		fprintf(cronFile, "%s\t%s\t%s\t%s\t*\t%s\n", minute, hour, day_of_month,month, command);
-		fclose(cronFile);
+	errType result (err_not_init);
+	cronTask *task=taskList.back();
+
+	cronFile.open("cronTest.txt",ios::out | ios::app);
+	if (cronFile.is_open()) {
+		//printf("want to save: %d %d %d %d * %s\n", minute, hour, mday, month, command);
+
+
+		cout << *task;
+		cronFile << *task;
+
+		//cronFile << minute << "\t" << hour << "\t" << mday << " \t"<<month<<"\t*\t"<<command<<"\r\n";
+
+		//fprintf(cronFile, "%s\t%s\t%s\t%s\t*\t%s\n", minute, hour, day_of_month,month, command);
+		writePosition=cronFile.tellp();
+		cronFile.close();
+
 		result=err_result_ok;
 	}
-	printf("want to exec: %s/%s (%s) %s:%s command: %s\n", day_of_month, month, day_of_week, hour, minute, command);
 
+	//printf("want to exec: %s/%s (%s) %s:%s command: %s\n", day_of_month, month, day_of_week, hour, minute, command);
+	cout << "writePosition = " << writePosition << endl;
 	return result;
 }
+
+int cronTab::getFromCronFile()
+{
+	errType result (err_not_init);
+	cronFile.open("cronTest.txt", ios::in);
+	int pos=0;
+	//char textLine[256];
+	//textLine[255]=0;
+	string textLine;
+
+	if (cronFile) {
+		cout << "readPosition to set = " << readPosition << endl;
+
+		cronFile.clear();
+		cronFile.seekg(readPosition, ios::beg);
+
+		getline(cronFile, textLine);
+		cronTask *task=new cronTask(textLine);
+		cout << *task << endl;
+		//dbgPrint();
+		//fscanf(cronFile,"%s\n", command);
+		//printf("readed: %s\n", command);
+		readPosition=cronFile.tellg();
+
+		if (readPosition >= writePosition) {
+			readPosition=0;
+			pos=-1;
+		}
+		cout << "readPosition=" << readPosition << endl;
+		cronFile.close();
+		result=err_result_ok;
+	}
+	pos=readPosition;
+	//printf("want to exec: %s/%s (%s) %s:%s command: %s\n", day_of_month, month, day_of_week, hour, minute, command);
+
+	return pos;
+}
+
+void cronTab::dbgPrint()
+{
+		//cout << hour << ":" << minute << ", " << mday << "/" << month << "[" << wday << "]"<< " cmd: " << command << endl;
+
+}
+

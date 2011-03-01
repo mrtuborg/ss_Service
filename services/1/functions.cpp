@@ -1,7 +1,8 @@
 // Scheduling Control Service
 //----------------------------
 #include <stdio.h>
-#include <string.h>
+#include <string>
+#include <fstream>
 #include <arpa/inet.h>
 #include <netinet/in.h>
 #include <deque>
@@ -12,7 +13,7 @@
 #include <param_desc.h>
 #include <functionNode.h>
 #include "schedule/cronTab.h"
-#include <schedule/job/job.h>
+#include "schedule/job/job.h"
 #include "schedule/schedule.h"
 #include <ssBuffer.h>
 #include <peripheral/udp_port/udp_port.h>

@@ -17,27 +17,29 @@
 //  |   |   |   |  |
 //  *   *   *   *  *  command to be executed
 
+using namespace std;
 
+class cronTask;
 
 class cronTab {
-	char minute[3];
-	char hour[3];
-	char day_of_month[3];
-	char month[3];
-	char day_of_week[3];
-	char command[255];
 
-	FILE* cronFile;
+	list<cronTask*> taskList;
+	fstream cronFile;
+	std::fstream::pos_type writePosition, readPosition;
 
 public:
-	errType setCommand(struct tm *ts, DWORD objID, DWORD nextObjID, DWORD finishTime, char* command);
+	errType NewTask(cronTask* task);
+
 	errType addToCronFile();
+	int getFromCronFile();
 	errType eraseEarlier();
 	errType loadFromCronFileAt(int minute, int hour, int dayM, int month, int dayW);
 	errType clearCronFile();
 
 	cronTab();
 	virtual ~cronTab();
+
+	void dbgPrint();
 };
 
 #endif /* CRONTAB_H_ */
