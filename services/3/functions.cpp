@@ -59,7 +59,7 @@ void* pollingThread(void* user)
 
     while (!app->terminated())
     {
-        if (!timer.isActive() || (sendFrame->setCheckSumm() != old_crc))
+        if ((!timer.isActive() && !app->is_awaiting_equip_answer()) || (sendFrame->setCheckSumm() != old_crc))
         {
             sendFrame->dbgPrint();
             old_crc = sendFrame->setCheckSumm();

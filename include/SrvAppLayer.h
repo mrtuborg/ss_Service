@@ -55,15 +55,16 @@ class SrvAppLayer
     BYTE func_quantity;           ///< Counter that stores really declared functions quantity
     BYTE ifCount;                 ///< Counter of ethernet interfaces. No have an idea how to use it.
     
-     pthread_t	listenerThread;   ///< Handle to client requests listening thread
-     pthread_t	senderThread;     ///< Handle to client answers sending thread
-     pthread_t	equipListenThread;///< Handle to equipmnent data listening thread
+    pthread_t listenerThread;   ///< Handle to client requests listening thread
+    pthread_t senderThread;     ///< Handle to client answers sending thread
+    pthread_t equipListenThread;///< Handle to equipmnent data listening thread
                                   /// @note programm not have equipment data sending thread
 
     WORD cpListenerPortNum; ///< settings: Udp port number to listen requests from network clients
     udp_port *equip_listen; ///< udp_port instance that associates with listening data from equipment
 
-    DWORD equipment_timeOut_Value;
+    DWORD timeout_equip_value_;
+    bool  awaiting_equip_answer_;
 
     errType decodeMessage(BYTE* dataBlock, DWORD length, rcsCmd *ss_cmd); ///< step 1. decode recieved message from client
     errType execMessage(rcsCmd* ss_cmd);                                  ///< step 2. send data to requested service function
@@ -77,40 +78,40 @@ class SrvAppLayer
     ssBuffer* clientsRequestsQueue;  ///< Queue that stores received requests from client
     ssBuffer* functionsAnswersQueue; ///< Queue that stores service functions answers to clients
     
-	 SrvAppLayer(WORD portNum);
-	~SrvAppLayer();
-	
-	errType CreateNewFunction(functionNode* func);
-	errType DeleteFunction(BYTE id);
-	
-	errType encodeBlock(rcsCmd*, BYTE**);
+    SrvAppLayer(WORD portNum);
+    ~SrvAppLayer();
 
-	errType StartListening();
-	errType StopListening();
-	
-	errType equip_reading_event(DWORD timeOut_sec=0, DWORD timeOut_ms=0);
-	errType equip_read_data(BYTE*, size_t *);
+    errType CreateNewFunction(functionNode* func);
+    errType DeleteFunction(BYTE id);
+
+    errType encodeBlock(rcsCmd*, BYTE**);
+
+    errType StartListening();
+    errType StopListening();
+
+    errType equip_reading_event(DWORD timeOut_sec=0, DWORD timeOut_ms=0);
+    errType equip_read_data(BYTE*, size_t *);
 
 
-	DWORD get_equipment_timeOut_Value();
+    void  set_timeout_equipment_answer(DWORD value_sec)  {  timeout_equip_value_ = value_sec;  }
+    DWORD get_timeout_equipment_value();
+    void set_awaiting_equip_answer(bool to_wait)  {  awaiting_equip_answer_ = to_wait;  }
+    bool is_awaiting_equip_answer()  {  return awaiting_equip_answer_;  }
 
-	void set_awaiting_equip_answer(DWORD time_sec_to_wait)  {  equipment_timeOut_Value = time_sec_to_wait;  }
-	bool is_awaiting_equip_answer()  {  return (equipment_timeOut_Value!=0);  }
+    void set_state_vector_linked(bool linked)  {  ServiceState.state.linked = linked;  }
+    bool get_state_vector_linked()  {  return ServiceState.state.linked;  }
 
-	void set_state_vector_linked(bool linked)  {  ServiceState.state.linked = linked;  }
-	bool get_state_vector_linked()  {  return ServiceState.state.linked;  }
+    errType processMessages();
+    errType processInMessages(sockaddr_in*, rcsCmd*);
+    errType processOutMessages(sockaddr_in*, rcsCmd*, errType);
 
-	errType processMessages();
-	errType processInMessages(sockaddr_in*, rcsCmd*);
-	errType processOutMessages(sockaddr_in*, rcsCmd*, errType);
-	
-	WORD getListenerPortNum();
-	BYTE terminated(); // 1 - only exit; 2 - exit with reboot
-	void terminate(BYTE mode=1);
-	stateVector_type getStateVector();
+    WORD getListenerPortNum();
+    BYTE terminated(); // 1 - only exit; 2 - exit with reboot
+    void terminate(BYTE mode=1);
+    stateVector_type getStateVector();
 
-	BYTE serviceMode(); // 0 - local, 1- remote
-	errType setServiceMode(BYTE mode); //0 - local, 1- remote
+    BYTE serviceMode(); // 0 - local, 1- remote
+    errType setServiceMode(BYTE mode); //0 - local, 1- remote
 };
 
 extern SrvAppLayer* app;        ///< One global instance per application
