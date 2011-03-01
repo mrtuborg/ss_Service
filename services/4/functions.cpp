@@ -140,6 +140,7 @@ inline errType SendSASCMsg(SASC_cmd_mod mode, BYTE** params = 0)
     sndSASCmsg.apply_mod(mode, params);
     sndSASCmsg.decode(frame);
     result = equip_sending->sendData(equipAddr, frame, comm_SASC::kSASCMsgSize);
+    app->set_awaiting_equip_answer(true);
 
     return result;
 }
