@@ -206,9 +206,9 @@ errType comm_SASC::checkAnswer(SASC_answer_mod *typeinf)
     return result;
 }
 
-errType comm_SASC::decode(BYTE** array)
+errType comm_SASC::decode(BYTE* array)
 {
-        memcpy(*array,msg,comm_SASC::kSASCMsgSize);
+        memcpy(array,msg,comm_SASC::kSASCMsgSize);
 }
 
 errType comm_SASC::encode(BYTE* array, DWORD size)

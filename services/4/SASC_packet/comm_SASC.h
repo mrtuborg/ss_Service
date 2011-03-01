@@ -63,7 +63,7 @@ public:
     errType apply_mod(SASC_cmd_mod mode, BYTE** params=0);
     errType checkAnswer(SASC_answer_mod *typeinf);
 
-    errType decode(BYTE** );
+    errType decode(BYTE* );
     errType encode(BYTE*, DWORD size);
 
     void dbgPrint();

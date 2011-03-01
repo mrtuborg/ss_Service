@@ -135,13 +135,11 @@ errType getStateVector(void* fn)
 inline errType SendSASCMsg(SASC_cmd_mod mode, BYTE** params = 0)
 {
     errType result (err_result_ok);
-    BYTE *frame;
+    BYTE frame[comm_SASC::kSASCMsgSize];
 
-    frame = new BYTE[comm_SASC::kSASCMsgSize];
     sndSASCmsg.apply_mod(mode, params);
-    sndSASCmsg.decode(&frame);
+    sndSASCmsg.decode(frame);
     result = equip_sending->sendData(equipAddr, frame, comm_SASC::kSASCMsgSize);
-    delete []frame;
 
     return result;
 }
