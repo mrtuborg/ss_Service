@@ -49,8 +49,6 @@ errType specFuncsMgr::startSpecFuncs()
     // 5. Setting timeout of waiting of the answer from the equipment
     // non initiated: no verification of link status
     //code: appLayer->set_timeout_equipment_answer(2)
-    //moreover, you should set awating of answer when you send command
-    //(app->set_awaiting_equip_answer(bool to_wait))
     //
     // 6. Add function to Application interchange layer:
     //code: appLayer->CreateNewFunction(func);

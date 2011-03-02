@@ -59,7 +59,7 @@ void* pollingThread(void* user)
 
     while (!app->terminated())
     {
-        if ((!timer.isActive() && !app->is_awaiting_equip_answer()) || (sendFrame->setCheckSumm() != old_crc))
+        if (!timer.isActive() || (sendFrame->setCheckSumm() != old_crc))
         {
             sendFrame->dbgPrint();
             old_crc = sendFrame->setCheckSumm();
@@ -67,8 +67,6 @@ void* pollingThread(void* user)
             BYTE array[cmdFrame::kPacketSize];
             sendFrame->decode(array);
             equip_sending->sendData(equipAddr, array, cmdFrame::kPacketSize);
-
-            app->set_awaiting_equip_answer(true);
 
             if (timer.isActive()) timer.stop();
             timer.start();

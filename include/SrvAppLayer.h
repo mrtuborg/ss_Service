@@ -64,7 +64,6 @@ class SrvAppLayer
     udp_port *equip_listen; ///< udp_port instance that associates with listening data from equipment
 
     DWORD timeout_equip_value_;
-    bool  awaiting_equip_answer_;
 
     errType decodeMessage(BYTE* dataBlock, DWORD length, rcsCmd *ss_cmd); ///< step 1. decode recieved message from client
     errType execMessage(rcsCmd* ss_cmd);                                  ///< step 2. send data to requested service function
@@ -95,11 +94,9 @@ class SrvAppLayer
 
     void  set_timeout_equipment_answer(DWORD value_sec)  {  timeout_equip_value_ = value_sec;  }
     DWORD get_timeout_equipment_value();
-    void set_awaiting_equip_answer(bool to_wait)  {  awaiting_equip_answer_ = to_wait;  }
-    bool is_awaiting_equip_answer()  {  return awaiting_equip_answer_;  }
 
     void set_state_vector_linked(bool linked)  {  ServiceState.state.linked = linked;  }
-    bool get_state_vector_linked()  {  return ServiceState.state.linked;  }
+    bool is_state_vector_linked()  {  return ServiceState.state.linked;  }
 
     errType processMessages();
     errType processInMessages(sockaddr_in*, rcsCmd*);

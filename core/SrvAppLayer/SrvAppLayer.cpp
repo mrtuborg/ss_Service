@@ -154,8 +154,7 @@ BYTE SrvAppLayer::terminated()
  ******************************************************************************************************************/
 
 SrvAppLayer::SrvAppLayer(WORD portNum):
-        timeout_equip_value_   (0),
-        awaiting_equip_answer_ (false)
+        timeout_equip_value_   (0)
 {
     AppTerminated=false;
     cpListenerPortNum=portNum;
@@ -642,8 +641,5 @@ errType SrvAppLayer::setServiceMode(BYTE mode)
 // if answer from equipment is expected - to return timeout value for detecting emergency
 // else - just to wait unexpected messages
 DWORD SrvAppLayer::get_timeout_equipment_value()  {
-        if (awaiting_equip_answer_)
-            return timeout_equip_value_;
-        else
-            return 0;
+    return timeout_equip_value_;
 }
