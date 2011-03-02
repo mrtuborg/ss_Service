@@ -3,7 +3,7 @@
 id:=.
 host:=1
 
-use_libs		:=rcsLib peripheral extra math udpAction
+use_libs		:=rcsLib peripheral extra math udpAction conv
 app_binary_dir		:=bin/$(shell uname -s)_$(shell uname -r)
 app_libray_dir		:=libs
 root_build_dir		:=obj
@@ -47,6 +47,10 @@ lib_dirs+=$(addprefix $(paths_to_libraries)/storage/, $(lib_subdirs))
 
 include $(addprefix $(paths_to_libraries)/,system/Makefile.inc)
 lib_dirs+=$(addprefix $(paths_to_libraries)/system/, $(lib_subdirs))
+
+include $(addprefix $(paths_to_libraries)/,conv/Makefile.inc)
+lib_dirs+=$(addprefix $(paths_to_libraries)/conv/, $(lib_subdirs))
+
 
 compile_flags		:= -Wall -Wno-char-subscripts -MD -pipe
 link_flags		:= -pipe

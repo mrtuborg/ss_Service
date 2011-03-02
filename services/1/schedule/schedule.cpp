@@ -17,9 +17,11 @@
               
 #include <extra/ortsTypes/ortsTypes.h>
 #include <rcsLib/rcsCmd/rcsCmd.h>
+#include <conv/stdformat/stdformat.h>
+
 #include "cronTask.h"
 #include "cronTab.h"
-#include <schedule/job/job.h>
+#include "schedule/job/job.h"
 #include "schedule.h"
 
 schedule::schedule()
@@ -223,41 +225,34 @@ errType schedule::writeCronTab(job* newJob)
 {
 	errType result=err_result_ok;
 	struct tm  *ts;
-	time_t timeStart = newJob->get_dwTimeStart();
+	time_t timeStart (newJob->get_dwTimeStart());
+
 	/// 1. Define start time for cron task
 	ts = localtime(&timeStart);
+
 	/// 2. Filling cron task
-	WORD cmdLen=newJob->cmd()->getCmdLength();
-	char *ipaddr;//[255];
-	char uport[255];
-
-	struct in_addr in;
+	WORD cmdLen (newJob->cmd()->getCmdLength());
+	in_addr in;
 	in.s_addr=newJob->get_dwServiceIPaddr();
-	ipaddr=inet_ntoa(in);
+	char *ipaddr (inet_ntoa(in));
+	int uport (newJob->get_wServiceUdpPort());
 
-	sprintf(uport, "%d", newJob->get_wServiceUdpPort());
+	int delay=ts->tm_sec;
 
-	char *cmd, *tmp_cmd; // string for writing to cron
+	string strCmd (format("ssProxy -u%s:%d -s%d -d\"", ipaddr, uport, delay));
 
-	// -------------------- refactoring ----------------------------------
-	cmd=new char[cmdLen*4+strlen(ipaddr)+strlen(uport)+strlen("-d\"\"")];
-	sprintf(cmd,"-u %s:%s -d\"", ipaddr, uport);
-	tmp_cmd=cmd;
-	cmd=cmd+strlen(cmd);
 	BYTE* array; // temporary array for decoding cmd
 	array=new BYTE[cmdLen];
 	newJob->cmd()->decode(array);
+
 	for (int i=0; i<cmdLen; i++) {
-		sprintf(cmd+i*3,"%.2X \"",array[i]);
+		strCmd.append(format("%.2X ",array[i]));
 	}
-	cmd[cmdLen*4]=0;
-	cmd=tmp_cmd;
-	// --------------------------------------------------------------------
 
-
-	string textString(cmd);
+	strCmd.append("\"");
 
 	cronTask *task;
+	/// 3. Create cronTask object
 	task=new cronTask(ts->tm_hour,
 					  ts->tm_min,
 					  ts->tm_mday,
@@ -266,30 +261,21 @@ errType schedule::writeCronTab(job* newJob)
 					  (unsigned long) newJob->get_dwObjId(),
 					  (unsigned long) newJob->get_dwNextObjId(),
 					  (unsigned) newJob->get_dwTimeEnd(),
-					  textString);
+					  strCmd);
 
-	//cout << *task;
+	cout << *task;
 	int pos=0;
 	cout << "1) create cronJob\n";
 	cronJob->NewTask(task);
 	cout << "2) add cronJob to cronFile\n";
 	cronJob->addToCronFile();
-	cout << "3) get cronJob from cronFile\n";
+	cout << "3) get all cronJob from cronFile\n";
 	do {
 		pos = cronJob->getFromCronFile();
 		cout << "pos = " << pos << endl;
 	} while (pos>0);
-	//-cronJob->setCommand(ts, newJob->get_dwObjId(), newJob->get_dwNextObjId(), newJob->get_dwTimeEnd(), cmd);
-	//-cronJob->addToCronFile();
 
 
-
-	do {
-		//-pos=cronJob->getFromCronFile();
-	} while (pos>0);
-
-	delete []cmd;
-	delete []array;
 	return result;
 }
 
