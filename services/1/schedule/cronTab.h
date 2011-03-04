@@ -32,6 +32,8 @@ public:
 
 	errType addToCronFile();
 	int getFromCronFile();
+
+
 	errType eraseEarlier();
 	errType loadFromCronFileAt(int minute, int hour, int dayM, int month, int dayW);
 	errType clearCronFile();

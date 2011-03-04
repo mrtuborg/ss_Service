@@ -44,7 +44,7 @@ class functionNode
 	errType setResultDescriptor(BYTE num, OrtsType type);
 	errType setParamName (BYTE num, const char *name);
 	errType setResultName(BYTE num, const char *name);
-        void    setMutatorStatus(bool is_mutator)  {  mutator_ = is_mutator;  }
+        void    setMutatorStatus(bool is_mutator=true)  {  mutator_ = is_mutator;  }
 	
         WORD     getParamLength(BYTE num);
 	OrtsType getParamType(BYTE num);

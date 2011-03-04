@@ -40,10 +40,11 @@ cronTab::cronTab() {
 	readPosition=cronFile.tellg();
 	cronFile.close();
 
-	cout << "writePos=" << writePosition << endl;
-	cout << "readPos=" << readPosition << endl;
+	//cout << "writePos=" << writePosition << endl;
+	//cout << "readPos=" << readPosition << endl;
 	//printf("cronFile writePosition=%lld\n", (int) writePosition);
 	//printf("cronFile readPosition=%lld\n",  (int) readPosition);
+	this->clearCronFile();
 }
 
 cronTab::~cronTab() {
@@ -85,6 +86,15 @@ errType cronTab::NewTask(cronTask* task)
 //
 //	return err_result_ok;
 //}
+
+errType cronTab::clearCronFile()
+{
+	cronFile.open("cronTest.txt",ios::out | ios::trunc);
+	cronFile.close();
+
+	return err_result_ok;
+}
+
 
 errType cronTab::addToCronFile()
 {

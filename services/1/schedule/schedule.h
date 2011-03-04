@@ -7,8 +7,8 @@ class schedule
     cronTab* cronJob;
     list<job*> job_list;
     
-    int fd;  // mapping file descriptor;
-    
+
+	errType writeCronTab(job*);
     public:
     
      schedule();
@@ -16,13 +16,13 @@ class schedule
     
     errType addJob(job* );
     errType removeAllJobsBefore(DWORD );
-    errType execJob();
-    errType checkAlarm();
-    errType update();
-    errType mappingOpen(BYTE*);
-    errType mappingClose();
+
+    errType run();
+    errType stop();
+
     errType decode(BYTE*);
     errType encode(BYTE*);
-	errType writeCronTab(job*);
+
+
 };
 

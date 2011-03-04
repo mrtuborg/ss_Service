@@ -13,6 +13,8 @@ extern errType controlModeChange(void*);
 extern errType getStateVector(void*);
 
 extern errType addScheduleJob(void*);
+extern errType runSchedule(void*);
+extern errType stopSchedule(void*);
 
 
 extern errType ReadGeneralSchedule(void*);

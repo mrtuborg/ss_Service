@@ -93,6 +93,28 @@ errType specFuncsMgr::startSpecFuncs()
 
 	    appLayer->CreateNewFunction(func);
 
+	    func=new functionNode(2, 1, 1, runSchedule);
+		func->setMutatorStatus(true);
+		func->setFuncName("Запустить на исполнение пакетное задание");
+		func->setParamDescriptor(0, type_BYTE);
+		func->setParamName(0,"Идентификатор пакетного задания");
+
+		func->setResultDescriptor(0,type_ERRTYPE);
+		func->setResultName(0, "Квитанция исполнения");
+
+		appLayer->CreateNewFunction(func);
+
+		func=new functionNode(3, 1, 1, stopSchedule);
+		func->setMutatorStatus(true);
+		func->setFuncName("Удалить из исполнения всё пакетное задание");
+		func->setParamDescriptor(0, type_BYTE);
+		func->setParamName(0,"Идентификатор пакетного задания");
+
+		func->setResultDescriptor(0,type_ERRTYPE);
+		func->setResultName(0, "Квитанция исполнения");
+
+				appLayer->CreateNewFunction(func);
+
 
     return result;
 }
