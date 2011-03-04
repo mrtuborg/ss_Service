@@ -132,12 +132,16 @@ errType getStateVector(void* fn)
 
 }
 
-inline errType SendSASCMsg(SASC_cmd_mod mode, BYTE** params)
+inline errType SendSASCMsg(SASC_cmd_mod mode, BYTE** params = 0)
 {
+    errType result (err_result_ok);
     BYTE frame[comm_SASC::kSASCMsgSize];
+
     sndSASCmsg.apply_mod(mode, params);
-    sndSASCmsg.decode(&frame);
-    equip_sending->sendData(equipAddr, frame, comm_SASC::kSASCMsgSize);
+    sndSASCmsg.decode(frame);
+    result = equip_sending->sendData(equipAddr, frame, comm_SASC::kSASCMsgSize);
+
+    return result;
 }
 
 errType SASC_PowerON(void* fn)

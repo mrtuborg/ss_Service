@@ -55,8 +55,7 @@ errType specFuncsMgr::startSpecFuncs()
     // 6. Add function to Application interchange layer:
     //code: appLayer->CreateNewFunction(func);
 
-    appLayer->set_awaiting_equip_answer(2);
-
+    appLayer->set_timeout_equipment_answer(2);
 
     func = new functionNode(1,1,2,shieldPowerON);
     func->setFuncName("Включить питание укрытия");

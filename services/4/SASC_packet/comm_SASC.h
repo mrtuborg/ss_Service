@@ -53,10 +53,9 @@ extern char SASC_answer_str[13][255];
 
 class comm_SASC 
 {
-    static const WORD kSASCMsgSize;
-    SASC_msg_type *msg;
-
 public:
+    static const WORD kSASCMsgSize;
+
     comm_SASC();
     ~comm_SASC();
 
@@ -64,8 +63,10 @@ public:
     errType apply_mod(SASC_cmd_mod mode, BYTE** params=0);
     errType checkAnswer(SASC_answer_mod *typeinf);
 
-    errType decode(BYTE** );
+    errType decode(BYTE* );
     errType encode(BYTE*, DWORD size);
 
     void dbgPrint();
+private:
+    SASC_msg_type *msg;
 };

@@ -15,6 +15,7 @@
 #include <pthread.h>
 #include <netinet/in.h>
 #include <queue>
+
 #include <extra/ortsTypes/ortsTypes.h>
 #include <ssBuffer.h>
 #include <rcsLib/rcsCmd/rcsCmd.h>
@@ -39,30 +40,24 @@ void* equipListenPolling(void* user)
     BYTE    *writingBuffer;
     errType result (err_not_init);
     writingBuffer = new BYTE[256];
-    DWORD timeout;
 
     while (!app->terminated())
-    {                                                                           
+    {
         /// @todo Listening equipment answer - status vector:
-        timeout = app->get_equipment_timeOut_Value();
-
-
-        result = app->equip_reading_event(timeout);
-
-        if (result == err_timeout && app->is_awaiting_equip_answer())  {
+        result = app->equip_reading_event(app->get_timeout_equipment_value());
+        if (result == err_timeout)  {
             printf("Разрыв связи с оборудованием!\n\n");
             app->set_state_vector_linked(false);
         }
 
         if (result == err_result_ok) {
-	    app->equip_read_data(writingBuffer, (size_t*)&sz);
-	    equipListenProcessing(writingBuffer, sz);
-            app->set_awaiting_equip_answer(false);
-            if (!app->get_state_vector_linked())  {
+            app->equip_read_data(writingBuffer, (size_t*)&sz);
+            equipListenProcessing(writingBuffer, sz);
+            if (!app->is_state_vector_linked())  {
                 app->set_state_vector_linked(true);
                 printf("Связь с оборудованием восстановлена!\n\n");
             }
-	}
+        }
 	sched_yield();
     }                                                                           
     delete []writingBuffer;

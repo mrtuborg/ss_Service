@@ -1,3 +1,5 @@
+#define SERVICE_4
+
 #include <pthread.h>                                                            
 #include <stdio.h>                                                              
 #include <string.h>                                                             

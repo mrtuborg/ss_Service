@@ -68,8 +68,6 @@ void* pollingThread(void* user)
             sendFrame->decode(array);
             equip_sending->sendData(equipAddr, array, cmdFrame::kPacketSize);
 
-            app->set_awaiting_equip_answer(true);
-
             if (timer.isActive()) timer.stop();
             timer.start();
         }
