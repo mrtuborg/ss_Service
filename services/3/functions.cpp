@@ -61,7 +61,7 @@ void* pollingThread(void* user)
     {
         if (!timer.isActive() || (sendFrame->setCheckSumm() != old_crc))
         {
-            sendFrame->dbgPrint();
+            if (verbose_level) sendFrame->dbgPrint();
             old_crc = sendFrame->setCheckSumm();
 
             BYTE array[cmdFrame::kPacketSize];
@@ -87,9 +87,11 @@ errType equipListenProcessing(BYTE *writingBuffer, size_t sz)
     for (size_t k = 0; k < sz; k++)
         printf("%.2X ", writingBuffer[k]);
     printf("]\n\n");
-    printf("\tРасшифровка:\n");
-    answerFrame->dbgPrint();
-    printf("\t===========================================\n\n");
+    if (verbose_level)  {
+        printf("\tРасшифровка:\n");
+        answerFrame->dbgPrint();
+        printf("\t===========================================\n\n");
+    }
     return result;
 }
 
