@@ -17,9 +17,11 @@
               
 #include <extra/ortsTypes/ortsTypes.h>
 #include <rcsLib/rcsCmd/rcsCmd.h>
+#include <conv/stdformat/stdformat.h>
+
 #include "cronTask.h"
 #include "cronTab.h"
-#include <schedule/job/job.h>
+#include "schedule/job/job.h"
 #include "schedule.h"
 
 schedule::schedule()
@@ -38,27 +40,24 @@ errType schedule::addJob(job* jEntity){
 
     /// TODO: Make simpler
     iter=job_list.begin();
-    //if (!(*iter)) return err_abort;
+
     int quantity=job_list.size();
-    if (!quantity) job_list.push_back(jEntity);
+    int i=0;
+    printf("quantity = %d\n", quantity);
+    if (!quantity) job_list.push_back(jEntity); // Add 1st job entity to empty list
     else {
-    		for (iter=job_list.begin(); iter==job_list.end(); ++iter) {
-    			if ((*iter)->get_dwTimeStart()<jEntity->get_dwTimeStart()) {
+    		for (iter = job_list.begin(); iter == job_list.end(); ++iter) {
+    			printf("iter = %d\n", i);
+    			i++;
+    			if ((*iter)->get_dwTimeStart() <= jEntity->get_dwTimeStart()) {
+    				printf("passing through for earlier times\n");
     				prev_iter=iter;
-    			} else {
-    				if ((*iter)->get_dwTimeStart()==jEntity->get_dwTimeStart()){
-    					iter_cmd=(*iter)->cmd();
-    					param_cmd=jEntity->cmd();
-    					if (((*iter)->get_btServId()==jEntity->get_btServId()) && (iter_cmd->get_func_id()==param_cmd->get_func_id())){
-    						tmp_iter=iter;
-    						job_list.erase(tmp_iter);
-    						prev_iter=++iter;
-    					}
-    					job_list.insert(prev_iter,jEntity);
-    					iter=job_list.end();
-    				}
-    			}
+
+    			} else break;
     		}
+    		printf("need to add here... \n");
+    		job_list.insert(iter, jEntity);
+
     }
 
     return err_result_ok;
@@ -79,88 +78,28 @@ errType schedule::removeAllJobsBefore(DWORD dwTime)
     return err_result_ok;
 }
 
-errType schedule::execJob()
-{
-		return err_not_init;
-}
 
-errType schedule::checkAlarm()
+
+
+
+errType schedule::run()
 {
-    removeAllJobsBefore(0);
-    execJob();
+	list <job*>::iterator iter;
+	int i=0;
+	for (iter=job_list.begin(); iter!=job_list.end(); ++iter)
+	{
+
+		printf("i=%d\n",i);
+		writeCronTab(*iter);
+		i++;
+	}
     return err_result_ok;
 }
 
 
-errType schedule::mappingOpen(BYTE* mapping)
+errType schedule::stop()
 {
-    errType result=err_not_init;
-    char sched_filename[255];
-    struct stat info;
-
-    sprintf(sched_filename,"schedule_%d.dat",id);
-    
-    fd = open(sched_filename, O_RDWR);
-    if (fd == -1) {
-	//error_message(__FILE__, __LINE__, "'open' failed ");
-	return err_result_error;
-    }
-
-    // find out the size of the file in bytes
-    // we need the size, because we cannot write past the end of the file
-    // so, we need to make sure not to write at an offset larger than 'info.st_size'
-    if (fstat(fd, &info) == -1) {
-	//error_message(__FILE__, __LINE__, "'fstat' failed ");
-	return err_result_error;
-    }
-
-    printf("The file has %d bytes\n", (DWORD) info.st_size);
-    if (info.st_size == 0) {
-	fprintf(stderr, "We cannot map a file with size 0\n");
-	return err_result_error;
-    }
-    // TODO
-	mapping = (BYTE*) mmap(NULL, info.st_size, PROT_WRITE, MAP_PRIVATE, fd, 0);
-	if (mapping == MAP_FAILED) {
-		perror("mmap:");
-		return err_result_error;
-	}
-	else fprintf(stderr, "Successful mapping at the address %p\n", mapping);
-	
-	memcpy(mapping, "hello", 5);
-	
-	if (msync(mapping, info.st_size, MS_SYNC) == -1) {
-		perror("msync:");
-		return err_result_error;
-	}
-
-    return result;
-}
-
-
-errType schedule::mappingClose()
-{
-    errType result=err_not_init;
-    
-    // close the file
-	if (close(fd) == -1) {
-		//error_message(__FILE__, __LINE__, "'close' failed ");
-		return err_result_error;
-	}
-
-    
-    return result;
-}
-
-
-
-errType schedule::update()
-{
-	list <job*>::iterator iter;
-	for (iter=job_list.begin(); iter!=job_list.end(); ++iter)
-	{
-		writeCronTab(*iter);
-	}
+	cronJob->clearCronFile();
     return err_result_ok;
 }
 
@@ -205,36 +144,34 @@ errType schedule::writeCronTab(job* newJob)
 {
 	errType result=err_result_ok;
 	struct tm  *ts;
-	time_t timeStart = newJob->get_dwTimeStart();
+	time_t timeStart (newJob->get_dwTimeStart());
+
 	/// 1. Define start time for cron task
 	ts = localtime(&timeStart);
+
 	/// 2. Filling cron task
-	WORD cmdLen=newJob->cmd()->getCmdLength();
-	char *ipaddr;//[255];
-	char uport[255];
-
-	struct in_addr in;
+	WORD cmdLen (newJob->cmd()->getCmdLength());
+	in_addr in;
 	in.s_addr=newJob->get_dwServiceIPaddr();
-	ipaddr=inet_ntoa(in);
+	char *ipaddr (inet_ntoa(in));
+	int uport (newJob->get_wServiceUdpPort());
 
-	sprintf(uport, "%d", newJob->get_wServiceUdpPort());
+	int delay=ts->tm_sec;
 
-	char *cmd, *tmp_cmd; // string for writing to cron
-	cmd=new char[cmdLen*4+strlen(ipaddr)+strlen(uport)+strlen("-d\"\"")];
-	sprintf(cmd,"-u %s:%s -d\"", ipaddr, uport);
-	tmp_cmd=cmd;
-	cmd=cmd+strlen(cmd);
+	string strCmd (format("ssProxy -u%s:%d -s%d -d\"", ipaddr, uport, delay));
+
 	BYTE* array; // temporary array for decoding cmd
 	array=new BYTE[cmdLen];
 	newJob->cmd()->decode(array);
+
 	for (int i=0; i<cmdLen; i++) {
-		sprintf(cmd+i*3,"%.2X \"",array[i]);
+		strCmd.append(format("%.2X ",array[i]));
 	}
-	cmd[cmdLen*4]=0;
-	cmd=tmp_cmd;
-	string textString(cmd);
+
+	strCmd.append("\"");
 
 	cronTask *task;
+	/// 3. Create cronTask object
 	task=new cronTask(ts->tm_hour,
 					  ts->tm_min,
 					  ts->tm_mday,
@@ -243,22 +180,22 @@ errType schedule::writeCronTab(job* newJob)
 					  (unsigned long) newJob->get_dwObjId(),
 					  (unsigned long) newJob->get_dwNextObjId(),
 					  (unsigned) newJob->get_dwTimeEnd(),
-					  textString);
+					  strCmd);
+
 	cout << *task;
-	cronJob->NewTask(task);
-	cronJob->addToCronFile();
-
-	//-cronJob->setCommand(ts, newJob->get_dwObjId(), newJob->get_dwNextObjId(), newJob->get_dwTimeEnd(), cmd);
-	//-cronJob->addToCronFile();
-
 	int pos=0;
-
+	cout << "1) create cronJob\n";
+	cronJob->NewTask(task);
+	cout << "2) add cronJob to cronFile\n";
+	cronJob->addToCronFile();
+	cout << "3) get all cronJob from cronFile\n";
 	do {
-		//-pos=cronJob->getFromCronFile();
+		pos = cronJob->getFromCronFile();
+		cout << "pos = " << pos << endl;
 	} while (pos>0);
 
-	delete []cmd;
-	delete []array;
+	//cronJob->clearCronFile();
+
 	return result;
 }
 

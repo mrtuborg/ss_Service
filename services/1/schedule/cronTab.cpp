@@ -40,10 +40,11 @@ cronTab::cronTab() {
 	readPosition=cronFile.tellg();
 	cronFile.close();
 
-	cout << "writePos=" << writePosition << endl;
-	cout << "readPos=" << readPosition << endl;
+	//cout << "writePos=" << writePosition << endl;
+	//cout << "readPos=" << readPosition << endl;
 	//printf("cronFile writePosition=%lld\n", (int) writePosition);
 	//printf("cronFile readPosition=%lld\n",  (int) readPosition);
+	this->clearCronFile();
 }
 
 cronTab::~cronTab() {
@@ -86,6 +87,15 @@ errType cronTab::NewTask(cronTask* task)
 //	return err_result_ok;
 //}
 
+errType cronTab::clearCronFile()
+{
+	cronFile.open("cronTest.txt",ios::out | ios::trunc);
+	cronFile.close();
+
+	return err_result_ok;
+}
+
+
 errType cronTab::addToCronFile()
 {
 	errType result (err_not_init);
@@ -93,22 +103,15 @@ errType cronTab::addToCronFile()
 
 	cronFile.open("cronTest.txt",ios::out | ios::app);
 	if (cronFile.is_open()) {
-		//printf("want to save: %d %d %d %d * %s\n", minute, hour, mday, month, command);
+		cout << *task << endl;
+		cronFile << *task << endl;
 
-
-		cout << *task;
-		cronFile << *task;
-
-		//cronFile << minute << "\t" << hour << "\t" << mday << " \t"<<month<<"\t*\t"<<command<<"\r\n";
-
-		//fprintf(cronFile, "%s\t%s\t%s\t%s\t*\t%s\n", minute, hour, day_of_month,month, command);
 		writePosition=cronFile.tellp();
 		cronFile.close();
 
 		result=err_result_ok;
 	}
 
-	//printf("want to exec: %s/%s (%s) %s:%s command: %s\n", day_of_month, month, day_of_week, hour, minute, command);
 	cout << "writePosition = " << writePosition << endl;
 	return result;
 }
@@ -123,7 +126,7 @@ int cronTab::getFromCronFile()
 	string textLine;
 
 	if (cronFile) {
-		cout << "readPosition to set = " << readPosition << endl;
+		//cout << "readPosition to set = " << readPosition << endl;
 
 		cronFile.clear();
 		cronFile.seekg(readPosition, ios::beg);
@@ -131,6 +134,7 @@ int cronTab::getFromCronFile()
 		getline(cronFile, textLine);
 		cronTask *task=new cronTask(textLine);
 		cout << *task << endl;
+
 		//dbgPrint();
 		//fscanf(cronFile,"%s\n", command);
 		//printf("readed: %s\n", command);
@@ -140,7 +144,7 @@ int cronTab::getFromCronFile()
 			readPosition=0;
 			pos=-1;
 		}
-		cout << "readPosition=" << readPosition << endl;
+		//cout << "readPosition=" << readPosition << endl;
 		cronFile.close();
 		result=err_result_ok;
 	}

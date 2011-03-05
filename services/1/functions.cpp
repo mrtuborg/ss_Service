@@ -23,8 +23,8 @@
 //udp_port* equipment;
 pthread_t PollingThreadHandle;
 FILE *scheduleFile;
-schedule generalShedule;
-schedule emergencyShedule;
+schedule _shedule[2];
+
 
 //#define EQ_UDP_PORT 5004
 //#define EQ_IP_ADDR "127.0.0.1"
@@ -138,7 +138,7 @@ errType addScheduleJob(void* fn)
     
     func->printParams();
     
-    BYTE isEmergencySchedule=*(BYTE*)(func->getParamPtr(0)); // Packet No
+    BYTE isEmergency=*(BYTE*)(func->getParamPtr(0)); // Packet No
     DWORD objId=*(DWORD*)(func->getParamPtr(1));
     DWORD nextObjId=*(DWORD*)(func->getParamPtr(2));
     DWORD timeStart=*(DWORD*)func->getParamPtr(3);
@@ -158,14 +158,8 @@ errType addScheduleJob(void* fn)
     newJob->set_dwFinishTime(timeEnd);
     newJob->setJobCmd(func_id, *((WORD*)cmd), cmd+2);
 
-    if (isEmergencySchedule==1)
-    {
-    		emergencyShedule.addJob(newJob);
-    	    emergencyShedule.update();
-    	}else {
-    		generalShedule.addJob(newJob);
-    		generalShedule.update();
-    }
+    _shedule[isEmergency].addJob(newJob);
+
 
     /// use these files for cron:
     /// data_%jobId%.sdata - rcsCmd to send by cron scheduling
@@ -195,6 +189,33 @@ errType addScheduleJob(void* fn)
 
 
     return result;
+}
+
+errType runSchedule(void* fn)
+{
+	errType result (err_not_init);
+	functionNode* func=(functionNode*)fn;
+
+	func->printParams();
+
+	BYTE isEmergency=*(BYTE*)(func->getParamPtr(0)); // Packet No
+	_shedule[isEmergency].run();
+
+
+	return result;
+}
+
+errType stopSchedule(void* fn)
+{
+	errType result (err_not_init);
+	functionNode* func=(functionNode*)fn;
+
+	func->printParams();
+
+	BYTE isEmergency=*(BYTE*)(func->getParamPtr(0)); // Packet No
+	_shedule[isEmergency].stop();
+
+	return result;
 }
 
 errType CreateEmergencySchedule(void* fn)
