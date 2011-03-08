@@ -18,10 +18,10 @@
 #include <extra/ortsTypes/ortsTypes.h>
 #include <rcsLib/rcsCmd/rcsCmd.h>
 #include <conv/stdformat/stdformat.h>
+#include <schedule/job/job.h>
 
 #include "cronTask.h"
 #include "cronTab.h"
-#include "schedule/job/job.h"
 #include "schedule.h"
 
 
@@ -204,3 +204,15 @@ errType schedule::convertToCronTask(job* newJob, cronTask *task)
 	return result;
 }
 
+void schedule::dbgPrint()
+{
+	 list <job*>::iterator iter;
+	 int i=0;
+
+	 for (iter=job_list.begin(); iter!=job_list.end(); ++iter)
+	 {
+		printf("index: %d\n", i++);
+		(*iter)->dbgPrint();
+		printf("------------------\n\n");
+	 }
+}

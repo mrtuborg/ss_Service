@@ -23,7 +23,7 @@
 //udp_port* equipment;
 pthread_t PollingThreadHandle;
 FILE *scheduleFile;
-schedule _shedule[2];
+schedule _schedule[2];
 
 
 //#define EQ_UDP_PORT 5004
@@ -155,11 +155,11 @@ errType addScheduleJob(void* fn)
     newJob->set_dwNextJobID(nextObjId);
     newJob->set_btServiceId(service_id);
     newJob->set_dwStartTime(timeStart);
-    newJob->set_dwFinishTime(timeEnd);
+    newJob->set_dwLongTime(timeEnd);
     newJob->setJobCmd(func_id, *((WORD*)cmd), cmd+2);
 
-    _shedule[isEmergency].addJob(newJob);
-
+    _schedule[isEmergency].addJob(newJob);
+    _schedule[isEmergency].dbgPrint();
 
     /// use these files for cron:
     /// data_%jobId%.sdata - rcsCmd to send by cron scheduling
@@ -199,7 +199,7 @@ errType runSchedule(void* fn)
 	func->printParams();
 
 	BYTE isEmergency=*(BYTE*)(func->getParamPtr(0)); // Packet No
-	_shedule[isEmergency].run();
+	_schedule[isEmergency].run();
 
 
 	return result;
@@ -213,7 +213,7 @@ errType stopSchedule(void* fn)
 	func->printParams();
 
 	BYTE isEmergency=*(BYTE*)(func->getParamPtr(0)); // Packet No
-	_shedule[isEmergency].stop();
+	_schedule[isEmergency].stop();
 
 	return result;
 }

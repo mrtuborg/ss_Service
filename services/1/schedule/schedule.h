@@ -24,5 +24,7 @@ class schedule
     errType encode(BYTE*);
 
 
+    void dbgPrint();
+
 };
 

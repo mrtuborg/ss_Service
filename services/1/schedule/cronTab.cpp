@@ -99,12 +99,23 @@ errType cronTab::clearCronFile()
 errType cronTab::addToCronFile()
 {
 	errType result (err_not_init);
-	cronTask *task=taskList.back();
+	cronTask *task=taskList.front();
+	list <cronTask*>::iterator iter;
 
+	int wr=0;
 	cronFile.open("cronTest.txt",ios::out | ios::app);
 	if (cronFile.is_open()) {
-		cout << *task << endl;
-		cronFile << *task << endl;
+		for (iter=taskList.begin(); iter!=taskList.end(); ++iter)
+		{
+
+			printf("wr=%d\n",wr++);
+			task=(*iter);
+			cout << *task << endl;
+			cronFile << *task << endl;
+
+
+		}
+
 
 		writePosition=cronFile.tellp();
 		cronFile.close();
