@@ -24,14 +24,16 @@
 #include "schedule/job/job.h"
 #include "schedule.h"
 
+
+
 schedule::schedule()
 {
-	cronJob=new cronTab();
+	//cronJob=new cronTab();
 }
 
 schedule::~schedule()
 {
-	delete cronJob;
+	//delete cronJob;
 }
 
 errType schedule::addJob(job* jEntity){
@@ -84,22 +86,35 @@ errType schedule::removeAllJobsBefore(DWORD dwTime)
 
 errType schedule::run()
 {
+	cronTab *tab;
+	cronTask *task;
 	list <job*>::iterator iter;
 	int i=0;
+
+	tab = new cronTab();
+
+	//tab->clearCronFile(); - by default ?
 	for (iter=job_list.begin(); iter!=job_list.end(); ++iter)
 	{
 
-		printf("i=%d\n",i);
-		writeCronTab(*iter);
-		i++;
+		printf("i=%d\n",i++);
+		task = new cronTask();
+		if (convertToCronTask(*iter, task) == err_result_ok) tab->addTask(task);
+
 	}
+
+	tab->addToCronFile();
+
+	delete tab;
+
     return err_result_ok;
 }
 
 
 errType schedule::stop()
 {
-	cronJob->clearCronFile();
+	cronTab tab;
+	tab.clearCronFile();
     return err_result_ok;
 }
 
@@ -140,7 +155,7 @@ errType schedule::decode(BYTE* array)
     return result;
 }
 
-errType schedule::writeCronTab(job* newJob)
+errType schedule::convertToCronTask(job* newJob, cronTask *task)
 {
 	errType result=err_result_ok;
 	struct tm  *ts;
@@ -170,31 +185,21 @@ errType schedule::writeCronTab(job* newJob)
 
 	strCmd.append("\"");
 
-	cronTask *task;
+
 	/// 3. Create cronTask object
-	task=new cronTask(ts->tm_hour,
-					  ts->tm_min,
-					  ts->tm_mday,
-					  ts->tm_mon,
-					  ts->tm_wday,
-					  (unsigned long) newJob->get_dwObjId(),
-					  (unsigned long) newJob->get_dwNextObjId(),
-					  (unsigned) newJob->get_dwTimeEnd(),
-					  strCmd);
+	task->create(ts->tm_hour,
+				 ts->tm_min,
+				 ts->tm_mday,
+				 ts->tm_mon,
+				 ts->tm_wday,
+				 (unsigned long) newJob->get_dwObjId(),
+				 (unsigned long) newJob->get_dwNextObjId(),
+				 (unsigned) newJob->get_dwTimeEnd(),
+				 strCmd);
+
 
 	cout << *task;
-	int pos=0;
-	cout << "1) create cronJob\n";
-	cronJob->NewTask(task);
-	cout << "2) add cronJob to cronFile\n";
-	cronJob->addToCronFile();
-	cout << "3) get all cronJob from cronFile\n";
-	do {
-		pos = cronJob->getFromCronFile();
-		cout << "pos = " << pos << endl;
-	} while (pos>0);
 
-	//cronJob->clearCronFile();
 
 	return result;
 }

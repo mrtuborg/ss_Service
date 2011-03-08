@@ -66,7 +66,7 @@ cronTab::~cronTab() {
 //	return err_result_ok;
 //}
 
-errType cronTab::NewTask(cronTask* task)
+errType cronTab::addTask(cronTask* task)
 {
 	taskList.push_back(task);
 	return err_result_ok;
@@ -132,7 +132,8 @@ int cronTab::getFromCronFile()
 		cronFile.seekg(readPosition, ios::beg);
 
 		getline(cronFile, textLine);
-		cronTask *task=new cronTask(textLine);
+		cronTask *task=new cronTask();
+		task->create(textLine);
 		cout << *task << endl;
 
 		//dbgPrint();

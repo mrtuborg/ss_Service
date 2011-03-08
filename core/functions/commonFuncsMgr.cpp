@@ -46,7 +46,7 @@ void* equipListenPolling(void* user)
         /// @todo Listening equipment answer - status vector:
         result = app->equip_reading_event(app->get_timeout_equipment_value());
         if (result == err_timeout)  {
-            printf("Разрыв связи с оборудованием!\n\n");
+            /// printf("Разрыв связи с оборудованием!\n\n"); - УБИТЬ ЗА ТАКОЕ МАЛО!
             app->set_state_vector_linked(false);
         }
 

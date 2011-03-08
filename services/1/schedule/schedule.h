@@ -4,11 +4,11 @@ using namespace std;
 class schedule 
 {
     BYTE id;
-    cronTab* cronJob;
+   /// cronTab* cronJob; -- dynamicaly created at run command
     list<job*> job_list;
     
 
-	errType writeCronTab(job*);
+	errType convertToCronTask(job* newJob, cronTask *task);
     public:
     
      schedule();
