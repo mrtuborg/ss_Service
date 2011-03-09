@@ -15,6 +15,7 @@ class schedule
     ~schedule();
     
     errType addJob(job* );
+    job* getJob(DWORD);
     errType removeAllJobsBefore(DWORD );
 
     errType run();

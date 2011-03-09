@@ -62,7 +62,7 @@ errType specFuncsMgr::startSpecFuncs()
 	    func->setParamName(1,"Идентификатор операции");
 
 	    func->setParamDescriptor(2, type_DWORD);
-	    	func->setParamName(2,"Идентификатор следующей операции");
+	    func->setParamName(2,"Идентификатор следующей операции");
 
 	    func->setParamDescriptor(3, type_DWORD);
 	    func->setParamName(3,"Время начала операции");
@@ -71,10 +71,10 @@ errType specFuncsMgr::startSpecFuncs()
 	    func->setParamName(4,"Время окончания операции");
 
 	    func->setParamDescriptor(5, type_DWORD);
-	    	func->setParamName(5,"IPv4-адресс службы");
+	    func->setParamName(5,"IPv4-адресс службы");
 
-	    	func->setParamDescriptor(6, type_WORD);
-	    	func->setParamName(6,"UDP порт службы");
+	    func->setParamDescriptor(6, type_WORD);
+	    func->setParamName(6,"UDP порт службы");
 
 	    func->setParamDescriptor(7, type_BYTE);
 	    func->setParamName(7,"Идентификатор службы-исполнителя");
@@ -116,7 +116,7 @@ errType specFuncsMgr::startSpecFuncs()
 		appLayer->CreateNewFunction(func);
 
 	//extern errType readJobState(void* fn)
-		func = new functionNode(4, 2, 8, readJobState);
+		func = new functionNode(4, 2, 3, readJobState);
 		func->setMutatorStatus(false);
 		func->setFuncName("Запрос статуса операции");
 		func->setParamDescriptor(0, type_BYTE);
@@ -177,8 +177,8 @@ errType specFuncsMgr::startSpecFuncs()
 
 		appLayer->CreateNewFunction(func);
 
-		//extern errType executeJob(void* fn)
-		func = new functionNode(6, 1, 2, getOpsId);
+		//extern errType getOpsId(void* fn)
+		func = new functionNode(7, 1, 2, getOpsId);
 		func->setMutatorStatus(false);
 		func->setFuncName("Запрос списка идентификаторов операций");
 		func->setParamDescriptor(0, type_BYTE);
@@ -192,13 +192,15 @@ errType specFuncsMgr::startSpecFuncs()
 		appLayer->CreateNewFunction(func);
 
 		//extern errType executeJob(void* fn)
-		func = new functionNode(8, 2, 1, executeJob);
+		func = new functionNode(8, 3, 1, executeJob);
 		func->setMutatorStatus(true);
-		func->setFuncName("Запустить задание на исполнение");
+		func->setFuncName("Запустить операцию на исполнение");
 		func->setParamDescriptor(0, type_BYTE);
 		func->setParamName(0,"Идентификатор пакетного задания");
 		func->setParamDescriptor(1, type_DWORD);
 		func->setParamName(1,"Идентификатор операции");
+		func->setParamDescriptor(2, type_BYTE);
+		func->setParamName(2,"Отложить исполнение, cек");
 
 		func->setResultDescriptor(0,type_ERRTYPE);
 		func->setResultName(0, "Квитанция исполнения");

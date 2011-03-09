@@ -196,12 +196,28 @@ errType readJobState(void* fn)
     functionNode* func=(functionNode*)fn;
     
     func->printParams();
+    job* operation=0;
+    BYTE *jobStatus=0;
+    BYTE *execAnswer=0;
+
     
 	BYTE isEmergency=*(BYTE*)(func->getParamPtr(0)); // Packet No
 	BYTE jobID=*(BYTE*)(func->getParamPtr(1)); // Job ID
 
-	// TODO: _shedule[isEmergency].getJob(jobID);
-	// TODO: func->setResult(1, jobDecoded);
+	operation=_shedule[isEmergency].getJob(jobID);
+	if (operation) {
+		jobStatus = operation->getState();
+		execAnswer = operation->lastAnswer();
+		func->setResult(1, jobStatus);
+		func->setResult(2, execAnswer);
+	} else {
+		func->setResult(1, (BYTE*)"\x0");
+		func->setResult(2, (BYTE*)"\x0\x0");
+	}
+
+
+
+
 
     return result;
 }
