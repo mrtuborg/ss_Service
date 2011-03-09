@@ -52,7 +52,7 @@ errType specFuncsMgr::startSpecFuncs()
     //
     // 6. Add function to Application interchange layer:
     //code: appLayer->CreateNewFunction(func);
-	    func=new functionNode(1,10,2,addScheduleJob);
+	    func = new functionNode(1,10,2,addScheduleJob);
 	    func->setMutatorStatus(true);
 	    func->setFuncName("Добавить пакетное задание");
 	    func->setParamDescriptor(0, type_BYTE);
@@ -93,9 +93,9 @@ errType specFuncsMgr::startSpecFuncs()
 
 	    appLayer->CreateNewFunction(func);
 
-	    func=new functionNode(2, 1, 1, runSchedule);
+	    func = new functionNode(2, 1, 1, runSchedule);
 		func->setMutatorStatus(true);
-		func->setFuncName("Запустить на исполнение пакетное задание");
+		func->setFuncName("Запустить пакетное задание на исполнение");
 		func->setParamDescriptor(0, type_BYTE);
 		func->setParamName(0,"Идентификатор пакетного задания");
 
@@ -104,18 +104,104 @@ errType specFuncsMgr::startSpecFuncs()
 
 		appLayer->CreateNewFunction(func);
 
-		func=new functionNode(3, 1, 1, stopSchedule);
+		func = new functionNode(3, 1, 1, stopSchedule);
 		func->setMutatorStatus(true);
-		func->setFuncName("Удалить из исполнения всё пакетное задание");
+		func->setFuncName("Остановить выполнение пакетного задания");
 		func->setParamDescriptor(0, type_BYTE);
 		func->setParamName(0,"Идентификатор пакетного задания");
 
 		func->setResultDescriptor(0,type_ERRTYPE);
 		func->setResultName(0, "Квитанция исполнения");
 
-				appLayer->CreateNewFunction(func);
+		appLayer->CreateNewFunction(func);
 
+	//extern errType readJobState(void* fn)
+		func = new functionNode(4, 2, 8, readJobState);
+		func->setMutatorStatus(false);
+		func->setFuncName("Запрос статуса операции");
+		func->setParamDescriptor(0, type_BYTE);
+		func->setParamName(0,"Идентификатор пакетного задания");
+		func->setParamDescriptor(1, type_DWORD);
+		func->setParamName(1,"Идентификатор операции");
 
+		func->setResultDescriptor(0,type_ERRTYPE);
+		func->setResultName(0, "Квитанция исполнения");
+		func->setResultDescriptor(1,type_BYTE);
+		func->setResultName(1, "Статус операции");
+		func->setResultDescriptor(2,type_BYTEVECTOR);
+		func->setResultName(2, "Ответ исполнителя");
+
+		appLayer->CreateNewFunction(func);
+
+	//extern errType getCursorPosition(void* fn)
+		func = new functionNode(5, 0, 1, getCursorPosition);
+		func->setMutatorStatus(false);
+		func->setFuncName("Запрос идентификатора выполняющегося задания");
+		func->setParamDescriptor(0, type_BYTE);
+		func->setParamName(0,"Идентификатор пакетного задания");
+
+		func->setResultDescriptor(0,type_ERRTYPE);
+		func->setResultName(0, "Квитанция исполнения");
+		func->setResultDescriptor(1, type_DWORD);
+		func->setResultName(1,"Идентификатор операции");
+
+		appLayer->CreateNewFunction(func);
+
+	//extern errType readJobEntity(void* fn)
+		func = new functionNode(6, 2, 8, readJobEntity);
+		func->setMutatorStatus(false);
+		func->setFuncName("Запрос содержимого операции");
+		func->setParamDescriptor(0, type_BYTE);
+		func->setParamName(0,"Идентификатор пакетного задания");
+		func->setParamDescriptor(1, type_DWORD);
+		func->setParamName(1,"Идентификатор операции");
+
+		func->setResultDescriptor(0,type_ERRTYPE);
+		func->setResultName(0, "Квитанция исполнения");
+		func->setResultDescriptor(1, type_DWORD);
+		func->setResultName(1,"Идентификатор следующей операции");
+		func->setResultDescriptor(2, type_DWORD);
+		func->setResultName(2,"Время начала операции");
+		func->setResultDescriptor(3, type_DWORD);
+		func->setResultName(3,"Длительность времени исполнения операции");
+		func->setResultDescriptor(4, type_DWORD);
+		func->setResultName(4,"IPv4-адресс службы");
+		func->setResultDescriptor(5, type_WORD);
+		func->setResultName(5,"UDP порт службы");
+		func->setResultDescriptor(6, type_BYTE);
+		func->setResultName(6,"Идентификатор службы-исполнителя");
+		func->setResultDescriptor(7, type_BYTE);
+		func->setResultName(7,"Идентификатор функции-исполнителя");
+		func->setResultDescriptor(8, type_BYTEVECTOR);
+		func->setResultName(8,"Параметрическая часть");
+
+		appLayer->CreateNewFunction(func);
+
+		//extern errType executeJob(void* fn)
+		func = new functionNode(6, 1, 2, getOpsId);
+		func->setMutatorStatus(false);
+		func->setFuncName("Запрос списка идентификаторов операций");
+		func->setParamDescriptor(0, type_BYTE);
+		func->setParamName(0,"Идентификатор пакетного задания");
+
+		func->setResultDescriptor(0,type_ERRTYPE);
+		func->setResultName(0, "Квитанция исполнения");
+		func->setParamDescriptor(1, type_DWORDVECTOR);
+		func->setParamName(1,"Массив идентификаторов операций");
+
+		appLayer->CreateNewFunction(func);
+
+		//extern errType executeJob(void* fn)
+		func = new functionNode(8, 2, 1, executeJob);
+		func->setMutatorStatus(true);
+		func->setFuncName("Запустить задание на исполнение");
+		func->setParamDescriptor(0, type_BYTE);
+		func->setParamName(0,"Идентификатор пакетного задания");
+		func->setParamDescriptor(1, type_DWORD);
+		func->setParamName(1,"Идентификатор операции");
+
+		func->setResultDescriptor(0,type_ERRTYPE);
+		func->setResultName(0, "Квитанция исполнения");
     return result;
 }
 

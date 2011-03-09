@@ -142,7 +142,7 @@ errType addScheduleJob(void* fn)
     DWORD objId=*(DWORD*)(func->getParamPtr(1));
     DWORD nextObjId=*(DWORD*)(func->getParamPtr(2));
     DWORD timeStart=*(DWORD*)func->getParamPtr(3);
-    DWORD timeEnd=*(DWORD*)func->getParamPtr(4);
+    DWORD timeLong=*(DWORD*)func->getParamPtr(4);
     DWORD IPaddr=*(DWORD*)func->getParamPtr(5);
     WORD UdpPort=*(WORD*)func->getParamPtr(6);
 
@@ -155,38 +155,10 @@ errType addScheduleJob(void* fn)
     newJob->set_dwNextJobID(nextObjId);
     newJob->set_btServiceId(service_id);
     newJob->set_dwStartTime(timeStart);
-    newJob->set_dwFinishTime(timeEnd);
+    newJob->set_dwLongTime(timeLong);
     newJob->setJobCmd(func_id, *((WORD*)cmd), cmd+2);
 
     _shedule[isEmergency].addJob(newJob);
-
-
-    /// use these files for cron:
-    /// data_%jobId%.sdata - rcsCmd to send by cron scheduling
-    /// addr_%jobId%.saddr - ip_addr/udp_port for sending data_%jobId%.sdata
-
-    /*
-    WORD i=0;
-    do {
-	schedule[i].encode((BYTE*)func->getParamPtr(1)+offset);
-	schedule[i].dbgPrint();
-
-	//  crontab: fprintf(scheduleFile, "0x%d ", schedule[i].get_wTimeStart());
-	// addrFile:
-	    fprintf(addrFile, "service_id=%d ", schedule[i].get_btServId());
-	// dataFile:
-	    fprintf(dataFile, "func_id=%d ", schedule[i].get_btFuncId());
-	    schedule[i].
-
-	for (int k=0; k<schedule[i].get_paramsLength(); k++)
-	fprintf(scheduleFile, "%.2X", *(BYTE*)schedule[i].get_paramsPtr()+k);
-	fprintf(scheduleFile, "\n");
-	offset+=schedule[i].getLength();
-	i++;
-    } while (offset<func->getAllParamsLength()-1);
-    */
-    //fclose(scheduleFile);
-
 
     return result;
 }
@@ -218,59 +190,77 @@ errType stopSchedule(void* fn)
 	return result;
 }
 
-errType CreateEmergencySchedule(void* fn)
+errType readJobState(void* fn)
 {
     errType result=err_not_init;
-    printf("**************************************\n");
-    printf("*CreateEmergencySchedule was called!**\n");
-    printf("**************************************\n");
-
     functionNode* func=(functionNode*)fn;
     
     func->printParams();
     
+	BYTE isEmergency=*(BYTE*)(func->getParamPtr(0)); // Packet No
+	BYTE jobID=*(BYTE*)(func->getParamPtr(1)); // Job ID
+
+	// TODO: _shedule[isEmergency].getJob(jobID);
+	// TODO: func->setResult(1, jobDecoded);
 
     return result;
 }
 
-errType ReadGeneralSchedule(void* fn)
+
+errType getCursorPosition(void* fn)
 {
     errType result=err_not_init;
-    printf("*************************************\n");
-    printf("** ReadGeneralSchedule was called! **\n");
-    printf("*************************************\n");
 
     functionNode* func=(functionNode*)fn;
     
     func->printParams();
 
+	BYTE isEmergency=*(BYTE*)(func->getParamPtr(0)); // Packet No
+	//TODO: jobID = _shedule[isEmergency].cursorPos();
+	//TODO: func->setResult(1, jobID);
+    
     return result;
 }
 
-errType ReadEmergencySchedule(void* fn)
+errType readJobEntity(void* fn)
 {
-    errType result=err_not_init;
-    printf("*************************************\n");
-    printf("*ReadEmergencySchedule was called! **\n");
-    printf("*************************************\n");
+	errType result=err_not_init;
 
-    functionNode* func=(functionNode*)fn;
-    
-    func->printParams();
+	functionNode* func=(functionNode*)fn;
 
-    return result;
+	func->printParams();
+
+	BYTE isEmergency = *(BYTE*)(func->getParamPtr(0)); // Packet No
+
+	return result;
 }
 
-errType GetCursorPosition(void* fn)
+errType getOpsId(void* fn)
+{
+	 errType result=err_not_init;
+
+	 functionNode* func=(functionNode*)fn;
+
+	 func->printParams();
+
+	 BYTE isEmergency = *(BYTE*)(func->getParamPtr(0)); // Packet No
+
+	 return result;
+}
+
+errType executeJob(void* fn)
 {
     errType result=err_not_init;
-    printf("*************************************\n");
-    printf("*** GetCursorPosition was called! ***\n");
-    printf("*************************************\n");
 
     functionNode* func=(functionNode*)fn;
-    
+
     func->printParams();
+
+	BYTE isEmergency = *(BYTE*)(func->getParamPtr(0)); // Packet No
+	DWORD jobID = *(BYTE*)(func->getParamPtr(1)); // jobID
+
+	//TODO: _shedule[isEmergency].execute(jobID);
+	//TODO: func->setResult(1, jobID);
 
     return result;
 }
