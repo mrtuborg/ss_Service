@@ -1,2 +1,2 @@
-service_source_subdirs	+= PS_Packet
+service_source_subdirs	+= PS_packet
 

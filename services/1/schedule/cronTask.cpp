@@ -64,6 +64,8 @@ errType cronTask::create(unsigned mm, unsigned hh, unsigned set_mday, unsigned s
 	command = set_command;
 
 	meta.Init(objId, nextObjId, length_sec);
+
+	return err_result_ok;
 }
 
 errType cronTask::create(std::string &textLine)
@@ -82,7 +84,7 @@ errType cronTask::create(std::string &textLine)
 	command = tokens[5];
 
 	meta.Init(atol(tokens[6].data()), atol(tokens[7].data()), atoi(tokens[8].data()));
-
+	return err_result_ok;
 }
 
 cronTask::cronTask()

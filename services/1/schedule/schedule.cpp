@@ -82,7 +82,7 @@ job*  schedule::getJobByIndex(DWORD index)
 {
 	job* result=0;
 	list <job*>::iterator iter;
-	int i=0;
+	DWORD i=0;
 	for (iter = job_list.begin(); iter == job_list.end(); ++iter){
 		if (index == i) {
 			result = *(iter);
@@ -265,17 +265,31 @@ errType schedule::execute(DWORD jobId)
 
 	BYTE funcId = requestedJob->get_btFuncId();
 
-	udpAction action(ACTION_SEND, requestedJob->get_wServiceUdpPort(), strIPAddr);
-	rcsCmd packet(requestedJob->get_btServId(), funcId);
+	udpAction send_action(ACTION_SEND, requestedJob->get_wServiceUdpPort(), strIPAddr);
+	udpAction recv_action(ACTION_RECEIVE, requestedJob->get_wServiceUdpPort(), strIPAddr);
+
+	rcsCmd *packet = new rcsCmd(requestedJob->get_btServId(), funcId);
 	BYTE* data = (BYTE*) requestedJob->get_paramsPtr();
 	WORD len = requestedJob->get_paramsLength();
-	packet.encode(funcId, len, data);
-	packet.makeSign();
+	packet->encode(funcId, len, data);
+	packet->makeSign();
 
-	action.writeDataAsCmd(&packet);
-	action.processAction();
+	send_action.writeDataAsCmd(packet);
+	send_action.processAction();
+	requestedJob->setState(1);
 
 	// wait for answer and push it to job->answer
+	errType result = recv_action.processAction();
+	if (result == err_result_ok)
+	{
+		recv_action.readDataAsCmd(&packet);
+		requestedJob->setAnswer((BYTE*)packet->get_func_paramsPtr(), packet->get_func_paramsLength());
+		requestedJob->setState(2);
+
+	}
+
+	delete []packet;
+	return err_result_ok;
 }
 
 void schedule::dbgPrint()
