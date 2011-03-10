@@ -17,8 +17,8 @@
 #include <math/latlong/latlong.h>
 #include <global.h>
 
-#include "../PS_packet/PS_StatFrame.h"
-#include "../PS_packet/PS_CmdFrame.h"
+#include "PS_packet/PS_StatFrame.h"
+#include "PS_packet/PS_CmdFrame.h"
 
 udp_port *equip_sending;
 PS_StatFrame statFrame;
