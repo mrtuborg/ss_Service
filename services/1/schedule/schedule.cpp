@@ -40,7 +40,6 @@ schedule::~schedule()
 
 errType schedule::addJob(job* jEntity){
     list <job*>::iterator iter, prev_iter, tmp_iter;
-    rcsCmd *iter_cmd, *param_cmd;
 
     /// TODO: Make simpler
     iter=job_list.begin();
@@ -128,7 +127,17 @@ errType schedule::removeAllJobsBefore(DWORD dwTime)
 }
 
 
+job* schedule::getJob(DWORD id)
+{
+	job* result=0;
+    list <job*>::iterator iter, prev_iter, tmp_iter;
 
+    for (iter=job_list.begin(); iter!=job_list.end(); ++iter)
+    {
+    	if ((*iter)->get_dwObjId() == id) result=(*iter);
+    }
+    return result;
+}
 
 
 errType schedule::run()

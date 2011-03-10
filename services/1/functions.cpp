@@ -196,6 +196,10 @@ errType readJobState(void* fn)
     functionNode* func=(functionNode*)fn;
     
     func->printParams();
+    job* operation=0;
+    BYTE *jobStatus=0;
+    BYTE *execAnswer=0;
+
     
 	BYTE isEmergency=*(BYTE*)(func->getParamPtr(0)); // Packet No
 	BYTE jobID=*(BYTE*)(func->getParamPtr(1)); // Job ID
