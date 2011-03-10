@@ -7,7 +7,7 @@
 #include <shield_types.h>
 #include "statusFrame.h"
 
-const WORD statusFrame::kPacketSize = sizeof(statusFrame_t);
+const size_t statusFrame::kPacketSize = sizeof(statusFrame_t);
 
 statusFrame::statusFrame()
 {
@@ -395,7 +395,7 @@ BYTE statusFrame::get_esa_sensors(FoldDscr_type fold_descriptor)   // num = 0,1,
 bool statusFrame::testCheckSumm()
 {
     bool result=false;
-    WORD chk=CRC16_eval((BYTE*)&frame, kPacketSize-sizeof(WORD));
+    WORD chk=CRC16_eval((BYTE*)&frame, kPacketSize - sizeof(WORD));
     if (chk==frame.checkSumm) result=true;
 
     return result;
@@ -408,7 +408,6 @@ void statusFrame::decode(BYTE* array)
 
 void statusFrame::encode(BYTE* array, size_t size)
 {
-    if (size != kPacketSize)
     memcpy(&frame, array+2, size);
 }
 

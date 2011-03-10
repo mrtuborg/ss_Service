@@ -7,6 +7,8 @@ extern errType equipListenProcessing(BYTE *writingBuffer, size_t sz);
 extern errType srvInit();
 extern errType srvDeinit();
 
+extern void* pollingThreadFunc(void*);
+
 extern errType emergencyShutdown(void*);
 extern errType controlModeChange(void*);
 extern errType getStateVector(void*);

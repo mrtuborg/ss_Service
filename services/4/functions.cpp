@@ -19,12 +19,17 @@
 
 #include "SASC_packet/comm_SASC.h"
 
+pthread_t PollingThreadHandle;
+
 udp_port *equip_sending;                                                                           
 
 comm_SASC sndSASCmsg;
 comm_SASC rcvSASCmsg;
 
 SASC_answer_mod typeinf;
+
+BYTE frame_current_command[sizeof(SASC_msg_type)];
+bool event_new_message (false);
 
 buffer* resultStorage = 0;
 
@@ -79,15 +84,54 @@ errType equipListenProcessing(BYTE *writingBuffer, size_t sz)
 }                                                                                                         
 
 
+void* pollingThread(void* user)
+{
+    SrvAppLayer* app = (SrvAppLayer*) user;
+//    WORD old_crc = 0xFFFF;
+//    PassiveTimer timer;
+//    timer.setInterval(kIntervalOfSendinToEquip);
+
+    while (!app->terminated())
+    {
+        if (event_new_message)  {
+            equip_sending->sendData(equipAddr, frame_current_command, comm_SASC::kSASCMsgSize);
+
+            event_new_message = false;
+        }
+//        if (!timer.isActive() || (sendFrame->setCheckSumm() != old_crc))
+//        {
+//            sendFrame->dbgPrint();
+//            old_crc = sendFrame->setCheckSumm();
+
+//            BYTE array[cmdFrame::kPacketSize];
+//            sendFrame->decode(array);
+//            equip_sending->sendData(equipAddr, array, cmdFrame::kPacketSize);
+
+//            if (timer.isActive()) timer.stop();
+//            timer.start();
+//        }
+        sched_yield();
+    }
+//    return user;
+}
+
+
 errType srvInit()
 {
     errType result = err_not_init;
+    int ret = 0;
+
     printf("\tСлужба системы обеспечения  СКСЮ\n");
     printf("=============================================================\n\n");
     equip_sending = new udp_port(eq_udp_sending_port);
     result = equip_sending->open_port();
     equipAddr.s_addr = inet_addr(eq_ip_addr);
     
+    ret = pthread_create(&PollingThreadHandle, NULL, pollingThread, app);
+    //if (ret!=0) Error:  Need to stop application initializing process...
+    if (ret == 0)
+        result = err_result_ok;
+
     return result;
 }
 
@@ -135,11 +179,10 @@ errType getStateVector(void* fn)
 inline errType SendSASCMsg(SASC_cmd_mod mode, BYTE** params = 0)
 {
     errType result (err_result_ok);
-    BYTE frame[comm_SASC::kSASCMsgSize];
 
     sndSASCmsg.apply_mod(mode, params);
-    sndSASCmsg.decode(frame);
-    result = equip_sending->sendData(equipAddr, frame, comm_SASC::kSASCMsgSize);
+    sndSASCmsg.decode(frame_current_command);
+    event_new_message = true;
 
     return result;
 }
