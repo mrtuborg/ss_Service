@@ -313,7 +313,7 @@ int main(int argc, char *argv[], char *environ[]) {
         /// 6. Deinitialize application ::appDeinit()
         appDeinit();
 	
-        if (app->terminated()==2) reboot(RB_AUTOBOOT);
+        //if (app->terminated()==2) reboot(RB_AUTOBOOT);
         delete app;
     }
     printf("Работа программного средства завершена\n\n");
