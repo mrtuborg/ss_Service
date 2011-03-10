@@ -61,7 +61,7 @@ typedef struct cmdFrame_t {
 
 class cmdFrame {
 public:
-    static const WORD kPacketSize;
+    static const size_t kPacketSize;
 
     cmdFrame();
     ~cmdFrame();

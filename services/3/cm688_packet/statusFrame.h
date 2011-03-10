@@ -177,7 +177,7 @@ typedef struct statusFrame_t {
 
 class statusFrame{
 public:
-    static const WORD kPacketSize;
+    static const size_t kPacketSize;
 
     statusFrame();
     ~statusFrame();

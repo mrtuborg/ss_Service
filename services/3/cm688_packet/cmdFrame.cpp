@@ -7,7 +7,7 @@
 #include "cmdFrame.h"
 #include <stdlib.h> //DEBUG
 
-const WORD cmdFrame::kPacketSize = sizeof(cmdFrame_t);
+const size_t cmdFrame::kPacketSize = sizeof(cmdFrame_t);
 
 cmdFrame::cmdFrame()
 {
