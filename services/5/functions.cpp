@@ -282,7 +282,7 @@ errType SetProgrammMode(void* fn) //func_id=6
     equip_sending->sendData(equipAddr, msg, sizeof(ps_cmdframe_type));
 
     func->printResults();
-    delete msg;
+    delete []msg;
     return result;
 }
 
@@ -303,7 +303,7 @@ errType SetKNMode(void* fn) //func_id=4
     result=err_result_ok;
 
     func->printResults();
-    delete msg;
+    delete []msg;
     return result;
 }
 
@@ -324,7 +324,7 @@ errType SetZVVMode(void* fn) //func_id=4
     equip_sending->sendData(equipAddr, msg, cmdFrame.lenValue());
 
     func->printResults();
-    delete msg;
+    delete []msg;
     return result;
 }
 
@@ -346,7 +346,7 @@ errType StopSearchingMode(void* fn) //func_id=4
     equip_sending->sendData(equipAddr, msg, cmdFrame.lenValue());
 
     func->printResults();
-    delete msg;
+    delete []msg;
     return result;
 }
 
@@ -381,7 +381,7 @@ errType StartSearchingMode(void* fn) //func_id=4
    // result=err_result_ok;
 
     func->printResults();
-    delete msg;
+    delete []msg;
     return result;
 }
 
@@ -433,7 +433,7 @@ errType SetCorrection(void* fn) // func_id=5
     equip_sending->sendData(equipAddr, msg, cmdFrame.lenValue());
 
     func->printResults();
-	delete msg;
+	delete []msg;
     return result;
 }
 
@@ -450,7 +450,7 @@ errType SuspendMode(void* fn) // func_id=5
     equip_sending->sendData(equipAddr, msg, cmdFrame.lenValue());
 
     func->printResults();
-    delete msg;
+    delete []msg;
     return result;
 }
 

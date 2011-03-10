@@ -14,7 +14,7 @@
 #include <rcsLib/rcsCmd/rcsCmd.h>                                               
 #include <param_desc.h>                                                         
 #include <functionNode.h>                                                       
-#include <srvAppLayer.h>                                                        
+#include <SrvAppLayer.h>
 #include <global.h> 
 
 #include "SASC_packet/comm_SASC.h"
@@ -55,7 +55,7 @@ errType equipListenProcessing(BYTE *writingBuffer, size_t sz)
 		    //keep writingBuffer, (len=sz);
 		    //memcpy(resultStorage, writingBuffer, 
 		    
-		    if (!resultStorage){
+		    if (resultStorage){
 			resultStorage->write(writingBuffer,sz);
 			getNextDBRecord();
 		    } else
@@ -66,7 +66,7 @@ errType equipListenProcessing(BYTE *writingBuffer, size_t sz)
 	
 	    case _db_last_record:
 		    //keep writingBuffer, (len=sz);
-		    if (!resultStorage){
+		    if (resultStorage){
 			resultStorage->write(writingBuffer,sz);
 			//db record without request
 		    } else 
