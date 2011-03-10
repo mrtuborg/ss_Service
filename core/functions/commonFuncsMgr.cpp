@@ -33,33 +33,43 @@
  * @details    Calls equipListenProcessing for decoding data received from equipment
  * @retval     user
  **************************************************************************************/
-void* equipListenPolling(void* user)                                             
-{                                                                               
+
+void* equipListenPolling(void* user)
+{
     SrvAppLayer *app = (SrvAppLayer*)user;
-    DWORD   sz (1024);
     BYTE    *writingBuffer;
-    errType result (err_not_init);
     writingBuffer = new BYTE[256];
+    BYTE* ethalon_pointer (writingBuffer);
 
     while (!app->terminated())
     {
-        /// @todo Listening equipment answer - status vector:
-        result = app->equip_reading_event(app->get_timeout_equipment_value());
-        if (result == err_timeout)  {
-            printf("Разрыв связи с оборудованием!\n\n");
-            app->set_state_vector_linked(false);
-        }
+        size_t packet_size (0);
+        errType result (err_not_init);
+        writingBuffer = ethalon_pointer;
 
-        if (result == err_result_ok) {
-            app->equip_read_data(writingBuffer, (size_t*)&sz);
-            equipListenProcessing(writingBuffer, sz);
-            if (!app->is_state_vector_linked())  {
-                app->set_state_vector_linked(true);
-                printf("Связь с оборудованием восстановлена!\n\n");
+        do  {
+            //check, whether port have data
+            result = app->equip_reading_event(app->get_timeout_equipment_value());
+            if (result == err_timeout)  {
+                printf("Разрыв связи с оборудованием!\n\n");
+                app->set_state_vector_linked(false);
             }
+            //trying to get a whole packet from port
+            if (result == err_result_ok)  {
+                DWORD   sz (1024);
+                app->equip_read_data(writingBuffer + packet_size, (size_t*)&sz);
+                packet_size += sz;
+
+                result = equipListenProcessing(writingBuffer, packet_size);
+            }
+        } while (result == err_frame_incomplete);
+
+        if ((result == err_result_ok) && !app->is_state_vector_linked())  {
+            app->set_state_vector_linked(true);
+            printf("Связь с оборудованием восстановлена!\n\n");
         }
-	sched_yield();
-    }                                                                           
+        sched_yield();
+    }
     delete []writingBuffer;
     return user;
 }

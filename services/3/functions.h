@@ -37,3 +37,5 @@ extern errType correctHydroCyl(void*);
 extern errType allFoldsGetParams(void* fn);
 extern errType allSemiaxisSensorsGetState(void* fn); 
 extern errType getAllUZstate(void* fn);
+
+extern bool array_contain_frame(BYTE* array, size_t size, BYTE* shifted_bytes);

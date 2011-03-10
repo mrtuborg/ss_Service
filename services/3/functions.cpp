@@ -80,6 +80,8 @@ errType equipListenProcessing(BYTE *writingBuffer, size_t sz)
 {
     errType result = err_result_ok;
     //if (sz>sizeof(SASC_msg_type)) sz=sizeof(SASC_msg_type);
+//    BYTE count_shifted_bytes;
+//    array_contain_frame(writingBuffer, sz, &count_shifted_bytes);
 
     answerFrame->encode(writingBuffer, sz);
     printf("\n\tС иерархии нижнего уровня получен пакет (hex):\n");
@@ -92,6 +94,25 @@ errType equipListenProcessing(BYTE *writingBuffer, size_t sz)
         answerFrame->dbgPrint();
         printf("\t===========================================\n\n");
     }
+    return result;
+}
+
+//checks packet on contaning a whole statusFrame packet
+//shifted_bytes - count of bytes from beginning of, those are not accords
+//with format of statusFrame packet
+bool array_contain_frame(BYTE* array, size_t size, BYTE* shifted_bytes)
+{
+    bool result (false);
+    *shifted_bytes = 0;
+
+    for (size_t i = 0; i < (size - 1); i++)  {
+        if (!((array[i] == 0x55)&&(array[i+1] == 0xAA))) *shifted_bytes = i+1;
+        else break;
+    }
+    if (!*shifted_bytes)  {
+        if (size == statusFrame::kPacketSize + 2) result = true;
+    }
+
     return result;
 }
 
