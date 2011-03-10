@@ -16,7 +16,9 @@ extern errType addScheduleJob(void*);
 extern errType runSchedule(void*);
 extern errType stopSchedule(void*);
 
+extern errType readJobState(void* fn);
+extern errType readJobEntity(void* fn);
+extern errType getCursorPosition(void* fn);
+extern errType getOpsId(void* fn);
+extern errType executeJob(void* fn);
 
-extern errType ReadGeneralSchedule(void*);
-extern errType ReadEmergencySchedule(void*);
-extern errType GetCursorPosition(void*);

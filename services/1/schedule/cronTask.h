@@ -27,9 +27,9 @@ private:
 
 class cronTask{
 public:
-	cronTask(std::string &textLine);
+	errType create(std::string &textLine);
 
-	cronTask(unsigned hh,
+	errType create(unsigned hh,
 			 unsigned mm,
 			 unsigned mday,
 			 unsigned month,
@@ -39,6 +39,7 @@ public:
 			 unsigned length_sec,
 			 std::string &command);
 
+	cronTask();
 	~cronTask();
 
 	friend ostream &operator<<(ostream &stream, const cronTask &task);
