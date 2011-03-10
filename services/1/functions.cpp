@@ -23,7 +23,7 @@
 //udp_port* equipment;
 pthread_t PollingThreadHandle;
 FILE *scheduleFile;
-schedule _shedule[2];
+schedule _schedule[2];
 
 
 //#define EQ_UDP_PORT 5004
@@ -37,7 +37,6 @@ void* pollingThread(void* user)
 //  WORD old_crc = 0xFFFF;
   while (!app->terminated())
     {
-      
       sched_yield();
     }
  // delete array;
@@ -158,7 +157,8 @@ errType addScheduleJob(void* fn)
     newJob->set_dwLongTime(timeLong);
     newJob->setJobCmd(func_id, *((WORD*)cmd), cmd+2);
 
-    _shedule[isEmergency].addJob(newJob);
+    _schedule[isEmergency].set_cpListenerPortNum(app->getListenerPortNum());
+    _schedule[isEmergency].addJob(newJob);
 
     return result;
 }
@@ -171,7 +171,7 @@ errType runSchedule(void* fn)
 	func->printParams();
 
 	BYTE isEmergency=*(BYTE*)(func->getParamPtr(0)); // Packet No
-	_shedule[isEmergency].run();
+	_schedule[isEmergency].run();
 
 
 	return result;
@@ -179,20 +179,20 @@ errType runSchedule(void* fn)
 
 errType stopSchedule(void* fn)
 {
-	errType result (err_not_init);
+	errType result (err_result_ok);
 	functionNode* func=(functionNode*)fn;
 
 	func->printParams();
 
 	BYTE isEmergency=*(BYTE*)(func->getParamPtr(0)); // Packet No
-	_shedule[isEmergency].stop();
+	_schedule[isEmergency].stop();
 
 	return result;
 }
 
 errType readJobState(void* fn)
 {
-    errType result=err_not_init;
+    errType result (err_result_ok);
     functionNode* func=(functionNode*)fn;
     
     func->printParams();
@@ -200,9 +200,23 @@ errType readJobState(void* fn)
 	BYTE isEmergency=*(BYTE*)(func->getParamPtr(0)); // Packet No
 	BYTE jobID=*(BYTE*)(func->getParamPtr(1)); // Job ID
 
-	// TODO: _shedule[isEmergency].getJob(jobID);
-	// TODO: func->setResult(1, jobDecoded);
+	BYTE state=0;
+	BYTE* answerVector=0;
+	BYTE* answer=0;
+	WORD answerLength=0;
+	job* requestedJob = _schedule[isEmergency].getJobById(jobID);
 
+	state = requestedJob->getState();
+	requestedJob->lastAnswer(&answer, &answerLength);
+
+	answerVector = new BYTE[answerLength+2];
+	memcpy(answerVector+2,answer, answerLength);
+	*(WORD*)answerVector = answerLength;
+
+	func->setResult(1, &state);
+	func->setResult(2, answerVector);
+
+	delete []answerVector;
     return result;
 }
 
@@ -216,8 +230,11 @@ errType getCursorPosition(void* fn)
     func->printParams();
 
 	BYTE isEmergency=*(BYTE*)(func->getParamPtr(0)); // Packet No
-	//TODO: jobID = _shedule[isEmergency].cursorPos();
-	//TODO: func->setResult(1, jobID);
+
+	DWORD jobID=0;
+
+	jobID = _schedule[isEmergency].cursorPos();
+	func->setResult(1, &jobID);
     
     return result;
 }
@@ -231,6 +248,40 @@ errType readJobEntity(void* fn)
 	func->printParams();
 
 	BYTE isEmergency = *(BYTE*)(func->getParamPtr(0)); // Packet No
+	DWORD jobID = *(BYTE*)(func->getParamPtr(1));
+
+	job* requestedJob = _schedule[isEmergency].getJobById(jobID);
+
+	DWORD nextObjId = (requestedJob->get_dwNextObjId());
+	DWORD timeStart = (requestedJob->get_dwTimeStart());
+	DWORD timeLong  = (requestedJob->get_dwTimeLong());
+
+	struct in_addr IPaddr;
+	(requestedJob->get_dwServiceIPaddr(&IPaddr));
+
+	WORD udp       = (requestedJob->get_wServiceUdpPort());
+	BYTE servId    = (requestedJob->get_btServId());
+	BYTE funcId    = (requestedJob->get_btFuncId());
+
+	func->setResult(1, &nextObjId);
+	func->setResult(2, &timeStart);
+	func->setResult(3, &timeLong);
+	func->setResult(4, &IPaddr);
+	func->setResult(5, &udp);
+	func->setResult(6, &servId);
+	func->setResult(7, &funcId);
+
+
+
+	WORD answerLength = requestedJob->get_paramsLength();
+	BYTE* paramsPtr = (BYTE*) requestedJob->get_paramsPtr();
+
+	BYTE* answerVector = new BYTE[answerLength+2];
+	memcpy(answerVector+2, paramsPtr, answerLength);
+	*(WORD*)answerVector = answerLength;
+
+	func->setResult(8, answerVector);
+	delete []answerVector;
 
 	return result;
 }
@@ -244,6 +295,20 @@ errType getOpsId(void* fn)
 	 func->printParams();
 
 	 BYTE isEmergency = *(BYTE*)(func->getParamPtr(0)); // Packet No
+	 WORD quantity = _schedule[isEmergency].getJobsQuantity();
+	 DWORD id=0;
+
+	 BYTE* answerVector = new BYTE[sizeof(id)*quantity+2];
+	 ((WORD*)answerVector)[0] = quantity;
+	 answerVector+=2;
+	 for (int i = 0; i < quantity; i++)
+	 {
+		 id = _schedule[isEmergency].getJobByIndex(i)->get_dwObjId();
+		 ((DWORD*)answerVector)[i] = id;
+	 }
+	 answerVector-=2;
+
+	 func->setResult(1, answerVector);
 
 	 return result;
 }
@@ -259,8 +324,7 @@ errType executeJob(void* fn)
 	BYTE isEmergency = *(BYTE*)(func->getParamPtr(0)); // Packet No
 	DWORD jobID = *(BYTE*)(func->getParamPtr(1)); // jobID
 
-	//TODO: _shedule[isEmergency].execute(jobID);
-	//TODO: func->setResult(1, jobID);
+	_schedule[isEmergency].execute(jobID);
 
     return result;
 }

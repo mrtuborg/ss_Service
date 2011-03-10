@@ -16,7 +16,9 @@
 
               
 #include <extra/ortsTypes/ortsTypes.h>
+#include <peripheral/udp_port/udp_port.h>
 #include <rcsLib/rcsCmd/rcsCmd.h>
+#include <rcsLib/udpAction/udpAction.h>
 #include <conv/stdformat/stdformat.h>
 #include <schedule/job/job.h>
 
@@ -28,7 +30,7 @@
 
 schedule::schedule()
 {
-	//cronJob=new cronTab();
+
 }
 
 schedule::~schedule()
@@ -63,6 +65,51 @@ errType schedule::addJob(job* jEntity){
     }
 
     return err_result_ok;
+}
+
+
+job*  schedule::getJobById(DWORD id)
+{
+	job* result=0;
+	list <job*>::iterator iter;
+	for (iter = job_list.begin(); iter == job_list.end(); ++iter){
+		if ((*iter)->get_dwObjId() == id) result = *(iter);
+	}
+
+	return result;
+}
+
+job*  schedule::getJobByIndex(DWORD index)
+{
+	job* result=0;
+	list <job*>::iterator iter;
+	int i=0;
+	for (iter = job_list.begin(); iter == job_list.end(); ++iter){
+		if (index == i) {
+			result = *(iter);
+			break;
+		}
+		i++;
+	}
+
+	return result;
+}
+
+WORD schedule::getJobsQuantity()
+{
+	return job_list.size();
+}
+
+DWORD schedule::cursorPos()
+{
+	  DWORD result=0;
+
+	  list <job*>::iterator iter;
+	  for (iter = job_list.begin(); iter == job_list.end(); ++iter){
+			if ((*iter)->getState() == 1)
+					result = (*iter)->get_dwObjId(); // 0 - initialized, 1 - running, 2 - completed
+	  }
+	  return result;
 }
 
 errType schedule::removeAllJobsBefore(DWORD dwTime)
@@ -167,20 +214,18 @@ errType schedule::convertToCronTask(job* newJob, cronTask *task)
 	/// 2. Filling cron task
 	WORD cmdLen (newJob->cmd()->getCmdLength());
 	in_addr in;
-	in.s_addr=newJob->get_dwServiceIPaddr();
-	char *ipaddr (inet_ntoa(in));
-	int uport (newJob->get_wServiceUdpPort());
+	in.s_addr = htonl(inet_addr("127.0.0.1")); // ip_address of ss_Service_1
+	char *ipaddr=(inet_ntoa(in));
+	int uport (get_cpListenerPortNum()); // client udp_port of ss_Service_1
 
 	int delay=ts->tm_sec;
 
-	string strCmd (format("ssProxy -u%s:%d -s%d -d\"", ipaddr, uport, delay));
+	string strCmd (format("rcsSend -u%s:%d -s%d -d\"", ipaddr, uport, delay));
 
-	BYTE* array; // temporary array for decoding cmd
-	array=new BYTE[cmdLen];
-	newJob->cmd()->decode(array);
+	DWORD id=newJob->get_dwObjId();
 
 	for (int i=0; i<cmdLen; i++) {
-		strCmd.append(format("%.2X ",array[i]));
+		strCmd.append(format("%.2X ",((BYTE*)id)[i]));
 	}
 
 	strCmd.append("\"");
@@ -194,7 +239,7 @@ errType schedule::convertToCronTask(job* newJob, cronTask *task)
 				 ts->tm_wday,
 				 (unsigned long) newJob->get_dwObjId(),
 				 (unsigned long) newJob->get_dwNextObjId(),
-				 (unsigned) newJob->get_dwTimeEnd(),
+				 (unsigned) newJob->get_dwTimeLong(),
 				 strCmd);
 
 
@@ -202,6 +247,39 @@ errType schedule::convertToCronTask(job* newJob, cronTask *task)
 
 
 	return result;
+}
+
+void schedule::set_cpListenerPortNum(WORD portNum)
+{
+	cpListenerPortNum = portNum;
+}
+
+WORD schedule::get_cpListenerPortNum()
+{
+	return cpListenerPortNum;
+}
+
+errType schedule::execute(DWORD jobId)
+{
+	job* requestedJob = getJobById(jobId);
+	char *strIPAddr=0; //[16];
+	struct in_addr inIP;
+	requestedJob->get_dwServiceIPaddr(&inIP);
+	strIPAddr=inet_ntoa(inIP);
+
+	BYTE funcId = requestedJob->get_btFuncId();
+
+	udpAction action(ACTION_SEND, requestedJob->get_wServiceUdpPort(), strIPAddr);
+	rcsCmd packet(requestedJob->get_btServId(), funcId);
+	BYTE* data = (BYTE*) requestedJob->get_paramsPtr();
+	WORD len = requestedJob->get_paramsLength();
+	packet.encode(funcId, len, data);
+	packet.makeSign();
+
+	action.writeDataAsCmd(&packet);
+	action.processAction();
+
+	// wait for answer and push it to job->answer
 }
 
 void schedule::dbgPrint()
