@@ -14,7 +14,7 @@
 #include <rcsLib/rcsCmd/rcsCmd.h>                                               
 #include <param_desc.h>                                                         
 #include <functionNode.h>                                                       
-#include <srvAppLayer.h>                                                        
+#include <SrvAppLayer.h>
 #include <global.h> 
 
 #include "SASC_packet/comm_SASC.h"
