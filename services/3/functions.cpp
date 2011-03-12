@@ -1,6 +1,7 @@
 // Covering Control Service
 //--------------------------
 #include <stdio.h> 
+#include <unistd.h>
 #include <string.h> 
 #include <arpa/inet.h> 
 #include <time.h> 
@@ -71,7 +72,7 @@ void* pollingThread(void* user)
             if (timer.isActive()) timer.stop();
             timer.start();
         }
-        sched_yield();
+        app->srv_yield();
     }
     return user;
 }

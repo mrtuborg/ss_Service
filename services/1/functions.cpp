@@ -39,7 +39,7 @@ void* pollingThread(void* user)
 //  WORD old_crc = 0xFFFF;
   while (!app->terminated())
     {
-      sched_yield();
+      app->srv_yield();
     }
  // delete array;
   return user;

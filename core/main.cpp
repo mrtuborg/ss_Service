@@ -307,7 +307,8 @@ int main(int argc, char *argv[], char *environ[]) {
 	
         /// 5. Main programm loop srvAppLayer::ProcessMessages() while not terminated by signal srvAppLayer::terminated()
         while(!app->terminated()) {
-        		 app->processMessages();
+            app->processMessages();
+            app->srv_yield();
         }
 
         /// 6. Deinitialize application ::appDeinit()

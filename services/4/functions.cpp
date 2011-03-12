@@ -110,7 +110,7 @@ void* pollingThread(void* user)
 //            if (timer.isActive()) timer.stop();
 //            timer.start();
 //        }
-        sched_yield();
+        app->srv_yield();
     }
 //    return user;
 }

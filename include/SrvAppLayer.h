@@ -105,6 +105,7 @@ class SrvAppLayer
     WORD getListenerPortNum();
     BYTE terminated(); // 1 - only exit; 2 - exit with reboot
     void terminate(BYTE mode=1);
+    void srv_yield();
     stateVector_type getStateVector();
 
     BYTE serviceMode(); // 0 - local, 1- remote

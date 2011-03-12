@@ -21,6 +21,7 @@
 #include <ssBuffer.h>
 #include <rcsLib/rcsCmd/rcsCmd.h>
 #include <peripheral/udp_port/udp_port.h>
+#include <global.h>
 #include <param_desc.h>
 #include <functionNode.h>
 #include <SrvAppLayer.h>
@@ -47,7 +48,7 @@ void* equipListenPolling(void* user)
         /// @todo Listening equipment answer - status vector:
         result = app->equip_reading_event(app->get_timeout_equipment_value());
         if (result == err_timeout)  {
-            /// printf("Разрыв связи с оборудованием!\n\n"); - УБИТЬ ЗА ТАКОЕ МАЛО!
+            if (verbose_level) printf("Разрыв связи с оборудованием!\n\n");
             app->set_state_vector_linked(false);
         }
 
@@ -59,7 +60,7 @@ void* equipListenPolling(void* user)
                 printf("Связь с оборудованием восстановлена!\n\n");
             }
         }
-	sched_yield();
+        app->srv_yield();
     }                                                                           
     delete []writingBuffer;
     return user;
