@@ -39,13 +39,11 @@ void* equipListenPolling(void* user)
     SrvAppLayer *app = (SrvAppLayer*)user;
     BYTE    *writingBuffer;
     writingBuffer = new BYTE[256];
-    BYTE* ethalon_pointer (writingBuffer);
 
     while (!app->terminated())
     {
         size_t packet_size (0);
         errType result (err_not_init);
-        writingBuffer = ethalon_pointer;
 
         do  {
             //check, whether port have data

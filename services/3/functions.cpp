@@ -94,6 +94,7 @@ errType equipListenProcessing(BYTE *writingBuffer, size_t *sz)
     bool has_packet;
     has_packet = array_contain_frame(writingBuffer, size, &count_shifted_bytes);
 
+    //modifying array for bring it into accord with packet's format
     if (!has_packet)  {
         if (count_shifted_bytes)  {
             printf("\nС иерархии нижнего уровня получен некорректный пакет пакет (hex): ");
@@ -103,13 +104,17 @@ errType equipListenProcessing(BYTE *writingBuffer, size_t *sz)
             printf("Его начало будет смещено на %d байт\n\n", count_shifted_bytes);
 
             *sz -= count_shifted_bytes;
-
             memcpy(writingBuffer, writingBuffer + count_shifted_bytes, *sz);
             memset(writingBuffer + *sz, 0, count_shifted_bytes);
-            if (*sz == statusFrame::kPacketSize + 2) has_packet = true;
-            else                                     result = err_frame_incomplete;
+            if (*sz > statusFrame::kPacketSize + 2)
+                *sz = statusFrame::kPacketSize + 2;       //deleting shifted bytes from the end
         }
     }
+
+    if (*sz == statusFrame::kPacketSize + 2) has_packet = true;
+    else                                     result = err_frame_incomplete;
+
+    //processing of correct packet
     if (has_packet)  {
         answerFrame->encode(writingBuffer, *sz);
         printf("\n\tС иерархии нижнего уровня получен пакет (hex):\n");
@@ -123,7 +128,7 @@ errType equipListenProcessing(BYTE *writingBuffer, size_t *sz)
             printf("\t===========================================\n\n");
         }
     }
-    else
+
     return result;
 }
 
