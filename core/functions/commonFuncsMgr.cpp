@@ -60,7 +60,7 @@ void* equipListenPolling(void* user)
                 app->equip_read_data(writingBuffer + packet_size, (size_t*)&sz);
                 packet_size += sz;
 
-                result = equipListenProcessing(writingBuffer, packet_size);
+                result = equipListenProcessing(writingBuffer, &packet_size);
             }
         } while (result == err_frame_incomplete);
 

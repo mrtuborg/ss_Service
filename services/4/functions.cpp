@@ -36,15 +36,16 @@ buffer* resultStorage = 0;
 extern errType getNextDBRecord();
 
     
-errType equipListenProcessing(BYTE *writingBuffer, size_t sz)
+errType equipListenProcessing(BYTE *writingBuffer, size_t *sz)
 {
-    if (sz > comm_SASC::kSASCMsgSize) sz = comm_SASC::kSASCMsgSize;
+    size_t size (sz);
+    if (size > comm_SASC::kSASCMsgSize) size = comm_SASC::kSASCMsgSize;
     
-    rcvSASCmsg.encode(writingBuffer, sz);
+    rcvSASCmsg.encode(writingBuffer, size);
     printf("\n\tС иерархии нижнего уровня получен пакет (hex):\n");
     printf("\t[");
-    for(size_t k = 0; k < sz; k++)  printf("%.2X ", writingBuffer[k]);
-    //equip_recvBuffer->unlockBufferChunkForExternWriting(sz);
+    for(size_t k = 0; k < size; k++)  printf("%.2X ", writingBuffer[k]);
+    //equip_recvBuffer->unlockBufferChunkForExternWriting(size);
     printf("]\n\n");
     printf("\tРасшифровка:\n");
     if (rcvSASCmsg.checkAnswer(&typeinf) == err_result_ok)  {
@@ -52,11 +53,11 @@ errType equipListenProcessing(BYTE *writingBuffer, size_t sz)
 	switch(typeinf)
 	{
 	    case _db_record:
-		    //keep writingBuffer, (len=sz);
+                    //keep writingBuffer, (len=size);
 		    //memcpy(resultStorage, writingBuffer, 
 		    
 		    if (!resultStorage){
-			resultStorage->write(writingBuffer,sz);
+                        resultStorage->write(writingBuffer,size);
 			getNextDBRecord();
 		    } else
 		    {
@@ -65,9 +66,9 @@ errType equipListenProcessing(BYTE *writingBuffer, size_t sz)
 		    break;
 	
 	    case _db_last_record:
-		    //keep writingBuffer, (len=sz);
+                    //keep writingBuffer, (len=size);
 		    if (!resultStorage){
-			resultStorage->write(writingBuffer,sz);
+                        resultStorage->write(writingBuffer,size);
 			//db record without request
 		    } else 
 		    {

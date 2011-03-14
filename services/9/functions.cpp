@@ -20,7 +20,7 @@ buffer* equip_recvBuffer;
 
 
 
-errType equipListenProcessing(BYTE *writingBuffer, size_t sz)
+errType equipListenProcessing(BYTE *writingBuffer, size_t *sz)
 {
     printf("\n\tС иерархии нижнего уровня получен пакет (hex):\n");
     printf("\t[");

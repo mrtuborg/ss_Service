@@ -7,7 +7,7 @@ extern errType emergencyShutdown(void*);
 extern errType controlModeChange(void*);
 extern errType getStateVector(void*);
 
-extern errType equipListenProcessing(BYTE *, size_t);
+extern errType equipListenProcessing(BYTE *, size_t *size);
 
 extern errType GetFunctionMode(void*);
 extern errType GetCurrentCoordinates(void*);
