@@ -38,7 +38,7 @@ extern errType getNextDBRecord();
     
 errType equipListenProcessing(BYTE *writingBuffer, size_t *sz)
 {
-    size_t size (sz);
+    size_t size (*sz);
     if (size > comm_SASC::kSASCMsgSize) size = comm_SASC::kSASCMsgSize;
     
     rcvSASCmsg.encode(writingBuffer, size);
@@ -68,7 +68,7 @@ errType equipListenProcessing(BYTE *writingBuffer, size_t *sz)
 	    case _db_last_record:
 		    //keep writingBuffer, (len=sz);
 		    if (resultStorage){
-			resultStorage->write(writingBuffer,sz);
+                        resultStorage->write(writingBuffer,*sz);
 			//db record without request
 		    } else 
 		    {

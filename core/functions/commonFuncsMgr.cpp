@@ -68,7 +68,6 @@ void* equipListenPolling(void* user)
             app->set_state_vector_linked(true);
             printf("Связь с оборудованием восстановлена!\n\n");
         }
-        }
         app->srv_yield();
     }                                                                           
     delete []writingBuffer;

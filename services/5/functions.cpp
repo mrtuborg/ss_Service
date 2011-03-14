@@ -25,7 +25,7 @@ PS_StatFrame statFrame;
 PS_CmdFrame cmdFrame;
 
 
-errType equipListenProcessing(BYTE *writingBuffer, size_t sz)
+errType equipListenProcessing(BYTE *writingBuffer, size_t *sz)
 {
     size_t size (*sz);
 
