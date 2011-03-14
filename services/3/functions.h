@@ -3,7 +3,7 @@
 extern errType srvInit();
 extern errType srvDeinit();
 
-errType equipListenProcessing(BYTE *writingBuffer, size_t sz);
+errType equipListenProcessing(BYTE *writingBuffer, size_t *sz);
 extern void* pollingThreadFunc(void*);
 
 extern errType emergencyShutdown(void*);

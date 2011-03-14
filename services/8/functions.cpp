@@ -26,11 +26,13 @@ typedef struct psFuncStateVector_type {
   WORD value;
 } psFuncStateVector_type;
 
-errType equipListenProcessing(BYTE *writingBuffer, size_t sz)
+errType equipListenProcessing(BYTE *writingBuffer, size_t *sz)
 {
+    size_t size (*sz);
+
     printf("\n\tС иерархии нижнего уровня получен пакет (hex):\n");
     printf("\t[");
-    for(size_t k=0; k<sz; k++) printf("%.2X ", writingBuffer[k]);
+    for(size_t k=0; k<size; k++) printf("%.2X ", writingBuffer[k]);
     printf("]\n\n");
     printf("\t===========================================\n\n");
 }

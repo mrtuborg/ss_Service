@@ -22,6 +22,8 @@
 #include <cm688_packet.h>
 #include <peripheral/timers/passive_timer.h>
 
+extern bool array_contain_frame(BYTE* array, size_t size, BYTE* shifted_bytes);
+
 udp_port  *equip_sending;
 pthread_t PollingThreadHandle;
 
@@ -77,22 +79,79 @@ void* pollingThread(void* user)
     return user;
 }
 
-errType equipListenProcessing(BYTE *writingBuffer, size_t sz)
+
+//This method process byte arrays, has received from srvAppLayer.
+//It's searches packet in array and process it if packet is there and it's whole;
+// otherwise it's deletes excess bytes, changes length of array
+// and return err_frame_incomplete
+errType equipListenProcessing(BYTE *writingBuffer, size_t *sz)
 {
     errType result = err_result_ok;
-    //if (sz>sizeof(SASC_msg_type)) sz=sizeof(SASC_msg_type);
+    size_t size (*sz);
+    //if (size>sizeof(SASC_msg_type)) size=sizeof(SASC_msg_type);
 
-    answerFrame->encode(writingBuffer, sz);
-    printf("\n\tС иерархии нижнего уровня получен пакет (hex):\n");
-    printf("\t[");
-    for (size_t k = 0; k < sz; k++)
-        printf("%.2X ", writingBuffer[k]);
-    printf("]\n\n");
-    if (verbose_level)  {
-        printf("\tРасшифровка:\n");
-        answerFrame->dbgPrint();
-        printf("\t===========================================\n\n");
+    //checks array for containing packet
+    BYTE count_shifted_bytes;
+    bool has_packet;
+    has_packet = array_contain_frame(writingBuffer, size, &count_shifted_bytes);
+
+    //modifying array for bring it into accord with packet's format
+    if (!has_packet)  {
+        if (count_shifted_bytes)  {
+            printf("\nС иерархии нижнего уровня получен некорректный пакет пакет (hex): ");
+            for (size_t k = 0; k < size; k++)
+                printf("%.2X ", writingBuffer[k]);
+            printf("]\n");
+            printf("Его начало будет смещено на %d байт\n\n", count_shifted_bytes);
+
+            *sz -= count_shifted_bytes;
+            memcpy(writingBuffer, writingBuffer + count_shifted_bytes, *sz);
+            memset(writingBuffer + *sz, 0, count_shifted_bytes);
+            if (*sz > statusFrame::kPacketSize + 2)
+                *sz = statusFrame::kPacketSize + 2;       //deleting shifted bytes from the end
+        }
     }
+
+    if (*sz == statusFrame::kPacketSize + 2) has_packet = true;
+    else                                     result = err_frame_incomplete;
+
+    //processing of correct packet
+    if (has_packet)  {
+        answerFrame->encode(writingBuffer, *sz);
+        printf("\n\tС иерархии нижнего уровня получен пакет (hex):\n");
+        printf("\t[");
+        for (size_t k = 0; k < *sz; k++)
+            printf("%.2X ", writingBuffer[k]);
+        printf("]\n\n");
+        if (verbose_level)  {
+            printf("\tРасшифровка:\n");
+            answerFrame->dbgPrint();
+            printf("\t===========================================\n\n");
+        }
+    }
+
+    return result;
+}
+
+//checks packet on contaning a whole statusFrame packet
+//shifted_bytes - count of bytes from beginning of, those are not accords
+// with format of statusFrame packet
+//return value:
+// true - if array is a ready packet
+// false - in otherwise cases
+bool array_contain_frame(BYTE* array, size_t size, BYTE* shifted_bytes)
+{
+    bool result (false);
+    *shifted_bytes = 0;
+
+    for (size_t i = 0; i < (size - 1); i++)  {
+        if (!((array[i] == 0x55)&&(array[i+1] == 0xAA))) *shifted_bytes = i+1;
+        else break;
+    }
+    if (!*shifted_bytes)  {
+        if (size == statusFrame::kPacketSize + 2) result = true;
+    }
+
     return result;
 }
 
