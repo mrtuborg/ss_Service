@@ -28,7 +28,7 @@ class cronTab {
 	std::fstream::pos_type writePosition, readPosition;
 
 public:
-	errType NewTask(cronTask* task);
+	errType addTask(cronTask* task);
 
 	errType addToCronFile();
 	int getFromCronFile();

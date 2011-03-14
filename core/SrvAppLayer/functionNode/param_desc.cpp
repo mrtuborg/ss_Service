@@ -201,7 +201,16 @@ errType param_desc::printParam()
 	    break;
 
 	case type_WORDVECTOR:
+		printf("\t%s: ", param_name);
+		for (int i=0; i<*(WORD*)param; i++) printf(" %.4X",*((WORD*)param+2+i));
+		printf("\n");
 	    break;
+
+	case type_DWORDVECTOR:
+		printf("\t%s: ", param_name);
+		for (int i=0; i<*(WORD*)param; i++) printf(" %.8X",*((DWORD*)param+2+i));
+		printf("\n");
+		 break;
 
     }
     

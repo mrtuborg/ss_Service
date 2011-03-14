@@ -78,8 +78,7 @@ void* udpSenderThread (void* user)
                 sndAllow_flag=false;
                 rcvComplete_flag=false;
             }
-
-            sched_yield();
+            app->srv_yield();
         }
 
 	//	*sz=1024;//sizeof(struct ip)+sizeof(struct udphdr);
@@ -145,6 +144,13 @@ void* _ss_udpListenerThread (void* user)
 BYTE SrvAppLayer::terminated()
 {
     return AppTerminated;
+}
+
+//method to reduce the load on the processor in threads
+void SrvAppLayer::srv_yield()
+{
+    sched_yield();
+    usleep(1000);
 }
 
 /**************************************************************************************************************//**

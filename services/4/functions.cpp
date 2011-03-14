@@ -14,7 +14,7 @@
 #include <rcsLib/rcsCmd/rcsCmd.h>                                               
 #include <param_desc.h>                                                         
 #include <functionNode.h>                                                       
-#include <srvAppLayer.h>                                                        
+#include <SrvAppLayer.h>
 #include <global.h> 
 
 #include "SASC_packet/comm_SASC.h"
@@ -66,9 +66,9 @@ errType equipListenProcessing(BYTE *writingBuffer, size_t *sz)
 		    break;
 	
 	    case _db_last_record:
-                    //keep writingBuffer, (len=size);
-		    if (!resultStorage){
-                        resultStorage->write(writingBuffer,size);
+		    //keep writingBuffer, (len=sz);
+		    if (resultStorage){
+			resultStorage->write(writingBuffer,sz);
 			//db record without request
 		    } else 
 		    {
@@ -111,7 +111,7 @@ void* pollingThread(void* user)
 //            if (timer.isActive()) timer.stop();
 //            timer.start();
 //        }
-        sched_yield();
+        app->srv_yield();
     }
 //    return user;
 }

@@ -12,6 +12,7 @@
  *
  */
 
+#include <stdio.h>
 #include <pthread.h>
 #include <netinet/in.h>
 #include <queue>
@@ -20,6 +21,7 @@
 #include <ssBuffer.h>
 #include <rcsLib/rcsCmd/rcsCmd.h>
 #include <peripheral/udp_port/udp_port.h>
+#include <global.h>
 #include <param_desc.h>
 #include <functionNode.h>
 #include <SrvAppLayer.h>
@@ -66,8 +68,9 @@ void* equipListenPolling(void* user)
             app->set_state_vector_linked(true);
             printf("Связь с оборудованием восстановлена!\n\n");
         }
-        sched_yield();
-    }
+        }
+        app->srv_yield();
+    }                                                                           
     delete []writingBuffer;
     return user;
 }

@@ -4,17 +4,22 @@ using namespace std;
 class schedule 
 {
     BYTE id;
-    cronTab* cronJob;
     list<job*> job_list;
     
+    WORD cpListenerPortNum;
 
-	errType writeCronTab(job*);
+	errType convertToCronTask(job* newJob, cronTask *task);
     public:
     
      schedule();
     ~schedule();
     
     errType addJob(job* );
+    job*  getJobById(DWORD id);
+    job*  getJobByIndex(DWORD index);
+    WORD getJobsQuantity();
+
+    DWORD cursorPos();
     errType removeAllJobsBefore(DWORD );
 
     errType run();
@@ -23,6 +28,11 @@ class schedule
     errType decode(BYTE*);
     errType encode(BYTE*);
 
+    void set_cpListenerPortNum(WORD);
+    WORD get_cpListenerPortNum();
+
+    errType execute(DWORD);
+    void dbgPrint();
 
 };
 

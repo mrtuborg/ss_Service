@@ -117,8 +117,11 @@ include utils/remotes.inc
 remote: host_ip	:= $(word $(host), $(REMOTE_IP))
 remote: host_user:= $(word $(host), $(REMOTE_USER))
 remote: host_pass:= $(word $(host), $(REMOTE_PASSWORD))
-remote: clean
+remote: 
 	@echo $(program_name) $(host_user):$(host_pass)@$(host_ip)
+	@echo "--------------------- PART I. Copyng libs ----------------------------"
+	utils/./expect_scp.sh $(host_pass) $(paths_to_libraries) $(host_user)@$(host_ip):'~' -r
+	@echo "--------------------- PART II. Copyng program ----------------------------"
 	utils/./remote_make $(program_name) $(host_ip) $(host_user) $(host_pass) $(id)
 
 #cur_user:= $(foreach n, $(n_list), $(word $(n), $(REMOTE_USER)))

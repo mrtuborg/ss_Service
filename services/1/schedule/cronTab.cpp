@@ -66,7 +66,7 @@ cronTab::~cronTab() {
 //	return err_result_ok;
 //}
 
-errType cronTab::NewTask(cronTask* task)
+errType cronTab::addTask(cronTask* task)
 {
 	taskList.push_back(task);
 	return err_result_ok;
@@ -89,7 +89,7 @@ errType cronTab::NewTask(cronTask* task)
 
 errType cronTab::clearCronFile()
 {
-	cronFile.open("cronTest.txt",ios::out | ios::trunc);
+	cronFile.open("/var/spool/cron/root",ios::out | ios::trunc);
 	cronFile.close();
 
 	return err_result_ok;
@@ -99,12 +99,23 @@ errType cronTab::clearCronFile()
 errType cronTab::addToCronFile()
 {
 	errType result (err_not_init);
-	cronTask *task=taskList.back();
+	cronTask *task=taskList.front();
+	list <cronTask*>::iterator iter;
 
+	int wr=0;
 	cronFile.open("cronTest.txt",ios::out | ios::app);
 	if (cronFile.is_open()) {
-		cout << *task << endl;
-		cronFile << *task << endl;
+		for (iter=taskList.begin(); iter!=taskList.end(); ++iter)
+		{
+
+			printf("wr=%d\n",wr++);
+			task=(*iter);
+			cout << *task << endl;
+			cronFile << *task << endl;
+
+
+		}
+
 
 		writePosition=cronFile.tellp();
 		cronFile.close();
@@ -132,7 +143,8 @@ int cronTab::getFromCronFile()
 		cronFile.seekg(readPosition, ios::beg);
 
 		getline(cronFile, textLine);
-		cronTask *task=new cronTask(textLine);
+		cronTask *task=new cronTask();
+		task->create(textLine);
 		cout << *task << endl;
 
 		//dbgPrint();

@@ -86,7 +86,7 @@ void* PollingThread(void* user)
 	    sleep(3);
 	}
 	
-        sched_yield();                                                                
+        app->srv_yield();
     }                                                                                 
     return user;
 }

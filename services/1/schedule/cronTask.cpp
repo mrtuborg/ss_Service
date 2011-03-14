@@ -1,7 +1,14 @@
+
+
+#include <stdlib.h>
+
+
 #include <string>
 #include <vector>
 #include <fstream>
 #include <iostream>
+
+#include <extra/ortsTypes/ortsTypes.h>
 
 #include "cronTask.h"
 
@@ -52,13 +59,21 @@ size_t cronTaskMeta::Size()
 	return sizeof(objId)+sizeof(nextObjId)+sizeof(length_sec);
 }
 
-cronTask::cronTask(unsigned mm, unsigned hh, unsigned mday, unsigned month, unsigned wday, unsigned long objId, unsigned long nextObjId, unsigned length_sec, std::string &command):
- hour (hh), minute(mm), mday(mday), month(month), wday(wday), command(command)
+errType cronTask::create(unsigned mm, unsigned hh, unsigned set_mday, unsigned set_month, unsigned set_wday, unsigned long objId, unsigned long nextObjId, unsigned length_sec, std::string &set_command)
 {
+	   hour = hh;
+	 minute = mm;
+	   mday = set_mday;
+	  month = set_month;
+	   wday = set_wday;
+	command = set_command;
+
 	meta.Init(objId, nextObjId, length_sec);
+
+	return err_result_ok;
 }
 
-cronTask::cronTask(std::string &textLine)
+errType cronTask::create(std::string &textLine)
 {
 	vector<string> tokens;
 	vector<string>::const_iterator iter;
@@ -67,13 +82,18 @@ cronTask::cronTask(std::string &textLine)
 	Tokenize(textLine, tokens, "\t#,");
 
 	minute	= atoi(tokens[0].data());
-	hour		= atoi(tokens[1].data());
-	mday		= atoi(tokens[2].data());
+	hour	= atoi(tokens[1].data());
+	mday	= atoi(tokens[2].data());
 	month	= atoi(tokens[3].data());
-	wday		= atoi(tokens[4].data());
+	wday	= atoi(tokens[4].data());
 	command = tokens[5];
 
 	meta.Init(atol(tokens[6].data()), atol(tokens[7].data()), atoi(tokens[8].data()));
+	return err_result_ok;
+}
+
+cronTask::cronTask()
+{
 
 }
 
