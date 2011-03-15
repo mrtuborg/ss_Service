@@ -332,54 +332,24 @@ WORD statusFrame::getFoldPosition(FoldDscr_type fold_descriptor)
     return result;
 }
 
-BYTE statusFrame::get_psa_sensors(FoldDscr_type fold_descriptor)                // num = 0,1,2 state = 00, 01, 10 ,11 (left.right)
-{
-    BYTE result=0;
-
-    switch (fold_descriptor)  {
-      case LOWER_A:  {
-          result =  frame.BYTE_14.fold_lowA_psa_right << 1;
-          result |= frame.BYTE_14.fold_lowA_psa_left;
-          break;
-      }
-      case LOWER_B:  {
-          result =  frame.BYTE_14.fold_lowB_psa_right << 1;
-          result |= frame.BYTE_14.fold_lowB_psa_left;
-          break;
-      }
-      case UPPER:  {
-          result =  frame.BYTE_14.fold_up_psa_right << 1;
-          result |= frame.BYTE_14.fold_up_psa_left;
-          break;
-      }
-      default:  {
-          printf("ERROR: Unavalible identificator of fold in\
-          BYTE statusFrame::get_psa_sensors(FoldDscr_type)/n");
-          exit (0);
-      }
-    }
-
-    return result;
-}
-
 BYTE statusFrame::get_esa_sensors(FoldDscr_type fold_descriptor)   // num = 0,1,2 state = 00, 01, 10 ,11 (left.right)
 {
     BYTE result=0;
 
     switch (fold_descriptor)  {
       case LOWER_A:  {
-          result =  frame.BYTE_15.fold_lowA_esa_right << 1;
-          result |= frame.BYTE_15.fold_lowA_esa_left;
+          result =  frame.BYTE_14.fold_lowA_esa_right << 1;
+          result |= frame.BYTE_14.fold_lowA_esa_left;
           break;
       }
       case LOWER_B:  {
-          result =  frame.BYTE_15.fold_lowA_esa_right << 1;
-          result |= frame.BYTE_15.fold_lowA_esa_left;
+          result =  frame.BYTE_14.fold_lowA_esa_right << 1;
+          result |= frame.BYTE_14.fold_lowA_esa_left;
           break;
       }
       case UPPER:  {
-          result =  frame.BYTE_15.fold_lowA_esa_right << 1;
-          result |= frame.BYTE_15.fold_lowA_esa_left;
+          result =  frame.BYTE_14.fold_lowA_esa_right << 1;
+          result |= frame.BYTE_14.fold_lowA_esa_left;
           break;
       }
       default:  {
@@ -395,8 +365,10 @@ BYTE statusFrame::get_esa_sensors(FoldDscr_type fold_descriptor)   // num = 0,1,
 bool statusFrame::testCheckSumm()
 {
     bool result=false;
-    WORD chk=CRC16_eval((BYTE*)&frame, kPacketSize - sizeof(WORD));
-    if (chk==frame.checkSumm) result=true;
+    WORD chk = CRC16_eval((BYTE*)&frame, kPacketSize - sizeof(WORD));
+    if (chk == frame.checkSumm) result=true;
+
+    printf("DEBUG: chk = %x, frame.checkSumm = %x\n", chk, frame.checkSumm);
 
     return result;
 }
@@ -472,20 +444,12 @@ void statusFrame::dbgPrint()
     printf("Створка Б, угол = 0x%.4X\n",         getFoldPosition(LOWER_B));
     printf("Створка верхняя, угол = 0x%.4X\n\n", getFoldPosition(UPPER));
 
-    printf("Нижняя А створка, путевой выключатель, правый =%d ", frame.BYTE_14.fold_lowA_psa_right);
-    printf("левый=%d\n",frame.BYTE_14.fold_lowA_psa_left);
-    printf("Нижняя Б створка, путевой выключатель, правый =%d ", frame.BYTE_14.fold_lowB_psa_right);
-    printf("левый=%d\n",                                         frame.BYTE_14.fold_lowB_psa_left);
-    printf("Верхняя створка, путевой выключатель,  левый  =%d ", frame. BYTE_14.fold_up_psa_right);
-    printf("правый=%d\n\n",                                      frame.BYTE_14.fold_up_psa_left);
-
-
-    printf("Нижняя А створка, концевой выключатель, правый =%d ",frame.BYTE_15.fold_lowA_esa_right);
-    printf("левый=%d\n",                                         frame.BYTE_15.fold_lowA_esa_left);
-    printf("Нижняя Б створка, концевой выключатель, правый =%d ",frame.BYTE_15.fold_lowB_esa_right);
-    printf("левый=%d\n",                                         frame.BYTE_15.fold_lowB_esa_left);
-    printf("Верхняя створка, концевой выключатель,  правый =%d ",frame.BYTE_15.fold_up_esa_right);
-    printf("левый=%d \n\n",                                      frame.BYTE_15.fold_up_esa_left);
+    printf("Нижняя А створка, концевой выключатель, правый =%d ",frame.BYTE_14.fold_lowA_esa_right);
+    printf("левый=%d\n",                                         frame.BYTE_14.fold_lowA_esa_left);
+    printf("Нижняя Б створка, концевой выключатель, правый =%d ",frame.BYTE_14.fold_lowB_esa_right);
+    printf("левый=%d\n",                                         frame.BYTE_14.fold_lowB_esa_left);
+    printf("Верхняя створка, концевой выключатель,  правый =%d ",frame.BYTE_14.fold_up_esa_right);
+    printf("левый=%d \n\n",                                      frame.BYTE_14.fold_up_esa_left);
 
 
     printf("Контрольная сумма=0x%.4X\n",frame.checkSumm);

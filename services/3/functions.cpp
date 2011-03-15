@@ -97,12 +97,12 @@ errType equipListenProcessing(BYTE *writingBuffer, size_t *sz)
 
     //modifying array for bring it into accord with packet's format
     if (!has_packet)  {
+        printf("\nС иерархии нижнего уровня получен некорректный пакет пакет (hex): ");
+        for (size_t k = 0; k < size; k++)
+            printf("%.2X ", writingBuffer[k]);
+        printf("]\n");
         if (count_shifted_bytes)  {
-            printf("\nС иерархии нижнего уровня получен некорректный пакет пакет (hex): ");
-            for (size_t k = 0; k < size; k++)
-                printf("%.2X ", writingBuffer[k]);
-            printf("]\n");
-            printf("Его начало будет смещено на %d байт\n\n", count_shifted_bytes);
+            printf("Его начало будет смещено на %d байт\n", count_shifted_bytes);
 
             *sz -= count_shifted_bytes;
             memcpy(writingBuffer, writingBuffer + count_shifted_bytes, *sz);
@@ -110,6 +110,8 @@ errType equipListenProcessing(BYTE *writingBuffer, size_t *sz)
             if (*sz > statusFrame::kPacketSize + 2)
                 *sz = statusFrame::kPacketSize + 2;       //deleting shifted bytes from the end
         }
+        else *sz = 0;
+        printf("\n");
     }
 
     if (*sz == statusFrame::kPacketSize + 2) has_packet = true;
@@ -444,60 +446,6 @@ errType foldGetParams(void* fn)
     return result;
 }
 
-errType semiaxisSensorsGetState(void* fn)
-{
-    errType result = err_not_init;
-
-    functionNode* func = (functionNode*) fn;
-
-    func->printParams();
-
-    BYTE fold_id     = *(BYTE*)func->getParamPtr(0);
-    BYTE semiaxis_id = *(BYTE*)func->getParamPtr(1);
-    BYTE sensor_id   = *(BYTE*)func->getParamPtr(2);
-    BYTE sensorState = 0;
-
-    switch (sensor_id)
-    {
-    case 0: //(in-path-sensor)
-        sensorState = answerFrame->get_psa_sensors((FoldDscr_type) fold_id);
-        result=err_result_ok;
-        break;
-    case 1: //ending sensor
-        sensorState = answerFrame->get_esa_sensors((FoldDscr_type) fold_id);
-        result=err_result_ok;
-        break;
-    default:
-        result = err_params_value;
-        break;
-    }
-
-    switch (semiaxis_id)
-    {
-    case 0: //right semiaxis
-        sensorState &= 0x01;
-        result=err_result_ok;
-        break;
-    case 1: //left semiaxis
-        sensorState &= 0x02;
-        sensorState >>= 1;
-        result=err_result_ok;
-        break;
-    default:
-        result = err_params_value;
-        break;
-    }
-
-    func->setResult(1, &fold_id);
-    func->setResult(2, &semiaxis_id);
-    func->setResult(3, &sensor_id);
-    func->setResult(4, &sensorState);
-
-    func->printResults();
-
-    return result;
-}
-
 errType changeControlMode(void* fn)
 {
     errType result = err_result_ok;
@@ -660,29 +608,6 @@ typedef union semiaxisSensorsVector_t {
     
     WORD wValue;
 } __attribute__((packed)) semiaxisSensorsVector_t;
-
-
-errType allSemiaxisSensorsGetState(void* fn)
-{
-    errType result=err_result_ok;
-    functionNode* func = (functionNode*) fn;
-    
-    semiaxisSensorsVector_t vector;
-    
-    vector.fields.fold[0].psa.sa = answerFrame->get_psa_sensors(LOWER_A);
-    vector.fields.fold[0].esa.sa = answerFrame->get_esa_sensors(LOWER_A);
-
-    vector.fields.fold[1].psa.sa = answerFrame->get_psa_sensors(LOWER_B);
-    vector.fields.fold[1].esa.sa = answerFrame->get_esa_sensors(LOWER_B);
-
-    vector.fields.fold[2].psa.sa = answerFrame->get_psa_sensors(UPPER);
-    vector.fields.fold[2].esa.sa = answerFrame->get_esa_sensors(UPPER);
-
-
-    func->setResult(1, &vector);
-    
-    return result;
-}
 
 errType allFoldsGetParams(void* fn)
 {
