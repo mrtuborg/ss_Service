@@ -364,11 +364,10 @@ BYTE statusFrame::get_esa_sensors(FoldDscr_type fold_descriptor)   // num = 0,1,
 
 bool statusFrame::testCheckSumm()
 {
-    bool result=false;
+    bool result = false;
+
     WORD chk = CRC16_eval((BYTE*)&frame, kPacketSize - sizeof(WORD));
     if (chk == frame.checkSumm) result=true;
-
-    printf("DEBUG: chk = %x, frame.checkSumm = %x\n", chk, frame.checkSumm);
 
     return result;
 }
@@ -380,7 +379,7 @@ void statusFrame::decode(BYTE* array)
 
 void statusFrame::encode(BYTE* array, size_t size)
 {
-    memcpy(&frame, array+2, size);
+    memcpy(&frame, array, size);
 }
 
 void statusFrame::dbgPrint()

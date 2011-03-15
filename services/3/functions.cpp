@@ -107,29 +107,35 @@ errType equipListenProcessing(BYTE *writingBuffer, size_t *sz)
             *sz -= count_shifted_bytes;
             memcpy(writingBuffer, writingBuffer + count_shifted_bytes, *sz);
             memset(writingBuffer + *sz, 0, count_shifted_bytes);
-            if (*sz > statusFrame::kPacketSize + 2)
-                *sz = statusFrame::kPacketSize + 2;       //deleting shifted bytes from the end
+            if (*sz > statusFrame::kPacketSize)
+                *sz = statusFrame::kPacketSize;       //deleting shifted bytes from the end
         }
         else *sz = 0;
         printf("\n");
     }
 
-    if (*sz == statusFrame::kPacketSize + 2) has_packet = true;
+    if (*sz == statusFrame::kPacketSize) has_packet = true;
     else                                     result = err_frame_incomplete;
 
     //processing of correct packet
     if (has_packet)  {
-        answerFrame->encode(writingBuffer, *sz);
-        printf("\n\tС иерархии нижнего уровня получен пакет (hex):\n");
-        printf("\t[");
-        for (size_t k = 0; k < *sz; k++)
-            printf("%.2X ", writingBuffer[k]);
-        printf("]\n\n");
-        if (verbose_level)  {
-            printf("\tРасшифровка:\n");
-            answerFrame->dbgPrint();
-            printf("\t===========================================\n\n");
+        statusFrame temporary;
+        temporary.encode(writingBuffer, *sz);
+        if (temporary.testCheckSumm())  {
+            answerFrame->encode(writingBuffer, *sz);
+            printf("\n\tС иерархии нижнего уровня получен пакет (hex):\n");
+            printf("\t[");
+            for (size_t k = 0; k < *sz; k++)
+                printf("%.2X ", writingBuffer[k]);
+            printf("]\n\n");
+            if (verbose_level)  {
+                printf("\tРасшифровка:\n");
+                answerFrame->dbgPrint();
+                printf("\t===========================================\n\n");
+            }
         }
+        else
+            printf("CRC check fails! Packet ignored!\n\n");
     }
 
     return result;
@@ -147,11 +153,11 @@ bool array_contain_frame(BYTE* array, size_t size, BYTE* shifted_bytes)
     *shifted_bytes = 0;
 
     for (size_t i = 0; i < (size - 1); i++)  {
-        if (!((array[i] == 0x55)&&(array[i+1] == 0xAA))) *shifted_bytes = i+1;
+        if (*((WORD*)(array + i)) != 0xAA55) *shifted_bytes = i+1;
         else break;
     }
     if (!*shifted_bytes)  {
-        if (size == statusFrame::kPacketSize + 2) result = true;
+        if (size == statusFrame::kPacketSize) result = true;
     }
 
     return result;

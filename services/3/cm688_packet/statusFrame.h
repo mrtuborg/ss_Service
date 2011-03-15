@@ -3,6 +3,8 @@
 
 typedef struct statusFrame_t {
 
+    WORD header;
+
     //********************** 3 BYTE **********************
     union {
 
