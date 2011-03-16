@@ -21,7 +21,7 @@ statusFrame::~statusFrame()
 BYTE statusFrame::getShieldState(BYTE num)// + opened
 {
     //0000 0sco - stopped, closed, opened
-    BYTE result=0;
+    BYTE result = 0;
     switch (num)
     {
     case 0: result=frame.BYTE_6.schieldOpened; break;
@@ -51,33 +51,33 @@ BYTE statusFrame::getHydroSystemStatus()
 
 BYTE statusFrame::getHydroSystemValues(BYTE num) // + filters
 {
-    BYTE result=0;
+    BYTE result = 0;
     
-    switch (num)
-    {
-    case 0: result=frame.BYTE_4.hydrosys_pressure_norm; break;
-    case 1: result=frame.BYTE_4.hydrosys_level_norm;    break;
-    case 2: result=frame.BYTE_4.hydrosys_temp_norm;     break;
-    case 3: result=frame.BYTE_5.hydrosys_filters_norm;  break;
-    }
+    switch (num)  {
+    case 0: result = frame.BYTE_4.hydrosys_pressure_norm; break;
+    case 1: result = frame.BYTE_4.hydrosys_level_norm;    break;
+    case 2: result = frame.BYTE_4.hydrosys_temp_norm;     break;
+    case 3: result = frame.BYTE_5.hydrosys_filters_norm;  break;
+    };
+
     return result;
 }
 
 bool statusFrame::isLocalControl()
 {
-    bool result=frame.BYTE_3.localControl;
+    bool result = frame.BYTE_3.localControl;
     return result;
 }
 
 bool statusFrame::isRemoteControl()
 {
-    bool result=frame.BYTE_3.remoteControl;
+    bool result = frame.BYTE_3.remoteControl;
     return result;
 }
 
 bool statusFrame::isCPControl()
 {
-    bool result = !(frame.BYTE_3.remoteControl|frame.BYTE_3.localControl);
+    bool result = !(frame.BYTE_3.remoteControl | frame.BYTE_3.localControl);
     return result;
 }
 
@@ -88,14 +88,13 @@ BYTE statusFrame::getSystemLinkStatus(LinkPoint_type link_point)
     // localPanel=2
     // KEGP=3
     
-    BYTE result=0;
+    BYTE result = 0;
     
-    switch (link_point)
-    {
-    case BUZ:  result=frame.BYTE_4.link_BUZ;        break;
-    case AUGS: result=frame.BYTE_4.link_AUGS;       break;
-    case PMU:  result=frame.BYTE_4.link_localPanel; break;
-    case KEGP: result=frame.BYTE_4.link_KEGP;       break;
+    switch (link_point)  {
+    case BUZ:  result = frame.BYTE_4.link_BUZ;        break;
+    case AUGS: result = frame.BYTE_4.link_AUGS;       break;
+    case PMU:  result = frame.BYTE_4.link_localPanel; break;
+    case KEGP: result = frame.BYTE_4.link_KEGP;       break;
     };
     
     return result;
@@ -366,8 +365,8 @@ bool statusFrame::testCheckSumm()
 {
     bool result = false;
 
-    WORD chk = CRC16_eval((BYTE*)&frame, kPacketSize - sizeof(WORD));
-    if (chk == frame.checkSumm) result=true;
+    WORD chk = CRC16_eval((BYTE*)&frame, kPacketSize - sizeof(frame.checkSumm));
+    if (chk == frame.checkSumm) result = true;
 
     return result;
 }
