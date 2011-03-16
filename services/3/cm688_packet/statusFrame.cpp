@@ -407,28 +407,28 @@ void statusFrame::dbgPrint()
     printf("Створка верхняя  закрыта.....%d\n", frame.BYTE_5.fold_up_close);
     printf("Гидросистема, фильтры, норма.%d\n\n",frame.BYTE_5.hydrosys_filters_norm);
 
-    printf("УЗ №1 заштырено.......................%d\n", frame.BYTE_6.UZ1_locked);
-    printf("УЗ №2 заштырено.......................%d\n", frame.BYTE_6.UZ2_locked);
-    printf("УЗ №3 заштырено.......................%d\n", frame.BYTE_6.UZ3_locked);
+    printf("УЗ #1 заштырено.......................%d\n", frame.BYTE_6.UZ1_locked);
+    printf("УЗ #2 заштырено.......................%d\n", frame.BYTE_6.UZ2_locked);
+    printf("УЗ #3 заштырено.......................%d\n", frame.BYTE_6.UZ3_locked);
     printf("Работа контроллера ПДУ................%d\n", frame.BYTE_6.remotePanel_busy);
     printf("Стыковка..............................%d\n", frame.BYTE_6.linkingStatus);
     printf("Контроль функционирования исполняется.%d\n", frame.BYTE_6.funcControl_busy);
     printf("Укрытие открыто.......................%d\n\n", frame.BYTE_6.schieldOpened);
 
-    printf("УЗ №1 исполнение.%d\n", frame.BYTE_7.UZ1_busy);
-    printf("УЗ №2 исполнение.%d\n", frame.BYTE_7.UZ2_busy);
-    printf("УЗ №3 исполнение.%d\n", frame.BYTE_7.UZ3_busy);
-    printf("УЗ №1 отштырено..%d\n", frame.BYTE_7.UZ1_unlocked);
-    printf("УЗ №2 отштырено..%d\n", frame.BYTE_7.UZ2_unlocked);
-    printf("УЗ №3 отштырено..%d\n", frame.BYTE_7.UZ3_unlocked);
+    printf("УЗ #1 исполнение.%d\n", frame.BYTE_7.UZ1_busy);
+    printf("УЗ #2 исполнение.%d\n", frame.BYTE_7.UZ2_busy);
+    printf("УЗ #3 исполнение.%d\n", frame.BYTE_7.UZ3_busy);
+    printf("УЗ #1 отштырено..%d\n", frame.BYTE_7.UZ1_unlocked);
+    printf("УЗ #2 отштырено..%d\n", frame.BYTE_7.UZ2_unlocked);
+    printf("УЗ #3 отштырено..%d\n", frame.BYTE_7.UZ3_unlocked);
     printf("Укрытие закрыто..%d\n\n", frame.BYTE_7.shieldClosed);
 
-    printf("УЗ №1 неисправность.%d\n", frame.BYTE_8.UZ1_alert);
-    printf("УЗ №2 неисправность.%d\n", frame.BYTE_8.UZ2_alert);
-    printf("УЗ №3 неисправность.%d\n", frame.BYTE_8.UZ3_alert);
-    printf("УЗ №1 ручное........%d\n", frame.BYTE_8.UZ1_manual);
-    printf("УЗ №2 ручное........%d\n", frame.BYTE_8.UZ2_manual);
-    printf("УЗ №3 ручное........%d\n\n", frame.BYTE_8.UZ3_manual);
+    printf("УЗ #1 неисправность.%d\n", frame.BYTE_8.UZ1_alert);
+    printf("УЗ #2 неисправность.%d\n", frame.BYTE_8.UZ2_alert);
+    printf("УЗ #3 неисправность.%d\n", frame.BYTE_8.UZ3_alert);
+    printf("УЗ #1 ручное........%d\n", frame.BYTE_8.UZ1_manual);
+    printf("УЗ #2 ручное........%d\n", frame.BYTE_8.UZ2_manual);
+    printf("УЗ #3 ручное........%d\n\n", frame.BYTE_8.UZ3_manual);
 
     printf("Створка верхня, рассогласование ГЦ...%d\n", frame.BYTE_9.fold_up_inv_GC);
     printf("Створка нижняя Б, рассогласование ГЦ.%d\n", frame.BYTE_9.fold_lowB_inv_GC);
