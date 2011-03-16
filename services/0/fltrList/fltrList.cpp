@@ -96,11 +96,11 @@ errType fltrList::applyFilters(prcList* processes) // Need to do in scanprocesse
 		switch(filter->action())
 		{
 		    case 0: // kill
-			printf("Процесс №%d (%s) будет завершён\n", prc->get_prc_pid(), prc->get_cmdline());
+			printf("Процесс #%d (%s) будет завершён\n", prc->get_prc_pid(), prc->get_cmdline());
 			res=kill(prc->get_prc_pid(), sig);
 			break;
 		    case 1: // restart
-			printf("Процесс №%d (%s) будет перезапущен\n", prc->get_prc_pid(), prc->get_cmdline());
+			printf("Процесс #%d (%s) будет перезапущен\n", prc->get_prc_pid(), prc->get_cmdline());
 			res=kill(prc->get_prc_pid(), sig);
 			break;
 		}
