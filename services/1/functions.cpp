@@ -150,7 +150,6 @@ errType addScheduleJob(void* fn)
     BYTE service_id=*(BYTE*)func->getParamPtr(7);
     BYTE func_id=*(BYTE*)func->getParamPtr(8);
     BYTE* cmd=(BYTE*)func->getParamPtr(9);
-
     job* newJob=new job(objId, IPaddr, UdpPort);
 
     newJob->set_dwNextJobID(nextObjId);
@@ -321,7 +320,7 @@ errType getOpsId(void* fn)
 
 errType executeJob(void* fn)
 {
-    errType result=err_not_init;
+    errType result=err_result_ok;
 
     functionNode* func=(functionNode*)fn;
 
@@ -330,7 +329,7 @@ errType executeJob(void* fn)
 	BYTE isEmergency = *(BYTE*)(func->getParamPtr(0)); // Packet No
 	DWORD jobID = *(BYTE*)(func->getParamPtr(1)); // jobID
 
-	_schedule[isEmergency].execute(jobID);
+	result = _schedule[isEmergency].execute(jobID);
 
     return result;
 }

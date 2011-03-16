@@ -204,6 +204,7 @@ errType specFuncsMgr::startSpecFuncs()
 
 		func->setResultDescriptor(0,type_ERRTYPE);
 		func->setResultName(0, "Квитанция исполнения");
+		appLayer->CreateNewFunction(func);
     return result;
 }
 
