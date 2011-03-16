@@ -203,10 +203,11 @@ errType schedule::convertToCronTask(job* newJob, cronTask *task)
 	errType result=err_result_ok;
 	struct tm  *ts;
 	time_t timeStart (newJob->get_dwTimeStart());
-
+//	printf("timeStart = %d", timeStart);
 	/// 1. Define start time for cron task
 	ts = localtime(&timeStart);
-
+//	printf("time hour %d",ts->tm_hour);
+//	printf("time min %d",ts->tm_min);
 	/// 2. Filling cron task
 	WORD cmdLen (newJob->cmd()->getCmdLength());
 	in_addr in;
@@ -219,10 +220,10 @@ errType schedule::convertToCronTask(job* newJob, cronTask *task)
 	string strCmd (format("rcsSend -u%s:%d -s%d -d\"", ipaddr, uport, delay));
 
 	DWORD id=newJob->get_dwObjId();
-
-	for (int i=0; i<cmdLen; i++) {
-		strCmd.append(format("%.2X ",((BYTE*)id)[i]));
-	}
+	strCmd.append(format("%.8X",id));
+	//for (int i=0; i<cmdLen; i++) {
+	//	strCmd.append(format("%.2X ",((BYTE*)id)[i]));
+	//}
 
 	strCmd.append("\"");
 
