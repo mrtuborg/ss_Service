@@ -25,13 +25,15 @@ PS_StatFrame statFrame;
 PS_CmdFrame cmdFrame;
 
 
-errType equipListenProcessing(BYTE *writingBuffer, size_t sz)
+errType equipListenProcessing(BYTE *writingBuffer, size_t *sz)
 {
-    if (sz>sizeof(PS_StatFrameType)) sz=sizeof(PS_StatFrameType);
-    statFrame.encode(writingBuffer, sz);
+    size_t size (*sz);
+
+    if (size>sizeof(PS_StatFrameType)) size=sizeof(PS_StatFrameType);
+    statFrame.encode(writingBuffer, size);
     printf("\n\tС иерархии нижнего уровня получен пакет (hex):\n");
     printf("\t[");
-    for(size_t k=0; k<sz; k++) printf("%.2X ", writingBuffer[k]);
+    for(size_t k=0; k<size; k++) printf("%.2X ", writingBuffer[k]);
     printf("]\n\n");
     printf("\tРасшифровка:\n");
     statFrame.dbgPrint();

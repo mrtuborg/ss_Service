@@ -45,15 +45,16 @@ void* pollingThread(void* user)
   return user;
 }
 
-errType equipListenProcessing(BYTE *writingBuffer, size_t sz)
+errType equipListenProcessing(BYTE *writingBuffer, size_t *sz)
 {
   errType result = err_result_ok;
-  //if (sz>sizeof(SASC_msg_type)) sz=sizeof(SASC_msg_type);
+  size_t size (*sz);
+  //if (size>sizeof(SASC_msg_type)) size=sizeof(SASC_msg_type);
 
-  //answerFrame->encode(writingBuffer, sz);
+  //answerFrame->encode(writingBuffer, size);
   printf("\n\tС иерархии нижнего уровня получен пакет (hex):\n");
   printf("\t[");
-  for (size_t k = 0; k < sz; k++)
+  for (size_t k = 0; k < size; k++)
     printf("%.2X ", writingBuffer[k]);
   printf("]\n\n");
   printf("\tРасшифровка:\n");

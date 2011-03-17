@@ -3,7 +3,7 @@
 extern errType srvInit();
 extern errType srvDeinit();
 
-errType equipListenProcessing(BYTE *writingBuffer, size_t sz);
+errType equipListenProcessing(BYTE *writingBuffer, size_t *sz);
 extern void* pollingThreadFunc(void*);
 
 extern errType emergencyShutdown(void*);
@@ -25,7 +25,6 @@ extern errType shieldClose(void*);
 extern errType shieldStop(void*);
 
 extern errType foldGetParams(void*);
-extern errType semiaxisSensorsGetState(void*);
 
 extern errType changeControlMode(void*);
 extern errType getControlMode(void*);
@@ -35,5 +34,4 @@ extern errType startFuncControl(void*);
 extern errType correctHydroCyl(void*);
 
 extern errType allFoldsGetParams(void* fn);
-extern errType allSemiaxisSensorsGetState(void* fn); 
 extern errType getAllUZstate(void* fn);

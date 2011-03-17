@@ -1,7 +1,7 @@
 // Selfdiagnostics system service
 //--------------------------------
 
-extern errType equipListenProcessing(BYTE *writingBuffer, size_t sz);
+extern errType equipListenProcessing(BYTE *writingBuffer, size_t *sz);
 
 extern errType srvInit();
 extern errType srvDeinit();
