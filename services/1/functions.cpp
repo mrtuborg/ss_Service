@@ -151,6 +151,7 @@ errType addScheduleJob(void* fn)
     BYTE service_id=*(BYTE*)func->getParamPtr(7);
     BYTE func_id=*(BYTE*)func->getParamPtr(8);
     BYTE* cmd=(BYTE*)func->getParamPtr(9);
+
     job* newJob=new job(objId, IPaddr, UdpPort);
 
     newJob->set_dwNextJobID(nextObjId);

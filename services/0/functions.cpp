@@ -16,7 +16,7 @@
 #include <functionNode.h>
 #include <ssBuffer.h>
 #include <peripheral/udp_port/udp_port.h>
-#include <srvAppLayer.h>
+#include <SrvAppLayer.h>
 #include <prcList/prcTask.h>
 #include <prcList/prcList.h>
 #include <fltrList/fltr.h>
