@@ -212,6 +212,7 @@ errType readJobState(void* fn)
 	job* requestedJob = _schedule[isEmergency].getJobById(jobID);
 
 	state = requestedJob->getState();
+	printf("\job state %d", state);
 	requestedJob->lastAnswer(&answer, &answerLength);
 
 	answerVector = new BYTE[answerLength+2];
@@ -294,28 +295,33 @@ errType readJobEntity(void* fn)
 errType getOpsId(void* fn)
 {
 	 errType result=err_not_init;
-
 	 functionNode* func=(functionNode*)fn;
 
 	 func->printParams();
 
 	 BYTE isEmergency = *(BYTE*)(func->getParamPtr(0)); // Packet No
+
 	 WORD quantity = _schedule[isEmergency].getJobsQuantity();
 	 DWORD id=0;
-
 	 BYTE* answerVector = new BYTE[sizeof(id)*quantity+2];
-	 ((WORD*)answerVector)[0] = quantity;
+	((WORD*)answerVector)[0] = quantity*sizeof(DWORD);
+
 	 answerVector+=2;
+
 	 for (int i = 0; i < quantity; i++)
 	 {
-		 id = _schedule[isEmergency].getJobByIndex(i)->get_dwObjId();
+
+		 job *j = _schedule[isEmergency].getJobByIndex(i);
+
+		 id = j->get_dwObjId();
+
 		 ((DWORD*)answerVector)[i] = id;
 	 }
-	 answerVector-=2;
+		answerVector-=2;
 
-	 func->setResult(1, answerVector);
-
-	 return result;
+	func->setResult(1, answerVector);
+	delete []answerVector;
+	return result;
 }
 
 errType executeJob(void* fn)

@@ -79,7 +79,7 @@ job* schedule::getJobByIndex(DWORD index) {
 	job* result = 0;
 	list<job*>::iterator iter;
 	DWORD i = 0;
-	for (iter = job_list.begin(); iter == job_list.end(); ++iter) {
+	for (iter = job_list.begin(); iter != job_list.end(); ++iter) {
 		if (index == i) {
 			result = *(iter);
 			break;
@@ -91,7 +91,7 @@ job* schedule::getJobByIndex(DWORD index) {
 }
 
 WORD schedule::getJobsQuantity() {
-	return job_list.size();
+	return (WORD)job_list.size();
 }
 
 DWORD schedule::cursorPos() {
@@ -238,9 +238,9 @@ errType schedule::execute(DWORD jobId) {
 
 	BYTE funcId = requestedJob->get_btFuncId();
 
-	udpAction send_action(ACTION_SEND, requestedJob->get_wServiceUdpPort(), strIPAddr);
+	udpAction *send_action = new udpAction(ACTION_SEND, requestedJob->get_wServiceUdpPort(), strIPAddr);
 
-	udpAction recv_action(ACTION_RECEIVE, requestedJob->get_wServiceUdpPort()+1, "127.0.0.1", 2);
+	udpAction *recv_action = new udpAction(ACTION_RECEIVE, requestedJob->get_wServiceUdpPort()+1, "127.0.0.1", 2);
 
 	rcsCmd *packet = new rcsCmd(requestedJob->get_btServId(), funcId);
 
@@ -251,9 +251,9 @@ errType schedule::execute(DWORD jobId) {
 	packet->encode(funcId, len, data);
 	packet->makeSign();
 
-	send_action.writeDataAsCmd(packet);
+	send_action->writeDataAsCmd(packet);
 
-	send_action.processAction();
+	send_action->processAction();
 
 	requestedJob->setState(1);
 	delete packet;
@@ -262,16 +262,20 @@ errType schedule::execute(DWORD jobId) {
 
 
 	errType result;
-	result = recv_action.processAction();
-	if (result == err_result_ok) {
-		recv_action.readDataAsCmd(&packet);
+	result = recv_action->processAction();
+	if (result == err_result_ok)
+	{
+		recv_action->readDataAsCmd(&packet);
 		packet->dbgPrint();
 		requestedJob->setAnswer((BYTE*) packet->get_func_paramsPtr(), packet->get_func_paramsLength());
 
 		requestedJob->setState(2);
 	}
 
+
 	printf("result = %s\n", strErrTypes[result]);
+	delete recv_action;
+	delete send_action;
 	return err_result_ok;
 }
 
