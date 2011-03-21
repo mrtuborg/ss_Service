@@ -1,0 +1,51 @@
+#
+# %1	- directory name
+# %2	- url
+# %3	- username
+# %4	- password
+#
+
+cd ..
+echo "\n"
+echo "================================"
+echo " 1) Make tar of curring project"
+echo "================================"
+tar -cf $1.tar $1 libs --exclude $1/bin --exclude $1/.git --exclude $1/obj
+
+echo "\n"
+echo "================================"
+echo " 2) Copy tar to remote host"
+echo "================================"
+$1/utils/./expect_scp.sh $4 $1.tar $3@$2:'~/.' -r
+cd $1
+
+echo "\n"
+echo "================================"
+echo " 3) Unpack tar on remote host"
+echo "================================"
+utils/./expect_ssh.sh $3 $4 $2 '~' tar -xf $1.tar
+
+echo "\n"
+echo "================================"
+echo " 4) Make project on remote host"
+echo "================================"
+utils/./expect_ssh.sh $3 $4 $2 '~/'$1 qmake
+utils/./expect_ssh.sh $3 $4 $2 '~/'$1  make
+
+
+echo "\n"
+echo "==================================="
+echo " 5) Copy make result to local host"
+echo "==================================="
+utils/./expect_scp.sh $4 $3@$2:'~'/$1/bin . -r
+
+
+echo "\n"
+echo "===================================="
+echo " 6) Clean all tracks on remote host"
+echo "===================================="
+utils/./expect_ssh.sh $3 $4 $2 '~' rm -f $1.tar
+utils/./expect_ssh.sh $3 $4 $2 '~' rm -rf '~/'$1
+
+echo "\n"
+echo "-= * all done! *=-"
