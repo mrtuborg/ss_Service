@@ -25,7 +25,6 @@ extern errType shieldClose(void*);
 extern errType shieldStop(void*);
 
 extern errType foldGetParams(void*);
-extern errType semiaxisSensorsGetState(void*);
 
 extern errType changeControlMode(void*);
 extern errType getControlMode(void*);
@@ -35,5 +34,4 @@ extern errType startFuncControl(void*);
 extern errType correctHydroCyl(void*);
 
 extern errType allFoldsGetParams(void* fn);
-extern errType allSemiaxisSensorsGetState(void* fn); 
 extern errType getAllUZstate(void* fn);

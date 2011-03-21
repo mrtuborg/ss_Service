@@ -51,7 +51,7 @@ void* equipListenPolling(void* user)
             //check, whether port have data
             result = app->equip_reading_event(app->get_timeout_equipment_value());
             if (result == err_timeout)  {
-                printf("Разрыв связи с оборудованием!\n\n");
+               // printf("Разрыв связи с оборудованием!\n\n"); Расскоментируешь ещё раз точно убъём тебя но уже вместе с Ваней!!!
                 app->set_state_vector_linked(false);
             }
             //trying to get a whole packet from port

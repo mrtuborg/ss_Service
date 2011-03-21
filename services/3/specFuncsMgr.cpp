@@ -173,26 +173,8 @@ errType specFuncsMgr::startSpecFuncs()
 	func->setResultName(3,"Угол положения");
 	appLayer->CreateNewFunction(func);
 	
-	func = new functionNode(13,3,5,semiaxisSensorsGetState);
-	func->setFuncName("Получить значения полуосей");
-	func->setParamDescriptor(0, type_BYTE);
-	func->setParamName(0,"Номер створки");
-	func->setParamDescriptor(1, type_BYTE);
-	func->setParamName(1,"Номер полуоси");
-	func->setParamDescriptor(2, type_BYTE);
-	func->setParamName(2,"Номер датчика");
-	func->setResultDescriptor(0, type_ERRTYPE);
-	func->setResultName(0,"Квитанция исполнения");
-	func->setResultDescriptor(1, type_BYTE);
-	func->setResultName(1,"Номер створки");
-	func->setResultDescriptor(2, type_BYTE);
-	func->setResultName(2,"Номер полуоси");
-	func->setResultDescriptor(3, type_BYTE);
-	func->setResultName(3,"Номер датчика");
-	func->setResultDescriptor(4, type_BYTE);
-	func->setResultName(4,"Состояние датчика полуоси");
-	appLayer->CreateNewFunction(func);
-		
+        //function 13 was deleted
+
 	func = new functionNode(14,1,3,getUZstate);
 	func->setFuncName("Получить вектор состояния УЗ");
 	func->setParamDescriptor(0, type_BYTE);
@@ -253,16 +235,10 @@ errType specFuncsMgr::startSpecFuncs()
 	func->setResultDescriptor(6, type_WORD);
 	func->setResultName(6,"Угол положения створки 2");
 	appLayer->CreateNewFunction(func);
-	
-	func = new functionNode(20,0,2,allSemiaxisSensorsGetState);
-	func->setFuncName("Получить значения всех датчиков полуосей");
-	func->setResultDescriptor(0, type_ERRTYPE);
-	func->setResultName(0,"Квитанция исполнения");
-	func->setResultDescriptor(1, type_WORD);
-	func->setResultName(1,"Вектор состояния датчиков");
-	appLayer->CreateNewFunction(func);
 
-	func = new functionNode(21,0,4,getAllUZstate);
+        //function 20 was deleted
+
+        func = new functionNode(21,0,4,getAllUZstate);
 	func->setFuncName("Получить вектор состояния УЗ");
 	func->setResultDescriptor(0, type_ERRTYPE);
 	func->setResultName(0,"Квитанция исполнения");

@@ -285,7 +285,7 @@ errType functionNode::setResult(BYTE num, void* res)
 	
 	if (func_results[num]) {
             result = func_results[num]->setParam(res);
-	} else printf ("Внутренняя ошибка: обращение к несуществующему параметру %d функции №%d\n",num,func_id);
+        } else printf ("Внутренняя ошибка: обращение к несуществующему параметру %d функции #%d\n",num,func_id);
 	
 	return result;
 }
@@ -318,15 +318,13 @@ errType functionNode::printParams()
     printf("\tВходные параметры функции: "); 
     if (func_paramsQuantity==0) printf("ОТСУТСТВУЮТ");
     else {
-	printf("\n");
-	for (int num=0; num<func_paramsQuantity; num++){
-		printf("\t");
-		if (func_params[num]) func_params[num]->printParam();
-	}
+    	printf("\n");
+    	for (int num=0; num<func_paramsQuantity; num++){
+    		printf("\t");
+    		if (func_params[num]) func_params[num]->printParam();
+    	}
     }
-    
     printf("\n");
-    
     return result;
 }
 

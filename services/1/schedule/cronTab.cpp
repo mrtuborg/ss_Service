@@ -89,7 +89,9 @@ errType cronTab::addTask(cronTask* task)
 
 errType cronTab::clearCronFile()
 {
-	cronFile.open("/var/spool/cron/root",ios::out | ios::trunc);
+//	cronFile.open("/var/spool/cron/root",ios::out | ios::trunc);
+	cronFile.open("/home/oper/root",ios::out | ios::trunc);
+
 	cronFile.close();
 
 	return err_result_ok;

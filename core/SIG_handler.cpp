@@ -46,5 +46,5 @@ void installSIGhandlers(funcVoid func)
     sigprocmask(SIG_BLOCK, &newset, 0);
     sa.sa_handler = term_handler;
     sigaction(SIGTERM, &sa, 0);
-    printf(">>> Идентификатор процесса №%i\n\n", getpid());
+    printf(">>> Идентификатор процесса #%i\n\n", getpid());
 }

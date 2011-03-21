@@ -3,6 +3,8 @@
 
 typedef struct statusFrame_t {
 
+    WORD header;
+
     //********************** 3 BYTE **********************
     union {
 
@@ -140,21 +142,6 @@ typedef struct statusFrame_t {
     //********************** 14 BYTE **********************
     union {
         struct {
-            BYTE nullBit: 1;
-            BYTE fold_lowA_psa_right :1;
-            BYTE fold_lowA_psa_left  :1;
-            BYTE fold_lowB_psa_right :1;
-            BYTE fold_lowB_psa_left  :1;
-            BYTE fold_up_psa_right   :1;
-            BYTE fold_up_psa_left    :1;
-            BYTE reserve             :1;
-        };
-        BYTE bValue;
-    } BYTE_14;
-
-    //********************** 15 BYTE **********************
-    union {
-        struct {
             BYTE nullBit             :1;
             BYTE fold_lowA_esa_right :1;
             BYTE fold_lowA_esa_left  :1;
@@ -165,11 +152,9 @@ typedef struct statusFrame_t {
             BYTE reserve             :1;
         } ;
         BYTE bValue;
-    } BYTE_15;
+    } BYTE_14;
 
-    //********************** 16 BYTE **********************
-    BYTE reserve;
-    //******************** 17,18 BYTES ********************
+    //******************** 15,16 BYTES ********************
     WORD checkSumm;
 
 } statusFrame_t;
@@ -202,7 +187,6 @@ public:
     BYTE isUZ_alert(FoldDscr_type fold_descriptor);
 
     WORD getFoldPosition(FoldDscr_type fold_descriptor);
-    BYTE get_psa_sensors(FoldDscr_type fold_descriptor);
     BYTE get_esa_sensors(FoldDscr_type fold_descriptor);
 
     bool testCheckSumm();

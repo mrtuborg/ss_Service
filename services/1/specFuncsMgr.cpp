@@ -186,8 +186,8 @@ errType specFuncsMgr::startSpecFuncs()
 
 		func->setResultDescriptor(0,type_ERRTYPE);
 		func->setResultName(0, "Квитанция исполнения");
-		func->setParamDescriptor(1, type_DWORDVECTOR);
-		func->setParamName(1,"Массив идентификаторов операций");
+		func->setResultDescriptor(1, type_DWORDVECTOR);
+		func->setResultName(1,"Массив идентификаторов операций");
 
 		appLayer->CreateNewFunction(func);
 
@@ -204,6 +204,7 @@ errType specFuncsMgr::startSpecFuncs()
 
 		func->setResultDescriptor(0,type_ERRTYPE);
 		func->setResultName(0, "Квитанция исполнения");
+		appLayer->CreateNewFunction(func);
     return result;
 }
 
