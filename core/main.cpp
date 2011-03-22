@@ -23,7 +23,7 @@
 #include <errno.h>
 
 #include <extra/ortsTypes/ortsTypes.h>
-#include <ssBuffer.h>
+#include <storage/ssBuffer/ssBuffer.h>
 #include <peripheral/udp_port/udp_port.h>
 #include <system/arg_parser/carg_parser.h>
 #include "console_out.h"

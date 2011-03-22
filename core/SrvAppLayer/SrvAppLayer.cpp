@@ -26,9 +26,9 @@
 #include <rcsLib/rcsCmd/rcsCmd.h>
 
 #include <global.h>
-#include <ssBuffer.h>
+#include <storage/ssBuffer/ssBuffer.h>
 #include <peripheral/udp_port/udp_port.h>
-#include <deqUdp.h>
+#include <peripheral/udp_port/deqUdp.h>
 #include <rcsLib/udpAction/udpAction.h>
 #include <param_desc.h>
 #include <functionNode.h>

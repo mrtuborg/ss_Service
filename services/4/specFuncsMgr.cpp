@@ -7,7 +7,7 @@
 #include <arpa/inet.h>                                                          
 #include <deque>                                                                
 #include <extra/ortsTypes/ortsTypes.h>                                          
-#include <ssBuffer.h>                                                           
+#include <storage/ssBuffer/ssBuffer.h>                                                           
 #include <rcsLib/rcsCmd/rcsCmd.h>                                               
 #include <peripheral/udp_port/udp_port.h>                                             
 #include <param_desc.h>                                                         

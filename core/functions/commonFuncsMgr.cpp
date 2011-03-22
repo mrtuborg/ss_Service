@@ -18,7 +18,7 @@
 #include <queue>
 
 #include <extra/ortsTypes/ortsTypes.h>
-#include <ssBuffer.h>
+#include <storage/ssBuffer/ssBuffer.h>
 #include <rcsLib/rcsCmd/rcsCmd.h>
 #include <peripheral/udp_port/udp_port.h>
 #include <global.h>
