@@ -1,10 +1,4 @@
 /.DS_Store
-/*.m4
-/config.guess
-/config.log
-/config.status
-/config.sub
 /obj/
 /bin/
-/autom4te.cache/
 /docs/
