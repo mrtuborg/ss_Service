@@ -183,15 +183,14 @@ errType schedule::convertToCronTask(job* newJob, cronTask *task) {
 	errType result = err_result_ok;
 	struct tm *ts;
 	time_t timeStart(newJob->get_dwTimeStart());
-	//	printf("timeStart = %d", timeStart);
 	/// 1. Define start time for cron task
 	ts = localtime(&timeStart);
-	//	printf("time hour %d",ts->tm_hour);
-	//	printf("time min %d",ts->tm_min);
 	/// 2. Filling cron task
 	WORD cmdLen(newJob->cmd()->getCmdLength());
 	in_addr in;
-	in.s_addr = htonl(inet_addr("127.0.0.1")); // ip_address of ss_Service_1
+//	in.s_addr = htonl(inet_addr("127.0.0.1")); // ip_address of ss_Service_1
+	in.s_addr =inet_addr("127.0.0.1"); // ip_address of ss_Service_1
+
 	char *ipaddr = (inet_ntoa(in));
 	int uport(get_cpListenerPortNum()); // client udp_port of ss_Service_1
 
@@ -199,11 +198,30 @@ errType schedule::convertToCronTask(job* newJob, cronTask *task) {
 
 	string strCmd(format("rcsSend -u%s:%d -s%d -d\"", ipaddr, uport, delay));
 
-	DWORD id = newJob->get_dwObjId();
-	strCmd.append(format("%.8X", id));
-	//for (int i=0; i<cmdLen; i++) {
-	//	strCmd.append(format("%.2X ",((BYTE*)id)[i]));
-	//}
+	//DWORD id = newJob->get_dwObjId();
+	//strCmd.append(format("%.8X", id));
+
+	//в качестве параметра - RcsCmd packet
+	rcsCmd *packet = new rcsCmd(newJob->get_btServId(), newJob->get_btFuncId());
+	BYTE* data = (BYTE*) newJob->get_paramsPtr();
+	WORD len = newJob->get_paramsLength();
+	packet->encode(newJob->get_btFuncId(), len, data);
+	packet->makeSign();
+
+	BYTE* rcsCmdCommand = new BYTE[sizeof(BYTE) + sizeof(DWORD) + packet->get_func_paramsLength() + sizeof(WORD)]; //память под команду для расписания
+
+	*(BYTE*)rcsCmdCommand = packet->get_func_id();
+	*(DWORD*)(rcsCmdCommand+1) = packet->get_func_paramsLength();
+	memcpy(rcsCmdCommand + 5, packet->get_func_paramsPtr(0), packet->get_func_paramsLength());
+	*(WORD*)(rcsCmdCommand + 5 + packet->get_func_paramsLength()) = packet->get_crc_sign();
+
+	for (int i=0;i<(sizeof(BYTE) + sizeof(DWORD) + packet->get_func_paramsLength() + sizeof(WORD));i++) {
+		strCmd.append(format("%.2X ", ((BYTE *)rcsCmdCommand)[i]));
+	}
+
+	 delete packet;
+	 delete rcsCmdCommand;
+
 
 	strCmd.append("\"");
 
