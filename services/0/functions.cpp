@@ -14,7 +14,7 @@
 #include <rcsLib/rcsCmd/rcsCmd.h>
 #include <param_desc.h>
 #include <functionNode.h>
-#include <ssBuffer.h>
+#include <storage/ssBuffer/ssBuffer.h>
 #include <peripheral/udp_port/udp_port.h>
 #include <SrvAppLayer.h>
 #include <prcList/prcTask.h>

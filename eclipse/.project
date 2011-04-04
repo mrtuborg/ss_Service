@@ -34,6 +34,10 @@
 					<value>make</value>
 				</dictionary>
 				<dictionary>
+					<key>org.eclipse.cdt.make.core.buildLocation</key>
+					<value>${workspace_loc}/ss_Service</value>
+				</dictionary>
+				<dictionary>
 					<key>org.eclipse.cdt.make.core.cleanBuildTarget</key>
 					<value>clean</value>
 				</dictionary>
@@ -86,4 +90,22 @@
 		<nature>org.eclipse.cdt.managedbuilder.core.ScannerConfigNature</nature>
 		<nature>net.sf.eclipsecs.core.CheckstyleNature</nature>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>core</name>
+			<type>2</type>
+			<locationURI>PROJECT_DIR/core</locationURI>
+		</link>
+		<link>
+			<name>services</name>
+			<type>2</type>
+			<locationURI>PROJECT_DIR/services</locationURI>
+		</link>
+	</linkedResources>
+	<variableList>
+		<variable>
+			<name>PROJECT_DIR</name>
+			<value>$%7BWORKSPACE_LOC%7D/ss_Service</value>
+		</variable>
+	</variableList>
 </projectDescription>

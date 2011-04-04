@@ -8,7 +8,7 @@
 #include <extra/ortsTypes/ortsTypes.h>
 #include <storage/ssBuffer/ssBuffer.h>
 #include <storage/buffer/buffer.h>
-#include <comm/udp_port/udp_port.h>
+#include <peripheral/udp_port/udp_port.h>
 #include <rcsLib/rcsCmd/rcsCmd.h>
 #include <param_desc.h>
 #include <functionNode.h>
@@ -24,7 +24,7 @@ errType equipListenProcessing(BYTE *writingBuffer, size_t *sz)
 {
     printf("\n\tС иерархии нижнего уровня получен пакет (hex):\n");
     printf("\t[");
-    for(int k=0; k<sz; k++) printf("%.2X ", writingBuffer[k]);
+    for(int k=0; k<*sz; k++) printf("%.2X ", writingBuffer[k]);
     printf("]\n\n");
     printf("\t===========================================\n\n");
 }

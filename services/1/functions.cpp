@@ -17,7 +17,7 @@
 #include "schedule/cronTab.h"
 #include "schedule/job/job.h"
 #include "schedule/schedule.h"
-#include <ssBuffer.h>
+#include <storage/ssBuffer/ssBuffer.h>
 #include <peripheral/udp_port/udp_port.h>
 #include <SrvAppLayer.h>
 #include <global.h>
@@ -214,7 +214,7 @@ errType readJobState(void* fn)
 	job* requestedJob = _schedule[isEmergency].getJobById(jobID);
 
 	state = requestedJob->getState();
-	printf("\job state %d", state);
+	printf("\njob state %d", state);
 	requestedJob->lastAnswer(&answer, &answerLength);
 
 	answerVector = new BYTE[answerLength+2];

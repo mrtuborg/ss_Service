@@ -13,9 +13,9 @@ release_build_dir	:=$(root_build_dir)/Release
 program_name		:= ss_Service
 service_name		:= $(program_name)_$(id)
 
-core_include_dir	:= include
 core_source_dir		:= core
-core_source_subdirs	:= . arg_parser buffer deqUdp functions SrvAppLayer SrvAppLayer/functionNode
+core_source_subdirs	:= . functions SrvAppLayer SrvAppLayer/functionNode
+core_include_dir	:= $(addprefix $(core_source_dir)/,$(core_source_subdirs))
 
 
 paths_to_libraries	:= ../libs
@@ -70,11 +70,11 @@ objects				:= $(objects:.cpp=.o)
 objects				:= $(objects:.c=.o)
 
 all: build_dir:=$(release_build_dir)
-all: build_flags:=-O2 -fomit-frame-pointer
+all: build_flags:= -std=gnu++98 -O2 -fomit-frame-pointer
 all: prebuild $(service_name)
 
 debug: build_dir:=$(debug_build_dir)
-debug: build_flags:=-O0 -g3 -D_DEBUG
+debug: build_flags:=  -std=gnu++98 -O0 -g3 -D_DEBUG
 debug: prebuild $(service_name)
 
 prebuild:
@@ -93,7 +93,7 @@ $(service_name): $(objects)
 
 %.o : %.cpp
 	@echo "- Compiling " $<
-	@$(CXX) -o $(build_dir)/$@ -c $< $(compile_flags) $(build_flags) $(addprefix -I, $(relative_include_dirs))  -std=gnu++98
+	@$(CXX) -o $(build_dir)/$@ -c $< $(compile_flags) $(build_flags) $(addprefix -I, $(relative_include_dirs))
 
 %.o : %.c
 	@echo "- Compiling " $<
