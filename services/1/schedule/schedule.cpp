@@ -184,6 +184,7 @@ errType schedule::convertToCronTask(job* newJob, cronTask *task) {
 	struct tm *ts;
 	time_t timeStart(newJob->get_dwTimeStart());
 	/// 1. Define start time for cron task
+	printf("\n !!!!! TimeStart %d", timeStart);
 	ts = localtime(&timeStart);
 	/// 2. Filling cron task
 	WORD cmdLen(newJob->cmd()->getCmdLength());
