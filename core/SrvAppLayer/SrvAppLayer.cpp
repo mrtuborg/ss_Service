@@ -499,8 +499,7 @@ errType SrvAppLayer::processMessages(){
 
 			result=processInMessages(&sfrom, inCmd);
 			//if (result!==err_result_ok) {
-					result=processOutMessages(&sfrom, inCmd, result);
-
+			    result=processOutMessages(&sfrom, inCmd, result);
 			//}
 			delete inCmd;
 
@@ -529,10 +528,9 @@ errType SrvAppLayer::processOutMessages(sockaddr_in *sfrom, rcsCmd *inCmd, errTy
 			out_cmd=new rcsCmd();
 
 	/// 4) Encoding function result ticket if execution was not successfully
-		    //if ((result!=err_result_ok) && (result!=err_not_found))
+		    if ((result!=err_result_ok) && (result!=err_not_found))
 		    {
-
-		    		result=(Functions[inCmd->get_func_id()])->setResult(0,&result);
+			result=(Functions[inCmd->get_func_id()])->setResult(0,&result);
 		    }
 
 	/// 5) Encode remains function results be \ref encodeFuncResult
@@ -580,17 +578,20 @@ errType SrvAppLayer::processInMessages(sockaddr_in *sfrom, rcsCmd *inCmd)
 
     if (sfrom->sin_addr.s_addr!=inet_addr("127.0.0.1")) isRemoteCaller=true;
 
-    if ((Functions[func_id])->isMutator()) {
-        switch (serviceMode()){
-        case 0:// 0 - in automatic mode (locals calls mode)
-            if (!isRemoteCaller) result=err_result_ok;
-            else result=err_not_allowed;
-            break;
+    if (result == err_result_ok)
+    {
+        if ((Functions[func_id])->isMutator()) {
+            switch (serviceMode()){
+            case 0:// 0 - in automatic mode (locals calls mode)
+                if (!isRemoteCaller) result=err_result_ok;
+                else result=err_not_allowed;
+                break;
 
-        case 1:// 1- in manual mode	(remote calls mode)
-            if (isRemoteCaller) result=err_result_ok;
-            else result=err_not_allowed;
-            break;
+            case 1:// 1- in manual mode	(remote calls mode)
+                if (isRemoteCaller) result=err_result_ok;
+                else result=err_not_allowed;
+                break;
+            }
         }
     }
 
