@@ -16,6 +16,7 @@
 #include <functionNode.h>                                                       
 #include <SrvAppLayer.h>
 #include <global.h> 
+#include <peripheral/timers/passive_timer.h>
 
 #include "SASC_packet/comm_SASC.h"
 
@@ -29,6 +30,8 @@ comm_SASC rcvSASCmsg;
 SASC_answer_mod typeinf;
 
 BYTE frame_current_command[sizeof(SASC_msg_type)];
+BYTE frame_link_test[sizeof(SASC_msg_type)];
+
 bool event_new_message (false);
 
 buffer* resultStorage = 0;
@@ -88,32 +91,30 @@ errType equipListenProcessing(BYTE *writingBuffer, size_t *sz)
 void* pollingThread(void* user)
 {
     SrvAppLayer* app = (SrvAppLayer*) user;
-//    WORD old_crc = 0xFFFF;
-//    PassiveTimer timer;
-//    timer.setInterval(kIntervalOfSendinToEquip);
+
+    PassiveTimer timer;
+    DWORD PollingInterval ((DWORD)(app->get_timeout_equipment_value() / 2));
+    if (!PollingInterval) PollingInterval = 1;
+    timer.setInterval(PollingInterval);
 
     while (!app->terminated())
     {
-        if (event_new_message)  {
+        if (event_new_message) {
             equip_sending->sendData(equipAddr, frame_current_command, comm_SASC::kSASCMsgSize);
 
             event_new_message = false;
+            timer.restart();
         }
-//        if (!timer.isActive() || (sendFrame->setCheckSumm() != old_crc))
-//        {
-//            sendFrame->dbgPrint();
-//            old_crc = sendFrame->setCheckSumm();
 
-//            BYTE array[cmdFrame::kPacketSize];
-//            sendFrame->decode(array);
-//            equip_sending->sendData(equipAddr, array, cmdFrame::kPacketSize);
+        //poll equipment by function "link_test" for checking a link-state
+        if (!timer.isActive()) {
+            equip_sending->sendData(equipAddr, frame_link_test, comm_SASC::kSASCMsgSize);
+            timer.start();
+        }
 
-//            if (timer.isActive()) timer.stop();
-//            timer.start();
-//        }
         app->srv_yield();
     }
-//    return user;
+    return user;
 }
 
 
@@ -128,6 +129,11 @@ errType srvInit()
     result = equip_sending->open_port();
     equipAddr.s_addr = inet_addr(eq_ip_addr);
     
+    //Setting up mechanism of periodical polling of link state
+    sndSASCmsg.apply_mod(_link_test);
+    sndSASCmsg.decode(frame_link_test);
+    event_new_message = true;
+
     ret = pthread_create(&PollingThreadHandle, NULL, pollingThread, app);
     //if (ret!=0) Error:  Need to stop application initializing process...
     if (ret == 0)
