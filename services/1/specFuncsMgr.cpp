@@ -134,7 +134,7 @@ errType specFuncsMgr::startSpecFuncs()
 		appLayer->CreateNewFunction(func);
 
 	//extern errType getCursorPosition(void* fn)
-		func = new functionNode(5, 0, 1, getCursorPosition);
+		func = new functionNode(5, 1, 2, getCursorPosition);
 		func->setMutatorStatus(false);
 		func->setFuncName("Запрос идентификатора выполняющегося задания");
 		func->setParamDescriptor(0, type_BYTE);
