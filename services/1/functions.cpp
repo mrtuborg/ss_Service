@@ -200,31 +200,27 @@ errType readJobState(void* fn)
     
     func->printParams();
 
+    BYTE isEmergency=*(BYTE*)(func->getParamPtr(0)); // Packet No
+    BYTE jobID=*(BYTE*)(func->getParamPtr(1)); // Job ID
 
+    BYTE state=0;
+    BYTE* answerVector=0;
+    BYTE* answer=0;
+    WORD answerLength=0;
+    job* requestedJob = _schedule[isEmergency].getJobById(jobID);
 
+    state = requestedJob->getState();
+    printf("\njob state %d", state);
+    requestedJob->lastAnswer(&answer, &answerLength);
 
-    
-	BYTE isEmergency=*(BYTE*)(func->getParamPtr(0)); // Packet No
-	BYTE jobID=*(BYTE*)(func->getParamPtr(1)); // Job ID
+    answerVector = new BYTE[answerLength+2];
+    memcpy(answerVector+2,answer, answerLength);
+    *(WORD*)answerVector = answerLength;
 
-	BYTE state=0;
-	BYTE* answerVector=0;
-	BYTE* answer=0;
-	WORD answerLength=0;
-	job* requestedJob = _schedule[isEmergency].getJobById(jobID);
+    func->setResult(1, &state);
+    func->setResult(2, answerVector);
 
-	state = requestedJob->getState();
-	printf("\njob state %d", state);
-	requestedJob->lastAnswer(&answer, &answerLength);
-
-	answerVector = new BYTE[answerLength+2];
-	memcpy(answerVector+2,answer, answerLength);
-	*(WORD*)answerVector = answerLength;
-
-	func->setResult(1, &state);
-	func->setResult(2, answerVector);
-
-	delete []answerVector;
+    delete []answerVector;
     return result;
 }
 
@@ -237,61 +233,59 @@ errType getCursorPosition(void* fn)
     
     func->printParams();
 
-	BYTE isEmergency=*(BYTE*)(func->getParamPtr(0)); // Packet No
+    BYTE isEmergency=*(BYTE*)(func->getParamPtr(0)); // Packet No
 
-	DWORD jobID=0;
+    DWORD jobID=0;
 
-	jobID = _schedule[isEmergency].cursorPos();
-	func->setResult(1, &jobID);
+    jobID = _schedule[isEmergency].cursorPos();
+    func->setResult(1, &jobID);
     
     return result;
 }
 
 errType readJobEntity(void* fn)
 {
-	errType result=err_not_init;
+    errType result=err_not_init;
 
-	functionNode* func=(functionNode*)fn;
+    functionNode* func=(functionNode*)fn;
 
-	func->printParams();
+    func->printParams();
 
-	BYTE isEmergency = *(BYTE*)(func->getParamPtr(0)); // Packet No
-	DWORD jobID = *(BYTE*)(func->getParamPtr(1));
+    BYTE isEmergency = *(BYTE*)(func->getParamPtr(0)); // Packet No
+    DWORD jobID = *(BYTE*)(func->getParamPtr(1));
 
-	job* requestedJob = _schedule[isEmergency].getJobById(jobID);
+    job* requestedJob = _schedule[isEmergency].getJobById(jobID);
 
-	DWORD nextObjId = (requestedJob->get_dwNextObjId());
-	DWORD timeStart = (requestedJob->get_dwTimeStart());
-	DWORD timeLong  = (requestedJob->get_dwTimeLong());
+    DWORD nextObjId = (requestedJob->get_dwNextObjId());
+    DWORD timeStart = (requestedJob->get_dwTimeStart());
+    DWORD timeLong  = (requestedJob->get_dwTimeLong());
 
-	struct in_addr IPaddr;
-	(requestedJob->get_dwServiceIPaddr(&IPaddr));
+    struct in_addr IPaddr;
+    (requestedJob->get_dwServiceIPaddr(&IPaddr));
 
-	WORD udp       = (requestedJob->get_wServiceUdpPort());
-	BYTE servId    = (requestedJob->get_btServId());
-	BYTE funcId    = (requestedJob->get_btFuncId());
+    WORD udp       = (requestedJob->get_wServiceUdpPort());
+    BYTE servId    = (requestedJob->get_btServId());
+    BYTE funcId    = (requestedJob->get_btFuncId());
 
-	func->setResult(1, &nextObjId);
-	func->setResult(2, &timeStart);
-	func->setResult(3, &timeLong);
-	func->setResult(4, &IPaddr);
-	func->setResult(5, &udp);
-	func->setResult(6, &servId);
-	func->setResult(7, &funcId);
+    func->setResult(1, &nextObjId);
+    func->setResult(2, &timeStart);
+    func->setResult(3, &timeLong);
+    func->setResult(4, &IPaddr);
+    func->setResult(5, &udp);
+    func->setResult(6, &servId);
+    func->setResult(7, &funcId);
 
+    WORD answerLength = requestedJob->get_paramsLength();
+    BYTE* paramsPtr = (BYTE*) requestedJob->get_paramsPtr();
 
+    BYTE* answerVector = new BYTE[answerLength+2];
+    memcpy(answerVector+2, paramsPtr, answerLength);
+    *(WORD*)answerVector = answerLength;
 
-	WORD answerLength = requestedJob->get_paramsLength();
-	BYTE* paramsPtr = (BYTE*) requestedJob->get_paramsPtr();
+    func->setResult(8, answerVector);
+    delete []answerVector;
 
-	BYTE* answerVector = new BYTE[answerLength+2];
-	memcpy(answerVector+2, paramsPtr, answerLength);
-	*(WORD*)answerVector = answerLength;
-
-	func->setResult(8, answerVector);
-	delete []answerVector;
-
-	return result;
+    return result;
 }
 
 errType getOpsId(void* fn)
