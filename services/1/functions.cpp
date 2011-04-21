@@ -227,7 +227,7 @@ errType readJobState(void* fn)
 
 errType getCursorPosition(void* fn)
 {
-    errType result=err_not_init;
+    errType result=err_result_ok;
 
     functionNode* func=(functionNode*)fn;
     
@@ -237,10 +237,11 @@ errType getCursorPosition(void* fn)
 
     WORD* jobID_vector;
 
-    _schedule[isEmergency].cursorPos(&jobID_vector);
-    func->setResult(1, &jobID_vector);
-    printf("pt5\n");
-    //delete []jobID_vector;
+    if (_schedule[isEmergency].cursorPos(&jobID_vector) != err_result_ok) printf("empty!\n");
+    func->setResult(1, jobID_vector);
+
+    func->printResults();
+
     return result;
 }
 

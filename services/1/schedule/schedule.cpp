@@ -116,21 +116,16 @@ errType schedule::cursorPos(WORD **ids)
   errType result = err_not_init;
   list<job*>::iterator iter;
   WORD count=0;
-  printf("pt0\n");
   *ids = (WORD*) new BYTE[sizeof(WORD) + job_list.size()*sizeof(DWORD)];
-
-  *ids = *ids + 2;
-  printf("pt1\n");
+  *ids = *ids + 1;
   iter = job_list.begin();
   while (iter != job_list.end()){
       ++ iter;
       if ((*iter)->getState() == 1) *ids[count++] = (*iter)->get_dwObjId(); // 0 - initialized, 1 - running, 2 - completed
   }
-  printf("pt2\n");
-   *ids = *ids - 2;
-   printf("pt3\n");
+   *ids = *ids - 1;
   **ids = count;
-  printf("pt4\n");
+
   return result;
 }
 
