@@ -235,11 +235,12 @@ errType getCursorPosition(void* fn)
 
     BYTE isEmergency=*(BYTE*)(func->getParamPtr(0)); // Packet No
 
-    DWORD jobID=0;
+    WORD* jobID_vector;
 
-    jobID = _schedule[isEmergency].cursorPos();
-    func->setResult(1, &jobID);
-    
+    _schedule[isEmergency].cursorPos(&jobID_vector);
+    func->setResult(1, &jobID_vector);
+    printf("pt5\n");
+    //delete []jobID_vector;
     return result;
 }
 
@@ -267,13 +268,14 @@ errType readJobEntity(void* fn)
     BYTE servId    = (requestedJob->get_btServId());
     BYTE funcId    = (requestedJob->get_btFuncId());
 
-    func->setResult(1, &nextObjId);
-    func->setResult(2, &timeStart);
-    func->setResult(3, &timeLong);
-    func->setResult(4, &IPaddr);
-    func->setResult(5, &udp);
-    func->setResult(6, &servId);
-    func->setResult(7, &funcId);
+    func->setResult(1, &jobID);
+    func->setResult(2, &nextObjId);
+    func->setResult(3, &timeStart);
+    func->setResult(4, &timeLong);
+    func->setResult(5, &IPaddr);
+    func->setResult(6, &udp);
+    func->setResult(7, &servId);
+    func->setResult(8, &funcId);
 
     WORD answerLength = requestedJob->get_paramsLength();
     BYTE* paramsPtr = (BYTE*) requestedJob->get_paramsPtr();

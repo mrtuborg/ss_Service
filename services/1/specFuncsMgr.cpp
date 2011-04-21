@@ -142,13 +142,13 @@ errType specFuncsMgr::startSpecFuncs()
 
 		func->setResultDescriptor(0,type_ERRTYPE);
 		func->setResultName(0, "Квитанция исполнения");
-		func->setResultDescriptor(1, type_DWORD);
+		func->setResultDescriptor(1, type_DWORDVECTOR);
 		func->setResultName(1,"Идентификатор операции");
 
 		appLayer->CreateNewFunction(func);
 
 	//extern errType readJobEntity(void* fn)
-		func = new functionNode(6, 2, 8, readJobEntity);
+		func = new functionNode(6, 2, 10, readJobEntity);
 		func->setMutatorStatus(false);
 		func->setFuncName("Запрос содержимого операции");
 		func->setParamDescriptor(0, type_BYTE);
@@ -159,21 +159,23 @@ errType specFuncsMgr::startSpecFuncs()
 		func->setResultDescriptor(0,type_ERRTYPE);
 		func->setResultName(0, "Квитанция исполнения");
 		func->setResultDescriptor(1, type_DWORD);
-		func->setResultName(1,"Идентификатор следующей операции");
+		func->setResultName(1,"Идентификатор операции");
 		func->setResultDescriptor(2, type_DWORD);
-		func->setResultName(2,"Время начала операции");
+		func->setResultName(2,"Идентификатор следующей операции");
 		func->setResultDescriptor(3, type_DWORD);
-		func->setResultName(3,"Длительность времени исполнения операции");
+		func->setResultName(3,"Время начала операции");
 		func->setResultDescriptor(4, type_DWORD);
-		func->setResultName(4,"IPv4-адресс службы");
-		func->setResultDescriptor(5, type_WORD);
-		func->setResultName(5,"UDP порт службы");
-		func->setResultDescriptor(6, type_BYTE);
-		func->setResultName(6,"Идентификатор службы-исполнителя");
+		func->setResultName(4,"Длительность времени исполнения операции");
+		func->setResultDescriptor(5, type_DWORD);
+		func->setResultName(5,"IPv4-адресс службы");
+		func->setResultDescriptor(6, type_WORD);
+		func->setResultName(6,"UDP порт службы");
 		func->setResultDescriptor(7, type_BYTE);
-		func->setResultName(7,"Идентификатор функции-исполнителя");
-		func->setResultDescriptor(8, type_BYTEVECTOR);
-		func->setResultName(8,"Параметрическая часть");
+		func->setResultName(7,"Идентификатор службы-исполнителя");
+		func->setResultDescriptor(8, type_BYTE);
+		func->setResultName(8,"Идентификатор функции-исполнителя");
+		func->setResultDescriptor(9, type_BYTEVECTOR);
+		func->setResultName(9,"Параметрическая часть");
 
 		appLayer->CreateNewFunction(func);
 
