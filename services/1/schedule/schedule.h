@@ -20,7 +20,7 @@ class schedule
     job*  getJobByIndex(DWORD index);
     WORD getJobsQuantity();
 
-    errType cursorPos(WORD **ids);
+    errType cursorPos(BYTE **ids);
     errType removeAllJobsBefore(DWORD );
 
     errType run();

@@ -111,21 +111,25 @@ schedule::getJobsQuantity()
   return (WORD) job_list.size();
 }
 
-errType schedule::cursorPos(WORD **ids)
+errType schedule::cursorPos(BYTE **ids)
 {
   errType result = err_not_init;
   list<job*>::iterator iter;
   WORD count=0;
-  *ids = (WORD*) new BYTE[sizeof(WORD) + job_list.size()*sizeof(DWORD)];
-  *ids = *ids + 1;
+  *ids = new BYTE[sizeof(WORD) + job_list.size()*sizeof(DWORD)];
+  *ids = *ids + 4;
   iter = job_list.begin();
   while (iter != job_list.end()){
-      ++ iter;
-      if ((*iter)->getState() == 1) *ids[count++] = (*iter)->get_dwObjId(); // 0 - initialized, 1 - running, 2 - completed
+      printf("count=%d\n", count);
+      if ((*iter)->getState() == 1) {
+            *ids[count*4] = (*iter)->get_dwObjId(); // 0 - initialized, 1 - running, 2 - completed
+            count++;
+      }
+      iter++;
   }
-   *ids = *ids - 1;
+   *ids = *ids - 4;
   **ids = count;
-
+  if (count > 0) result = err_result_ok;
   return result;
 }
 

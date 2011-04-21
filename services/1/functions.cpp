@@ -235,13 +235,13 @@ errType getCursorPosition(void* fn)
 
     BYTE isEmergency=*(BYTE*)(func->getParamPtr(0)); // Packet No
 
-    WORD* jobID_vector;
+    BYTE* jobID_vector;
 
     if (_schedule[isEmergency].cursorPos(&jobID_vector) != err_result_ok) printf("empty!\n");
     func->setResult(1, jobID_vector);
 
     func->printResults();
-
+    delete []jobID_vector;
     return result;
 }
 
@@ -293,7 +293,7 @@ errType readJobEntity(void* fn)
 
 errType getOpsId(void* fn)
 {
-	 errType result=err_not_init;
+	 errType result=err_result_ok;
 	 functionNode* func=(functionNode*)fn;
 
 	 func->printParams();
