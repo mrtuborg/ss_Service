@@ -139,7 +139,8 @@ fstream &operator<<(fstream &stream, const cronTaskMeta &meta)
 
 fstream &operator<<(fstream &stream, const cronTask &task)
 {
-		stream << task.hour << "\t" << task.minute << "\t" << task.mday << " \t"<< task.month << "\t*\t" << task.command << "#";
-		stream << task.meta;
+		stream << task.hour << "\t" << task.minute << "\t" << task.mday << " \t"<< task.month << "\t*\t" << task.command ; //<< "#";
+ // stream << "*\t*\t*\t*\t*\t" << task.command ; //<< "#";
+	//	stream << task.meta;
 		return stream;
 }

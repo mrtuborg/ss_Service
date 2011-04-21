@@ -31,7 +31,8 @@
 
 cronTab::cronTab() {
 
-	cronFile.open("cronTest.txt", ios::in | ios::out);
+	//cronFile.open("/var/spool/cron/root", ios::in | ios::out);
+        cronFile.open("cronfile.txt", ios::in | ios::out);
 
 	cronFile.seekp(0, ios::end);
 	writePosition=cronFile.tellp();
@@ -90,7 +91,7 @@ errType cronTab::addTask(cronTask* task)
 errType cronTab::clearCronFile()
 {
 //	cronFile.open("/var/spool/cron/root",ios::out | ios::trunc);
-	cronFile.open("/home/oper/root",ios::out | ios::trunc);
+	cronFile.open("/var/spool/cron/root",ios::out | ios::trunc);
 
 	cronFile.close();
 
@@ -105,8 +106,11 @@ errType cronTab::addToCronFile()
 	list <cronTask*>::iterator iter;
 
 	int wr=0;
-	cronFile.open("cronTest.txt",ios::out | ios::app);
+//	cronFile.open("/var/spool/cron/root",ios::out | ios::app);
+
+        cronFile.open("cronfile.txt", ios::in | ios::out | ios::trunc);
 	if (cronFile.is_open()) {
+
 		for (iter=taskList.begin(); iter!=taskList.end(); ++iter)
 		{
 
@@ -121,7 +125,7 @@ errType cronTab::addToCronFile()
 
 		writePosition=cronFile.tellp();
 		cronFile.close();
-
+		system("crontab cronfile.txt");
 		result=err_result_ok;
 	}
 
@@ -132,7 +136,7 @@ errType cronTab::addToCronFile()
 int cronTab::getFromCronFile()
 {
 	errType result (err_not_init);
-	cronFile.open("cronTest.txt", ios::in);
+	cronFile.open("/var/spool/cron/root", ios::in);
 	int pos=0;
 	//char textLine[256];
 	//textLine[255]=0;

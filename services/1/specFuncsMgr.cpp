@@ -192,15 +192,15 @@ errType specFuncsMgr::startSpecFuncs()
 		appLayer->CreateNewFunction(func);
 
 		//extern errType executeJob(void* fn)
-		func = new functionNode(8, 3, 1, executeJob);
+		func = new functionNode(8, 2, 1, executeJob);
 		func->setMutatorStatus(true);
 		func->setFuncName("Запустить операцию на исполнение");
 		func->setParamDescriptor(0, type_BYTE);
 		func->setParamName(0,"Идентификатор пакетного задания");
 		func->setParamDescriptor(1, type_DWORD);
 		func->setParamName(1,"Идентификатор операции");
-		func->setParamDescriptor(2, type_BYTE);
-		func->setParamName(2,"Отложить исполнение, cек");
+		//func->setParamDescriptor(2, type_BYTE);
+		//func->setParamName(2,"Отложить исполнение, cек");
 
 		func->setResultDescriptor(0,type_ERRTYPE);
 		func->setResultName(0, "Квитанция исполнения");
