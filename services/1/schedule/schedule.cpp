@@ -105,8 +105,7 @@ schedule::getJobByIndex(DWORD index)
   return result;
 }
 
-WORD
-schedule::getJobsQuantity()
+WORD schedule::getJobsQuantity()
 {
   return (WORD) job_list.size();
 }
@@ -120,15 +119,17 @@ errType schedule::cursorPos(BYTE **ids)
   *ids = *ids + 4;
   iter = job_list.begin();
   while (iter != job_list.end()){
-      printf("count=%d\n", count);
       if ((*iter)->getState() == 1) {
-            *ids[count*4] = (*iter)->get_dwObjId(); // 0 - initialized, 1 - running, 2 - completed
-            count++;
+            *ids[count] = (*iter)->get_dwObjId(); // 0 - initialized, 1 - running, 2 - completed
+            printf("ids[ %d ] = %8X\n", count, *ids[count]);
+            count += 4;
+
       }
       iter++;
   }
    *ids = *ids - 4;
-  **ids = count;
+   *((WORD*)*ids) = count;
+
   if (count > 0) result = err_result_ok;
   return result;
 }
@@ -149,8 +150,7 @@ schedule::removeAllJobsBefore(DWORD dwTime)
   return err_result_ok;
 }
 
-errType
-schedule::run()
+errType schedule::run()
 {
   cronTab *tab;
   cronTask *task;
@@ -177,16 +177,20 @@ schedule::run()
   return err_result_ok;
 }
 
-errType
-schedule::stop()
+errType schedule::stop()
 {
   cronTab tab;
   tab.clearCronFile();
   return err_result_ok;
 }
 
-errType
-schedule::encode(BYTE* array)
+errType schedule::clear()
+{
+    job_list.clear();
+    return err_result_ok;
+}
+
+errType schedule::encode(BYTE* array)
 {
   errType result = err_not_init;
   list<job*>::iterator iter;
@@ -205,8 +209,7 @@ schedule::encode(BYTE* array)
   return result;
 }
 
-errType
-schedule::decode(BYTE* array)
+errType schedule::decode(BYTE* array)
 {
   errType result = err_not_init;
   list<job*>::iterator iter;
@@ -222,8 +225,7 @@ schedule::decode(BYTE* array)
   return result;
 }
 
-errType
-schedule::convertToCronTask(job* newJob, cronTask *task)
+errType schedule::convertToCronTask(job* newJob, cronTask *task)
 {
   errType result = err_result_ok;
   struct tm *ts;
@@ -302,14 +304,12 @@ schedule::set_cpListenerPortNum(WORD portNum)
   cpListenerPortNum = portNum;
 }
 
-WORD
-schedule::get_cpListenerPortNum()
+WORD schedule::get_cpListenerPortNum()
 {
   return cpListenerPortNum;
 }
 
-errType
-schedule::execute(DWORD jobId)
+errType schedule::execute(DWORD jobId)
 {
   job* requestedJob = getJobById(jobId);
 
@@ -364,8 +364,7 @@ schedule::execute(DWORD jobId)
   return err_result_ok;
 }
 
-void
-schedule::dbgPrint()
+void schedule::dbgPrint()
 {
   list<job*>::iterator iter;
   int i = 0;

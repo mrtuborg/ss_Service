@@ -60,19 +60,19 @@ param_desc::~param_desc()
  * @return err_mem_alloc - error of allocating memory for new size
  * @return err_not_init - new size does not differ from old size
  **************************************************************************************/
-errType param_desc::resize(WORD new_size)
+errType param_desc::resize(WORD new_size) // need only for vectors type
 {
 	errType result=err_not_init;
 	if (_length!=new_size){
 	    delete [] (BYTE*)param;
-	    //if (!isVector) 
+
 	    _length=new_size;
-	    //else _length=new_size;
+
 	    param=new BYTE[_length];
 	    
 	    if (param==0) result=err_mem_alloc;
 	    else result=err_result_ok;
-	} //else printf ("no resize needed\n");
+	}
 	return result;
 }
 
@@ -126,6 +126,7 @@ errType param_desc::setParam(void* param_val)
     if (param_val == 0) result = err_params_value;
     else {
         if (_isVector) resize(2 + *(WORD*)param_val);
+        printf("*(WORD*)param_val=%d, _lenth=%d\n", *(WORD*)param_val, _length);
         memcpy(param, param_val, _length); // Need to copy for caller safety
         result = err_result_ok;
     }
@@ -150,7 +151,8 @@ errType param_desc::setName(const char* name)
  *****************************************************************/
 errType param_desc::printParam()
 {
-    errType result=err_result_ok;
+    errType result (err_result_ok);
+    int quantity (0);
     //printf("ptr: %p, ",param_name);
     //printf("%s\n", param_name);
 
@@ -207,10 +209,11 @@ errType param_desc::printParam()
 	    break;
 
 	case type_DWORDVECTOR:
-		printf("\t%s: ", param_name);
-		for (int i=0; i<*(WORD*)param; i++) printf(" %.8X",*((DWORD*)param+2+i));
+		printf("\t%s: \n", param_name);
+		quantity = *(WORD*)param / 4;
+		for (WORD i=0; i<quantity; i++) printf(" %.8X",*((DWORD*)param+2+i));
 		printf("\n");
-		 break;
+		break;
 
     }
 

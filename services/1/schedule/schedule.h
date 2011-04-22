@@ -33,6 +33,7 @@ class schedule
     WORD get_cpListenerPortNum();
 
     errType execute(DWORD);
+    errType clear();
     void dbgPrint();
 
 

@@ -188,6 +188,7 @@ errType stopSchedule(void* fn)
 	func->printParams();
 
 	BYTE isEmergency=*(BYTE*)(func->getParamPtr(0)); // Packet No
+	_schedule[isEmergency].clear();
 	_schedule[isEmergency].stop();
 
 	return result;
@@ -235,12 +236,13 @@ errType getCursorPosition(void* fn)
 
     BYTE isEmergency=*(BYTE*)(func->getParamPtr(0)); // Packet No
 
-    BYTE* jobID_vector;
+    BYTE *jobID_vector;
 
     if (_schedule[isEmergency].cursorPos(&jobID_vector) != err_result_ok) printf("empty!\n");
-    func->setResult(1, jobID_vector);
 
+    func->setResult(1, jobID_vector);
     func->printResults();
+
     delete []jobID_vector;
     return result;
 }
@@ -309,11 +311,8 @@ errType getOpsId(void* fn)
 
 	 for (int i = 0; i < quantity; i++)
 	 {
-
 		 job *j = _schedule[isEmergency].getJobByIndex(i);
-
 		 id = j->get_dwObjId();
-
 		 ((DWORD*)answerVector)[i] = id;
 	 }
 		answerVector-=2;

@@ -339,7 +339,7 @@ errType functionNode::printResults()
     if (func_resultsQuantity==0) printf("ОТСУТСТВУЮТ");
     else {
 	printf("\n");
-	for (int num=0; num<func_resultsQuantity; num++){
+	for (WORD num=0; num<func_resultsQuantity; num++){
 	    if (func_results[num]) {
 		printf("\t");
 		func_results[num]->printParam();
