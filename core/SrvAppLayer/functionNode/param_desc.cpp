@@ -126,7 +126,7 @@ errType param_desc::setParam(void* param_val)
     if (param_val == 0) result = err_params_value;
     else {
         if (_isVector) resize(2 + *(WORD*)param_val);
-        printf("*(WORD*)param_val=%d, _lenth=%d\n", *(WORD*)param_val, _length);
+     //   printf("*(WORD*)param_val=%d, _lenth=%d\n", *(WORD*)param_val, _length);
         memcpy(param, param_val, _length); // Need to copy for caller safety
         result = err_result_ok;
     }
@@ -152,7 +152,7 @@ errType param_desc::setName(const char* name)
 errType param_desc::printParam()
 {
     errType result (err_result_ok);
-    int quantity (0);
+    float quantity (0);
     //printf("ptr: %p, ",param_name);
     //printf("%s\n", param_name);
 
@@ -210,8 +210,10 @@ errType param_desc::printParam()
 
 	case type_DWORDVECTOR:
 		printf("\t%s: \n", param_name);
-		quantity = *(WORD*)param / 4;
-		for (WORD i=0; i<quantity; i++) printf(" %.8X",*((DWORD*)param+2+i));
+		quantity = (*(WORD*)param) / 4;
+		//for (WORD i=0; i<quantity; i++) printf(" %.8X",*((DWORD*)param+2+i*4));
+                for (int i=0; i<*(WORD*)param; i++) printf(" %.2X",*((BYTE*)param+2+i));
+
 		printf("\n");
 		break;
 

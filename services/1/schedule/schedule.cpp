@@ -78,7 +78,7 @@ schedule::getJobById(DWORD id)
   list<job*>::iterator iter;
   for (iter = job_list.begin(); iter != job_list.end(); ++iter)
     {
-      (*iter)->dbgPrint();
+     // (*iter)->dbgPrint();
       if ((*iter)->get_dwObjId() == id)
         result = *(iter);
     }
@@ -116,18 +116,19 @@ errType schedule::cursorPos(BYTE **ids)
   list<job*>::iterator iter;
   WORD count=0;
   *ids = new BYTE[sizeof(WORD) + job_list.size()*sizeof(DWORD)];
-  *ids = *ids + 4;
+ // *ids = *ids + 2;
   iter = job_list.begin();
   while (iter != job_list.end()){
       if ((*iter)->getState() == 1) {
-            *ids[count] = (*iter)->get_dwObjId(); // 0 - initialized, 1 - running, 2 - completed
-            printf("ids[ %d ] = %8X\n", count, *ids[count]);
-            count += 4;
+            //*ids[count] = (*iter)->get_dwObjId(); // 0 - initialized, 1 - running, 2 - completed
+          *((DWORD*)(*ids +2 + count)) = (DWORD)((*iter)->get_dwObjId()); // 0 - initialized, 1 - running, 2 - completed
+          printf("ids[ %d ] = %8X\n", count, *(*ids +count + 2));
+          count += 4;
 
       }
       iter++;
   }
-   *ids = *ids - 4;
+  // *ids = *ids - 2;
    *((WORD*)*ids) = count;
 
   if (count > 0) result = err_result_ok;
