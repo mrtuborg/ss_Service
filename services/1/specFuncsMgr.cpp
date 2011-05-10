@@ -126,6 +126,8 @@ errType specFuncsMgr::startSpecFuncs()
 
 		func->setResultDescriptor(0,type_ERRTYPE);
 		func->setResultName(0, "Квитанция исполнения");
+		func->setResultDescriptor(1, type_DWORD);
+		func->setResultName(1,"Идентификатор операции");
 		func->setResultDescriptor(1,type_BYTE);
 		func->setResultName(1, "Статус операции");
 		func->setResultDescriptor(2,type_BYTEVECTOR);

@@ -31,8 +31,7 @@ schedule _schedule[2];
 //#define EQ_IP_ADDR "127.0.0.1"
 
 
-void*
-pollingThread(void* user)
+void* pollingThread(void* user)
 {
   SrvAppLayer* app = (SrvAppLayer*) user;
   //  BYTE* array;
@@ -45,8 +44,7 @@ pollingThread(void* user)
   return user;
 }
 
-errType
-equipListenProcessing(BYTE *writingBuffer, size_t *sz)
+errType equipListenProcessing(BYTE *writingBuffer, size_t *sz)
 {
   errType result = err_result_ok;
   size_t size(*sz);
@@ -64,8 +62,7 @@ equipListenProcessing(BYTE *writingBuffer, size_t *sz)
   return result;
 }
 
-errType
-srvInit()
+errType srvInit()
 {
   errType result = err_not_init;
   int ret = 0;
@@ -84,8 +81,7 @@ srvInit()
   return result;
 }
 
-errType
-srvDeinit()
+errType srvDeinit()
 {
   //  equipment->close_port();
   //delete equipment;
@@ -93,8 +89,7 @@ srvDeinit()
   return err_result_ok;
 }
 
-errType
-emergencyShutdown(void* fn)
+errType emergencyShutdown(void* fn)
 {
   errType result = err_not_init;
   printf("*************************************\n");
@@ -108,8 +103,7 @@ emergencyShutdown(void* fn)
   return result;
 }
 
-errType
-controlModeChange(void* fn)
+errType controlModeChange(void* fn)
 {
   errType result = err_result_ok;
   functionNode* func = (functionNode*) fn;
@@ -125,8 +119,7 @@ controlModeChange(void* fn)
   return result;
 }
 
-errType
-getStateVector(void* fn)
+errType getStateVector(void* fn)
 {
   errType result = err_result_ok;
   functionNode* func = (functionNode*) fn;
@@ -137,8 +130,7 @@ getStateVector(void* fn)
   return result;
 }
 
-errType
-addScheduleJob(void* fn)
+errType addScheduleJob(void* fn)
 {
   errType result = err_abort;
 
@@ -172,8 +164,7 @@ addScheduleJob(void* fn)
   return result;
 }
 
-errType
-runSchedule(void* fn)
+errType runSchedule(void* fn)
 {
   errType result(err_not_init);
   functionNode* func = (functionNode*) fn;
@@ -186,8 +177,7 @@ runSchedule(void* fn)
   return result;
 }
 
-errType
-stopSchedule(void* fn)
+errType stopSchedule(void* fn)
 {
   errType result(err_result_ok);
   functionNode* func = (functionNode*) fn;
@@ -201,8 +191,7 @@ stopSchedule(void* fn)
   return result;
 }
 
-errType
-readJobState(void* fn)
+errType readJobState(void* fn)
 {
   errType result(err_result_ok);
   functionNode* func = (functionNode*) fn;
@@ -226,15 +215,15 @@ readJobState(void* fn)
   memcpy(answerVector + 2, answer, answerLength);
   *(WORD*) answerVector = answerLength;
 
-  func->setResult(1, &state);
-  func->setResult(2, answerVector);
+  func->setResult(1, &jobID);
+  func->setResult(2, &state);
+  func->setResult(3, answerVector);
 
   delete[] answerVector;
   return result;
 }
 
-errType
-getCursorPosition(void* fn)
+errType getCursorPosition(void* fn)
 {
   errType result = err_result_ok;
 
@@ -257,8 +246,7 @@ getCursorPosition(void* fn)
   return result;
 }
 
-errType
-readJobEntity(void* fn)
+errType readJobEntity(void* fn)
 {
   errType result = err_not_init;
 
@@ -305,8 +293,7 @@ readJobEntity(void* fn)
   return result;
 }
 
-errType
-getOpsId(void* fn)
+errType getOpsId(void* fn)
 {
   errType result = err_result_ok;
   functionNode* func = (functionNode*) fn;
@@ -335,8 +322,7 @@ getOpsId(void* fn)
   return result;
 }
 
-errType
-executeJob(void* fn)
+errType executeJob(void* fn)
 {
   errType result = err_result_ok;
 
