@@ -25,7 +25,8 @@
 #include <extra/ortsTypes/ortsTypes.h>
 #include <storage/ssBuffer/ssBuffer.h>
 #include <peripheral/udp_port/udp_port.h>
-#include <system/arg_parser/carg_parser.h>
+#include <parsers/arg_parser/carg_parser.h>
+
 #include "console_out.h"
 #include <rcsLib/rcsCmd/rcsCmd.h>
 #include <param_desc.h>
@@ -34,6 +35,7 @@
 #include <SrvAppLayer.h>
 #include <commonFuncsMgr.h>
 #include <specFuncsMgr.h>
+#include <ServicesSpecifier.h>
 #include <functions.h>
 #include <SIG_handler.h>
 
@@ -254,6 +256,10 @@ int main(int argc, char *argv[], char *environ[]) {
     /// 1. Process command line arguments \b argc and \b argv[] in ::process_cmdLine
     errType ret=process_cmdLine(argc, argv);
     ///     - if arguments parsing is unsuccessfull exiting from programm
+
+    services_specifier specs;
+    specs.load_specs("test.xml");
+
     if (ret!=err_result_ok) return ret;
     /// 2. Check arguments:
     /// - check for missing one of exact argument

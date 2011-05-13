@@ -14,7 +14,7 @@ program_name		:= ss_Service
 service_name		:= $(program_name)_$(id)
 
 core_source_dir		:= core
-core_source_subdirs	:= . functions SrvAppLayer SrvAppLayer/functionNode
+core_source_subdirs	:= . functions SrvAppLayer SrvAppLayer/functionNode ServicesSpecifier
 core_include_dir	:= $(addprefix $(core_source_dir)/,$(core_source_subdirs))
 
 
@@ -38,15 +38,14 @@ lib_dirs+=$(addprefix $(paths_to_libraries)/math/, $(lib_subdirs))
 include $(addprefix $(paths_to_libraries)/,schedule/Makefile.inc)
 lib_dirs+=$(addprefix $(paths_to_libraries)/schedule/, $(lib_subdirs))
 
-
 include $(addprefix $(paths_to_libraries)/,peripheral/Makefile.inc)               
 lib_dirs+=$(addprefix $(paths_to_libraries)/peripheral/, $(lib_subdirs))
 
 include $(addprefix $(paths_to_libraries)/,storage/Makefile.inc)
 lib_dirs+=$(addprefix $(paths_to_libraries)/storage/, $(lib_subdirs))
 
-include $(addprefix $(paths_to_libraries)/,system/Makefile.inc)
-lib_dirs+=$(addprefix $(paths_to_libraries)/system/, $(lib_subdirs))
+include $(addprefix $(paths_to_libraries)/,parsers/Makefile.inc)
+lib_dirs+=$(addprefix $(paths_to_libraries)/parsers/, $(lib_subdirs))
 
 include $(addprefix $(paths_to_libraries)/,conv/Makefile.inc)
 lib_dirs+=$(addprefix $(paths_to_libraries)/conv/, $(lib_subdirs))
